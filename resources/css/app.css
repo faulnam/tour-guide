@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-dark {
+    @apply inline-flex items-center justify-center bg-black text-white text-xs uppercase tracking-widest2 px-8 py-4 hover:bg-white hover:text-black border border-black transition-all duration-300 font-medium;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center border border-white text-white text-xs uppercase tracking-widest2 px-8 py-4 hover:bg-white hover:text-black transition-all duration-300 font-medium;
+  }
+  .btn-outline-dark {
+    @apply inline-flex items-center justify-center border border-black text-black text-xs uppercase tracking-widest2 px-8 py-4 hover:bg-black hover:text-white transition-all duration-300 font-medium;
+  }
+  .eyebrow {
+    @apply text-xs uppercase tracking-widest2 text-neutral-body font-medium;
+  }
+  .eyebrow-light {
+    @apply text-xs uppercase tracking-widest2 text-gray-300 font-medium;
+  }
+  .stat-number {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold text-black tracking-tight whitespace-nowrap;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-black tracking-tight leading-tight;
+  }
+  .section-desc {
+    @apply text-sm md:text-base text-neutral-body leading-relaxed;
+  }
+}
+
+/* Smooth scrolling and transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+[x-cloak] {
+  display: none !important;
+}
+
+/* Marquee / Infinite Running Ticker Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Blinking Typewriter Cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor {
+  animation: blink 0.9s infinite;
+}
+
+/* Luxury Fade Mask for Marquee */
+.mask-marquee {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}

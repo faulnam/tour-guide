@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('service_id')->nullable()->constrained('services')->nullOnDelete();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('client')->nullable();
+            $table->string('location')->nullable();
+            $table->string('size')->nullable();
+            $table->string('year')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('cover_image')->nullable();
+            $table->boolean('is_featured')->default(false); // tampil di hero slider home
+            $table->boolean('is_recent')->default(false);   // tampil di grid Recent Projects
+            $table->integer('order')->default(0);
+            $table->enum('status', ['draft', 'published'])->default('published');
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('projects');
+    }
+};
