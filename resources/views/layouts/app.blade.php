@@ -78,6 +78,9 @@
     <!-- Global Footer -->
     @include('partials.footer')
 
+    <!-- AI Interior Consultant Chatbot -->
+    @include('partials.chatbot')
+
     <!-- Swiper.js JS (via CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 

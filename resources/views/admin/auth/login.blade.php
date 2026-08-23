@@ -64,7 +64,8 @@
                 <input type="email" 
                        id="email" 
                        name="email" 
-                       value="{{ old('email', 'admin@the-metrix.com') }}" 
+                       value="{{ old('email') }}" 
+                       placeholder="name@example.com"
                        required 
                        autofocus 
                        class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3.5 focus:outline-none focus:border-white transition-colors">
@@ -77,7 +78,7 @@
                 <input type="password" 
                        id="password" 
                        name="password" 
-                       value="password"
+                       placeholder="••••••••"
                        required 
                        class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3.5 focus:outline-none focus:border-white transition-colors">
             </div>
@@ -99,10 +100,6 @@
                 </button>
             </div>
         </form>
-
-        <div class="pt-4 border-t border-neutral-800 text-center text-[10px] text-neutral-500">
-            Default credentials: <code class="text-neutral-400">admin@the-metrix.com</code> / <code class="text-neutral-400">password</code>
-        </div>
 
     </div>
 
