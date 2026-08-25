@@ -13,12 +13,41 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
+        // 1. Akun Role Asli (Password: qwertyu123)
+        User::updateOrCreate(
             ['email' => 'admin@the-metrix.com'],
             [
                 'name' => 'Super Administrator',
+                'password' => Hash::make('qwertyu123'),
+                'role' => 'super_admin',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'editor@the-metrix.com'],
+            [
+                'name' => 'Content Editor',
+                'password' => Hash::make('qwertyu123'),
+                'role' => 'editor',
+            ]
+        );
+
+        // 2. Akun Role Demo (Password: password, Konten auto-delete 3 menit)
+        User::updateOrCreate(
+            ['email' => 'demo_admin@the-metrix.com'],
+            [
+                'name' => 'Demo Super Admin',
                 'password' => Hash::make('password'),
                 'role' => 'super_admin',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'demo_editor@the-metrix.com'],
+            [
+                'name' => 'Demo Editor',
+                'password' => Hash::make('password'),
+                'role' => 'editor',
             ]
         );
     }
