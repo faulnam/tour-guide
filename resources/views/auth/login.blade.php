@@ -36,22 +36,22 @@
                 
                 <div class="text-center space-y-1">
                     <div class="text-2xl font-bold uppercase tracking-widest3 font-sans">{{ \App\Models\SiteSetting::get('company_name', 'BENGKEL') }}</div>
-                    <div class="eyebrow text-[10px] text-neutral-400">Pilih Role Akses</div>
+                    <div class="eyebrow text-[10px] text-neutral-400">Pilih Role Akses Demo</div>
                 </div>
 
-                <!-- 3 Role Selector Tabs -->
+                <!-- 3 Role Selector Tabs (Akun Demo) -->
                 <div class="grid grid-cols-3 border border-neutral-200 text-[11px] uppercase tracking-wider font-semibold text-center">
-                    <button type="button" @click="roleTab = 'customer'; fillCredentials('customer@gmail.com', 'customer123')"
+                    <button type="button" @click="roleTab = 'customer'; fillCredentials('democustomer@bengkel.com', 'democustomer123')"
                             class="py-2.5 transition-colors"
                             :class="roleTab === 'customer' ? 'bg-black text-white' : 'bg-neutral-50 text-neutral-500 hover:text-black'">
                         Customer
                     </button>
-                    <button type="button" @click="roleTab = 'karyawan'; fillCredentials('mekanik@bengkel.com', 'mekanik123')"
+                    <button type="button" @click="roleTab = 'karyawan'; fillCredentials('demomekanik@bengkel.com', 'demomekanik123')"
                             class="py-2.5 transition-colors border-x border-neutral-200"
                             :class="roleTab === 'karyawan' ? 'bg-black text-white' : 'bg-neutral-50 text-neutral-500 hover:text-black'">
                         Karyawan
                     </button>
-                    <button type="button" @click="roleTab = 'admin'; fillCredentials('admin@bengkel.com', 'admin123')"
+                    <button type="button" @click="roleTab = 'admin'; fillCredentials('demoadmin@bengkel.com', 'demoadmin123')"
                             class="py-2.5 transition-colors"
                             :class="roleTab === 'admin' ? 'bg-black text-white' : 'bg-neutral-50 text-neutral-500 hover:text-black'">
                         Admin
@@ -59,14 +59,23 @@
                 </div>
 
                 <!-- Quick Demo Helper Note -->
-                <div class="p-3 bg-neutral-bg border border-neutral-200 text-[11px] text-neutral-600 space-y-1">
+                <div class="p-3 bg-neutral-bg border border-neutral-200 text-[11px] text-neutral-600 space-y-2">
                     <div class="font-bold text-black flex items-center justify-between">
-                        <span>Akun Demo Cepat:</span>
+                        <span class="flex items-center gap-1.5">
+                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Akun Demo Cepat:
+                        </span>
                         <span class="text-[9px] uppercase tracking-wider text-accent font-semibold" x-text="roleTab"></span>
                     </div>
                     <div class="flex items-center justify-between text-[10px]">
-                        <span x-text="roleTab === 'admin' ? 'admin@bengkel.com' : (roleTab === 'karyawan' ? 'mekanik@bengkel.com' : 'customer@gmail.com')"></span>
-                        <span class="text-neutral-400 font-mono" x-text="roleTab === 'admin' ? 'admin123' : (roleTab === 'karyawan' ? 'mekanik123' : 'customer123')"></span>
+                        <span class="font-medium text-black" x-text="roleTab === 'admin' ? 'demoadmin@bengkel.com' : (roleTab === 'karyawan' ? 'demomekanik@bengkel.com' : 'democustomer@bengkel.com')"></span>
+                        <span class="text-neutral-500 font-mono bg-white px-1.5 py-0.5 border border-neutral-200" x-text="roleTab === 'admin' ? 'demoadmin123' : (roleTab === 'karyawan' ? 'demomekanik123' : 'democustomer123')"></span>
+                    </div>
+                    <div class="pt-1.5 border-t border-neutral-200/70 flex items-start gap-1.5 text-[9px] text-neutral-500 leading-tight">
+                        <svg class="w-3.5 h-3.5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span><strong>Mode Demo:</strong> Semua perubahan dan data baru akan otomatis dihapus / kembali semula setiap 5 menit.</span>
                     </div>
                 </div>
 
@@ -76,7 +85,7 @@
 
                     <div>
                         <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Email Address</label>
-                        <input type="email" name="email" x-ref="emailInput" required value="{{ old('email', 'customer@gmail.com') }}"
+                        <input type="email" name="email" x-ref="emailInput" required value="{{ old('email', 'democustomer@bengkel.com') }}"
                                placeholder="email@domain.com"
                                class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors">
                         @error('email')
@@ -88,7 +97,7 @@
                         <div class="flex justify-between items-center mb-1">
                             <label class="block text-[11px] uppercase tracking-wider font-semibold text-black">Password</label>
                         </div>
-                        <input type="password" name="password" x-ref="passInput" required value="customer123"
+                        <input type="password" name="password" x-ref="passInput" required value="democustomer123"
                                placeholder="••••••••"
                                class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors">
                     </div>

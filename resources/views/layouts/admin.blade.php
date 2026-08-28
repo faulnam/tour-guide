@@ -226,6 +226,16 @@
                 </div>
             </header>
 
+            @if(auth()->check() && (auth()->user()->isDemo() || str_contains(auth()->user()->email, 'demo')))
+                <div class="bg-amber-950/80 border-b border-amber-600/50 text-amber-200 px-6 py-2 text-xs flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo. Setiap data baru atau perubahan yang Anda lakukan akan otomatis dihapus/kembali semula setiap 5 menit.</span>
+                    </div>
+                    <span class="text-[10px] uppercase font-mono px-2 py-0.5 bg-amber-900/60 border border-amber-700/60 text-amber-300">Auto Reset 5 Min</span>
+                </div>
+            @endif
+
             <!-- Page Body -->
             <main class="flex-1 overflow-y-auto p-6 md:p-8">
                 

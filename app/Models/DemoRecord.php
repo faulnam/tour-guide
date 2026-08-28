@@ -14,12 +14,17 @@ class DemoRecord extends Model
         'record_type',
         'record_id',
         'user_id',
+        'action',
+        'original_data',
+        'file_paths',
         'expires_at',
     ];
 
     protected function casts(): array
     {
         return [
+            'original_data' => 'array',
+            'file_paths' => 'array',
             'expires_at' => 'datetime',
         ];
     }

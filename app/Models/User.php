@@ -87,6 +87,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is a demo account
+     */
+    public function isDemo(): bool
+    {
+        return str_starts_with(strtolower($this->email ?? ''), 'demo') || 
+               str_contains(strtolower($this->email ?? ''), 'demo');
+    }
+
+    /**
      * Relasi ke absensi (untuk karyawan)
      */
     public function attendances(): HasMany

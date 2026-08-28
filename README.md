@@ -33,15 +33,30 @@ Aplikasi Web Company Profile & Workshop Management System terintegrasi untuk ben
 
 ---
 
-## 🔐 Akun Demo & Kredensial Login
+## 🔐 Akun & Kredensial Login
 
-Akses halaman login di `/login` atau gunakan switch demo tab pada form login:
+Akses halaman login di `/login`. Pada halaman login hanya ditampilkan **Akun Demo**, sedangkan akun asli disembunyikan.
 
-| Role | Email | Password | Hak Akses |
+### 🧪 Akun Demo (Ditampilkan di Login — Auto-Reset 5 Menit)
+Semua perubahan data atau data baru yang dibuat menggunakan akun demo akan otomatis dibersihkan dan kembali semula setiap **5 menit**.
+
+| Role | Email Demo | Password Demo | Hak Akses |
 | :--- | :--- | :--- | :--- |
-| **Admin** | `admin@bengkel.com` | `admin123` | Akses penuh CMS, Booking, Rekap Absensi Kamera, Karyawan |
-| **Karyawan** | `mekanik@bengkel.com` | `mekanik123` | Portal Mekanik, Absensi Kamera Webcam, Tugas Pengerjaan |
-| **Customer** | `customer@gmail.com` | `customer123` | Garasi Kendaraan, Live Tracker Booking, Riwayat Invoice |
+| **Demo Admin** | `demoadmin@bengkel.com` | `demoadmin123` | Akses penuh CMS, Booking, Rekap Absensi, Karyawan |
+| **Demo Karyawan** | `demomekanik@bengkel.com` | `demomekanik123` | Portal Mekanik, Absensi Kamera Webcam, Tugas Modifikasi |
+| **Demo Customer** | `democustomer@bengkel.com` | `democustomer123` | Garasi Kendaraan, Live Tracker Booking, Riwayat Invoice |
+
+### 🛡️ Akun Asli (Disembunyikan dari Form Login Helper)
+Password untuk semua akun asli adalah `qwertyu123`:
+
+| Role | Email Asli | Password Asli | Deskripsi |
+| :--- | :--- | :--- | :--- |
+| **Master Admin** | `admin@bengkel.com` | `qwertyu123` | Super Admin / Workshop Director |
+| **Lead Tuner** | `mekanik@bengkel.com` | `qwertyu123` | Kepala Mekanik & Dyno Tuner |
+| **Bike Builder** | `indra@bengkel.com` | `qwertyu123` | Spesialis Modifikasi Motor Custom |
+| **Paint Master** | `reza@bengkel.com` | `qwertyu123` | Spesialis Bodykit & Cat Oven |
+| **Customer 1** | `customer@gmail.com` | `qwertyu123` | Pelanggan Rian Aditya (Civic Type R & ZX-25R) |
+| **Customer 2** | `bambang@gmail.com` | `qwertyu123` | Pelanggan Bambang Sudiro (Yamaha XSR 155) |
 
 ---
 

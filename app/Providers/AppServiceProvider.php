@@ -43,34 +43,128 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        // Track content created by demo users and set 3-minute expiration
+        // Track content created, updated, or deleted by demo users and set 5-minute expiration
         \Illuminate\Support\Facades\Event::listen('eloquent.created: *', function ($eventName, array $data) {
             try {
-                if (!empty($data[0]) && is_object($data[0])) {
-                    $model = $data[0];
-                    if ($model instanceof \App\Models\DemoRecord) {
-                        return;
+                if (empty($data[0]) || !is_object($data[0])) return;
+                $model = $data[0];
+                if ($model instanceof \App\Models\DemoRecord) return;
+
+                if (auth()->check()) {
+                    $user = auth()->user();
+                    $isDemo = (method_exists($user, 'isDemo') && $user->isDemo()) ||
+                              str_starts_with(strtolower($user->email ?? ''), 'demo') || 
+                              str_contains(strtolower($user->email ?? ''), 'demo');
+
+                    if ($isDemo && $model->getKey() && Schema::hasTable('demo_records')) {
+                        $fileAttributes = ['cover_image', 'image', 'logo', 'image_path', 'photo', 'avatar', 'check_in_photo', 'check_out_photo'];
+                        $capturedFiles = [];
+                        foreach ($fileAttributes as $attr) {
+                            if (!empty($model->$attr)) {
+                                $capturedFiles[] = $model->$attr;
+                            }
+                        }
+
+                        \App\Models\DemoRecord::create([
+                            'record_type' => get_class($model),
+                            'record_id' => $model->getKey(),
+                            'user_id' => $user->id,
+                            'action' => 'create',
+                            'original_data' => null,
+                            'file_paths' => !empty($capturedFiles) ? $capturedFiles : null,
+                            'expires_at' => now()->addMinutes(5),
+                        ]);
                     }
+                }
+            } catch (\Throwable $e) {
+                // Silently fail if table not available or error occurs
+            }
+        });
 
-                    if (auth()->check()) {
-                        $user = auth()->user();
-                        $isDemo = str_starts_with(strtolower($user->email ?? ''), 'demo') || 
-                                  str_contains(strtolower($user->email ?? ''), 'demo');
+        \Illuminate\Support\Facades\Event::listen('eloquent.updating: *', function ($eventName, array $data) {
+            try {
+                if (empty($data[0]) || !is_object($data[0])) return;
+                $model = $data[0];
+                if ($model instanceof \App\Models\DemoRecord) return;
 
-                        if ($isDemo && $model->getKey()) {
-                            if (Schema::hasTable('demo_records')) {
+                if (auth()->check()) {
+                    $user = auth()->user();
+                    $isDemo = (method_exists($user, 'isDemo') && $user->isDemo()) ||
+                              str_starts_with(strtolower($user->email ?? ''), 'demo') || 
+                              str_contains(strtolower($user->email ?? ''), 'demo');
+
+                    if ($isDemo && $model->getKey() && Schema::hasTable('demo_records')) {
+                        // Check if this record was already created by demo user (if so, it will be deleted entirely upon expiry)
+                        $wasCreatedInDemo = \App\Models\DemoRecord::where('record_type', get_class($model))
+                            ->where('record_id', $model->getKey())
+                            ->where('action', 'create')
+                            ->exists();
+
+                        if (!$wasCreatedInDemo) {
+                            $existingUpdate = \App\Models\DemoRecord::where('record_type', get_class($model))
+                                ->where('record_id', $model->getKey())
+                                ->where('action', 'update')
+                                ->first();
+
+                            if ($existingUpdate) {
+                                // Keep earliest original_data snapshot, just extend expiration
+                                $existingUpdate->update([
+                                    'expires_at' => now()->addMinutes(5),
+                                ]);
+                            } else {
                                 \App\Models\DemoRecord::create([
                                     'record_type' => get_class($model),
                                     'record_id' => $model->getKey(),
                                     'user_id' => $user->id,
-                                    'expires_at' => now()->addMinutes(3),
+                                    'action' => 'update',
+                                    'original_data' => $model->getOriginal(),
+                                    'file_paths' => null,
+                                    'expires_at' => now()->addMinutes(5),
                                 ]);
                             }
                         }
                     }
                 }
             } catch (\Throwable $e) {
-                // Silently fail if table not available or error occurs
+                // Silently fail
+            }
+        });
+
+        \Illuminate\Support\Facades\Event::listen('eloquent.deleting: *', function ($eventName, array $data) {
+            try {
+                if (empty($data[0]) || !is_object($data[0])) return;
+                $model = $data[0];
+                if ($model instanceof \App\Models\DemoRecord) return;
+
+                if (auth()->check()) {
+                    $user = auth()->user();
+                    $isDemo = (method_exists($user, 'isDemo') && $user->isDemo()) ||
+                              str_starts_with(strtolower($user->email ?? ''), 'demo') || 
+                              str_contains(strtolower($user->email ?? ''), 'demo');
+
+                    if ($isDemo && $model->getKey() && Schema::hasTable('demo_records')) {
+                        $wasCreatedInDemo = \App\Models\DemoRecord::where('record_type', get_class($model))
+                            ->where('record_id', $model->getKey())
+                            ->where('action', 'create')
+                            ->first();
+
+                        if ($wasCreatedInDemo) {
+                            $wasCreatedInDemo->delete();
+                        } else {
+                            \App\Models\DemoRecord::create([
+                                'record_type' => get_class($model),
+                                'record_id' => $model->getKey(),
+                                'user_id' => $user->id,
+                                'action' => 'delete',
+                                'original_data' => $model->getAttributes(),
+                                'file_paths' => null,
+                                'expires_at' => now()->addMinutes(5),
+                            ]);
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Silently fail
             }
         });
     }

@@ -71,6 +71,15 @@
         </div>
     </header>
 
+    @if(auth()->check() && (auth()->user()->isDemo() || str_contains(auth()->user()->email, 'demo')))
+        <div class="bg-amber-500 text-black px-6 py-2 text-xs font-medium border-b border-amber-600 flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-2 max-w-7xl mx-auto w-full">
+                <span class="inline-block w-2 h-2 rounded-full bg-black animate-pulse"></span>
+                <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo karyawan/mekanik. Semua perubahan dan penugasan akan otomatis direset dalam 5 menit.</span>
+            </div>
+        </div>
+    @endif
+
     <!-- Main Content Area -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-10">
         @if(session('success'))

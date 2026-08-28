@@ -149,10 +149,11 @@ class DummyDataSeeder extends Seeder
             Testimonial::create($t);
         }
 
-        // 5. Customer Vehicles
+        // 5. Customer Vehicles (Real & Demo)
         Vehicle::truncate();
         $cust1 = User::where('email', 'customer@gmail.com')->first();
         $cust2 = User::where('email', 'bambang@gmail.com')->first();
+        $demoCust = User::where('email', 'democustomer@bengkel.com')->first();
 
         if ($cust1) {
             Vehicle::create([
@@ -175,6 +176,31 @@ class DummyDataSeeder extends Seeder
                 'year' => '2023',
                 'color' => 'Lime Green Racing',
                 'engine_cc' => '250cc Inline-4',
+                'transmission' => 'manual',
+            ]);
+        }
+
+        if ($demoCust) {
+            Vehicle::create([
+                'user_id' => $demoCust->id,
+                'type' => 'mobil',
+                'brand' => 'Toyota',
+                'model' => 'GR Yaris High Performance',
+                'license_plate' => 'B 7777 DEM',
+                'year' => '2024',
+                'color' => 'Precious Metal',
+                'engine_cc' => '1600cc Turbo 4WD',
+                'transmission' => 'manual',
+            ]);
+            Vehicle::create([
+                'user_id' => $demoCust->id,
+                'type' => 'motor',
+                'brand' => 'Ducati',
+                'model' => 'Panigale V2 Bayliss',
+                'license_plate' => 'B 9999 DMO',
+                'year' => '2023',
+                'color' => 'Bayliss Special Livery',
+                'engine_cc' => '955cc Superquadro',
                 'transmission' => 'manual',
             ]);
         }
@@ -227,11 +253,12 @@ class DummyDataSeeder extends Seeder
         BookingLog::truncate();
 
         $leadMekanik = $mechanics->first();
+        $demoMekanik = User::where('email', 'demomekanik@bengkel.com')->first() ?? $leadMekanik;
         $remapService = Service::where('slug', 'ecu-remap-dyno-tuning')->first();
         $bikeService = Service::where('slug', 'custom-motorcycle-build')->first();
         $bodyService = Service::where('slug', 'widebody-custom-aerokit')->first();
 
-        // Booking 1: In Progress with Payment Gateway DP Paid
+        // Booking 1: In Progress with Payment Gateway DP Paid (Real Customer)
         $b1 = Booking::create([
             'booking_code' => 'BK-' . date('Ym') . '-0001',
             'customer_id' => $cust1?->id,
@@ -295,7 +322,7 @@ class DummyDataSeeder extends Seeder
             'description' => 'Uji dyno awal mencatatkan 315 HP. Sedang dilakukan penulisan map ECU Stage 2.',
         ]);
 
-        // Booking 2: Pending (Menunggu Konfirmasi & Pembayaran)
+        // Booking 2: Pending (Real Customer 2)
         Booking::create([
             'booking_code' => 'BK-' . date('Ym') . '-0002',
             'customer_id' => $cust2?->id,
@@ -322,6 +349,62 @@ class DummyDataSeeder extends Seeder
             'payment_status' => 'unpaid',
             'payment_method' => 'midtrans',
         ]);
+
+        // Booking 3: Demo Booking (Assigned to Demo Customer & Demo Mekanik)
+        if ($demoCust) {
+            $bDemo = Booking::create([
+                'booking_code' => 'BK-' . date('Ym') . '-0003',
+                'customer_id' => $demoCust->id,
+                'karyawan_id' => $demoMekanik?->id,
+                'service_id' => $remapService?->id,
+                'customer_name' => 'Demo Customer',
+                'customer_email' => 'democustomer@bengkel.com',
+                'customer_phone' => '081299112233',
+                'vehicle_type' => 'mobil',
+                'vehicle_brand' => 'Toyota',
+                'vehicle_model' => 'GR Yaris High Performance',
+                'license_plate' => 'B 7777 DEM',
+                'vehicle_year' => '2024',
+                'vehicle_color' => 'Precious Metal',
+                'booking_date' => $today->toDateString(),
+                'booking_time_slot' => '14:00 WIB',
+                'custom_request' => 'Pemasangan Dyno ECU Remap Stage 1 + Custom Exhaust Header Simulation.',
+                'mechanic_notes' => 'Unit sedang dalam persiapan Dyno Jet test oleh tim mekanik demo.',
+                'progress_percentage' => 45,
+                'status' => 'in_progress',
+                'total_amount' => 4800000,
+                'dp_amount' => 1000000,
+                'paid_amount' => 1000000,
+                'payment_status' => 'dp_paid',
+                'payment_method' => 'qris',
+                'payment_ref' => 'QRIS-DEMO-007788',
+                'payment_token' => 'snap-token-simulation-demo',
+                'progress_photos' => [
+                    'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=600&auto=format&fit=crop',
+                ],
+            ]);
+
+            Payment::create([
+                'booking_id' => $bDemo->id,
+                'user_id' => $demoCust->id,
+                'transaction_code' => Payment::generateTransactionCode(),
+                'amount' => 1000000,
+                'payment_type' => 'dp',
+                'payment_method' => 'qris',
+                'payment_channel' => 'QRIS Instant Payment Demo',
+                'status' => 'settlement',
+                'gateway_reference' => 'QRIS-DEMO-007788',
+                'paid_at' => Carbon::now()->subHour(),
+            ]);
+
+            BookingLog::create([
+                'booking_id' => $bDemo->id,
+                'user_id' => $demoMekanik?->id,
+                'stage' => 'received',
+                'title' => 'Kendaraan Demo Diterima',
+                'description' => 'Unit Toyota GR Yaris diterima untuk pengujian dyno dan remap.',
+            ]);
+        }
 
         // 8. Blog Posts & Categories
         BlogCategory::truncate();

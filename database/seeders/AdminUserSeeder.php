@@ -13,13 +13,21 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Super Admin
+        /*
+        |--------------------------------------------------------------------------
+        | 1. AKUN ASLI (REAL ACCOUNTS)
+        | Password untuk SEMUA akun asli: qwertyu123
+        | Kredensial akun asli TIDAK DITAMPILKAN di halaman login portal.
+        |--------------------------------------------------------------------------
+        */
+
+        // Super Admin Asli
         User::updateOrCreate(
             ['email' => 'admin@bengkel.com'],
             [
                 'name' => 'BENGKEL Master Admin',
                 'phone' => '081288889999',
-                'password' => Hash::make('admin123'),
+                'password' => Hash::make('qwertyu123'),
                 'role' => 'admin',
                 'specialty' => 'Workshop Director & Lead Tuner',
                 'avatar' => null,
@@ -28,13 +36,13 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
-        // 2. Karyawan / Mekanik 1 - Kepala Mekanik & Dyno Tuner
+        // Karyawan / Mekanik 1 Asli - Kepala Mekanik & Dyno Tuner
         User::updateOrCreate(
             ['email' => 'mekanik@bengkel.com'],
             [
                 'name' => 'Budi Santoso (Lead Tuner)',
                 'phone' => '081234567890',
-                'password' => Hash::make('mekanik123'),
+                'password' => Hash::make('qwertyu123'),
                 'role' => 'karyawan',
                 'specialty' => 'Dyno Jet Tuning & ECU Remapping',
                 'avatar' => null,
@@ -43,13 +51,13 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
-        // 3. Karyawan / Mekanik 2 - Spesialis Motor Custom
+        // Karyawan / Mekanik 2 Asli - Spesialis Motor Custom
         User::updateOrCreate(
             ['email' => 'indra@bengkel.com'],
             [
                 'name' => 'Indra Wijaya (Bike Builder)',
                 'phone' => '081399887766',
-                'password' => Hash::make('karyawan123'),
+                'password' => Hash::make('qwertyu123'),
                 'role' => 'karyawan',
                 'specialty' => 'Custom Bike Fabrication & Cafe Racer Builder',
                 'avatar' => null,
@@ -58,13 +66,13 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
-        // 4. Karyawan / Mekanik 3 - Spesialis Bodykit & Cat Oven
+        // Karyawan / Mekanik 3 Asli - Spesialis Bodykit & Cat Oven
         User::updateOrCreate(
             ['email' => 'reza@bengkel.com'],
             [
                 'name' => 'Reza Pratama (Paint Master)',
                 'phone' => '081277665544',
-                'password' => Hash::make('karyawan123'),
+                'password' => Hash::make('qwertyu123'),
                 'role' => 'karyawan',
                 'specialty' => 'Custom Bodywork, Carbon Fiber & Oven Painting',
                 'avatar' => null,
@@ -73,13 +81,13 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
-        // 5. Customer 1
+        // Customer 1 Asli
         User::updateOrCreate(
             ['email' => 'customer@gmail.com'],
             [
                 'name' => 'Rian Aditya',
                 'phone' => '081122334455',
-                'password' => Hash::make('customer123'),
+                'password' => Hash::make('qwertyu123'),
                 'role' => 'customer',
                 'specialty' => null,
                 'avatar' => null,
@@ -88,17 +96,70 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
-        // 6. Customer 2
+        // Customer 2 Asli
         User::updateOrCreate(
             ['email' => 'bambang@gmail.com'],
             [
                 'name' => 'Bambang Sudiro',
                 'phone' => '081333445566',
-                'password' => Hash::make('customer123'),
+                'password' => Hash::make('qwertyu123'),
                 'role' => 'customer',
                 'specialty' => null,
                 'avatar' => null,
                 'address' => 'Kelapa Gading, Jakarta Utara',
+                'is_active' => true,
+            ]
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | 2. AKUN DEMO (DEMO ACCOUNTS)
+        | Akun ini ditampilkan di halaman login portal.
+        | Setiap perubahan data oleh akun demo akan otomatis dibersihkan / di-revert dalam 5 menit.
+        |--------------------------------------------------------------------------
+        */
+
+        // Demo Admin (CMS Portal Admin)
+        User::updateOrCreate(
+            ['email' => 'demoadmin@bengkel.com'],
+            [
+                'name' => 'Demo Administrator',
+                'phone' => '081299778899',
+                'password' => Hash::make('demoadmin123'),
+                'role' => 'admin',
+                'specialty' => 'Workshop Management Supervisor (Demo)',
+                'avatar' => null,
+                'address' => 'Jl. Otomotif Raya Demo No. 88, Jakarta Selatan',
+                'is_active' => true,
+            ]
+        );
+
+        // Demo Karyawan / Mekanik (Karyawan Portal)
+        User::updateOrCreate(
+            ['email' => 'demomekanik@bengkel.com'],
+            [
+                'name' => 'Demo Mekanik (Dyno Tuner)',
+                'phone' => '081299445566',
+                'password' => Hash::make('demomekanik123'),
+                'role' => 'karyawan',
+                'specialty' => 'Dyno Jet Tuning & ECU Specialist (Demo)',
+                'avatar' => null,
+                'address' => 'Jl. Workshop Demo No. 2, Jakarta Selatan',
+                'is_active' => true,
+            ]
+        );
+
+        // Demo Customer (Customer Portal)
+        User::updateOrCreate(
+            ['email' => 'democustomer@bengkel.com'],
+            [
+                'name' => 'Demo Customer',
+                'phone' => '081299112233',
+                'password' => Hash::make('democustomer123'),
+                'role' => 'customer',
+                'specialty' => null,
+                'avatar' => null,
+                'address' => 'Jl. Demo Customer No. 1, Jakarta Selatan',
                 'is_active' => true,
             ]
         );
