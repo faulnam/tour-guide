@@ -21,10 +21,10 @@
                 <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-500 mb-1">Status Tugas</label>
                 <select name="status" class="w-full bg-neutral-bg border border-neutral-300 px-3 py-2 text-xs text-black focus:outline-none focus:border-black">
                     <option value="">Semua Status</option>
-                    <option value="confirmed" {{ $status === 'confirmed' ? 'selected' : '' }}>Confirmed (Siap Mulai)</option>
-                    <option value="in_progress" {{ $status === 'in_progress' ? 'selected' : '' }}>In Progress (Dikerjakan)</option>
-                    <option value="qc" {{ $status === 'qc' ? 'selected' : '' }}>QC &amp; Dyno Test</option>
-                    <option value="completed" {{ $status === 'completed' ? 'selected' : '' }}>Completed (Selesai)</option>
+                    <option value="confirmed" {{ ($status ?? '') === 'confirmed' ? 'selected' : '' }}>Confirmed (Siap Mulai)</option>
+                    <option value="in_progress" {{ ($status ?? '') === 'in_progress' ? 'selected' : '' }}>In Progress (Dikerjakan)</option>
+                    <option value="qc" {{ ($status ?? '') === 'qc' ? 'selected' : '' }}>QC &amp; Dyno Test</option>
+                    <option value="completed" {{ ($status ?? '') === 'completed' ? 'selected' : '' }}>Completed (Selesai)</option>
                 </select>
             </div>
 
@@ -47,7 +47,7 @@
                             <h3 class="text-base font-bold text-black mt-0.5">{{ $t->vehicle_brand }} {{ $t->vehicle_model }}</h3>
                         </div>
                         <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-neutral-bg border border-neutral-300 text-black">
-                            {{ $t->status }}
+                            {{ $t->status_label ?? $t->status }}
                         </span>
                     </div>
 
@@ -62,7 +62,9 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-neutral-500">Jadwal:</span>
-                            <span class="text-black">{{ $t->booking_date->format('d M Y') }} ({{ $t->booking_time_slot }})</span>
+                            <span class="text-black">
+                                {{ $t->booking_date ? (is_string($t->booking_date) ? date('d M Y', strtotime($t->booking_date)) : $t->booking_date->format('d M Y')) : '-' }} ({{ $t->booking_time_slot }})
+                            </span>
                         </div>
                     </div>
 
@@ -72,7 +74,7 @@
                             <span class="font-bold text-black">{{ $t->progress_percentage }}%</span>
                         </div>
                         <div class="w-full bg-neutral-200 h-1.5">
-                            <div class="bg-black h-1.5" style="width: {{ $t->progress_percentage }}%"></div>
+                            <div class="bg-black h-1.5 transition-all duration-300" style="width: {{ $t->progress_percentage }}%"></div>
                         </div>
                     </div>
                 </div>

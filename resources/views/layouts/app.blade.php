@@ -38,6 +38,30 @@
     <!-- Swiper.js CSS (via CDN) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'accent': '#b08d57',
+                        'accent-dark': '#8c6d3b',
+                        'neutral-bg': '#f8f9fa',
+                        'neutral-body': '#6b7280',
+                    },
+                    letterSpacing: {
+                        'widest2': '0.15em',
+                        'widest3': '0.25em',
+                    }
+                }
+            }
+        }
+    </script>
+
     <!-- Compiled Tailwind CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ time() }}">
 

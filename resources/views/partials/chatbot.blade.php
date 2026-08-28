@@ -52,7 +52,8 @@
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
          x-cloak
-         class="absolute bottom-16 right-0 mb-3 w-[92vw] sm:w-[410px] h-[580px] md:h-[85vh] max-h-[640px] bg-white text-black border border-neutral-200 shadow-2xl flex flex-col z-50 overflow-hidden font-sans">
+         class="absolute bottom-16 right-0 mb-3 w-[92vw] sm:w-[410px] bg-white text-black border border-neutral-200 shadow-2xl flex flex-col z-50 overflow-hidden font-sans"
+         style="height: min(580px, calc(100vh - 120px)); max-height: calc(100vh - 120px);">
         
         <!-- Window Header -->
         <div class="px-5 py-4 border-b border-neutral-200 bg-white flex items-center justify-between">

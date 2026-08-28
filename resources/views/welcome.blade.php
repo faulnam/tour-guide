@@ -27,23 +27,52 @@
         </div>
     </div>
 
-    <!-- Quick Stats Bar -->
-    <div class="border-b border-gray-200 bg-neutral-bg py-12 px-6">
+    <!-- Quick Stats Bar (Animated Count-Up) -->
+    <div class="border-b border-gray-200 bg-neutral-bg py-12 px-6"
+         x-data="{
+             started: false,
+             c1: 0, c2: 0, c3: 0, c4: '0.0',
+             init() {
+                 let observer = new IntersectionObserver((entries) => {
+                     if (entries[0].isIntersecting && !this.started) {
+                         this.runCounter();
+                         observer.disconnect();
+                     }
+                 }, { threshold: 0.25 });
+                 observer.observe(this.$el);
+             },
+             runCounter() {
+                 this.started = true;
+                 const duration = 2200;
+                 const start = performance.now();
+                 const tick = (now) => {
+                     const t = Math.min((now - start) / duration, 1);
+                     const ease = 1 - Math.pow(1 - t, 4);
+                     this.c1 = Math.floor(ease * 1450);
+                     this.c2 = Math.floor(ease * 3200);
+                     this.c3 = Math.floor(ease * 28);
+                     this.c4 = (ease * 99.4).toFixed(1);
+                     if (t < 1) requestAnimationFrame(tick);
+                     else { this.c1 = 1450; this.c2 = 3200; this.c3 = 28; this.c4 = '99.4'; }
+                 };
+                 requestAnimationFrame(tick);
+             }
+         }">
         <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-                <div class="stat-number">1,450+</div>
+                <div class="stat-number"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
                 <div class="eyebrow mt-2">Vehicles Tuned</div>
             </div>
             <div>
-                <div class="stat-number">3,200+</div>
+                <div class="stat-number"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
                 <div class="eyebrow mt-2">Dyno Run Tests</div>
             </div>
             <div>
-                <div class="stat-number">28</div>
+                <div class="stat-number"><span x-text="c3">0</span></div>
                 <div class="eyebrow mt-2">Contest Awards</div>
             </div>
             <div>
-                <div class="stat-number">99.4%</div>
+                <div class="stat-number"><span x-text="c4">0.0</span>%</div>
                 <div class="eyebrow mt-2">Satisfaction Rate</div>
             </div>
         </div>

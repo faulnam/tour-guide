@@ -14,28 +14,39 @@ use Illuminate\Support\Facades\Auth;
 class PaymentController extends Controller
 {
     /**
-     * Simulate or process instant payment for a booking.
+     * Simulate or process instant payment for a booking (DP or Pelunasan Sisa Tagihan).
      */
     public function processSimulation(Request $request, int $id): RedirectResponse|JsonResponse
     {
         $booking = Booking::findOrFail($id);
 
-        $payType = $request->input('payment_type', 'dp'); // 'dp' or 'full'
+        $payType = $request->input('payment_type', 'dp'); // 'dp', 'remaining', 'settlement', 'full'
         $payMethod = $request->input('payment_method', $booking->payment_method ?? 'qris');
         
-        $amount = ($payType === 'full') 
-            ? ($booking->total_amount > 0 ? $booking->total_amount : $booking->dp_amount)
-            : $booking->dp_amount;
+        $totalAmount = (float) ($booking->total_amount > 0 ? $booking->total_amount : ($booking->service->price ?? 0));
+        $paidAmount = (float) $booking->paid_amount;
+        $remainingAmount = max(0, $totalAmount - $paidAmount);
+
+        if (in_array($payType, ['remaining', 'settlement', 'pelunasan'])) {
+            $amount = $remainingAmount > 0 ? $remainingAmount : $totalAmount;
+            $payTypeLabel = 'Pelunasan Sisa Tagihan';
+        } elseif ($payType === 'full') {
+            $amount = $totalAmount > 0 ? $totalAmount : ($booking->dp_amount > 0 ? $booking->dp_amount : 250000);
+            $payTypeLabel = 'Pembayaran Penuh (Full Payment)';
+        } else {
+            $amount = $booking->dp_amount > 0 ? (float) $booking->dp_amount : 250000;
+            $payTypeLabel = 'Pembayaran Down Payment (DP)';
+        }
 
         $transactionCode = Payment::generateTransactionCode();
 
         // Create Payment record
         $payment = Payment::create([
             'booking_id' => $booking->id,
-            'user_id' => $booking->customer_id ?? Auth::id(),
+            'user_id' => $booking->customer_id ?? (Auth::check() ? Auth::id() : null),
             'transaction_code' => $transactionCode,
             'amount' => $amount,
-            'payment_type' => $payType,
+            'payment_type' => in_array($payType, ['remaining', 'settlement', 'pelunasan', 'full']) ? 'full' : 'dp',
             'payment_method' => $payMethod,
             'payment_channel' => strtoupper($payMethod) . ' Simulator Gateway',
             'status' => 'settlement',
@@ -50,8 +61,13 @@ class PaymentController extends Controller
         ]);
 
         // Update booking payment status
-        $newPaidAmount = $booking->paid_amount + $amount;
-        $newPaymentStatus = ($newPaidAmount >= $booking->total_amount && $booking->total_amount > 0) ? 'paid' : 'dp_paid';
+        $newPaidAmount = $paidAmount + $amount;
+        if ($totalAmount > 0 && $newPaidAmount >= $totalAmount) {
+            $newPaidAmount = max($newPaidAmount, $totalAmount);
+            $newPaymentStatus = 'paid';
+        } else {
+            $newPaymentStatus = ($newPaidAmount > 0) ? 'dp_paid' : 'unpaid';
+        }
 
         $booking->update([
             'paid_amount' => $newPaidAmount,
@@ -65,21 +81,21 @@ class PaymentController extends Controller
         BookingLog::create([
             'booking_id' => $booking->id,
             'user_id' => Auth::id(),
-            'stage' => 'received',
-            'title' => 'Pembayaran ' . strtoupper($payType) . ' Berhasil Dikonfirmasi',
-            'description' => 'Pembayaran sebesar Rp ' . number_format($amount, 0, ',', '.') . ' via ' . strtoupper($payMethod) . ' berhasil terverifikasi. Transaksi: ' . $transactionCode,
+            'stage' => $booking->status,
+            'title' => $payTypeLabel . ' Berhasil Dikonfirmasi',
+            'description' => $payTypeLabel . ' sebesar Rp ' . number_format($amount, 0, ',', '.') . ' via ' . strtoupper($payMethod) . ' berhasil terverifikasi. Transaksi: ' . $transactionCode,
         ]);
 
         if ($request->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Pembayaran berhasil dikonfirmasi!',
+                'message' => $payTypeLabel . ' berhasil dikonfirmasi!',
                 'redirect_url' => route('booking.checkout', $booking->booking_code),
             ]);
         }
 
         return redirect()->route('booking.checkout', $booking->booking_code)
-                         ->with('success', 'Pembayaran sebesar Rp ' . number_format($amount, 0, ',', '.') . ' berhasil dikonfirmasi!');
+                         ->with('success', $payTypeLabel . ' sebesar Rp ' . number_format($amount, 0, ',', '.') . ' berhasil dikonfirmasi!');
     }
 
     /**

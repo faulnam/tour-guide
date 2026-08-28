@@ -19,7 +19,7 @@
 
     <!-- Filter Bar -->
     <div class="bg-neutral-900 border border-neutral-800 p-5">
-        <form action="{{ route('admin.bookings.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
+        <form action="{{ route('admin.bookings.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-5 gap-4 items-end">
             <div>
                 <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-400 mb-1">Pencarian</label>
                 <input type="text" name="search" value="{{ $search }}" placeholder="Kode / Nama / Plat..."
@@ -36,6 +36,17 @@
                     <option value="qc" {{ $status === 'qc' ? 'selected' : '' }}>QC &amp; Dyno Test</option>
                     <option value="completed" {{ $status === 'completed' ? 'selected' : '' }}>Completed</option>
                     <option value="cancelled" {{ $status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-400 mb-1">Status Pembayaran</label>
+                <select name="payment_status" class="w-full bg-neutral-950 border border-neutral-700 px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
+                    <option value="">Semua Pembayaran</option>
+                    <option value="unpaid" {{ $paymentStatus === 'unpaid' ? 'selected' : '' }}>Belum Bayar</option>
+                    <option value="dp_paid" {{ $paymentStatus === 'dp_paid' ? 'selected' : '' }}>DP Terbayar</option>
+                    <option value="paid" {{ $paymentStatus === 'paid' ? 'selected' : '' }}>Lunas Penuh</option>
+                    <option value="refunded" {{ $paymentStatus === 'refunded' ? 'selected' : '' }}>Refund</option>
                 </select>
             </div>
 
@@ -65,9 +76,9 @@
                         <th class="p-3.5">Kode &amp; Unit</th>
                         <th class="p-3.5">Customer</th>
                         <th class="p-3.5">Layanan</th>
-                        <th class="p-3.5">Mekanik</th>
-                        <th class="p-3.5">Status</th>
-                        <th class="p-3.5">Pembayaran DP</th>
+                        <th class="p-3.5">Mekanik Penanggung Jawab</th>
+                        <th class="p-3.5">Status Pengerjaan</th>
+                        <th class="p-3.5">Status Pembayaran</th>
                         <th class="p-3.5 text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -85,7 +96,7 @@
                             </td>
                             <td class="p-3.5">
                                 <div class="font-semibold text-white">{{ $b->service->title ?? 'Custom Service' }}</div>
-                                <div class="text-[10px] text-neutral-400">{{ $b->booking_date->format('d M Y') }} • {{ $b->booking_time_slot }}</div>
+                                <div class="text-[10px] text-neutral-400">{{ $b->booking_date ? $b->booking_date->format('d M Y') : '-' }} • {{ $b->booking_time_slot }}</div>
                             </td>
                             <td class="p-3.5">
                                 @if($b->mechanic)
@@ -95,18 +106,14 @@
                                 @endif
                             </td>
                             <td class="p-3.5">
-                                <span class="px-2 py-0.5 text-[9px] uppercase font-bold tracking-wider {{ $b->status === 'completed' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800' }}">
-                                    {{ $b->status }}
-                                </span>
+                                <div>{!! $b->status_badge !!}</div>
                                 <div class="text-[10px] text-neutral-400 mt-1">{{ $b->progress_percentage }}% Selesai</div>
                             </td>
                             <td class="p-3.5">
-                                <span class="px-2 py-0.5 text-[9px] uppercase font-bold tracking-wider {{ $b->payment_status === 'paid' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800' }}">
-                                    {{ $b->payment_status === 'paid' ? 'DP LUNAS' : 'PENDING' }}
-                                </span>
-                                @if($b->payment)
-                                    <div class="text-[10px] text-neutral-400 mt-1">Rp {{ number_format($b->payment->amount, 0, ',', '.') }}</div>
-                                @endif
+                                <div>{!! $b->payment_badge !!}</div>
+                                <div class="text-[10px] text-neutral-400 mt-1">
+                                    Terbayar: Rp {{ number_format($b->paid_amount, 0, ',', '.') }}
+                                </div>
                             </td>
                             <td class="p-3.5 text-right space-x-2">
                                 <a href="{{ route('admin.bookings.show', $b->id) }}" class="text-white hover:text-accent font-semibold">

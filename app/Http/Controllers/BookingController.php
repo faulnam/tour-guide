@@ -7,6 +7,7 @@ use App\Models\BookingLog;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Vehicle;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -125,8 +126,74 @@ class BookingController extends Controller
      */
     public function checkout(string $bookingCode): View|RedirectResponse
     {
-        $booking = Booking::with('service')->where('booking_code', $bookingCode)->firstOrFail();
+        $booking = Booking::with(['service', 'payments'])->where('booking_code', $bookingCode)->firstOrFail();
 
-        return view('booking.checkout', compact('booking'));
+        // Get existing payment or create initial pending payment record
+        $payment = $booking->payments()->latest()->first();
+
+        if (!$payment) {
+            $dpAmount = $booking->dp_amount > 0 ? $booking->dp_amount : 250000;
+            $payment = Payment::create([
+                'booking_id' => $booking->id,
+                'user_id' => $booking->customer_id ?? (Auth::check() ? Auth::id() : null),
+                'transaction_code' => Payment::generateTransactionCode(),
+                'amount' => $dpAmount,
+                'payment_type' => 'dp',
+                'payment_method' => $booking->payment_method ?? 'qris',
+                'payment_channel' => strtoupper($booking->payment_method ?? 'qris') . ' Simulator Gateway',
+                'status' => in_array($booking->payment_status, ['paid', 'dp_paid']) ? 'settlement' : 'pending',
+                'gateway_reference' => 'SIM-GW-' . strtoupper(substr(md5(uniqid()), 0, 10)),
+            ]);
+        }
+
+        return view('booking.checkout', compact('booking', 'payment'));
+    }
+
+    /**
+     * Update delivery / handover preferences (Diambil Sendiri vs Diantar ke Alamat).
+     */
+    public function updateDeliveryMethod(Request $request, int $id): RedirectResponse|JsonResponse
+    {
+        $booking = Booking::findOrFail($id);
+
+        $validated = $request->validate([
+            'delivery_method' => ['required', 'in:pickup_workshop,delivery_address'],
+            'delivery_address' => ['nullable', 'string', 'max:1000'],
+            'delivery_notes' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        if ($validated['delivery_method'] === 'delivery_address' && empty($validated['delivery_address'])) {
+            $validated['delivery_address'] = $request->input('customer_address') ?? (Auth::check() ? Auth::user()->address : null);
+        }
+
+        $booking->update([
+            'delivery_method' => $validated['delivery_method'],
+            'delivery_address' => $validated['delivery_address'] ?? null,
+            'delivery_notes' => $validated['delivery_notes'] ?? null,
+        ]);
+
+        // Log delivery preference
+        $methodLabel = $validated['delivery_method'] === 'delivery_address' 
+            ? 'Diantar ke Alamat Customer (' . ($validated['delivery_address'] ?? 'Alamat Terdaftar') . ')'
+            : 'Diambil Sendiri ke Workshop BENGKEL';
+
+        BookingLog::create([
+            'booking_id' => $booking->id,
+            'user_id' => Auth::id(),
+            'stage' => $booking->status,
+            'title' => 'Metode Penyerahan Unit Diperbarui',
+            'description' => 'Customer memilih: ' . $methodLabel . ($validated['delivery_notes'] ? '. Catatan: ' . $validated['delivery_notes'] : ''),
+        ]);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Pilihan penyerahan kendaraan berhasil disimpan!',
+                'delivery_method' => $booking->delivery_method,
+                'delivery_method_label' => $booking->delivery_method_label,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Pilihan metode penyerahan kendaraan berhasil disimpan!');
     }
 }

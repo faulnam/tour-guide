@@ -27,9 +27,6 @@
                     <a href="{{ url('/booking') }}" class="px-4 py-2.5 bg-accent text-white text-xs uppercase tracking-wider font-bold hover:bg-opacity-90 transition-all">
                         + Buat Booking Baru
                     </a>
-                    <a href="{{ route('customer.vehicles.index') }}" class="px-4 py-2.5 bg-neutral-800 border border-neutral-700 text-white text-xs uppercase tracking-wider font-semibold hover:bg-neutral-700 transition-all">
-                        🚗 Garasi Saya
-                    </a>
                 </div>
 
             </div>
@@ -58,13 +55,13 @@
 
                 <div class="bg-white border border-neutral-200 p-5 space-y-1">
                     <div class="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">Pesanan Aktif</div>
-                    <div class="text-2xl font-extrabold text-purple-600 font-sans">{{ $activeBookings->count() }}</div>
+                    <div class="text-2xl font-extrabold text-black font-sans">{{ $activeBookings->count() }}</div>
                     <div class="text-[10px] text-neutral-500">Dalam proses pengerjaan</div>
                 </div>
 
                 <div class="bg-white border border-neutral-200 p-5 space-y-1">
                     <div class="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">Garansi Aktif</div>
-                    <div class="text-2xl font-extrabold text-emerald-600 font-sans">
+                    <div class="text-2xl font-extrabold text-black font-sans">
                         {{ $warrantyBookings->filter->is_warranty_active->count() }}
                     </div>
                     <div class="text-[10px] text-neutral-500">Klaim siap dilayani</div>
@@ -83,17 +80,15 @@
                     <button type="button" @click="switchTab('identity')"
                             class="py-4 px-6 md:px-8 transition-all flex items-center space-x-2 border-b-2"
                             :class="tab === 'identity' ? 'border-black text-black bg-neutral-50' : 'border-transparent text-neutral-500 hover:text-black'">
-                        <span>👤</span>
                         <span>Jatidiri (Data Diri)</span>
                     </button>
 
                     <button type="button" @click="switchTab('orders')"
                             class="py-4 px-6 md:px-8 transition-all flex items-center space-x-2 border-b-2"
                             :class="tab === 'orders' ? 'border-black text-black bg-neutral-50' : 'border-transparent text-neutral-500 hover:text-black'">
-                        <span>📦</span>
                         <span>Informasi Pesanan</span>
                         @if($activeBookings->count())
-                            <span class="px-2 py-0.5 text-[10px] bg-purple-600 text-white rounded-full font-sans">
+                            <span class="px-2 py-0.5 text-[10px] bg-black text-white rounded-full font-sans">
                                 {{ $activeBookings->count() }}
                             </span>
                         @endif
@@ -102,10 +97,9 @@
                     <button type="button" @click="switchTab('warranty')"
                             class="py-4 px-6 md:px-8 transition-all flex items-center space-x-2 border-b-2"
                             :class="tab === 'warranty' ? 'border-black text-black bg-neutral-50' : 'border-transparent text-neutral-500 hover:text-black'">
-                        <span>🛡️</span>
                         <span>Cek Garansi</span>
                         @if($warrantyBookings->filter->is_warranty_active->count())
-                            <span class="px-2 py-0.5 text-[10px] bg-emerald-600 text-white rounded-full font-sans">
+                            <span class="px-2 py-0.5 text-[10px] bg-black text-white rounded-full font-sans">
                                 {{ $warrantyBookings->filter->is_warranty_active->count() }}
                             </span>
                         @endif
@@ -280,7 +274,7 @@
                 <!-- 1. Active Bookings (Sedang Berjalan) -->
                 <div class="space-y-4">
                     <div class="flex items-center space-x-2 text-xs uppercase tracking-widest font-bold text-black">
-                        <span class="w-2.5 h-2.5 rounded-full bg-purple-600 animate-ping"></span>
+                        <span class="w-2 h-2 bg-black inline-block"></span>
                         <span>Pesanan Sedang Diproses ({{ $activeBookings->count() }})</span>
                     </div>
 
@@ -325,7 +319,12 @@
                                     <span class="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold">Estimasi Total Biaya:</span>
                                     <span class="font-bold text-black text-sm">Rp {{ number_format($booking->total_amount, 0, ',', '.') }}</span>
                                     <div class="text-neutral-600 mt-0.5">
-                                        DP Terbayar: <strong>Rp {{ number_format($booking->paid_amount, 0, ',', '.') }}</strong>
+                                        Terbayar: <strong>Rp {{ number_format($booking->paid_amount, 0, ',', '.') }}</strong>
+                                        @if($booking->remaining_amount > 0)
+                                            &bull; Sisa: <strong class="text-black">Rp {{ number_format($booking->remaining_amount, 0, ',', '.') }}</strong>
+                                        @else
+                                            &bull; <strong class="text-black">Lunas</strong>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -334,10 +333,10 @@
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between text-xs">
                                     <span class="font-bold uppercase tracking-wider text-black">Progress Pengerjaan:</span>
-                                    <span class="font-bold text-purple-700 font-sans text-sm">{{ $booking->progress_percentage }}%</span>
+                                    <span class="font-bold text-black font-sans text-sm">{{ $booking->progress_percentage }}%</span>
                                 </div>
                                 <div class="w-full h-3 bg-neutral-200 rounded-full overflow-hidden">
-                                    <div class="h-full bg-gradient-to-r from-black via-purple-700 to-accent transition-all duration-500"
+                                    <div class="h-full bg-gradient-to-r from-neutral-900 via-neutral-700 to-accent transition-all duration-500"
                                          style="width: {{ $booking->progress_percentage }}%"></div>
                                 </div>
                                 <div class="flex justify-between text-[10px] text-neutral-400 uppercase tracking-widest pt-1">
@@ -351,9 +350,9 @@
 
                             <!-- Mechanic Update Note -->
                             @if($booking->mechanic_notes)
-                                <div class="p-4 bg-purple-50 border border-purple-200 text-xs space-y-1">
-                                    <div class="font-bold text-purple-900 uppercase tracking-wider text-[10px]">Catatan Terkini dari Mekanik:</div>
-                                    <p class="text-purple-800">{{ $booking->mechanic_notes }}</p>
+                                <div class="p-4 bg-neutral-50 border border-neutral-200 text-xs space-y-1">
+                                    <div class="font-bold text-black uppercase tracking-wider text-[10px]">Catatan Terkini dari Mekanik:</div>
+                                    <p class="text-neutral-700">{{ $booking->mechanic_notes }}</p>
                                 </div>
                             @endif
 
@@ -365,12 +364,18 @@
                                 <div class="flex items-center gap-3">
                                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('company_whatsapp', '+6281288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL') . ', saya ingin menanyakan status pengerjaan booking ' . $booking->booking_code . ' untuk kendaraan ' . $booking->vehicle_model . ' (' . $booking->license_plate . ')') }}"
                                        target="_blank"
-                                       class="px-3 py-1.5 bg-emerald-600 text-white text-xs uppercase tracking-wider font-semibold hover:bg-emerald-700 transition-colors flex items-center gap-1.5">
-                                        <span>💬 Hubungi Mekanik (WA)</span>
+                                       class="px-3 py-1.5 bg-neutral-800 text-white text-xs uppercase tracking-wider font-semibold hover:bg-black transition-colors flex items-center gap-1.5">
+                                        <span>Hubungi Admin (WA)</span>
                                     </a>
                                     <a href="{{ route('booking.checkout', $booking->booking_code) }}"
                                        class="px-3 py-1.5 border border-black bg-black text-white text-xs uppercase tracking-wider font-semibold hover:bg-white hover:text-black transition-colors">
-                                        Detail / Invoice &rarr;
+                                        @if($booking->status === 'completed' && $booking->remaining_amount > 0)
+                                            Pelunasan &amp; Penyerahan Unit &rarr;
+                                        @elseif($booking->status === 'completed')
+                                            Invoice &amp; Opsi Penyerahan &rarr;
+                                        @else
+                                            Detail / Invoice &rarr;
+                                        @endif
                                     </a>
                                 </div>
                             </div>
@@ -378,7 +383,7 @@
                         </div>
                     @empty
                         <div class="bg-white border border-neutral-200 p-8 text-center space-y-3">
-                            <div class="text-3xl">🚗</div>
+                            <div class="text-3xl">—</div>
                             <h4 class="text-sm font-bold uppercase tracking-wider text-black">Tidak Ada Pesanan yang Sedang Aktif</h4>
                             <p class="text-xs text-neutral-500 max-w-md mx-auto">
                                 Kendaraan Anda belum memiliki pengerjaan aktif saat ini. Anda dapat melakukan booking paket modifikasi atau konsultasi service kapan saja.

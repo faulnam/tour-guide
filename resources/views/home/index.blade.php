@@ -98,28 +98,57 @@
     </section>
 
 
-    <!-- 2. Stats Highlight Bar -->
-    <section class="border-y border-neutral-200 bg-white py-12">
+    <!-- 2. Stats Highlight Bar (Animated Count-Up) -->
+    <section class="border-y border-neutral-200 bg-white py-12"
+             x-data="{
+                 started: false,
+                 c1: 0, c2: 0, c3: 0, c4: '0.0',
+                 init() {
+                     let observer = new IntersectionObserver((entries) => {
+                         if (entries[0].isIntersecting && !this.started) {
+                             this.runCounter();
+                             observer.disconnect();
+                         }
+                     }, { threshold: 0.25 });
+                     observer.observe(this.$el);
+                 },
+                 runCounter() {
+                     this.started = true;
+                     const duration = 2200;
+                     const start = performance.now();
+                     const tick = (now) => {
+                         const t = Math.min((now - start) / duration, 1);
+                         const ease = 1 - Math.pow(1 - t, 4);
+                         this.c1 = Math.floor(ease * 1450);
+                         this.c2 = Math.floor(ease * 3200);
+                         this.c3 = Math.floor(ease * 28);
+                         this.c4 = (ease * 99.4).toFixed(1);
+                         if (t < 1) requestAnimationFrame(tick);
+                         else { this.c1 = 1450; this.c2 = 3200; this.c3 = 28; this.c4 = '99.4'; }
+                     };
+                     requestAnimationFrame(tick);
+                 }
+             }">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-neutral-200">
                 
                 <div class="pt-4 md:pt-0 md:px-6 first:pt-0">
-                    <div class="stat-number">1,450+</div>
+                    <div class="stat-number"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
                     <div class="eyebrow text-neutral-500 mt-1">Vehicles Tuned</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number">3,200+</div>
+                    <div class="stat-number"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
                     <div class="eyebrow text-neutral-500 mt-1">Dyno Run Tests</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number">28</div>
+                    <div class="stat-number"><span x-text="c3">0</span></div>
                     <div class="eyebrow text-neutral-500 mt-1">Contest Awards</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number">99.4%</div>
+                    <div class="stat-number"><span x-text="c4">0.0</span>%</div>
                     <div class="eyebrow text-neutral-500 mt-1">Client Satisfaction</div>
                 </div>
 

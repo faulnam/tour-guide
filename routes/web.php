@@ -85,9 +85,11 @@ Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.s
 Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
 Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/booking/checkout/{code}', [BookingController::class, 'checkout'])->name('booking.checkout');
+Route::post('/booking/{id}/delivery-method', [BookingController::class, 'updateDeliveryMethod'])->name('booking.delivery_method');
 
 // Payment Gateway Simulator & Webhook
 Route::post('/payment/simulate/{id}', [PaymentController::class, 'processSimulation'])->name('payment.simulate');
+Route::post('/booking/simulate-pay/{id}', [PaymentController::class, 'processSimulation'])->name('booking.simulate_pay');
 Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 
 // Newsletter
@@ -158,7 +160,7 @@ Route::middleware(['auth', 'karyawan'])->prefix('karyawan')->name('karyawan.')->
     Route::get('/dashboard', [KaryawanDashboardController::class, 'index'])->name('dashboard.index');
     
     // Sistem Absensi Kamera Webcam
-    Route::get('/absensi', [KaryawanAbsensiController::class, 'index'])->name('absensi');
+    Route::get('/absensi', [KaryawanAbsensiController::class, 'index'])->name('absensi.index');
     Route::post('/absensi/checkin', [KaryawanAbsensiController::class, 'checkIn'])->name('absensi.checkin');
     Route::post('/absensi/checkout', [KaryawanAbsensiController::class, 'checkOut'])->name('absensi.checkout');
     
@@ -166,6 +168,7 @@ Route::middleware(['auth', 'karyawan'])->prefix('karyawan')->name('karyawan.')->
     Route::get('/tasks', [KaryawanTaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/{id}', [KaryawanTaskController::class, 'show'])->name('tasks.show');
     Route::post('/tasks/{id}/progress', [KaryawanTaskController::class, 'updateProgress'])->name('tasks.progress');
+    Route::put('/tasks/{id}', [KaryawanTaskController::class, 'updateProgress'])->name('tasks.update');
 });
 
 

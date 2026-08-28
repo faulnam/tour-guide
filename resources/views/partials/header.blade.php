@@ -25,10 +25,6 @@
                   :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-black' : 'text-white'">
                 {{ \App\Models\SiteSetting::get('company_name', 'BENGKEL') }}
             </span>
-            <span class="hidden sm:inline-block text-[9px] uppercase tracking-widest border-l pl-2.5 py-0.5"
-                  :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'border-neutral-300 text-neutral-500' : 'border-white/30 text-neutral-300'">
-                Modifikasi
-            </span>
         </a>
 
         <!-- Desktop Navigation Menu (Consistent Across All Pages) -->
@@ -159,22 +155,37 @@
                     </span>
 
                     @if($user->isAdmin())
-                        <a href="{{ url('/admin') }}" class="px-3 py-1.5 border border-black bg-black text-white hover:bg-white hover:text-black transition-colors text-[10px] uppercase tracking-wider font-semibold">
+                        <a href="{{ url('/admin') }}" 
+                           class="px-3 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
+                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
+                               ? 'border-black bg-black text-white hover:bg-white hover:text-black' 
+                               : 'border-white bg-white text-black hover:bg-transparent hover:text-white'">
                             Admin CMS
                         </a>
                     @elseif($user->isKaryawan())
-                        <a href="{{ url('/karyawan/absensi') }}" class="px-3 py-1.5 border border-black bg-black text-white hover:bg-white hover:text-black transition-colors text-[10px] uppercase tracking-wider font-semibold">
+                        <a href="{{ url('/karyawan/absensi') }}" 
+                           class="px-3 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
+                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
+                               ? 'border-black bg-black text-white hover:bg-white hover:text-black' 
+                               : 'border-white bg-white text-black hover:bg-transparent hover:text-white'">
                             Absensi &amp; Tasks
                         </a>
                     @else
-                        <a href="{{ url('/customer/profile') }}" class="px-3 py-1.5 border border-black bg-black text-white hover:bg-white hover:text-black transition-colors text-[10px] uppercase tracking-wider font-semibold">
+                        <a href="{{ url('/customer/profile') }}" 
+                           class="px-3 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
+                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
+                               ? 'border-black bg-black text-white hover:bg-white hover:text-black' 
+                               : 'border-white bg-white text-black hover:bg-transparent hover:text-white'">
                             Garasi Saya
                         </a>
                     @endif
 
                     <form action="{{ url('/logout') }}" method="POST" class="inline">
                         @csrf
-                        <button type="submit" class="text-neutral-400 hover:text-red-500 text-xs transition-colors p-1" title="Sign Out">
+                        <button type="submit" 
+                                class="text-xs transition-colors p-1" 
+                                :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-neutral-400 hover:text-red-500' : 'text-neutral-400 hover:text-red-400'"
+                                title="Sign Out">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                         </button>
                     </form>

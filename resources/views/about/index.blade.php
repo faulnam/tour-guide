@@ -96,29 +96,78 @@
         </div>
     </section>
 
-    <!-- 4. Stats Counter Bar -->
-    <section class="py-16 md:py-24 bg-black text-white">
+    <!-- 4. Stats Animated Counter Bar -->
+    <section class="py-16 md:py-24 bg-black text-white" 
+             x-data="{
+                 started: false,
+                 c1: 0,
+                 c2: 0,
+                 c3: 0,
+                 c4: '0.0',
+                 init() {
+                     let observer = new IntersectionObserver((entries) => {
+                         if (entries[0].isIntersecting && !this.started) {
+                             this.startCounter();
+                             observer.disconnect();
+                         }
+                     }, { threshold: 0.2 });
+                     observer.observe(this.$el);
+                 },
+                 startCounter() {
+                     this.started = true;
+                     const duration = 2200;
+                     const startTime = performance.now();
+                     const step = (currentTime) => {
+                         const elapsed = currentTime - startTime;
+                         const progress = Math.min(elapsed / duration, 1);
+                         const ease = 1 - Math.pow(1 - progress, 4);
+                         
+                         this.c1 = Math.floor(ease * 1450);
+                         this.c2 = Math.floor(ease * 3200);
+                         this.c3 = Math.floor(ease * 28);
+                         this.c4 = (ease * 99.4).toFixed(1);
+                         
+                         if (progress < 1) {
+                             requestAnimationFrame(step);
+                         } else {
+                             this.c1 = 1450;
+                             this.c2 = 3200;
+                             this.c3 = 28;
+                             this.c4 = '99.4';
+                         }
+                     };
+                     requestAnimationFrame(step);
+                 }
+             }">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-neutral-800">
                 
                 <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-bold text-white tracking-tight">1,450+</div>
-                    <div class="eyebrow-light text-[11px]">Vehicles Tuned</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
+                        <span x-text="Number(c1).toLocaleString('id-ID')">0</span>+
+                    </div>
+                    <div class="eyebrow-light text-[11px] text-neutral-400">Vehicles Tuned</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-bold text-white tracking-tight">3,200+</div>
-                    <div class="eyebrow-light text-[11px]">Dyno Runs</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
+                        <span x-text="Number(c2).toLocaleString('id-ID')">0</span>+
+                    </div>
+                    <div class="eyebrow-light text-[11px] text-neutral-400">Dyno Run Tests</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-bold text-white tracking-tight">28</div>
-                    <div class="eyebrow-light text-[11px]">Contest Trophies</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
+                        <span x-text="c3">0</span>
+                    </div>
+                    <div class="eyebrow-light text-[11px] text-neutral-400">Contest Awards</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-bold text-white tracking-tight">99.4%</div>
-                    <div class="eyebrow-light text-[11px]">Client Satisfaction</div>
+                    <div class="text-4xl md:text-5xl font-extrabold text-accent tracking-tight font-sans">
+                        <span x-text="c4">0.0</span>%
+                    </div>
+                    <div class="eyebrow-light text-[11px] text-neutral-400">Client Satisfaction</div>
                 </div>
 
             </div>

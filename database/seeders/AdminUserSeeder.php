@@ -17,7 +17,7 @@ class AdminUserSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'admin@bengkel.com'],
             [
-                'name' => 'Apex Master Admin',
+                'name' => 'BENGKEL Master Admin',
                 'phone' => '081288889999',
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',

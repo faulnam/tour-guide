@@ -16,15 +16,21 @@ class TaskController extends Controller
     /**
      * Display list of assigned tasks.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         $user = Auth::user();
-        $tasks = Booking::where('karyawan_id', $user->id)
-            ->with(['service', 'customer'])
-            ->latest()
-            ->paginate(10);
+        $status = $request->query('status');
 
-        return view('karyawan.tasks.index', compact('tasks'));
+        $query = Booking::where('karyawan_id', $user->id)
+            ->with(['service', 'customer']);
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        $tasks = $query->latest()->paginate(10);
+
+        return view('karyawan.tasks.index', compact('tasks', 'status'));
     }
 
     /**
@@ -51,12 +57,15 @@ class TaskController extends Controller
             ->where('karyawan_id', $user->id)
             ->firstOrFail();
 
+        $notes = $request->input('mechanic_notes', $request->input('admin_notes', $task->mechanic_notes));
+
         $validated = $request->validate([
             'status' => ['required', 'in:in_progress,qc,completed'],
             'progress_percentage' => ['required', 'integer', 'min:0', 'max:100'],
-            'stage' => ['required', 'string'],
-            'stage_title' => ['required', 'string', 'max:255'],
+            'stage' => ['nullable', 'string'],
+            'stage_title' => ['nullable', 'string', 'max:255'],
             'mechanic_notes' => ['nullable', 'string'],
+            'admin_notes' => ['nullable', 'string'],
             'progress_photo' => ['nullable', 'image', 'max:5120'],
         ]);
 
@@ -72,18 +81,22 @@ class TaskController extends Controller
 
         $task->status = $validated['status'];
         $task->progress_percentage = $validated['progress_percentage'];
-        if (!empty($validated['mechanic_notes'])) {
-            $task->mechanic_notes = $validated['mechanic_notes'];
-        }
+        $task->mechanic_notes = $notes;
         $task->save();
+
+        $stageTitle = $validated['stage_title'] ?? ('Progres ' . $validated['progress_percentage'] . '% — ' . match($validated['status']) {
+            'qc' => 'QC & Dyno Test Selesai Dikalibrasi',
+            'completed' => 'Pengerjaan Unit Rampung / Siap Diambil',
+            default => 'Pembaruan Progres oleh Teknisi'
+        });
 
         // Create log entry
         BookingLog::create([
             'booking_id' => $task->id,
             'user_id' => $user->id,
-            'stage' => $validated['stage'],
-            'title' => $validated['stage_title'],
-            'description' => $validated['mechanic_notes'] ?? 'Progres pengerjaan diperbarui oleh mekanik.',
+            'stage' => $validated['stage'] ?? $validated['status'],
+            'title' => $stageTitle,
+            'description' => $notes ?? ('Progres pengerjaan mencapai ' . $validated['progress_percentage'] . '% (' . ucfirst($validated['status']) . ').'),
             'photo_path' => $photoPath,
         ]);
 

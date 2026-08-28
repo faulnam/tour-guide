@@ -17,7 +17,7 @@
         </div>
         <div>
             <a href="{{ route('karyawan.absensi.index') }}" class="btn-dark">
-                📷 Absensi Kamera Sekarang
+                Absensi Kamera Sekarang &rarr;
             </a>
         </div>
     </div>
@@ -26,13 +26,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div class="bg-white border border-neutral-200 p-6 space-y-2">
             <div class="eyebrow text-neutral-400 text-[10px]">Tugas Aktif Ditugaskan</div>
-            <div class="text-3xl font-bold text-black">{{ $activeTasks }}</div>
+            <div class="text-3xl font-bold text-black">{{ $activeTasks->count() }}</div>
             <div class="text-[11px] text-neutral-500">Unit kendaraan dalam pengerjaan Anda</div>
         </div>
 
         <div class="bg-white border border-neutral-200 p-6 space-y-2">
             <div class="eyebrow text-neutral-400 text-[10px]">Tugas Selesai</div>
-            <div class="text-3xl font-bold text-emerald-600">{{ $completedTasks }}</div>
+            <div class="text-3xl font-bold text-black">{{ $completedTasksCount }}</div>
             <div class="text-[11px] text-neutral-500">Pengerjaan telah lulus QC</div>
         </div>
 
@@ -56,15 +56,15 @@
             </div>
 
             <div class="space-y-4">
-                @forelse($recentTasks as $task)
+                @forelse($activeTasks as $task)
                     <div class="p-4 bg-neutral-bg border border-neutral-200 space-y-3">
                         <div class="flex items-start justify-between">
                             <div>
                                 <div class="text-xs font-bold text-black">{{ $task->service->title ?? 'Custom Package' }}</div>
                                 <div class="text-[11px] text-neutral-500">{{ $task->vehicle_brand }} {{ $task->vehicle_model }} ({{ $task->license_plate }})</div>
                             </div>
-                            <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-white border border-neutral-300">
-                                {{ $task->status }}
+                            <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-white border border-neutral-300 text-black">
+                                {{ $task->status_label ?? $task->status }}
                             </span>
                         </div>
 
@@ -95,15 +95,15 @@
                     <div class="p-4 bg-neutral-bg border border-neutral-200 space-y-2">
                         <div class="flex justify-between items-center">
                             <span class="text-neutral-500">Jam Masuk (Clock In):</span>
-                            <span class="font-bold text-emerald-700">{{ $todayAttendance->clock_in ? $todayAttendance->clock_in->format('H:i:s') . ' WIB' : '-' }}</span>
+                            <span class="font-bold text-black">{{ $todayAttendance->check_in_time ? substr($todayAttendance->check_in_time, 0, 5) . ' WIB' : '-' }}</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-neutral-500">Jam Pulang (Clock Out):</span>
-                            <span class="font-bold text-amber-700">{{ $todayAttendance->clock_out ? $todayAttendance->clock_out->format('H:i:s') . ' WIB' : 'Belum Absen Pulang' }}</span>
+                            <span class="font-bold text-black">{{ $todayAttendance->check_out_time ? substr($todayAttendance->check_out_time, 0, 5) . ' WIB' : 'Belum Absen Pulang' }}</span>
                         </div>
                     </div>
 
-                    @if(!$todayAttendance->clock_out)
+                    @if(!$todayAttendance->check_out_time)
                         <a href="{{ route('karyawan.absensi.index') }}" class="btn-dark w-full text-center block">
                             Absen Pulang (Clock Out) &rarr;
                         </a>

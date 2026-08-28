@@ -27,7 +27,7 @@
                         <th class="p-3.5">Layanan</th>
                         <th class="p-3.5">Jadwal Masuk</th>
                         <th class="p-3.5">Status Pengerjaan</th>
-                        <th class="p-3.5">DP Payment</th>
+                        <th class="p-3.5">Status Pembayaran</th>
                         <th class="p-3.5 text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -37,19 +37,17 @@
                             <td class="p-3.5 font-mono font-bold text-black">{{ $b->booking_code }}</td>
                             <td class="p-3.5">
                                 <div class="font-bold text-black">{{ $b->vehicle_brand }} {{ $b->vehicle_model }}</div>
-                                <div class="text-[10px] text-neutral-500">{{ $b->license_plate }} • {{ $b->vehicle_type }}</div>
+                                <div class="text-[10px] text-neutral-500">{{ $b->license_plate }} &bull; {{ $b->vehicle_type }}</div>
                             </td>
                             <td class="p-3.5">{{ $b->service->title ?? 'Custom Package' }}</td>
-                            <td class="p-3.5">{{ $b->booking_date->format('d M Y') }} • {{ $b->booking_time_slot }}</td>
+                            <td class="p-3.5">{{ $b->booking_date ? $b->booking_date->format('d M Y') : '-' }} &bull; {{ $b->booking_time_slot }}</td>
                             <td class="p-3.5">
-                                <span class="px-2 py-0.5 text-[9px] uppercase font-bold {{ $b->status === 'completed' ? 'bg-emerald-100 text-emerald-800' : ($b->status === 'in_progress' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800') }}">
-                                    {{ $b->status_label }}
-                                </span>
+                                <div>{!! $b->status_badge !!}</div>
+                                <div class="text-[10px] text-neutral-500 mt-1">{{ $b->progress_percentage }}% Progress</div>
                             </td>
                             <td class="p-3.5">
-                                <span class="px-2 py-0.5 text-[9px] uppercase font-bold {{ $b->payment_status === 'paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800' }}">
-                                    {{ $b->payment_status === 'paid' ? 'Lunas' : 'Belum Bayar' }}
-                                </span>
+                                <div>{!! $b->payment_badge !!}</div>
+                                <div class="text-[10px] text-neutral-500 mt-1">Terbayar: Rp {{ number_format($b->paid_amount, 0, ',', '.') }}</div>
                             </td>
                             <td class="p-3.5 text-right">
                                 <a href="{{ route('customer.bookings.show', $b->id) }}" class="font-bold text-black hover:underline">

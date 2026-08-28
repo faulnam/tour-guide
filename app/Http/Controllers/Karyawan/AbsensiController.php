@@ -50,14 +50,12 @@ class AbsensiController extends Controller
             return $this->responseFeedback($request, false, 'Anda sudah melakukan absensi masuk hari ini.');
         }
 
-        $request->validate([
-            'image_data' => ['required', 'string'], // base64 encoded photo snapshot
-            'latitude' => ['nullable', 'numeric'],
-            'longitude' => ['nullable', 'numeric'],
-            'notes' => ['nullable', 'string', 'max:500'],
-        ]);
+        $imageData = $request->input('image_data', $request->input('photo'));
+        if (!$imageData) {
+            return $this->responseFeedback($request, false, 'Foto snapshot absensi kamera wajib diambil.');
+        }
 
-        $photoPath = $this->saveBase64Image($request->input('image_data'), 'checkin_' . $user->id);
+        $photoPath = $this->saveBase64Image($imageData, 'checkin_' . $user->id);
 
         $now = Carbon::now();
         // Jam masuk standar 08:30
@@ -99,14 +97,12 @@ class AbsensiController extends Controller
             return $this->responseFeedback($request, false, 'Anda sudah melakukan absensi pulang hari ini.');
         }
 
-        $request->validate([
-            'image_data' => ['required', 'string'],
-            'latitude' => ['nullable', 'numeric'],
-            'longitude' => ['nullable', 'numeric'],
-            'work_summary' => ['nullable', 'string', 'max:1000'],
-        ]);
+        $imageData = $request->input('image_data', $request->input('photo'));
+        if (!$imageData) {
+            return $this->responseFeedback($request, false, 'Foto snapshot absensi kamera wajib diambil.');
+        }
 
-        $photoPath = $this->saveBase64Image($request->input('image_data'), 'checkout_' . $user->id);
+        $photoPath = $this->saveBase64Image($imageData, 'checkout_' . $user->id);
         $now = Carbon::now();
 
         $attendance->update([
@@ -114,7 +110,7 @@ class AbsensiController extends Controller
             'check_out_photo' => $photoPath,
             'check_out_lat' => $request->input('latitude'),
             'check_out_lng' => $request->input('longitude'),
-            'work_summary' => $request->input('work_summary'),
+            'work_summary' => $request->input('work_summary', $request->input('notes')),
         ]);
 
         return $this->responseFeedback($request, true, 'Absensi Pulang berhasil dicatat! Terima kasih atas dedikasi Anda hari ini.');
@@ -159,7 +155,7 @@ class AbsensiController extends Controller
             ], $success ? 200 : 422);
         }
 
-        return redirect()->route('karyawan.absensi')
+        return redirect()->route('karyawan.absensi.index')
                          ->with($success ? 'success' : 'error', $message);
     }
 }

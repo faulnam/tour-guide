@@ -38,6 +38,9 @@ class Booking extends Model
         'payment_method',
         'payment_token',
         'payment_ref',
+        'delivery_method',
+        'delivery_address',
+        'delivery_notes',
         'payment_payload',
         'progress_photos',
     ];
@@ -88,32 +91,60 @@ class Booking extends Model
         return $this->hasMany(BookingLog::class, 'booking_id')->latest();
     }
 
+    public function getLatestPaymentAttribute()
+    {
+        return $this->payments()->latest()->first();
+    }
+
+    public function getStatusLabelAttribute(): string
+    {
+        return match ($this->status) {
+            'pending' => 'Menunggu Konfirmasi',
+            'confirmed' => 'Terkonfirmasi Masuk',
+            'in_progress' => 'Sedang Dikerjakan',
+            'qc' => 'QC & Dyno Test',
+            'completed' => 'Selesai / Siap Diambil',
+            'cancelled' => 'Dibatalkan',
+            default => ucfirst($this->status),
+        };
+    }
+
+    public function getPaymentStatusLabelAttribute(): string
+    {
+        return match ($this->payment_status) {
+            'paid' => 'Lunas Penuh',
+            'dp_paid' => 'DP Terbayar',
+            'refunded' => 'Dana Dikembalikan (Refund)',
+            default => 'Belum Bayar',
+        };
+    }
+
     public function getStatusBadgeAttribute(): string
     {
         return match ($this->status) {
-            'pending' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">Menunggu Konfirmasi</span>',
-            'confirmed' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30">Terkonfirmasi</span>',
-            'in_progress' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-400 border border-purple-500/30 animate-pulse">Sedang Dikerjakan</span>',
-            'qc' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">Quality Control & Dyno</span>',
-            'completed' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Selesai / Siap Diambil</span>',
-            'cancelled' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/20 text-red-400 border border-red-500/30">Dibatalkan</span>',
-            default => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-neutral-700 text-neutral-300">' . ucfirst($this->status) . '</span>',
+            'pending' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800">Menunggu Konfirmasi</span>',
+            'confirmed' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-300 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">Terkonfirmasi Masuk</span>',
+            'in_progress' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-300 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800 animate-pulse">Sedang Dikerjakan</span>',
+            'qc' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-300 dark:bg-cyan-950 dark:text-cyan-300 dark:border-cyan-800">QC & Dyno Test</span>',
+            'completed' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">Selesai / Ready</span>',
+            'cancelled' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-800 border border-red-300 dark:bg-red-950 dark:text-red-300 dark:border-red-800">Dibatalkan</span>',
+            default => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 border border-neutral-300 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700">' . ucfirst($this->status) . '</span>',
         };
     }
 
     public function getPaymentBadgeAttribute(): string
     {
         return match ($this->payment_status) {
-            'paid' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Lunas</span>',
-            'dp_paid' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">DP Terbayar</span>',
-            'refunded' => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-400 border border-purple-500/30">Refund</span>',
-            default => '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">Belum Bayar</span>',
+            'paid' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">Lunas Penuh</span>',
+            'dp_paid' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-300 dark:bg-cyan-950 dark:text-cyan-300 dark:border-cyan-800">DP Terbayar</span>',
+            'refunded' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-300 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800">Refund</span>',
+            default => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800">Belum Bayar</span>',
         };
     }
 
     public function getVehicleTypeLabelAttribute(): string
     {
-        return $this->vehicle_type === 'motor' ? '🏍️ Motor' : '🚗 Mobil';
+        return $this->vehicle_type === 'motor' ? 'Motor' : 'Mobil';
     }
 
     /**
@@ -194,6 +225,34 @@ class Booking extends Model
         }
 
         return '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/20 text-red-600 border border-red-500/30">Masa Garansi Berakhir</span>';
+    }
+
+    /**
+     * Sisa tagihan pelunasan (Total - Paid).
+     */
+    public function getRemainingAmountAttribute(): float
+    {
+        $total = (float) ($this->total_amount > 0 ? $this->total_amount : ($this->service->price ?? 0));
+        $paid = (float) $this->paid_amount;
+        return max(0, $total - $paid);
+    }
+
+    public function getFormattedRemainingAmountAttribute(): string
+    {
+        return 'Rp ' . number_format($this->remaining_amount, 0, ',', '.');
+    }
+
+    public function getIsFullyPaidAttribute(): bool
+    {
+        return $this->payment_status === 'paid' || ($this->remaining_amount <= 0 && $this->paid_amount > 0);
+    }
+
+    public function getDeliveryMethodLabelAttribute(): string
+    {
+        return match ($this->delivery_method) {
+            'delivery_address' => 'Diantar ke Alamat Customer (Delivery / Towing)',
+            default => 'Diambil Sendiri ke Workshop BENGKEL',
+        };
     }
 }
 

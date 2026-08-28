@@ -25,7 +25,7 @@
             <div class="lg:col-span-7 bg-white border border-neutral-200 p-6 md:p-8 space-y-6">
                 <div class="flex items-center justify-between border-b border-neutral-100 pb-3">
                     <div class="font-bold text-xs uppercase tracking-wider text-black flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full" :class="streamActive ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'"></span>
+                        <span class="w-2 h-2 rounded-full" :class="streamActive ? 'bg-black animate-pulse' : 'bg-neutral-400'"></span>
                         <span>Viewfinder Kamera Webcam</span>
                     </div>
                     <button type="button" @click="initCamera()" class="text-[10px] uppercase tracking-widest text-neutral-500 hover:text-black font-semibold">
@@ -42,14 +42,14 @@
                            :class="snapshotData ? 'hidden' : 'block'"></video>
 
                     <!-- Snapshot Result Preview -->
-                    <img x-show="snapshotData" :src="snapshotData" alt="Snapshot Foto Absen" class="w-full h-full object-cover">
+                    <img x-show="snapshotData" :src="snapshotData" alt="Snapshot Foto Absen" class="w-full h-full object-cover" x-cloak>
 
                     <!-- Canvas Buffer (Hidden) -->
                     <canvas x-ref="canvasElement" class="hidden"></canvas>
 
                     <!-- Face Guide Overlay -->
                     <div x-show="!snapshotData && streamActive" class="absolute inset-0 pointer-events-none flex items-center justify-center border-2 border-dashed border-white/30 m-8 rounded-lg">
-                        <span class="text-white/60 text-[10px] uppercase tracking-widest bg-black/40 px-3 py-1">Posisikan Wajah di Dalam Kotak</span>
+                        <span class="text-white/80 text-[10px] uppercase tracking-widest bg-black/60 px-3 py-1">Posisikan Wajah di Dalam Kotak</span>
                     </div>
 
                     <!-- Loading / Fallback Indicator -->
@@ -77,47 +77,66 @@
                         <button x-show="snapshotData" 
                                 @click="retakeSnapshot()" 
                                 type="button" 
-                                class="btn-outline-dark">
+                                class="btn-outline-dark"
+                                x-cloak>
                             Foto Ulang
                         </button>
                     </div>
                 </div>
 
-                <!-- Attendance Submit Form -->
-                <form action="{{ route('karyawan.absensi.store') }}" method="POST" class="pt-4 border-t border-neutral-200 space-y-4">
-                    @csrf
-                    <input type="hidden" name="photo" x-model="snapshotData">
-                    <input type="hidden" name="latitude" x-model="latitude">
-                    <input type="hidden" name="longitude" x-model="longitude">
+                @php
+                    $isClockedIn = $todayAttendance && $todayAttendance->check_in_time;
+                    $isClockedOut = $todayAttendance && $todayAttendance->check_out_time;
+                @endphp
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Tipe Absensi *</label>
-                            <select name="type" required class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors">
-                                @if(!$todayAttendance || !$todayAttendance->clock_in)
-                                    <option value="in">Clock In (Masuk Shift)</option>
-                                @endif
-                                @if($todayAttendance && $todayAttendance->clock_in && !$todayAttendance->clock_out)
-                                    <option value="out">Clock Out (Pulang Shift)</option>
-                                @endif
-                                <option value="in">Clock In (Masuk Shift)</option>
-                                <option value="out">Clock Out (Pulang Shift)</option>
-                            </select>
+                @if(!$isClockedOut)
+                    <!-- Attendance Submit Form -->
+                    <form :action="attendanceType === 'in' ? '{{ route('karyawan.absensi.checkin') }}' : '{{ route('karyawan.absensi.checkout') }}'" 
+                          method="POST" 
+                          class="pt-4 border-t border-neutral-200 space-y-4">
+                        @csrf
+                        <input type="hidden" name="image_data" x-model="snapshotData">
+                        <input type="hidden" name="photo" x-model="snapshotData">
+                        <input type="hidden" name="latitude" x-model="latitude">
+                        <input type="hidden" name="longitude" x-model="longitude">
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Aksi Absensi *</label>
+                                <select name="type" x-model="attendanceType" class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors font-semibold">
+                                    @if(!$isClockedIn)
+                                        <option value="in">Clock In — Absen Masuk Shift</option>
+                                    @else
+                                        <option value="out">Clock Out — Absen Pulang Shift</option>
+                                    @endif
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">
+                                    <span x-show="attendanceType === 'in'">Catatan Presensi (Opsional)</span>
+                                    <span x-show="attendanceType === 'out'" x-cloak>Ringkasan Pekerjaan Hari Ini (Work Summary)</span>
+                                </label>
+                                <input type="text" name="notes" placeholder="Tuliskan catatan pengerjaan hari ini..."
+                                       class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors">
+                            </div>
                         </div>
 
                         <div>
-                            <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Catatan Pekerjaan (Opsional)</label>
-                            <input type="text" name="notes" placeholder="Contoh: Dyno run Civic Turbo"
-                                   class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors">
+                            <button type="submit" :disabled="!snapshotData" class="btn-dark w-full disabled:opacity-40 disabled:cursor-not-allowed">
+                                <span x-show="attendanceType === 'in'">Kirim Absensi Masuk (Clock In) &rarr;</span>
+                                <span x-show="attendanceType === 'out'" x-cloak>Kirim Absensi Pulang (Clock Out) &rarr;</span>
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <div class="pt-4 border-t border-neutral-200">
+                        <div class="p-4 bg-neutral-bg border border-neutral-300 text-black text-xs space-y-1">
+                            <div class="font-bold uppercase tracking-wider">Absensi Hari Ini Telah Lengkap</div>
+                            <p class="text-neutral-600">Anda sudah melakukan absen masuk dan pulang untuk shift hari ini. Sampai jumpa di shift berikutnya!</p>
                         </div>
                     </div>
-
-                    <div>
-                        <button type="submit" :disabled="!snapshotData" class="btn-dark w-full disabled:opacity-40 disabled:cursor-not-allowed">
-                            Kirim Absensi Kamera &rarr;
-                        </button>
-                    </div>
-                </form>
+                @endif
 
             </div>
 
@@ -133,25 +152,32 @@
                             <div class="flex justify-between items-center p-3 bg-neutral-bg border border-neutral-200">
                                 <div>
                                     <div class="text-[10px] uppercase tracking-wider text-neutral-500">Clock In (Masuk)</div>
-                                    <div class="font-bold text-black text-sm">{{ $todayAttendance->clock_in ? $todayAttendance->clock_in->format('H:i:s') . ' WIB' : '-' }}</div>
+                                    <div class="font-bold text-black text-sm">
+                                        {{ $todayAttendance->check_in_time ? substr($todayAttendance->check_in_time, 0, 5) . ' WIB' : '-' }}
+                                    </div>
+                                    <div class="mt-1">
+                                        {!! $todayAttendance->status_badge !!}
+                                    </div>
                                 </div>
-                                @if($todayAttendance->photo_in)
-                                    <img src="{{ asset('storage/' . $todayAttendance->photo_in) }}" class="w-12 h-12 object-cover border border-neutral-200">
+                                @if($todayAttendance->check_in_photo)
+                                    <img src="{{ $todayAttendance->check_in_photo_url }}" class="w-14 h-14 object-cover border border-neutral-200">
                                 @endif
                             </div>
 
                             <div class="flex justify-between items-center p-3 bg-neutral-bg border border-neutral-200">
                                 <div>
                                     <div class="text-[10px] uppercase tracking-wider text-neutral-500">Clock Out (Pulang)</div>
-                                    <div class="font-bold text-black text-sm">{{ $todayAttendance->clock_out ? $todayAttendance->clock_out->format('H:i:s') . ' WIB' : 'Belum Absen Pulang' }}</div>
+                                    <div class="font-bold text-black text-sm">
+                                        {{ $todayAttendance->check_out_time ? substr($todayAttendance->check_out_time, 0, 5) . ' WIB' : 'Belum Absen Pulang' }}
+                                    </div>
                                 </div>
-                                @if($todayAttendance->photo_out)
-                                    <img src="{{ asset('storage/' . $todayAttendance->photo_out) }}" class="w-12 h-12 object-cover border border-neutral-200">
+                                @if($todayAttendance->check_out_photo)
+                                    <img src="{{ $todayAttendance->check_out_photo_url }}" class="w-14 h-14 object-cover border border-neutral-200">
                                 @endif
                             </div>
                         </div>
                     @else
-                        <div class="p-4 bg-amber-50 border border-amber-200 text-amber-800 text-xs">
+                        <div class="p-4 bg-neutral-bg border border-neutral-300 text-neutral-700 text-xs">
                             Anda belum melakukan absensi masuk (Clock In) hari ini.
                         </div>
                     @endif
@@ -161,22 +187,30 @@
                 <div class="bg-white border border-neutral-200 p-6 space-y-4">
                     <div class="eyebrow text-black font-semibold">Riwayat Absensi Terakhir</div>
                     <div class="space-y-2 max-h-72 overflow-y-auto">
-                        @forelse($recentAttendances as $att)
+                        @forelse($attendances as $att)
                             <div class="p-3 bg-neutral-bg border border-neutral-200 text-xs flex justify-between items-center">
                                 <div>
-                                    <div class="font-bold text-black">{{ $att->date->format('d M Y') }}</div>
-                                    <div class="text-[10px] text-neutral-500">
-                                        In: {{ $att->clock_in ? $att->clock_in->format('H:i') : '-' }} • Out: {{ $att->clock_out ? $att->clock_out->format('H:i') : '-' }}
+                                    <div class="font-bold text-black">
+                                        {{ $att->date ? (is_string($att->date) ? date('d M Y', strtotime($att->date)) : $att->date->format('d M Y')) : '-' }}
+                                    </div>
+                                    <div class="text-[10px] text-neutral-500 mt-0.5">
+                                        Masuk: {{ $att->check_in_time ? substr($att->check_in_time, 0, 5) : '-' }} &bull; Pulang: {{ $att->check_out_time ? substr($att->check_out_time, 0, 5) : '-' }}
                                     </div>
                                 </div>
-                                <span class="px-2 py-0.5 text-[9px] uppercase font-bold {{ $att->status === 'present' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800' }}">
-                                    {{ $att->status }}
-                                </span>
+                                <div>
+                                    {!! $att->status_badge !!}
+                                </div>
                             </div>
                         @empty
                             <div class="text-center py-4 text-xs text-neutral-400">Belum ada riwayat absensi.</div>
                         @endforelse
                     </div>
+
+                    @if($attendances->hasPages())
+                        <div class="pt-2 flex justify-center">
+                            {{ $attendances->links() }}
+                        </div>
+                    @endif
                 </div>
 
             </div>
@@ -196,6 +230,7 @@ function cameraAttendance() {
         latitude: null,
         longitude: null,
         locationStatus: 'Mendeteksi lokasi...',
+        attendanceType: '{{ (!$todayAttendance || !$todayAttendance->check_in_time) ? "in" : "out" }}',
 
         initCamera() {
             this.snapshotData = null;
@@ -206,8 +241,10 @@ function cameraAttendance() {
                     video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' } 
                 })
                 .then(stream => {
-                    this.$refs.videoElement.srcObject = stream;
-                    this.streamActive = true;
+                    if (this.$refs.videoElement) {
+                        this.$refs.videoElement.srcObject = stream;
+                        this.streamActive = true;
+                    }
                 })
                 .catch(err => {
                     console.error("Camera access error:", err);

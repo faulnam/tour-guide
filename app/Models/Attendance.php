@@ -42,6 +42,26 @@ class Attendance extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getClockInAttribute(): ?string
+    {
+        return $this->check_in_time ? substr($this->check_in_time, 0, 5) : null;
+    }
+
+    public function getClockOutAttribute(): ?string
+    {
+        return $this->check_out_time ? substr($this->check_out_time, 0, 5) : null;
+    }
+
+    public function getPhotoInAttribute(): ?string
+    {
+        return $this->check_in_photo;
+    }
+
+    public function getPhotoOutAttribute(): ?string
+    {
+        return $this->check_out_photo;
+    }
+
     public function getCheckInPhotoUrlAttribute(): ?string
     {
         if (!$this->check_in_photo) {
@@ -67,11 +87,11 @@ class Attendance extends Model
     public function getStatusBadgeAttribute(): string
     {
         return match ($this->status) {
-            'hadir' => '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-900/40 text-emerald-400 border border-emerald-700">Hadir Tepat Waktu</span>',
-            'terlambat' => '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-900/40 text-amber-400 border border-amber-700">Terlambat</span>',
-            'izin' => '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900/40 text-blue-400 border border-blue-700">Izin</span>',
-            'sakit' => '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-900/40 text-purple-400 border border-purple-700">Sakit</span>',
-            default => '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-900/40 text-red-400 border border-red-700">Alpa</span>',
+            'hadir', 'present' => '<span class="inline-flex items-center px-2 py-0.5 text-[10px] uppercase font-bold bg-neutral-100 text-black border border-neutral-300">Hadir Tepat Waktu</span>',
+            'terlambat', 'late' => '<span class="inline-flex items-center px-2 py-0.5 text-[10px] uppercase font-bold bg-neutral-100 text-neutral-700 border border-neutral-300">Terlambat</span>',
+            'izin' => '<span class="inline-flex items-center px-2 py-0.5 text-[10px] uppercase font-bold bg-neutral-100 text-neutral-700 border border-neutral-300">Izin</span>',
+            'sakit' => '<span class="inline-flex items-center px-2 py-0.5 text-[10px] uppercase font-bold bg-neutral-100 text-neutral-700 border border-neutral-300">Sakit</span>',
+            default => '<span class="inline-flex items-center px-2 py-0.5 text-[10px] uppercase font-bold bg-neutral-100 text-neutral-700 border border-neutral-300">Alpa</span>',
         };
     }
 }
