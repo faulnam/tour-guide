@@ -97,7 +97,7 @@
                                 type="button" 
                                 class="btn-dark flex-1 py-3 text-xs tracking-wider uppercase font-bold flex items-center justify-center gap-2">
                             <span>📷</span>
-                            <span>Ambil Foto Snapshot</span>
+                            <span>Ambil Foto Snapshot Kamera</span>
                         </button>
 
                         <button x-show="snapshotData" 
@@ -106,13 +106,6 @@
                                 class="btn-outline-dark text-xs py-2.5 px-4">
                             &larr; Foto Ulang
                         </button>
-
-                        <!-- Alternative upload button -->
-                        <label class="px-4 py-2.5 border border-neutral-300 text-neutral-700 hover:border-black hover:text-black text-xs font-semibold uppercase tracking-wider cursor-pointer transition-colors flex items-center gap-1.5">
-                            <span>📁</span>
-                            <span>Upload File</span>
-                            <input type="file" accept="image/*" @change="uploadPhoto($event)" class="hidden">
-                        </label>
                     </div>
                 </div>
 
@@ -356,17 +349,6 @@ function cameraAttendance() {
 
             this.capturedTime = new Date().toLocaleTimeString('id-ID') + ' WIB';
             this.snapshotData = canvas.toDataURL('image/jpeg', 0.9);
-        },
-
-        uploadPhoto(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                this.snapshotData = event.target.result;
-                this.capturedTime = new Date().toLocaleTimeString('id-ID') + ' WIB';
-            };
-            reader.readAsDataURL(file);
         },
 
         retakeSnapshot() {
