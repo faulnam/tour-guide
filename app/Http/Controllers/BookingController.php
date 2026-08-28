@@ -34,6 +34,12 @@ class BookingController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        if (!Auth::check()) {
+            session()->put('url.intended', route('booking.index'));
+            return redirect()->route('login', ['role' => 'customer', 'redirect' => route('booking.index')])
+                ->with('error', 'Wajib login terlebih dahulu untuk melakukan booking pengerjaan.');
+        }
+
         $validated = $request->validate([
             'customer_name' => ['required', 'string', 'max:255'],
             'customer_email' => ['required', 'email', 'max:255'],

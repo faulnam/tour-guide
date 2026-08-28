@@ -18,6 +18,10 @@ class AuthController extends Controller
      */
     public function showLogin(Request $request): View|RedirectResponse
     {
+        if ($request->has('redirect') && !session()->has('url.intended')) {
+            session(['url.intended' => $request->query('redirect')]);
+        }
+
         if (Auth::check()) {
             return $this->redirectBasedOnRole(Auth::user());
         }

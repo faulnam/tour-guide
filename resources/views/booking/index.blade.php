@@ -26,6 +26,8 @@
     <!-- Booking Form Section -->
     <section class="py-20 md:py-28 bg-white" x-data="{
         step: 1,
+        isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
+        loginUrl: '{{ route('login', ['role' => 'customer', 'redirect' => route('booking.index')]) }}',
         vehicleType: '{{ $selectedVehicleType !== 'all' ? $selectedVehicleType : 'mobil' }}',
         selectedService: {{ $selectedServiceId ?? 'null' }},
         servicePrice: 0,
@@ -41,6 +43,13 @@
         },
         formatRupiah(num) {
             return 'Rp ' + new Intl.NumberFormat('id-ID').format(num);
+        },
+        goToStep(targetStep) {
+            if (targetStep > 1 && !this.isLoggedIn) {
+                window.location.href = this.loginUrl;
+                return;
+            }
+            this.step = targetStep;
         }
     }" x-init="
         @if($selectedServiceId)
@@ -60,16 +69,32 @@
                     <span class="uppercase tracking-wider text-[11px]">Kendaraan &amp; Layanan</span>
                 </div>
 
-                <div class="p-4 border-r border-neutral-200 flex items-center gap-3"
+                <div class="p-4 border-r border-neutral-200 flex items-center justify-between gap-2"
                      :class="step >= 2 ? 'bg-white text-black font-bold' : 'text-neutral-400'">
-                    <span class="w-5 h-5 flex items-center justify-center text-[10px]" :class="step >= 2 ? 'bg-black text-white' : 'bg-neutral-300 text-neutral-600'">2</span>
-                    <span class="uppercase tracking-wider text-[11px]">Jadwal &amp; Data Diri</span>
+                    <div class="flex items-center gap-3">
+                        <span class="w-5 h-5 flex items-center justify-center text-[10px]" :class="step >= 2 ? 'bg-black text-white' : 'bg-neutral-300 text-neutral-600'">2</span>
+                        <span class="uppercase tracking-wider text-[11px]">Jadwal &amp; Data Diri</span>
+                    </div>
+                    @guest
+                        <span class="text-[9px] uppercase px-1.5 py-0.5 bg-neutral-200 text-neutral-600 font-semibold tracking-wider flex items-center gap-1 hidden sm:flex">
+                            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            Login
+                        </span>
+                    @endguest
                 </div>
 
-                <div class="p-4 flex items-center gap-3"
+                <div class="p-4 flex items-center justify-between gap-2"
                      :class="step >= 3 ? 'bg-white text-black font-bold' : 'text-neutral-400'">
-                    <span class="w-5 h-5 flex items-center justify-center text-[10px]" :class="step >= 3 ? 'bg-black text-white' : 'bg-neutral-300 text-neutral-600'">3</span>
-                    <span class="uppercase tracking-wider text-[11px]">Konfirmasi &amp; Bayar DP</span>
+                    <div class="flex items-center gap-3">
+                        <span class="w-5 h-5 flex items-center justify-center text-[10px]" :class="step >= 3 ? 'bg-black text-white' : 'bg-neutral-300 text-neutral-600'">3</span>
+                        <span class="uppercase tracking-wider text-[11px]">Konfirmasi &amp; DP</span>
+                    </div>
+                    @guest
+                        <span class="text-[9px] uppercase px-1.5 py-0.5 bg-neutral-200 text-neutral-600 font-semibold tracking-wider flex items-center gap-1 hidden sm:flex">
+                            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            Login
+                        </span>
+                    @endguest
                 </div>
             </div>
 
@@ -194,10 +219,24 @@
                         </div>
                     </div>
 
-                    <div class="pt-4 flex justify-end">
-                        <button type="button" @click="step = 2" class="btn-dark">
-                            Lanjut ke Langkah 2 &rarr;
-                        </button>
+                    <div class="pt-4 flex justify-between items-center flex-wrap gap-4 border-t border-neutral-200/60">
+                        @guest
+                            <div class="text-xs text-amber-800 bg-amber-50 border border-amber-300/80 px-4 py-2.5 flex items-center gap-2.5 flex-1 min-w-[260px]">
+                                <svg class="w-4 h-4 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-[11px]">Anda wajib <strong>login akun customer</strong> terlebih dahulu untuk lanjut ke Langkah 2 & reservasi slot kedatangan.</span>
+                            </div>
+                            <button type="button" @click="goToStep(2)" class="btn-dark flex items-center gap-2">
+                                <span>Login untuk Lanjut Langkah 2</span>
+                                <span class="text-xs">&rarr;</span>
+                            </button>
+                        @else
+                            <div></div>
+                            <button type="button" @click="goToStep(2)" class="btn-dark">
+                                Lanjut ke Langkah 2 &rarr;
+                            </button>
+                        @endguest
                     </div>
                 </div>
 
@@ -263,10 +302,10 @@
                     </div>
 
                     <div class="pt-4 flex justify-between items-center">
-                        <button type="button" @click="step = 1" class="btn-outline-dark">
+                        <button type="button" @click="goToStep(1)" class="btn-outline-dark">
                             &larr; Kembali
                         </button>
-                        <button type="button" @click="step = 3" class="btn-dark">
+                        <button type="button" @click="goToStep(3)" class="btn-dark">
                             Lanjut ke Langkah 3 &rarr;
                         </button>
                     </div>
@@ -328,7 +367,7 @@
                     </div>
 
                     <div class="pt-6 flex justify-between items-center border-t border-neutral-200">
-                        <button type="button" @click="step = 2" class="btn-outline-dark">
+                        <button type="button" @click="goToStep(2)" class="btn-outline-dark">
                             &larr; Kembali
                         </button>
 
