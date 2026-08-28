@@ -1,29 +1,56 @@
-<section class="py-20 bg-gradient-to-r from-red-950/40 via-[#121218] to-neutral-900 border-t border-neutral-800">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-        <div class="inline-flex items-center gap-2 bg-red-600/20 border border-red-500/40 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-red-400">
-            <i class="fa-solid fa-gauge-high"></i>
-            <span>Apex High Performance Workshop</span>
+<section class="py-24 md:py-32 bg-white text-center border-t border-neutral-100">
+    <div class="max-w-4xl mx-auto px-6 space-y-6">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-black leading-tight uppercase">
+            {{ \App\Models\PageContent::get('home_cta_title', 'Want to build or tune your machine?') }}
+        </h2>
+        
+        <div class="min-h-[40px] flex items-center justify-center text-neutral-body text-xs md:text-sm max-w-xl mx-auto"
+             x-data="{
+                text: '',
+                phrases: [
+                    'Diskusikan konsep modifikasi, target tenaga dyno, atau kebutuhan servis kendaraan Anda.',
+                    'Kunci jadwal antrean teknisi kami dengan sistem booking online praktis.',
+                    'Dapatkan hasil modifikasi bergaransi dan teruji di atas mesin Dyno Jet.'
+                ],
+                phraseIndex: 0,
+                charIndex: 0,
+                isDeleting: false,
+                typeSpeed: 45,
+                deleteSpeed: 20,
+                pauseTime: 2200,
+                init() { this.type(); },
+                type() {
+                    const current = this.phrases[this.phraseIndex];
+                    if (this.isDeleting) {
+                        this.text = current.substring(0, this.charIndex - 1);
+                        this.charIndex--;
+                    } else {
+                        this.text = current.substring(0, this.charIndex + 1);
+                        this.charIndex++;
+                    }
+                    let speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+                    if (!this.isDeleting && this.charIndex === current.length) {
+                        speed = this.pauseTime;
+                        this.isDeleting = true;
+                    } else if (this.isDeleting && this.charIndex === 0) {
+                        this.isDeleting = false;
+                        this.phraseIndex = (this.phraseIndex + 1) % this.phrases.length;
+                        speed = 350;
+                    }
+                    setTimeout(() => this.type(), speed);
+                }
+             }">
+            <p class="leading-relaxed">
+                <span x-text="text">Diskusikan rencana modifikasi motor &amp; mobil Anda dengan master tuner Metrix.</span><span class="inline-block w-0.5 h-3.5 bg-black ml-1 align-middle animate-cursor"></span>
+            </p>
         </div>
 
-        <h2 class="font-racing font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
-            SIAP UPGRADE PERFORMA MOTOR & MOBIL ANDA?
-        </h2>
-
-        <p class="text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto leading-relaxed">
-            Kunci jadwal antrean teknisi kami sekarang juga. Dapatkan garansi pengerjaan dan kemudahan pembayaran DP via Payment Gateway instan.
-        </p>
-
-        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <a href="{{ url('/booking') }}" 
-               class="px-8 py-4 bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl font-racing font-bold uppercase tracking-wider text-xs shadow-xl shadow-red-600/40 hover:scale-105 transition-all flex items-center gap-2">
-                <i class="fa-solid fa-calendar-check text-sm"></i>
-                <span>Booking Antrean Online &rarr;</span>
+        <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <a href="{{ url('/booking') }}" class="btn-dark">
+                Booking Online
             </a>
-
-            <a href="https://wa.me/6281288889999" target="_blank"
-               class="px-6 py-4 bg-[#14141c] hover:bg-neutral-800 text-white border border-neutral-700 rounded-xl font-bold uppercase tracking-wider text-xs transition-all flex items-center gap-2">
-                <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
-                <span>Chat WhatsApp Tuner</span>
+            <a href="{{ url('/contact-us') }}" class="btn-outline-dark">
+                Contact Us
             </a>
         </div>
     </div>

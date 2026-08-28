@@ -1,163 +1,124 @@
 @extends('layouts.karyawan')
 
-@section('title', 'Dashboard Karyawan')
+@section('meta_title', 'Dashboard Karyawan — Metrix Garage')
 
 @section('content')
 <div class="space-y-8">
     
-    <!-- Staff Welcome Header Banner -->
-    <div class="bg-gradient-to-r from-neutral-900 via-[#181824] to-[#251b14] border border-neutral-800 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-        <div class="space-y-2 text-center md:text-left">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                <i class="fa-solid fa-id-card"></i>
-                <span>Portal Mekanik & Karyawan Bengkel</span>
-            </div>
-            <h1 class="font-racing font-bold text-2xl sm:text-3xl text-white">
-                Halo, {{ $user->name }}!
+    <div class="border-b border-neutral-200 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <div class="eyebrow text-accent font-semibold">Staff Dashboard</div>
+            <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black font-sans">
+                Halo, {{ auth()->user()->name }}
             </h1>
-            <p class="text-xs text-neutral-400">
-                Spesialisasi: <span class="text-amber-400 font-bold">{{ $user->specialty ?? 'Mekanik Workshop' }}</span> • Tanggal: <span class="text-white">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</span>
+            <p class="text-xs text-neutral-500 mt-1">
+                Spesialisasi: <span class="font-bold text-black">{{ auth()->user()->specialty ?? 'Teknisi & Master Modifikator' }}</span>
             </p>
         </div>
-
-        <!-- Quick Camera Attendance Action -->
-        <div class="flex-shrink-0">
-            @if(!$todayAttendance || !$todayAttendance->check_in_time)
-                <a href="{{ route('karyawan.absensi') }}" 
-                   class="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-racing font-black text-xs uppercase tracking-wider rounded-2xl shadow-xl shadow-amber-600/30 hover:scale-105 transition-all flex items-center gap-2.5">
-                    <i class="fa-solid fa-camera text-base"></i>
-                    <span>AMBIL ABSENSI MASUK SEKARANG</span>
-                </a>
-            @elseif(!$todayAttendance->check_out_time)
-                <a href="{{ route('karyawan.absensi') }}" 
-                   class="px-6 py-3.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-racing font-black text-xs uppercase tracking-wider rounded-2xl shadow-xl shadow-red-600/30 hover:scale-105 transition-all flex items-center gap-2.5">
-                    <i class="fa-solid fa-camera text-base"></i>
-                    <span>AMBIL ABSENSI PULANG</span>
-                </a>
-            @else
-                <div class="px-5 py-3 bg-emerald-950/60 border border-emerald-500/40 rounded-2xl text-emerald-400 text-xs font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-base"></i>
-                    <span>Absensi Hari Ini Lengkap</span>
-                </div>
-            @endif
+        <div>
+            <a href="{{ route('karyawan.absensi.index') }}" class="btn-dark">
+                📷 Absensi Kamera Sekarang
+            </a>
         </div>
     </div>
 
-    <!-- Metrics Cards -->
+    <!-- Quick Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-white border border-neutral-200 p-6 space-y-2">
+            <div class="eyebrow text-neutral-400 text-[10px]">Tugas Aktif Ditugaskan</div>
+            <div class="text-3xl font-bold text-black">{{ $activeTasks }}</div>
+            <div class="text-[11px] text-neutral-500">Unit kendaraan dalam pengerjaan Anda</div>
+        </div>
+
+        <div class="bg-white border border-neutral-200 p-6 space-y-2">
+            <div class="eyebrow text-neutral-400 text-[10px]">Tugas Selesai</div>
+            <div class="text-3xl font-bold text-emerald-600">{{ $completedTasks }}</div>
+            <div class="text-[11px] text-neutral-500">Pengerjaan telah lulus QC</div>
+        </div>
+
+        <div class="bg-white border border-neutral-200 p-6 space-y-2">
+            <div class="eyebrow text-neutral-400 text-[10px]">Total Kehadiran Bulan Ini</div>
+            <div class="text-3xl font-bold text-black">{{ $monthlyAttendances }}</div>
+            <div class="text-[11px] text-neutral-500">Hari kerja tercatat via kamera</div>
+        </div>
+    </div>
+
+    <!-- Today Attendance & Tasks (2 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Status Absensi Hari Ini -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-2xl p-6 space-y-3">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Status Kehadiran Hari Ini</span>
-                <i class="fa-solid fa-camera text-amber-400"></i>
+        <!-- Left: Assigned Tasks (7 cols) -->
+        <div class="lg:col-span-7 bg-white border border-neutral-200 p-6 md:p-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-3">
+                <div class="eyebrow text-black font-semibold">Tugas Pengerjaan Bengkel</div>
+                <a href="{{ route('karyawan.tasks.index') }}" class="text-[11px] uppercase tracking-wider font-semibold text-black hover:text-accent">
+                    Lihat Semua &rarr;
+                </a>
             </div>
-            @if($todayAttendance && $todayAttendance->check_in_time)
-                <div class="text-sm font-bold text-white flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span>Masuk: {{ $todayAttendance->check_in_time }} WIB</span>
-                </div>
-                <div class="text-xs text-neutral-400">
-                    Pulang: {{ $todayAttendance->check_out_time ? $todayAttendance->check_out_time . ' WIB' : 'Sedang Bertugas' }}
+
+            <div class="space-y-4">
+                @forelse($recentTasks as $task)
+                    <div class="p-4 bg-neutral-bg border border-neutral-200 space-y-3">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <div class="text-xs font-bold text-black">{{ $task->service->title ?? 'Custom Package' }}</div>
+                                <div class="text-[11px] text-neutral-500">{{ $task->vehicle_brand }} {{ $task->vehicle_model }} ({{ $task->license_plate }})</div>
+                            </div>
+                            <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-white border border-neutral-300">
+                                {{ $task->status }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center justify-between text-xs text-neutral-600 pt-2 border-t border-neutral-200">
+                            <span>Progress: {{ $task->progress_percentage }}%</span>
+                            <a href="{{ route('karyawan.tasks.show', $task->id) }}" class="font-bold text-black hover:underline">
+                                Update Pengerjaan &rarr;
+                            </a>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-8 text-neutral-400 text-xs">
+                        Tidak ada tugas pekerjaan aktif yang ditugaskan ke Anda saat ini.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Right: Attendance Summary (5 cols) -->
+        <div class="lg:col-span-5 bg-white border border-neutral-200 p-6 md:p-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-neutral-100 pb-3">
+                <div class="eyebrow text-black font-semibold">Status Presensi Hari Ini</div>
+                <span class="text-[10px] text-neutral-400 font-mono">{{ date('d/m/Y') }}</span>
+            </div>
+
+            @if($todayAttendance)
+                <div class="space-y-4 text-xs">
+                    <div class="p-4 bg-neutral-bg border border-neutral-200 space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-neutral-500">Jam Masuk (Clock In):</span>
+                            <span class="font-bold text-emerald-700">{{ $todayAttendance->clock_in ? $todayAttendance->clock_in->format('H:i:s') . ' WIB' : '-' }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-neutral-500">Jam Pulang (Clock Out):</span>
+                            <span class="font-bold text-amber-700">{{ $todayAttendance->clock_out ? $todayAttendance->clock_out->format('H:i:s') . ' WIB' : 'Belum Absen Pulang' }}</span>
+                        </div>
+                    </div>
+
+                    @if(!$todayAttendance->clock_out)
+                        <a href="{{ route('karyawan.absensi.index') }}" class="btn-dark w-full text-center block">
+                            Absen Pulang (Clock Out) &rarr;
+                        </a>
+                    @endif
                 </div>
             @else
-                <div class="text-sm font-bold text-red-400 flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
-                    <span>Belum Melakukan Absensi</span>
+                <div class="space-y-4">
+                    <p class="text-xs text-neutral-500">Anda belum melakukan absensi masuk shift hari ini.</p>
+                    <a href="{{ route('karyawan.absensi.index') }}" class="btn-dark w-full text-center block">
+                        Ambil Foto Absen Masuk &rarr;
+                    </a>
                 </div>
-                <div class="text-xs text-neutral-400">Silakan buka menu Absensi Kamera</div>
             @endif
         </div>
 
-        <!-- Tugas Pengerjaan Aktif -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-2xl p-6 space-y-3">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Unit Sedang Dikerjakan</span>
-                <i class="fa-solid fa-screwdriver-wrench text-red-400"></i>
-            </div>
-            <div class="font-racing font-black text-3xl text-white">
-                {{ $activeTasks->count() }} <span class="text-xs text-neutral-400 font-sans font-normal">Kendaraan</span>
-            </div>
-            <div class="text-xs text-neutral-400">Tugas modifikasi dalam penanganan Anda</div>
-        </div>
-
-        <!-- Kehadiran Bulan Ini -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-2xl p-6 space-y-3">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Total Kehadiran Bulan Ini</span>
-                <i class="fa-solid fa-calendar-check text-emerald-400"></i>
-            </div>
-            <div class="font-racing font-black text-3xl text-emerald-400">
-                {{ $monthlyAttendances }} <span class="text-xs text-neutral-400 font-sans font-normal">Hari Kerja</span>
-            </div>
-            <div class="text-xs text-neutral-400">Rekap absensi kamera tercatat otomatis</div>
-        </div>
-
-    </div>
-
-    <!-- Active Tasks Table -->
-    <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 sm:p-8 space-y-6">
-        <div class="flex items-center justify-between">
-            <div>
-                <h3 class="font-racing font-bold text-lg text-white">TUGAS PENGERJAAN KENDARAAN</h3>
-                <p class="text-xs text-neutral-400">Daftar booking modifikasi yang ditugaskan ke Anda:</p>
-            </div>
-            <a href="{{ route('karyawan.tasks.index') }}" class="text-xs font-bold text-amber-400 hover:text-amber-300">Lihat Semua &rarr;</a>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
-                <thead class="bg-[#0a0a0e] text-neutral-400 uppercase tracking-wider font-semibold border-b border-neutral-800">
-                    <tr>
-                        <th class="p-3.5">Kode & Unit</th>
-                        <th class="p-3.5">Customer</th>
-                        <th class="p-3.5">Layanan Modifikasi</th>
-                        <th class="p-3.5">Status Pengerjaan</th>
-                        <th class="p-3.5">Progres</th>
-                        <th class="p-3.5 text-right">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-neutral-800 text-neutral-300">
-                    @forelse($activeTasks as $task)
-                        <tr class="hover:bg-neutral-900/50 transition-colors">
-                            <td class="p-3.5">
-                                <div class="font-mono font-bold text-white">{{ $task->booking_code }}</div>
-                                <div class="text-[11px] text-neutral-400">{{ $task->vehicle_type_label }} {{ $task->vehicle_brand }} {{ $task->vehicle_model }} ({{ $task->license_plate }})</div>
-                            </td>
-                            <td class="p-3.5">
-                                <div class="font-bold text-white">{{ $task->customer_name }}</div>
-                                <div class="text-[11px] text-neutral-500">{{ $task->customer_phone }}</div>
-                            </td>
-                            <td class="p-3.5">
-                                <span class="text-amber-400 font-semibold">{{ $task->service->title ?? 'Custom Tuning' }}</span>
-                            </td>
-                            <td class="p-3.5">
-                                {!! $task->status_badge !!}
-                            </td>
-                            <td class="p-3.5">
-                                <div class="w-32 bg-neutral-800 rounded-full h-2 overflow-hidden mb-1">
-                                    <div class="bg-gradient-to-r from-amber-500 to-red-500 h-2 rounded-full" style="width: {{ $task->progress_percentage }}%"></div>
-                                </div>
-                                <span class="text-[10px] font-mono text-neutral-400">{{ $task->progress_percentage }}% Selesai</span>
-                            </td>
-                            <td class="p-3.5 text-right">
-                                <a href="{{ route('karyawan.tasks.show', $task->id) }}" 
-                                   class="px-3 py-1.5 bg-neutral-800 hover:bg-amber-600 hover:text-black text-white rounded-lg font-bold text-[11px] transition-all inline-flex items-center gap-1">
-                                    <i class="fa-solid fa-pen-to-square"></i> Update Progres
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="p-8 text-center text-neutral-500">
-                                <i class="fa-solid fa-circle-check text-2xl text-neutral-700 mb-2 block"></i>
-                                Tidak ada tugas modifikasi aktif saat ini.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
     </div>
 
 </div>

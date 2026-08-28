@@ -1,142 +1,347 @@
-<div x-data="{
-    open: false,
-    messages: [
-        { role: 'model', text: 'Halo! Saya **Apex AI Assistant**, pakar modifikasi dan performa motor & mobil di Apex Garage. Ada yang bisa saya bantu terkait dyno tuning, custom build, estimasi biaya, atau jadwal booking?' }
-    ],
-    userInput: '',
-    isLoading: false,
-    suggestions: [
-        'Estimasi Remap ECU Mobil/Motor',
-        'Konsep Motor Custom Cafe Racer',
-        'Paket Widebody & Cat Oven Spies Hecker',
-        'Cara Booking & Pembayaran DP'
-    ],
-    sendMessage(textToSend = null) {
-        const text = textToSend || this.userInput.trim();
-        if (!text || this.isLoading) return;
+<!-- Metrix AI Consultant Floating Widget (Clean Minimalist Luxury Styling) -->
+<div x-data="metrixChatbot()" x-init="init()" class="fixed bottom-6 right-6 z-40">
+    
+    <!-- Minimalist Teaser Prompt (Auto appears when unopened) -->
+    <div x-show="showTeaser && !isOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-3"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-3"
+         x-cloak
+         class="absolute bottom-16 right-0 mb-2 w-72 bg-white text-black border border-neutral-200 p-4 shadow-xl text-xs space-y-2">
+        <div class="flex items-start justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="w-1.5 h-1.5 bg-black inline-block"></span>
+                <span class="eyebrow text-[10px] text-black font-bold">Metrix AI Consultant</span>
+            </div>
+            <button @click="dismissTeaser()" class="text-neutral-400 hover:text-black text-sm">&times;</button>
+        </div>
+        <p class="text-neutral-600 text-[11px] leading-relaxed">
+            Ingin konsultasi seputar spesifikasi ECU remap, dyno tuning, custom build, atau estimasi biaya?
+        </p>
+        <button @click="openChat()" class="text-[10px] uppercase tracking-widest font-semibold text-black hover:text-accent underline block pt-1">
+            Mulai Konsultasi &rarr;
+        </button>
+    </div>
 
-        this.messages.push({ role: 'user', text: text });
-        if (!textToSend) this.userInput = '';
-        this.isLoading = true;
-        this.scrollToBottom();
-
-        fetch('{{ route('chatbot.send') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                message: text,
-                history: this.messages.slice(-8)
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            this.isLoading = false;
-            if (data.success) {
-                this.messages.push({ role: 'model', text: data.reply });
-            } else {
-                this.messages.push({ role: 'model', text: data.message || 'Maaf, terjadi kendala saat memproses jawaban.' });
-            }
-            this.scrollToBottom();
-        })
-        .catch(err => {
-            this.isLoading = false;
-            this.messages.push({ role: 'model', text: 'Terjadi kesalahan jaringan. Silakan coba kembali.' });
-            this.scrollToBottom();
-        });
-    },
-    scrollToBottom() {
-        this.$nextTick(() => {
-            const container = this.$refs.chatContainer;
-            if (container) {
-                container.scrollTop = container.scrollHeight;
-            }
-        });
-    }
-}" class="fixed bottom-6 left-6 z-50">
-
-    <!-- Floating Chat Trigger Button -->
-    <button @click="open = !open" 
-            class="w-14 h-14 rounded-full bg-gradient-to-tr from-red-600 to-red-500 text-white shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all glow-red border-2 border-red-400/50 group relative">
-        <i class="fa-solid fa-robot text-xl transition-transform duration-300" :class="open ? 'rotate-90 scale-0' : 'scale-100'"></i>
-        <i class="fa-solid fa-xmark text-xl absolute transition-transform duration-300" :class="open ? 'scale-100' : 'scale-0'"></i>
-        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-neutral-900 animate-ping"></span>
-        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-neutral-900"></span>
+    <!-- Floating Toggle Button -->
+    <button @click="toggleChat()" 
+            type="button"
+            class="group w-14 h-14 bg-black text-white hover:bg-neutral-900 border border-black flex items-center justify-center shadow-2xl transition-all duration-300 focus:outline-none"
+            aria-label="Toggle AI Consultation Chat">
+        <div class="relative w-6 h-6 flex items-center justify-center">
+            <!-- Chat Icon -->
+            <svg x-show="!isOpen" class="w-5 h-5 transition-transform group-hover:scale-105" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+            <!-- Close (X) Icon -->
+            <svg x-show="isOpen" x-cloak class="w-5 h-5 transition-transform rotate-0 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </div>
     </button>
 
-    <!-- Chat Modal Window -->
-    <div x-show="open" 
+    <!-- Main Chat Window Modal -->
+    <div x-show="isOpen" 
          x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 translate-y-6 scale-95"
+         x-transition:enter-start="opacity-0 translate-y-4 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-         x-transition:leave-end="opacity-0 translate-y-6 scale-95"
+         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
          x-cloak
-         class="absolute bottom-16 left-0 w-80 sm:w-96 bg-[#111116] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[520px] max-h-[85vh]">
+         class="absolute bottom-16 right-0 mb-3 w-[92vw] sm:w-[410px] h-[580px] md:h-[85vh] max-h-[640px] bg-white text-black border border-neutral-200 shadow-2xl flex flex-col z-50 overflow-hidden font-sans">
         
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-neutral-900 via-[#181822] to-red-950/60 p-4 border-b border-neutral-800 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-red-600/20 border border-red-500/40 text-red-400 flex items-center justify-center font-bold">
-                    <i class="fa-solid fa-gauge-high text-sm"></i>
+        <!-- Window Header -->
+        <div class="px-5 py-4 border-b border-neutral-200 bg-white flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-black text-white flex items-center justify-center text-xs font-bold font-sans">
+                    M
                 </div>
                 <div>
-                    <div class="font-racing font-bold text-xs tracking-wider text-white">APEX AI CONSULTANT</div>
-                    <div class="text-[10px] text-emerald-400 flex items-center gap-1.5 font-medium">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span>Online • Mod & Tuning Expert</span>
+                    <h3 class="text-xs uppercase tracking-widest font-bold text-black">Metrix AI Consultant</h3>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-neutral-500 mt-0.5">
+                        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block"></span>
+                        <span>Performance &amp; Tuning Expert</span>
                     </div>
                 </div>
             </div>
-            <button @click="open = false" class="text-neutral-400 hover:text-white text-sm p-1">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
 
-        <!-- Chat Messages Container -->
-        <div x-ref="chatContainer" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
-            <template x-for="(msg, index) in messages" :key="index">
-                <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
-                    <div class="max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed"
-                         :class="msg.role === 'user' 
-                             ? 'bg-red-600 text-white rounded-br-none shadow-md' 
-                             : 'bg-neutral-900 border border-neutral-800 text-neutral-200 rounded-bl-none'">
-                        <div class="whitespace-pre-line" x-html="msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')"></div>
-                    </div>
-                    <span class="text-[9px] text-neutral-500 mt-1 px-1" x-text="msg.role === 'user' ? 'Anda' : 'Apex AI'"></span>
-                </div>
-            </template>
-
-            <!-- Typing Indicator -->
-            <div x-show="isLoading" class="flex items-center gap-2 text-neutral-400 text-[11px] p-2 bg-neutral-900/60 rounded-xl border border-neutral-800 w-fit">
-                <i class="fa-solid fa-gear fa-spin text-red-500"></i>
-                <span>Menganalisis spesifikasi...</span>
-            </div>
-        </div>
-
-        <!-- Quick Question Chips -->
-        <div class="px-3 py-2 bg-neutral-900/80 border-t border-neutral-800 overflow-x-auto flex gap-1.5 scrollbar-none text-[10px]">
-            <template x-for="(chip, i) in suggestions" :key="i">
-                <button type="button" @click="sendMessage(chip)" 
-                        class="whitespace-nowrap bg-[#181822] hover:bg-red-600 hover:text-white text-neutral-300 px-2.5 py-1 rounded-full border border-neutral-700 transition-colors">
-                    <span x-text="chip"></span>
+            <div class="flex items-center space-x-2">
+                <button @click="confirmClearChat()" 
+                        type="button" 
+                        class="p-1.5 text-neutral-400 hover:text-black transition-colors text-[11px] uppercase tracking-wider" 
+                        title="Hapus Percakapan">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                 </button>
-            </template>
+                <button @click="isOpen = false" 
+                        type="button" 
+                        class="p-1.5 text-neutral-400 hover:text-black transition-colors"
+                        aria-label="Tutup Chat">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
         </div>
 
-        <!-- Input Box -->
-        <form @submit.prevent="sendMessage()" class="p-3 bg-[#0d0d12] border-t border-neutral-800 flex items-center gap-2">
-            <input type="text" x-model="userInput" placeholder="Tanya remap, biaya, modif motor/mobil..."
-                   class="flex-1 bg-neutral-900 border border-neutral-700 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-red-500">
-            <button type="submit" :disabled="!userInput.trim() || isLoading"
-                    class="p-2.5 bg-red-600 disabled:opacity-50 hover:bg-red-500 text-white rounded-xl transition-all">
-                <i class="fa-solid fa-paper-plane text-xs"></i>
-            </button>
-        </form>
+        <!-- Chat Body Messages Scroll Area -->
+        <div x-ref="chatContainer" class="flex-1 p-5 overflow-y-auto space-y-4 bg-neutral-bg/60 text-xs">
+            
+            <!-- Default Welcome Card -->
+            <div class="p-4 bg-white border border-neutral-200 space-y-2">
+                <div class="eyebrow text-[9px] text-accent font-semibold">Selamat Datang di Metrix Garage</div>
+                <p class="text-neutral-700 text-xs leading-relaxed">
+                    Halo! Saya asisten AI spesialis modifikasi performa motor dan mobil. Silakan ajukan pertanyaan seputar ECU Remap, Dyno tuning, custom build, atau booking servis.
+                </p>
+            </div>
 
+            <!-- Suggestion Quick Prompts -->
+            <div class="space-y-1.5 pt-1">
+                <div class="eyebrow text-[9px] text-neutral-400 uppercase">Topik Populer:</div>
+                <div class="flex flex-wrap gap-1.5">
+                    <template x-for="(sug, idx) in suggestions" :key="idx">
+                        <button @click="sendPredefined(sug.prompt)" 
+                                type="button" 
+                                class="text-left px-2.5 py-1.5 bg-white hover:bg-black hover:text-white text-neutral-700 border border-neutral-200 text-[10px] tracking-wide transition-all">
+                            <span x-text="sug.label"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <template x-for="(msg, index) in messages" :key="index">
+                <div :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
+                    <div class="max-w-[85%] space-y-1" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
+                        
+                        <div class="p-3.5 text-xs leading-relaxed" 
+                             :class="msg.role === 'user' 
+                                 ? 'bg-black text-white' 
+                                 : 'bg-white text-neutral-800 border border-neutral-200 shadow-sm'">
+                            <div class="metrix-chat-body" x-html="renderMarkdown(msg.text)"></div>
+                        </div>
+
+                        <!-- Timestamp & Copy Helper for Model -->
+                        <div class="flex items-center space-x-2 px-1 text-[9px] text-neutral-400" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
+                            <span x-text="msg.time"></span>
+                            <template x-if="msg.role === 'model'">
+                                <button @click="copyText(msg.text, $event)" class="hover:text-black uppercase tracking-widest text-[8px]">
+                                    Salin
+                                </button>
+                            </template>
+                        </div>
+
+                    </div>
+                </div>
+            </template>
+
+            <!-- Thinking Status Animation Indicator -->
+            <div x-show="isThinking" x-cloak class="flex items-center space-x-2 p-3 bg-white border border-neutral-200 w-fit text-neutral-600 text-xs shadow-sm">
+                <svg class="animate-spin w-3.5 h-3.5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
+                <span class="text-[11px]" x-text="thinkingStatus"></span>
+            </div>
+
+            <!-- Error Banner -->
+            <div x-show="errorMessage" x-cloak class="p-3 bg-red-50 border border-red-200 text-red-700 text-xs">
+                <span x-text="errorMessage"></span>
+            </div>
+
+        </div>
+
+        <!-- Chat Input Footer -->
+        <div class="p-3 border-t border-neutral-200 bg-white">
+            <form @submit.prevent="sendMessage()" class="flex items-center space-x-2">
+                <input type="text" 
+                       x-model="userInput" 
+                       :disabled="isThinking"
+                       placeholder="Tulis pertanyaan seputar modifikasi..." 
+                       class="flex-1 bg-neutral-bg border border-neutral-300 text-black text-xs px-3.5 py-2.5 focus:outline-none focus:border-black transition-colors disabled:bg-neutral-100 placeholder:text-neutral-400">
+                <button type="submit" 
+                        :disabled="!userInput.trim() || isThinking" 
+                        class="px-4 py-2.5 bg-black text-white hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed text-xs uppercase tracking-widest font-semibold transition-colors flex items-center space-x-1">
+                    <span>Kirim</span>
+                </button>
+            </form>
+        </div>
     </div>
-
 </div>
+
+<style>
+.metrix-chat-body p { margin-bottom: 0.5rem; }
+.metrix-chat-body p:last-child { margin-bottom: 0; }
+.metrix-chat-body strong { font-weight: 700; color: inherit; }
+.metrix-chat-body ul { list-style-type: disc; margin-left: 1.1rem; margin-bottom: 0.5rem; }
+.metrix-chat-body ol { list-style-type: decimal; margin-left: 1.1rem; margin-bottom: 0.5rem; }
+.metrix-chat-body li { margin-bottom: 0.25rem; }
+.metrix-chat-body a { text-decoration: underline; font-weight: 600; color: inherit; }
+</style>
+
+<script>
+function metrixChatbot() {
+    return {
+        isOpen: false,
+        showTeaser: false,
+        userInput: '',
+        isThinking: false,
+        thinkingStatus: 'Sedang menganalisis spesifikasi tuning...',
+        thinkingInterval: null,
+        errorMessage: '',
+        messages: [],
+        suggestions: [
+            { label: 'Estimasi ECU Remap & Dyno Run', prompt: 'Berapa estimasi biaya dan peningkatan performa untuk remap ECU mobil/motor?' },
+            { label: 'Konsep Motor Cafe Racer / Bobber', prompt: 'Bagaimana tahapan dan estimasi waktu build motor custom Cafe Racer di Metrix?' },
+            { label: 'Paket Cat Oven Spies Hecker', prompt: 'Apa keunggulan dan garansi pengecatan oven Spies Hecker di Metrix Garage?' },
+            { label: 'Cara Booking Online & Bayar DP', prompt: 'Bagaimana alur booking online servis dan pembayaran DP via Payment Gateway?' }
+        ],
+
+        init() {
+            const saved = sessionStorage.getItem('metrix_chat_history');
+            if (saved) {
+                try { this.messages = JSON.parse(saved); } catch(e) { this.messages = []; }
+            }
+
+            setTimeout(() => {
+                if (!this.isOpen && this.messages.length === 0) {
+                    this.showTeaser = true;
+                }
+            }, 3500);
+        },
+
+        openChat() {
+            this.isOpen = true;
+            this.showTeaser = false;
+            this.scrollToBottom();
+        },
+
+        toggleChat() {
+            this.isOpen = !this.isOpen;
+            if (this.isOpen) {
+                this.showTeaser = false;
+                this.scrollToBottom();
+            }
+        },
+
+        dismissTeaser() {
+            this.showTeaser = false;
+        },
+
+        sendPredefined(prompt) {
+            this.userInput = prompt;
+            this.sendMessage();
+        },
+
+        async sendMessage() {
+            const text = this.userInput.trim();
+            if (!text || this.isThinking) return;
+
+            this.errorMessage = '';
+            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            this.messages.push({ role: 'user', text: text, time: currentTime });
+            this.userInput = '';
+            this.saveHistory();
+            this.scrollToBottom();
+
+            this.isThinking = true;
+            this.startThinkingAnimation();
+
+            try {
+                const historyPayload = this.messages.map(m => ({
+                    role: m.role === 'user' ? 'user' : 'model',
+                    text: m.text
+                }));
+
+                const response = await fetch('{{ route("chatbot.send") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ message: text, history: historyPayload.slice(-8) })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    const replyTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    this.messages.push({ role: 'model', text: data.reply, time: replyTime });
+                    this.saveHistory();
+                } else {
+                    this.errorMessage = data.message || 'Terjadi kendala saat memproses jawaban.';
+                }
+            } catch (error) {
+                this.errorMessage = 'Koneksi terputus. Silakan coba kembali.';
+            } finally {
+                this.isThinking = false;
+                this.stopThinkingAnimation();
+                this.scrollToBottom();
+            }
+        },
+
+        startThinkingAnimation() {
+            const statuses = ['Menganalisis spesifikasi kendaraan...', 'Menghitung estimasi performa...', 'Menyiapkan rincian rekomendasi tuning...'];
+            let index = 0;
+            this.thinkingStatus = statuses[0];
+            this.thinkingInterval = setInterval(() => {
+                index = (index + 1) % statuses.length;
+                this.thinkingStatus = statuses[index];
+            }, 1800);
+        },
+
+        stopThinkingAnimation() {
+            if (this.thinkingInterval) {
+                clearInterval(this.thinkingInterval);
+                this.thinkingInterval = null;
+            }
+        },
+
+        confirmClearChat() {
+            if (confirm('Hapus seluruh riwayat percakapan?')) {
+                this.messages = [];
+                sessionStorage.removeItem('metrix_chat_history');
+            }
+        },
+
+        saveHistory() {
+            try { sessionStorage.setItem('metrix_chat_history', JSON.stringify(this.messages)); } catch(e) {}
+        },
+
+        scrollToBottom() {
+            this.$nextTick(() => {
+                if (this.$refs.chatContainer) {
+                    this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
+                }
+            });
+        },
+
+        copyText(text, event) {
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.currentTarget;
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<span>Tersalin</span>';
+                setTimeout(() => { btn.innerHTML = orig; }, 2000);
+            });
+        },
+
+        renderMarkdown(raw) {
+            if (!raw) return '';
+            let text = raw.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            text = text.replace(/\*([^\*\n]+)\*/g, '<em>$1</em>');
+            text = text.replace(/^[\*\-]\s+(.+)$/gm, '<li>$1</li>');
+            text = text.replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
+            text = text.replace(/<\/ul>\s*<ul>/g, '');
+            text = text.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+            text = text.replace(/\n\n+/g, '</p><p>');
+            text = text.replace(/\n/g, '<br>');
+            return '<p>' + text + '</p>';
+        }
+    }
+}
+</script>

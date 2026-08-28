@@ -1,161 +1,143 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard Workshop & Bengkel')
+@section('page_title', 'Studio Overview')
 
 @section('content')
 <div class="space-y-8">
     
-    <!-- Top KPI Cards Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Header Banner -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-neutral-800 gap-4">
+        <div>
+            <h2 class="text-xl md:text-2xl font-bold tracking-tight text-white uppercase font-sans">
+                Welcome back, {{ auth()->user()->name }}!
+            </h2>
+            <p class="text-xs text-neutral-400 mt-1">
+                Ringkasan sistem workshop bengkel, antrean booking online, dyno run, dan absensi kamera staf.
+            </p>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.bookings.index') }}" class="px-4 py-2.5 bg-white text-black hover:bg-neutral-200 text-[11px] uppercase tracking-wider font-semibold transition-colors">
+                Kelola Bookings
+            </a>
+            <a href="{{ route('admin.attendances.index') }}" class="px-4 py-2.5 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 text-[11px] uppercase tracking-wider transition-colors">
+                Absensi Kamera
+            </a>
+        </div>
+    </div>
+
+    <!-- 8 Analytical Counter Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         
-        <!-- Total Pendapatan -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Total Omzet Bengkel</span>
-                <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-rupiah-sign"></i>
-                </div>
-            </div>
-            <div class="font-racing font-black text-2xl text-emerald-400">
-                Rp {{ number_format($totalRevenue, 0, ',', '.') }}
-            </div>
-            <div class="text-[10px] text-neutral-400">Total DP & Pelunasan terverifikasi</div>
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Bookings</div>
+            <div class="text-3xl font-bold text-white">{{ $stats['bookings'] ?? \App\Models\Booking::count() }}</div>
+            <a href="{{ route('admin.bookings.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Kelola Antrean &rarr;</a>
         </div>
 
-        <!-- Antrean Pengerjaan Aktif -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Unit Sedang Dikerjakan</span>
-                <div class="w-8 h-8 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                </div>
-            </div>
-            <div class="font-racing font-black text-2xl text-white">
-                {{ $activeBookingsCount }} <span class="text-xs text-neutral-400 font-sans font-normal">Kendaraan</span>
-            </div>
-            <div class="text-[10px] text-amber-400 font-bold">{{ $pendingBookingsCount }} Menunggu Konfirmasi</div>
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Absensi Hari Ini</div>
+            <div class="text-3xl font-bold text-emerald-400">{{ $stats['today_attendances'] ?? \App\Models\Attendance::whereDate('date', today())->count() }}</div>
+            <a href="{{ route('admin.attendances.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Log Kamera &rarr;</a>
         </div>
 
-        <!-- Kehadiran Mekanik Hari Ini -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Kehadiran Mekanik</span>
-                <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-camera"></i>
-                </div>
-            </div>
-            <div class="font-racing font-black text-2xl text-amber-400">
-                {{ $presentTodayCount }} / {{ $totalMechanics }} <span class="text-xs text-neutral-400 font-sans font-normal">Mekanik</span>
-            </div>
-            <div class="text-[10px] text-neutral-400"><a href="{{ route('admin.attendances.index') }}" class="text-amber-400 underline">Lihat Foto Absensi Kamera &rarr;</a></div>
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Projects &amp; Dyno</div>
+            <div class="text-3xl font-bold text-white">{{ $stats['projects'] ?? \App\Models\Project::count() }}</div>
+            <a href="{{ route('admin.projects.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Galeri Modif &rarr;</a>
         </div>
 
-        <!-- Total Customer & Layanan -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
-            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
-                <span>Customer & Layanan</span>
-                <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm">
-                    <i class="fa-solid fa-users"></i>
-                </div>
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Layanan Tuning</div>
+            <div class="text-3xl font-bold text-white">{{ $stats['services'] ?? \App\Models\Service::count() }}</div>
+            <a href="{{ route('admin.services.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Paket Modif &rarr;</a>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Karyawan &amp; Mekanik</div>
+            <div class="text-3xl font-bold text-white">{{ $stats['employees'] ?? \App\Models\User::where('role', 'karyawan')->count() }}</div>
+            <a href="{{ route('admin.employees.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Data Staf &rarr;</a>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Customer Terdaftar</div>
+            <div class="text-3xl font-bold text-white">{{ $stats['customers'] ?? \App\Models\User::where('role', 'customer')->count() }}</div>
+            <a href="{{ url('/admin/users') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Data Customer &rarr;</a>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Pesan Masuk</div>
+            <div class="text-3xl font-bold {{ ($stats['unread_messages'] ?? 0) > 0 ? 'text-accent' : 'text-white' }}">
+                {{ $stats['unread_messages'] ?? \App\Models\ContactMessage::where('is_read', false)->count() }}
             </div>
-            <div class="font-racing font-black text-2xl text-white">
-                {{ $totalCustomers }} <span class="text-xs text-neutral-400 font-sans font-normal">Klien</span>
-            </div>
-            <div class="text-[10px] text-neutral-400">{{ $totalServices }} Paket Modifikasi Aktif</div>
+            <a href="{{ url('/admin/messages') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Buka Inbox &rarr;</a>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
+            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Subscribers</div>
+            <div class="text-3xl font-bold text-white">{{ $stats['subscribers'] ?? \App\Models\NewsletterSubscriber::count() }}</div>
+            <a href="{{ url('/admin/subscribers') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Lihat List &rarr;</a>
         </div>
 
     </div>
 
-    <!-- 2 Column: Today's Camera Attendance Live Feed + Recent Bookings -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Recent Data Tables (2 Columns) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
-        <!-- Left: Today's Camera Attendance Feed (5 Cols) -->
-        <div class="lg:col-span-5 bg-[#121218] border border-neutral-800 rounded-3xl p-6 shadow-xl space-y-4">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="font-racing font-bold text-sm text-white uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-camera text-amber-400"></i>
-                        <span>ABSENSI KAMERA HARI INI</span>
-                    </h3>
-                    <p class="text-[11px] text-neutral-400">Foto selfie masuk mekanik shift hari ini:</p>
-                </div>
-                <a href="{{ route('admin.attendances.index') }}" class="text-[11px] font-bold text-amber-400 hover:underline">Rekap Lengkap &rarr;</a>
+        <!-- Recent Bookings Table -->
+        <div class="bg-neutral-900 border border-neutral-800 p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="text-xs uppercase tracking-widest font-bold text-white">Booking Terbaru</h3>
+                <a href="{{ route('admin.bookings.index') }}" class="text-[10px] text-neutral-400 hover:text-white uppercase tracking-wider">Lihat Semua</a>
             </div>
 
             <div class="space-y-3">
-                @forelse($todayAttendances as $att)
-                    <div class="p-3.5 rounded-2xl bg-[#0a0a0e] border border-neutral-800 flex items-center gap-3.5">
-                        <div class="w-12 h-12 rounded-xl overflow-hidden bg-black flex-shrink-0 border border-neutral-700">
-                            @if($att->check_in_photo)
-                                <img src="{{ $att->check_in_photo_url }}" class="w-full h-full object-cover">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center text-neutral-600"><i class="fa-solid fa-user"></i></div>
-                            @endif
+                @forelse(\App\Models\Booking::with('service')->latest()->take(5)->get() as $b)
+                    <div class="flex items-center justify-between p-3 bg-neutral-950/60 border border-neutral-800/80 text-xs">
+                        <div class="truncate">
+                            <div class="font-semibold text-white truncate">{{ $b->customer_name }} — {{ $b->vehicle_brand }} {{ $b->vehicle_model }}</div>
+                            <div class="text-[10px] text-neutral-400">{{ $b->service->title ?? 'Custom Package' }} • {{ $b->booking_date->format('d M Y') }}</div>
                         </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="font-bold text-xs text-white truncate">{{ $att->user->name ?? 'Mekanik' }}</div>
-                            <div class="text-[10px] text-neutral-400 font-mono">Masuk: <span class="text-emerald-400">{{ $att->check_in_time }} WIB</span></div>
-                            <div class="mt-0.5">{!! $att->status_badge !!}</div>
+                        <div class="flex items-center gap-3 pl-3">
+                            <span class="px-2 py-0.5 text-[9px] uppercase font-bold {{ $b->status === 'completed' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800' }}">
+                                {{ $b->status }}
+                            </span>
+                            <a href="{{ route('admin.bookings.show', $b->id) }}" class="text-neutral-400 hover:text-white font-semibold">&rarr;</a>
                         </div>
                     </div>
                 @empty
-                    <div class="text-center py-8 text-neutral-500 text-xs">
-                        Belum ada mekanik yang melakukan absensi kamera hari ini.
-                    </div>
+                    <div class="text-center py-6 text-neutral-500 text-xs">Belum ada booking masuk.</div>
                 @endforelse
             </div>
         </div>
 
-        <!-- Right: Recent Workshop Bookings (7 Cols) -->
-        <div class="lg:col-span-7 bg-[#121218] border border-neutral-800 rounded-3xl p-6 shadow-xl space-y-4">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="font-racing font-bold text-sm text-white uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-car-side text-red-500"></i>
-                        <span>ANTREAN BOOKING TERBARU</span>
-                    </h3>
-                    <p class="text-[11px] text-neutral-400">Pesanan modifikasi motor & mobil yang masuk:</p>
-                </div>
-                <a href="{{ route('admin.bookings.index') }}" class="text-[11px] font-bold text-red-400 hover:underline">Lihat Semua &rarr;</a>
+        <!-- Recent Camera Attendance Table -->
+        <div class="bg-neutral-900 border border-neutral-800 p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <h3 class="text-xs uppercase tracking-widest font-bold text-white">Absensi Kamera Terakhir</h3>
+                <a href="{{ route('admin.attendances.index') }}" class="text-[10px] text-neutral-400 hover:text-white uppercase tracking-wider">Buka Log</a>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
-                    <thead class="bg-[#0a0a0e] text-neutral-400 uppercase tracking-wider font-semibold border-b border-neutral-800">
-                        <tr>
-                            <th class="p-2.5">Kode & Unit</th>
-                            <th class="p-2.5">Customer</th>
-                            <th class="p-2.5">Status</th>
-                            <th class="p-2.5 text-right">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-neutral-800 text-neutral-300">
-                        @forelse($recentBookings as $bk)
-                            <tr class="hover:bg-neutral-900/50">
-                                <td class="p-2.5">
-                                    <div class="font-mono font-bold text-white">{{ $bk->booking_code }}</div>
-                                    <div class="text-[10px] text-neutral-400">{{ $bk->vehicle_type_label }} {{ $bk->vehicle_brand }} {{ $bk->vehicle_model }}</div>
-                                </td>
-                                <td class="p-2.5">
-                                    <div class="font-bold text-white">{{ $bk->customer_name }}</div>
-                                    <div class="text-[10px] text-neutral-500">{{ $bk->customer_phone }}</div>
-                                </td>
-                                <td class="p-2.5">
-                                    {!! $bk->status_badge !!}
-                                </td>
-                                <td class="p-2.5 text-right">
-                                    <a href="{{ route('admin.bookings.show', $bk->id) }}" class="px-2.5 py-1.5 bg-neutral-800 hover:bg-red-600 text-white rounded-lg text-[10px] font-bold transition-colors">
-                                        Kelola
-                                    </a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="4" class="p-6 text-center text-neutral-500">Belum ada booking.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <div class="space-y-3">
+                @forelse(\App\Models\Attendance::with('user')->latest()->take(5)->get() as $att)
+                    <div class="p-3 bg-neutral-950/60 border border-neutral-800/80 text-xs flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            @if($att->photo_in)
+                                <img src="{{ asset('storage/' . $att->photo_in) }}" class="w-9 h-9 object-cover border border-neutral-800">
+                            @else
+                                <div class="w-9 h-9 bg-neutral-800 flex items-center justify-center font-bold text-neutral-400 text-xs">A</div>
+                            @endif
+                            <div>
+                                <div class="font-semibold text-white">{{ $att->user->name ?? 'Staff' }}</div>
+                                <div class="text-[10px] text-neutral-400">{{ $att->date->format('d M Y') }} • In: {{ $att->clock_in ? $att->clock_in->format('H:i') : '-' }}</div>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+                            {{ $att->status }}
+                        </span>
+                    </div>
+                @empty
+                    <div class="text-center py-6 text-neutral-500 text-xs">Belum ada data absensi.</div>
+                @endforelse
             </div>
         </div>
 

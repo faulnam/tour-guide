@@ -1,145 +1,172 @@
 @extends('layouts.app')
 
-@section('meta_title', $project->title . ' — Portofolio Apex Garage')
-@section('meta_description', $project->description ?? 'Detail modifikasi dan dyno test hasil karya Apex Garage.')
+@section('meta_title', $project->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_description', $project->description ?: 'Detail modifikasi dan dyno test untuk ' . $project->title)
 
 @section('content')
 
-<div class="py-12 bg-[#09090b]">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        
-        <!-- Breadcrumb -->
-        <div class="flex items-center gap-2 text-xs text-neutral-400">
-            <a href="{{ url('/') }}" class="hover:text-white">Beranda</a>
-            <span>/</span>
-            <a href="{{ url('/portfolio') }}" class="hover:text-white">Portofolio</a>
-            <span>/</span>
-            <span class="text-red-400 font-bold truncate">{{ $project->title }}</span>
+    <!-- 1. Hero Cover Header -->
+    <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
+             style="background-image: url('{{ $project->cover_image ? (str_starts_with($project->cover_image, 'http') ? $project->cover_image : asset('storage/' . $project->cover_image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop' }}');">
         </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
 
-        <!-- Main Card -->
-        <div class="bg-[#121218] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl space-y-8">
-            
-            <div class="relative h-80 sm:h-[420px]">
-                <img src="{{ $project->cover_image }}" alt="{{ $project->title }}" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#121218] via-black/40 to-transparent"></div>
-
-                <div class="absolute bottom-6 left-6 right-6">
-                    <div class="flex items-center gap-2 mb-2 text-xs font-racing uppercase font-bold text-red-400">
-                        <span>{{ $project->vehicle_type === 'motor' ? '🏍️ Custom Motorcycle' : '🚗 High-Performance Car' }}</span>
-                        <span>•</span>
-                        <span>{{ $project->year }}</span>
-                    </div>
-                    <h1 class="font-racing font-black text-2xl sm:text-4xl text-white uppercase tracking-tight">
-                        {{ $project->title }}
-                    </h1>
-                </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
+            <div class="eyebrow-light">
+                <a href="{{ url('/portfolio') }}" class="hover:underline">Portfolio</a> &bull; {{ $project->vehicle_type === 'motor' ? 'Custom Motorcycle' : 'Performance Car' }}
             </div>
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+                {{ $project->title }}
+            </h1>
+            <p class="text-neutral-300 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
+                {{ $project->client ? 'Client: ' . $project->client . ' • ' : '' }} {{ $project->location ?? 'Jakarta' }} ({{ $project->year ?? '2024' }})
+            </p>
+        </div>
+    </section>
 
-            <!-- Content Body -->
-            <div class="p-6 sm:p-10 space-y-8">
+    <!-- 2. Project Specifications & Dyno Data -->
+    <section class="py-16 md:py-24 bg-white border-b border-neutral-200">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
                 
-                <!-- Dyno Chart Comparison Banner -->
-                @if($project->dyno_hp_after)
-                    <div class="bg-gradient-to-r from-red-950/30 via-neutral-900 to-amber-950/30 border border-neutral-800 p-6 rounded-2xl">
-                        <div class="text-xs font-bold text-neutral-300 uppercase tracking-wider font-racing mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-gauge-high text-red-500"></i>
-                            <span>HASIL PENGUJIAN DYNO JET 224XLC</span>
-                        </div>
-
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                            <div class="p-3 bg-neutral-950/70 rounded-xl border border-neutral-800">
-                                <div class="text-[10px] text-neutral-500 uppercase">HP Stock</div>
-                                <div class="font-racing font-bold text-lg text-neutral-300">{{ $project->dyno_hp_before }} HP</div>
-                            </div>
-
-                            <div class="p-3 bg-neutral-950/70 rounded-xl border border-red-500/40">
-                                <div class="text-[10px] text-red-400 uppercase font-bold">HP Dyno Tuned</div>
-                                <div class="font-racing font-black text-xl text-emerald-400">{{ $project->dyno_hp_after }} HP</div>
-                                <div class="text-[10px] text-emerald-400 font-bold">+{{ $project->hp_gain }} WHP</div>
-                            </div>
-
-                            <div class="p-3 bg-neutral-950/70 rounded-xl border border-neutral-800">
-                                <div class="text-[10px] text-neutral-500 uppercase">Torsi Stock</div>
-                                <div class="font-racing font-bold text-lg text-neutral-300">{{ $project->dyno_torque_before }} Nm</div>
-                            </div>
-
-                            <div class="p-3 bg-neutral-950/70 rounded-xl border border-amber-500/40">
-                                <div class="text-[10px] text-amber-400 uppercase font-bold">Torsi Dyno Tuned</div>
-                                <div class="font-racing font-black text-xl text-cyan-400">{{ $project->dyno_torque_after }} Nm</div>
-                                <div class="text-[10px] text-cyan-400 font-bold">+{{ $project->torque_gain }} Nm</div>
-                            </div>
+                <!-- Left Story Column -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="space-y-4">
+                        <div class="eyebrow text-accent font-semibold">The Build Story</div>
+                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase font-sans">
+                            Modification &amp; Tuning Overview
+                        </h2>
+                        <div class="text-neutral-700 text-sm md:text-base leading-relaxed space-y-4">
+                            <p>{{ $project->description }}</p>
                         </div>
                     </div>
-                @endif
 
-                <!-- Story & Overview -->
-                <div class="space-y-3">
-                    <h3 class="font-racing font-bold text-base text-white uppercase">TENTANG PROJECT BUILD INI</h3>
-                    <p class="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                        {{ $project->description }}
-                    </p>
+                    <!-- Dyno Result Box if available -->
+                    @if($project->dyno_hp_after)
+                        <div class="bg-neutral-bg border border-neutral-200 p-6 space-y-4">
+                            <div class="eyebrow text-black font-bold">Dyno Jet 224xLC Calibration Results</div>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                                <div class="p-3 bg-white border border-neutral-200">
+                                    <div class="text-[10px] text-neutral-400 uppercase">Stock HP</div>
+                                    <div class="text-base font-bold text-neutral-700">{{ $project->dyno_hp_before }} HP</div>
+                                </div>
+                                <div class="p-3 bg-black text-white">
+                                    <div class="text-[10px] text-neutral-300 uppercase">Tuned HP</div>
+                                    <div class="text-base font-bold text-white">{{ $project->dyno_hp_after }} HP</div>
+                                    <div class="text-[9px] text-emerald-400 font-bold">+{{ $project->hp_gain }} WHP</div>
+                                </div>
+                                <div class="p-3 bg-white border border-neutral-200">
+                                    <div class="text-[10px] text-neutral-400 uppercase">Stock Torsi</div>
+                                    <div class="text-base font-bold text-neutral-700">{{ $project->dyno_torque_before }} Nm</div>
+                                </div>
+                                <div class="p-3 bg-white border border-neutral-200">
+                                    <div class="text-[10px] text-neutral-400 uppercase">Tuned Torsi</div>
+                                    <div class="text-base font-bold text-black">{{ $project->dyno_torque_after }} Nm</div>
+                                    <div class="text-[9px] text-accent font-bold">+{{ $project->torque_gain }} Nm</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Detailed Specs List -->
+                    @if(!empty($project->modification_specs))
+                        <div class="space-y-4 pt-4 border-t border-neutral-200">
+                            <h3 class="text-xs uppercase tracking-widest2 font-bold text-black">Spesifikasi Modifikasi Terpasang</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                @foreach($project->modification_specs as $category => $items)
+                                    <div class="p-4 bg-neutral-bg border border-neutral-200 space-y-2">
+                                        <div class="eyebrow text-accent text-[10px]">{{ $category }}</div>
+                                        <ul class="text-xs text-neutral-800 space-y-1">
+                                            @if(is_array($items))
+                                                @foreach($items as $it)
+                                                    <li class="flex items-center gap-2">
+                                                        <span class="w-1 h-1 bg-black inline-block"></span>
+                                                        <span>{{ $it }}</span>
+                                                    </li>
+                                                @endforeach
+                                            @else
+                                                <li>{{ $items }}</li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
-                <!-- Modification Specs Breakdown -->
-                @if(!empty($project->modification_specs))
-                    <div class="space-y-4 pt-4 border-t border-neutral-800">
-                        <h3 class="font-racing font-bold text-base text-white uppercase">SPESIFIKASI MODIFIKASI LENGKAP</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            @foreach($project->modification_specs as $category => $items)
-                                <div class="bg-[#0a0a0e] border border-neutral-800 p-5 rounded-2xl space-y-2">
-                                    <div class="text-xs font-racing font-bold text-red-400 uppercase">{{ $category }}</div>
-                                    <ul class="text-xs text-neutral-300 space-y-1">
-                                        @if(is_array($items))
-                                            @foreach($items as $it)
-                                                <li class="flex items-center gap-2">
-                                                    <i class="fa-solid fa-angle-right text-red-500 text-[10px]"></i>
-                                                    <span>{{ $it }}</span>
-                                                </li>
-                                            @endforeach
-                                        @else
-                                            <li>{{ $items }}</li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            @endforeach
+                <!-- Right Metadata Column -->
+                <div class="lg:col-span-5 bg-neutral-bg border border-neutral-200 p-8 space-y-6">
+                    <h3 class="text-xs uppercase tracking-widest2 font-bold text-black border-b border-neutral-200 pb-3">
+                        Vehicle &amp; Build Metadata
+                    </h3>
+
+                    <div class="space-y-3 text-xs divide-y divide-neutral-200">
+                        <div class="pt-2 flex justify-between">
+                            <span class="font-semibold text-neutral-500 uppercase tracking-wider text-[11px]">Tipe:</span>
+                            <span class="font-medium text-black uppercase">{{ $project->vehicle_type }}</span>
+                        </div>
+                        <div class="pt-3 flex justify-between">
+                            <span class="font-semibold text-neutral-500 uppercase tracking-wider text-[11px]">Model:</span>
+                            <span class="font-medium text-black">{{ $project->vehicle_model ?? 'Custom' }}</span>
+                        </div>
+                        <div class="pt-3 flex justify-between">
+                            <span class="font-semibold text-neutral-500 uppercase tracking-wider text-[11px]">Tahun:</span>
+                            <span class="font-medium text-black">{{ $project->year ?? '2024' }}</span>
+                        </div>
+                        <div class="pt-3 flex justify-between">
+                            <span class="font-semibold text-neutral-500 uppercase tracking-wider text-[11px]">Client / Owner:</span>
+                            <span class="font-medium text-black">{{ $project->client ?? 'Private Owner' }}</span>
                         </div>
                     </div>
-                @endif
 
-                <!-- Gallery Images -->
-                @if(!empty($project->gallery_images))
-                    <div class="space-y-4 pt-4 border-t border-neutral-800">
-                        <h3 class="font-racing font-bold text-base text-white uppercase">GALERI FOTO DETAIL BUILD</h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            @foreach($project->gallery_images as $img)
-                                <div class="rounded-2xl overflow-hidden h-60 border border-neutral-800">
-                                    <img src="{{ $img }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                                </div>
-                            @endforeach
-                        </div>
+                    <div class="pt-4 border-t border-neutral-200">
+                        <a href="{{ url('/booking') }}" class="btn-dark w-full text-center block">
+                            Konsultasi Modif Serupa &rarr;
+                        </a>
                     </div>
-                @endif
-
-                <!-- CTA -->
-                <div class="p-6 bg-neutral-900 border border-neutral-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                        <div class="font-racing font-bold text-sm text-white uppercase">INGIN MEMBANGUN KENDARAAN SEPERTI INI?</div>
-                        <div class="text-xs text-neutral-400">Konsultasikan konsep tuning Anda dengan master builder kami.</div>
-                    </div>
-
-                    <a href="{{ url('/booking') }}" 
-                       class="px-6 py-3 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg shadow-red-600/30 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-calendar-check"></i>
-                        <span>Booking Jadwal Modif</span>
-                    </a>
                 </div>
 
             </div>
-
         </div>
+    </section>
 
-    </div>
-</div>
+    <!-- 3. Photo Gallery Grid -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+            <div class="space-y-2">
+                <div class="eyebrow">Visual Documentation</div>
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">Project Gallery</h2>
+            </div>
+
+            <div class="space-y-6">
+                @if($project->cover_image)
+                    <div class="overflow-hidden bg-neutral-900 aspect-[16/9] border border-neutral-200">
+                        <img src="{{ str_starts_with($project->cover_image, 'http') ? $project->cover_image : asset('storage/' . $project->cover_image) }}" 
+                             alt="{{ $project->title }} Main View" 
+                             loading="lazy"
+                             class="w-full h-full object-cover">
+                    </div>
+                @endif
+
+                @if(!empty($project->gallery_images))
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @foreach($project->gallery_images as $img)
+                            <div class="overflow-hidden bg-neutral-900 aspect-[4/3] border border-neutral-200 group">
+                                <img src="{{ $img }}" 
+                                     alt="{{ $project->title }} Detail Photo" 
+                                     loading="lazy"
+                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    @include('partials.cta-section')
 
 @endsection
