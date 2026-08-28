@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        // Track content created, updated, or deleted by demo users and set 5-minute expiration
+        // Track content created, updated, or deleted by demo users and set 25-minute expiration
         \Illuminate\Support\Facades\Event::listen('eloquent.created: *', function ($eventName, array $data) {
             try {
                 if (empty($data[0]) || !is_object($data[0])) return;
@@ -72,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
                             'action' => 'create',
                             'original_data' => null,
                             'file_paths' => !empty($capturedFiles) ? $capturedFiles : null,
-                            'expires_at' => now()->addMinutes(5),
+                            'expires_at' => now()->addMinutes(25),
                         ]);
                     }
                 }
@@ -109,7 +109,7 @@ class AppServiceProvider extends ServiceProvider
                             if ($existingUpdate) {
                                 // Keep earliest original_data snapshot, just extend expiration
                                 $existingUpdate->update([
-                                    'expires_at' => now()->addMinutes(5),
+                                    'expires_at' => now()->addMinutes(25),
                                 ]);
                             } else {
                                 \App\Models\DemoRecord::create([
@@ -119,7 +119,7 @@ class AppServiceProvider extends ServiceProvider
                                     'action' => 'update',
                                     'original_data' => $model->getOriginal(),
                                     'file_paths' => null,
-                                    'expires_at' => now()->addMinutes(5),
+                                    'expires_at' => now()->addMinutes(25),
                                 ]);
                             }
                         }
@@ -158,7 +158,7 @@ class AppServiceProvider extends ServiceProvider
                                 'action' => 'delete',
                                 'original_data' => $model->getAttributes(),
                                 'file_paths' => null,
-                                'expires_at' => now()->addMinutes(5),
+                                'expires_at' => now()->addMinutes(25),
                             ]);
                         }
                     }

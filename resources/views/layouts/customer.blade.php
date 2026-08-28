@@ -78,7 +78,7 @@
         <div class="bg-amber-500 text-black px-6 py-2 text-xs font-medium border-b border-amber-600 flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center gap-2 max-w-7xl mx-auto w-full">
                 <span class="inline-block w-2 h-2 rounded-full bg-black animate-pulse"></span>
-                <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo pelanggan. Semua perubahan profil, garasi, dan booking akan otomatis direset dalam 5 menit.</span>
+                <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo pelanggan. Semua perubahan profil, garasi, dan booking akan otomatis direset dalam 25 menit.</span>
             </div>
         </div>
     @endif

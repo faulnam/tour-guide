@@ -18,7 +18,7 @@ class CleanDemoContentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Opportunistic cleanup of expired demo records (> 5 minutes)
+        // Opportunistic cleanup of expired demo records (> 25 minutes)
         try {
             if (Schema::hasTable('demo_records')) {
                 $hasExpired = DemoRecord::where('expires_at', '<=', now())->exists();

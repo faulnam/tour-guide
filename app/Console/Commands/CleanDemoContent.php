@@ -21,7 +21,7 @@ class CleanDemoContent extends Command
      *
      * @var string
      */
-    protected $description = 'Clean up and revert expired demo records/modifications (older than 5 minutes)';
+    protected $description = 'Clean up and revert expired demo records/modifications (older than 25 minutes)';
 
     /**
      * Execute the console command.

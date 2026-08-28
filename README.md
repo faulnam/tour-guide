@@ -37,8 +37,8 @@ Aplikasi Web Company Profile & Workshop Management System terintegrasi untuk ben
 
 Akses halaman login di `/login`. Pada halaman login hanya ditampilkan **Akun Demo**, sedangkan akun asli disembunyikan.
 
-### 🧪 Akun Demo (Ditampilkan di Login — Auto-Reset 5 Menit)
-Semua perubahan data atau data baru yang dibuat menggunakan akun demo akan otomatis dibersihkan dan kembali semula setiap **5 menit**.
+### 🧪 Akun Demo (Ditampilkan di Login — Auto-Reset 25 Menit)
+Semua perubahan data atau data baru yang dibuat menggunakan akun demo akan otomatis dibersihkan dan kembali semula setiap **25 menit**.
 
 | Role | Email Demo | Password Demo | Hak Akses |
 | :--- | :--- | :--- | :--- |

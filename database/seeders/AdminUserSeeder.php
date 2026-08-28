@@ -115,7 +115,7 @@ class AdminUserSeeder extends Seeder
         |--------------------------------------------------------------------------
         | 2. AKUN DEMO (DEMO ACCOUNTS)
         | Akun ini ditampilkan di halaman login portal.
-        | Setiap perubahan data oleh akun demo akan otomatis dibersihkan / di-revert dalam 5 menit.
+        | Setiap perubahan data oleh akun demo akan otomatis dibersihkan / di-revert dalam 25 menit.
         |--------------------------------------------------------------------------
         */
 
