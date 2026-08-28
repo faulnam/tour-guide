@@ -194,6 +194,83 @@
                 </div>
             </div>
 
+            <!-- SECTION: HANDOVER / PENGAMBILAN & PENGANTARAN KENDARAAN (ADMIN NOTICE) -->
+            <div class="bg-neutral-900 border {{ $booking->status === 'completed' ? 'border-accent ring-1 ring-accent/30' : 'border-neutral-800' }} p-6 space-y-4">
+                <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full {{ $booking->status === 'completed' ? 'bg-emerald-400 animate-pulse' : 'bg-neutral-600' }}"></span>
+                        <h3 class="text-xs uppercase tracking-widest font-bold text-white">
+                            Metode Penyerahan Unit Kendaraan
+                        </h3>
+                    </div>
+                    @if($booking->status === 'completed')
+                        <span class="text-[9px] uppercase font-bold px-2 py-0.5 bg-emerald-950 text-emerald-300 border border-emerald-800">
+                            Unit Selesai
+                        </span>
+                    @endif
+                </div>
+
+                <div class="space-y-3 text-xs text-neutral-300">
+                    @if($booking->status === 'completed')
+                        @if($booking->delivery_method === 'delivery_address')
+                            <div class="p-3 bg-purple-950/40 border border-purple-800/80 space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-base">🚚</span>
+                                    <span class="font-bold text-white uppercase text-[11px] tracking-wider">DIANTAR KE ALAMAT CUSTOMER (DELIVERY / TOWING)</span>
+                                </div>
+                                <div class="pt-2 border-t border-purple-800/40 space-y-1 text-xs">
+                                    <div class="text-[10px] uppercase font-semibold text-purple-300">Alamat Tujuan Pengiriman:</div>
+                                    <div class="font-medium text-white bg-neutral-950 p-2.5 border border-purple-900/60 select-all leading-relaxed">
+                                        {{ $booking->delivery_address ?: ($booking->customer->address ?? 'Alamat belum diinput oleh customer') }}
+                                    </div>
+                                    <div class="text-[10px] text-neutral-400 pt-1 flex justify-between">
+                                        <span>Kontak Customer: <strong class="text-white">{{ $booking->customer_phone }}</strong></span>
+                                        <span>Nama: <strong class="text-white">{{ $booking->customer_name }}</strong></span>
+                                    </div>
+                                </div>
+                                @if($booking->delivery_notes)
+                                    <div class="p-2 bg-neutral-950 text-[11px] text-neutral-300 border border-purple-900/40 italic">
+                                        <span class="font-semibold text-purple-300 not-italic">Catatan Khusus:</span> {{ $booking->delivery_notes }}
+                                    </div>
+                                @endif
+                            </div>
+                        @elseif($booking->delivery_method === 'pickup_workshop')
+                            <div class="p-3 bg-neutral-950 border border-neutral-700 space-y-1.5">
+                                <div class="flex items-center gap-2 text-white font-bold uppercase text-[11px] tracking-wider">
+                                    <span class="text-base">🏭</span>
+                                    <span>DIAMBIL SENDIRI OLEH CUSTOMER DI WORKSHOP</span>
+                                </div>
+                                <p class="text-[11px] text-neutral-400">
+                                    Customer / perwakilan akan datang langsung ke studio workshop BENGKEL untuk serah terima unit kendaraan.
+                                </p>
+                                @if($booking->delivery_notes)
+                                    <div class="p-2 bg-neutral-900 text-[11px] text-neutral-300 border border-neutral-800 italic mt-1">
+                                        <span class="font-semibold text-neutral-400 not-italic">Catatan:</span> {{ $booking->delivery_notes }}
+                                    </div>
+                                @endif
+                            </div>
+                        @else
+                            <div class="p-3 bg-amber-950/50 border border-amber-700/60 text-amber-200 space-y-1">
+                                <div class="font-bold flex items-center gap-1.5 text-[11px] uppercase">
+                                    <span>⚠️</span>
+                                    <span>Menunggu Pilihan Customer</span>
+                                </div>
+                                <p class="text-[11px] text-amber-300/80">
+                                    Customer belum memilih metode pengambilan di portalnya. Anda dapat mengonfirmasi via WhatsApp ({{ $booking->customer_phone }}).
+                                </p>
+                            </div>
+                        @endif
+                    @else
+                        <div class="p-3 bg-neutral-950 border border-neutral-800 text-neutral-400 space-y-1 text-[11px]">
+                            <div class="font-semibold text-neutral-300">Unit Masih Dalam Pengerjaan Workshop</div>
+                            <p class="leading-relaxed">
+                                Opsi penyerahan (diambil sendiri vs diantar ke alamat) akan diisi oleh customer begitu status pengerjaan telah diselesaikan (Completed 100%).
+                            </p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
         </div>
 
     </div>

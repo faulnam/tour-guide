@@ -95,6 +95,9 @@ class BookingController extends Controller
             'payment_status' => ['nullable', 'in:unpaid,dp_paid,paid,refunded'],
             'mechanic_notes' => ['nullable', 'string'],
             'admin_notes' => ['nullable', 'string'],
+            'delivery_method' => ['nullable', 'in:pickup_workshop,delivery_address'],
+            'delivery_address' => ['nullable', 'string', 'max:1000'],
+            'delivery_notes' => ['nullable', 'string', 'max:500'],
         ]);
 
         $status = $validated['status'];
@@ -136,7 +139,7 @@ class BookingController extends Controller
             $paidAmount = 0;
         }
 
-        $booking->update([
+        $bookingUpdateData = [
             'karyawan_id' => $karyawanId ?: null,
             'service_id' => $validated['service_id'] ?? $booking->service_id,
             'status' => $status,
@@ -146,7 +149,15 @@ class BookingController extends Controller
             'paid_amount' => $paidAmount,
             'payment_status' => $paymentStatus,
             'mechanic_notes' => $mechanicNotes,
-        ]);
+        ];
+
+        if ($request->has('delivery_method')) {
+            $bookingUpdateData['delivery_method'] = $validated['delivery_method'];
+            $bookingUpdateData['delivery_address'] = $validated['delivery_address'] ?? null;
+            $bookingUpdateData['delivery_notes'] = $validated['delivery_notes'] ?? null;
+        }
+
+        $booking->update($bookingUpdateData);
 
         // Auto create log if status changed or mechanic assigned
         if ($prevStatus !== $status) {

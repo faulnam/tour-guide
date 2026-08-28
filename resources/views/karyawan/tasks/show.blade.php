@@ -78,6 +78,28 @@
                         <p class="text-neutral-600 bg-neutral-bg p-3 border border-neutral-200 italic">&ldquo;{{ $b->custom_request }}&rdquo;</p>
                     </div>
                 @endif
+
+                @if($b->status === 'completed')
+                    <div class="pt-3 border-t border-neutral-200 space-y-2 text-xs">
+                        <div class="font-bold text-black text-[10px] uppercase flex items-center gap-1.5 text-emerald-700">
+                            <span>✓</span>
+                            <span>Instruksi Penyerahan Kendaraan:</span>
+                        </div>
+                        <div class="p-3 bg-neutral-bg border border-neutral-200 space-y-1 text-neutral-800">
+                            <div class="font-bold">{{ $b->delivery_method_label }}</div>
+                            @if($b->delivery_method === 'delivery_address' && $b->delivery_address)
+                                <div class="text-[11px] text-neutral-600">
+                                    <strong>Alamat Towing/Delivery:</strong> {{ $b->delivery_address }}
+                                </div>
+                            @endif
+                            @if($b->delivery_notes)
+                                <div class="text-[11px] text-neutral-500 italic">
+                                    Catatan: {{ $b->delivery_notes }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <!-- Activity Logs Timeline -->

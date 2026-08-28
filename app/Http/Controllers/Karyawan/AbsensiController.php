@@ -50,12 +50,15 @@ class AbsensiController extends Controller
             return $this->responseFeedback($request, false, 'Anda sudah melakukan absensi masuk hari ini.');
         }
 
-        $imageData = $request->input('image_data', $request->input('photo'));
-        if (!$imageData) {
-            return $this->responseFeedback($request, false, 'Foto snapshot absensi kamera wajib diambil.');
+        if ($request->hasFile('photo_file')) {
+            $photoPath = $request->file('photo_file')->store('absensi', 'public');
+        } else {
+            $imageData = $request->input('image_data', $request->input('photo'));
+            if (!$imageData) {
+                return $this->responseFeedback($request, false, 'Foto snapshot absensi kamera wajib diambil.');
+            }
+            $photoPath = $this->saveBase64Image($imageData, 'checkin_' . $user->id);
         }
-
-        $photoPath = $this->saveBase64Image($imageData, 'checkin_' . $user->id);
 
         $now = Carbon::now();
         // Jam masuk standar 08:30
@@ -97,12 +100,16 @@ class AbsensiController extends Controller
             return $this->responseFeedback($request, false, 'Anda sudah melakukan absensi pulang hari ini.');
         }
 
-        $imageData = $request->input('image_data', $request->input('photo'));
-        if (!$imageData) {
-            return $this->responseFeedback($request, false, 'Foto snapshot absensi kamera wajib diambil.');
+        if ($request->hasFile('photo_file')) {
+            $photoPath = $request->file('photo_file')->store('absensi', 'public');
+        } else {
+            $imageData = $request->input('image_data', $request->input('photo'));
+            if (!$imageData) {
+                return $this->responseFeedback($request, false, 'Foto snapshot absensi kamera wajib diambil.');
+            }
+            $photoPath = $this->saveBase64Image($imageData, 'checkout_' . $user->id);
         }
 
-        $photoPath = $this->saveBase64Image($imageData, 'checkout_' . $user->id);
         $now = Carbon::now();
 
         $attendance->update([

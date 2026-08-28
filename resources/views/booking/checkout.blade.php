@@ -289,102 +289,121 @@
                     </div>
                 @endif
 
-                <!-- SECTION: VEHICLE HANDOVER / OPSI PENYERAHAN KENDARAAN -->
+                <!-- SECTION: VEHICLE HANDOVER / OPSI PENYERAHAN KENDARAAN (HANYA SETELAH STATUS SELESAI) -->
                 <div class="pt-6 border-t border-neutral-200 space-y-6">
-                    <div class="border-b border-neutral-200 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div>
-                            <div class="text-[10px] uppercase tracking-widest text-accent font-bold">Opsi Penyerahan Unit</div>
+                    @if($isCompleted)
+                        <div class="border-b border-neutral-200 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <div class="text-[10px] uppercase tracking-widest text-emerald-600 font-bold flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span>Pengerjaan Selesai &bull; Pilih Opsi Penyerahan Unit</span>
+                                </div>
+                                <h3 class="text-sm font-bold uppercase tracking-wider text-black mt-0.5">
+                                    Metode Pengambilan / Pengantaran Kendaraan
+                                </h3>
+                                <p class="text-xs text-neutral-500">Unit Anda telah siap! Silakan tentukan apakah kendaraan akan diambil sendiri ke workshop atau diantar ke alamat Anda.</p>
+                            </div>
+                            @if($booking->delivery_method)
+                                <span class="inline-block px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] uppercase font-bold tracking-wider">
+                                    ✓ {{ $booking->delivery_method_label }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <!-- Handover Options Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            
+                            <!-- Option 1: Diambil Sendiri -->
+                            <label class="relative p-5 border cursor-pointer transition-all flex flex-col justify-between space-y-3"
+                                   :class="deliveryMethod === 'pickup_workshop' ? 'border-black bg-neutral-50 ring-1 ring-black' : 'border-neutral-200 bg-white hover:border-neutral-400'">
+                                <div class="flex items-start justify-between">
+                                    <div class="space-y-1">
+                                        <div class="font-bold text-xs uppercase tracking-wider text-black">Diambil Sendiri ke Workshop</div>
+                                        <p class="text-[11px] text-neutral-500 leading-relaxed">
+                                            Anda atau perwakilan mengambil unit langsung di studio workshop BENGKEL.
+                                        </p>
+                                    </div>
+                                    <input type="radio" name="delivery_choice" value="pickup_workshop" x-model="deliveryMethod" class="mt-1 accent-black">
+                                </div>
+
+                                <div class="text-[11px] text-neutral-600 bg-white p-3 border border-neutral-200 space-y-1">
+                                    <div class="font-semibold text-black">Lokasi Workshop:</div>
+                                    <div>Jl. Raya Modifikasi No. 88, Workshop Studio &amp; Dyno Lab, Jakarta</div>
+                                    <div class="text-neutral-400 text-[10px]">Senin – Sabtu &bull; 08:30 – 18:00 WIB</div>
+                                </div>
+                            </label>
+
+                            <!-- Option 2: Diantar ke Alamat Customer -->
+                            <label class="relative p-5 border cursor-pointer transition-all flex flex-col justify-between space-y-3"
+                                   :class="deliveryMethod === 'delivery_address' ? 'border-black bg-neutral-50 ring-1 ring-black' : 'border-neutral-200 bg-white hover:border-neutral-400'">
+                                <div class="flex items-start justify-between">
+                                    <div class="space-y-1">
+                                        <div class="font-bold text-xs uppercase tracking-wider text-black">Diantar ke Alamat (Delivery / Towing)</div>
+                                        <p class="text-[11px] text-neutral-500 leading-relaxed">
+                                            Unit dikirimkan dengan aman menggunakan towing / valet delivery ke alamat Anda.
+                                        </p>
+                                    </div>
+                                    <input type="radio" name="delivery_choice" value="delivery_address" x-model="deliveryMethod" class="mt-1 accent-black">
+                                </div>
+
+                                <div class="text-[11px] text-neutral-600 bg-white p-3 border border-neutral-200 space-y-1">
+                                    <div class="font-semibold text-black">Ketentuan Pengantaran:</div>
+                                    <div>Driver/towing kami akan menghubungi WhatsApp Anda sebelum unit diberangkatkan.</div>
+                                </div>
+                            </label>
+
+                        </div>
+
+                        <!-- Delivery Details Form (Appears when Diantar ke Alamat is selected) -->
+                        <div x-show="deliveryMethod === 'delivery_address'" x-transition x-cloak class="p-5 bg-neutral-50 border border-neutral-200 space-y-4 text-xs">
+                            <div class="font-bold text-black uppercase tracking-wider text-[11px]">Konfirmasi Alamat Pengantaran:</div>
+
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Alamat Lengkap Tujuan Pengiriman *</label>
+                                    <textarea x-model="deliveryAddress" rows="2" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota, kode pos..."
+                                              class="w-full bg-white border border-neutral-300 text-black text-xs px-3.5 py-2.5 focus:outline-none focus:border-black">{{ old('delivery_address', $booking->delivery_address) }}</textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Catatan Waktu / Instruksi Pengantaran Khusus (Opsional)</label>
+                                    <input type="text" x-model="deliveryNotes" placeholder="Contoh: Tolong diantar setelah jam 14:00 WIB, titipkan ke satpam jika belum ada di rumah"
+                                           class="w-full bg-white border border-neutral-300 text-black text-xs px-3.5 py-2.5 focus:outline-none focus:border-black">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save Handover Button -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+                            <button type="button" 
+                                    @click="saveDelivery()"
+                                    :disabled="deliveryLoading"
+                                    class="btn-dark text-xs px-6 py-2.5">
+                                <span x-show="!deliveryLoading">Simpan Opsi Penyerahan Kendaraan &rarr;</span>
+                                <span x-show="deliveryLoading" x-cloak>Menyimpan Pilihan...</span>
+                            </button>
+
+                            <div x-show="deliverySaved" x-cloak class="text-xs font-bold text-emerald-700 flex items-center gap-1.5">
+                                <span>✓</span>
+                                <span>Pilihan penyerahan berhasil disimpan! Tim workshop &amp; Admin telah diberi notifikasi.</span>
+                            </div>
+                        </div>
+                    @else
+                        <!-- Informasi Terkunci: Status Belum Selesai -->
+                        <div class="p-6 bg-white border border-neutral-200 space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                <span class="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Opsi Penyerahan &amp; Pengambilan Unit</span>
+                            </div>
                             <h3 class="text-sm font-bold uppercase tracking-wider text-black">
-                                Metode Pengambilan / Pengantaran Kendaraan
+                                Tersedia Setelah Pengerjaan Unit Selesai
                             </h3>
-                            <p class="text-xs text-neutral-500">Tentukan apakah kendaraan akan diambil sendiri ke workshop atau diantar ke alamat Anda.</p>
+                            <p class="text-xs text-neutral-600 leading-relaxed">
+                                Unit kendaraan saat ini masih dalam proses pengerjaan workshop (Status: <strong class="text-black">{{ $booking->status_label }}</strong> &bull; Progress: <strong class="text-black">{{ $booking->progress_percentage }}%</strong>).
+                                Setelah seluruh tahapan pengerjaan dinyatakan <strong class="text-black">Selesai (Completed)</strong> oleh teknisi workshop, Anda dapat memilih metode apakah kendaraan akan <strong>diambil sendiri ke workshop</strong> atau <strong>diantar ke alamat Anda (Delivery / Towing)</strong>.
+                            </p>
                         </div>
-                        @if($booking->delivery_method)
-                            <span class="inline-block px-2.5 py-1 bg-neutral-100 text-black border border-neutral-300 text-[10px] uppercase font-bold tracking-wider">
-                                {{ $booking->delivery_method_label }}
-                            </span>
-                        @endif
-                    </div>
-
-                    <!-- Handover Options Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        
-                        <!-- Option 1: Diambil Sendiri -->
-                        <label class="relative p-5 border cursor-pointer transition-all flex flex-col justify-between space-y-3"
-                               :class="deliveryMethod === 'pickup_workshop' ? 'border-black bg-neutral-50 ring-1 ring-black' : 'border-neutral-200 bg-white hover:border-neutral-400'">
-                            <div class="flex items-start justify-between">
-                                <div class="space-y-1">
-                                    <div class="font-bold text-xs uppercase tracking-wider text-black">Diambil Sendiri ke Workshop</div>
-                                    <p class="text-[11px] text-neutral-500 leading-relaxed">
-                                        Anda atau perwakilan mengambil unit langsung di studio workshop BENGKEL.
-                                    </p>
-                                </div>
-                                <input type="radio" name="delivery_choice" value="pickup_workshop" x-model="deliveryMethod" class="mt-1 accent-black">
-                            </div>
-
-                            <div class="text-[11px] text-neutral-600 bg-white p-3 border border-neutral-200 space-y-1">
-                                <div class="font-semibold text-black">Lokasi Workshop:</div>
-                                <div>Jl. Raya Modifikasi No. 88, Workshop Studio &amp; Dyno Lab, Jakarta</div>
-                                <div class="text-neutral-400 text-[10px]">Senin – Sabtu &bull; 08:30 – 18:00 WIB</div>
-                            </div>
-                        </label>
-
-                        <!-- Option 2: Diantar ke Alamat Customer -->
-                        <label class="relative p-5 border cursor-pointer transition-all flex flex-col justify-between space-y-3"
-                               :class="deliveryMethod === 'delivery_address' ? 'border-black bg-neutral-50 ring-1 ring-black' : 'border-neutral-200 bg-white hover:border-neutral-400'">
-                            <div class="flex items-start justify-between">
-                                <div class="space-y-1">
-                                    <div class="font-bold text-xs uppercase tracking-wider text-black">Diantar ke Alamat (Delivery / Towing)</div>
-                                    <p class="text-[11px] text-neutral-500 leading-relaxed">
-                                        Unit dikirimkan dengan aman menggunakan towing / valet delivery ke alamat Anda.
-                                    </p>
-                                </div>
-                                <input type="radio" name="delivery_choice" value="delivery_address" x-model="deliveryMethod" class="mt-1 accent-black">
-                            </div>
-
-                            <div class="text-[11px] text-neutral-600 bg-white p-3 border border-neutral-200 space-y-1">
-                                <div class="font-semibold text-black">Ketentuan Pengantaran:</div>
-                                <div>Driver/towing kami akan menghubungi WhatsApp Anda sebelum unit diberangkatkan.</div>
-                            </div>
-                        </label>
-
-                    </div>
-
-                    <!-- Delivery Details Form (Appears when Diantar ke Alamat is selected) -->
-                    <div x-show="deliveryMethod === 'delivery_address'" x-transition x-cloak class="p-5 bg-neutral-50 border border-neutral-200 space-y-4 text-xs">
-                        <div class="font-bold text-black uppercase tracking-wider text-[11px]">Konfirmasi Alamat Pengantaran:</div>
-
-                        <div class="space-y-3">
-                            <div>
-                                <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Alamat Lengkap Tujuan Pengiriman *</label>
-                                <textarea x-model="deliveryAddress" rows="2" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota, kode pos..."
-                                          class="w-full bg-white border border-neutral-300 text-black text-xs px-3.5 py-2.5 focus:outline-none focus:border-black">{{ old('delivery_address', $booking->delivery_address) }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Catatan Waktu / Instruksi Pengantaran Khusus (Opsional)</label>
-                                <input type="text" x-model="deliveryNotes" placeholder="Contoh: Tolong diantar setelah jam 14:00 WIB, titipkan ke satpam jika belum ada di rumah"
-                                       class="w-full bg-white border border-neutral-300 text-black text-xs px-3.5 py-2.5 focus:outline-none focus:border-black">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Save Handover Button -->
-                    <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
-                        <button type="button" 
-                                @click="saveDelivery()"
-                                :disabled="deliveryLoading"
-                                class="btn-dark text-xs px-6 py-2.5">
-                            <span x-show="!deliveryLoading">Simpan Opsi Penyerahan Kendaraan &rarr;</span>
-                            <span x-show="deliveryLoading" x-cloak>Menyimpan Pilihan...</span>
-                        </button>
-
-                        <div x-show="deliverySaved" x-cloak class="text-xs font-bold text-black flex items-center gap-1.5">
-                            <span>✓</span>
-                            <span>Opsi penyerahan unit berhasil diperbarui!</span>
-                        </div>
-                    </div>
-
+                    @endif
                 </div>
 
                 <!-- Footer Action Buttons -->

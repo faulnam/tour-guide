@@ -137,9 +137,46 @@
                 </div>
             </div>
 
+            <!-- Section 3: Handover & Delivery Settings -->
+            <div class="space-y-4 pt-4 border-t border-neutral-800" x-data="{
+                delMethod: '{{ old('delivery_method', $booking->delivery_method ?? 'pickup_workshop') }}'
+            }">
+                <div class="text-[11px] uppercase tracking-widest font-bold text-white border-b border-neutral-800 pb-2">
+                    3. Metode Penyerahan &amp; Pengambilan Unit (Setelah Selesai)
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-300 mb-1">
+                            Metode Penyerahan Kendaraan
+                        </label>
+                        <select name="delivery_method" x-model="delMethod" class="w-full bg-neutral-950 border border-neutral-700 px-3 py-2.5 text-xs text-white focus:outline-none focus:border-white">
+                            <option value="pickup_workshop">Diambil Sendiri ke Workshop BENGKEL</option>
+                            <option value="delivery_address">Diantar ke Alamat Customer (Delivery / Towing)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-300 mb-1">
+                            Catatan Pengantaran Khusus
+                        </label>
+                        <input type="text" name="delivery_notes" value="{{ old('delivery_notes', $booking->delivery_notes) }}" placeholder="Contoh: Titip security, kirim pakai towing..."
+                               class="w-full bg-neutral-950 border border-neutral-700 px-3 py-2.5 text-xs text-white focus:outline-none focus:border-white">
+                    </div>
+                </div>
+
+                <div x-show="delMethod === 'delivery_address'" class="pt-2" x-cloak>
+                    <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-300 mb-1">
+                        Alamat Lengkap Tujuan Pengiriman Unit
+                    </label>
+                    <textarea name="delivery_address" rows="2" placeholder="Nama jalan, nomor rumah, RT/RW, kota, kode pos..."
+                              class="w-full bg-neutral-950 border border-neutral-700 px-3 py-2.5 text-xs text-white focus:outline-none focus:border-white">{{ old('delivery_address', $booking->delivery_address ?: ($booking->customer->address ?? '')) }}</textarea>
+                </div>
+            </div>
+
             <div class="pt-6 border-t border-neutral-800 flex items-center justify-between">
                 <div class="text-xs text-neutral-500">
-                    Perubahan status dan mekanik akan otomatis dicatat ke riwayat log aktivitas booking.
+                    Perubahan status, mekanik, dan penyerahan unit akan otomatis dicatat ke riwayat log aktivitas booking.
                 </div>
                 <button type="submit" class="px-6 py-3 bg-white text-black hover:bg-neutral-200 text-xs uppercase tracking-widest font-bold transition-colors">
                     Simpan Perubahan &rarr;

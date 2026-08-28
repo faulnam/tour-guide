@@ -20,7 +20,7 @@
                 {{ $project->title }}
             </h1>
             <p class="text-neutral-300 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-                {{ $project->client ? 'Client: ' . $project->client . ' • ' : '' }} {{ $project->location ?? 'Jakarta' }} ({{ $project->year ?? '2024' }})
+                {{ $project->location ?? 'Jakarta' }} ({{ $project->year ?? '2024' }})
             </p>
         </div>
     </section>
@@ -122,7 +122,7 @@
                     </div>
 
                     <div class="pt-4 border-t border-neutral-200">
-                        <a href="{{ url('/booking') }}" class="btn-dark w-full text-center block">
+                        <a href="{{ route('contact.index') }}" class="btn-dark w-full text-center block">
                             Konsultasi Modif Serupa &rarr;
                         </a>
                     </div>

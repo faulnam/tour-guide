@@ -121,14 +121,16 @@
                 @forelse(\App\Models\Attendance::with('user')->latest()->take(5)->get() as $att)
                     <div class="p-3 bg-neutral-950/60 border border-neutral-800/80 text-xs flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            @if($att->photo_in)
-                                <img src="{{ asset('storage/' . $att->photo_in) }}" class="w-9 h-9 object-cover border border-neutral-800">
+                            @if($att->check_in_photo_url)
+                                <img src="{{ $att->check_in_photo_url }}" class="w-9 h-9 object-cover border border-neutral-800">
                             @else
                                 <div class="w-9 h-9 bg-neutral-800 flex items-center justify-center font-bold text-neutral-400 text-xs">A</div>
                             @endif
                             <div>
                                 <div class="font-semibold text-white">{{ $att->user->name ?? 'Staff' }}</div>
-                                <div class="text-[10px] text-neutral-400">{{ $att->date->format('d M Y') }} • In: {{ $att->clock_in ? $att->clock_in->format('H:i') : '-' }}</div>
+                                <div class="text-[10px] text-neutral-400">
+                                    {{ $att->date ? ($att->date instanceof \DateTimeInterface ? $att->date->format('d M Y') : date('d M Y', strtotime($att->date))) : '-' }} &bull; In: {{ $att->clock_in ?? '-' }} &bull; Out: {{ $att->clock_out ?? '-' }}
+                                </div>
                             </div>
                         </div>
                         <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">

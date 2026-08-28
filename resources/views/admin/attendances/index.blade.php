@@ -102,30 +102,30 @@
                                 <div>{{ $att->user->name ?? 'Karyawan' }}</div>
                                 <div class="text-[10px] text-neutral-500 font-normal">{{ $att->user->specialty ?? $att->user->position ?? 'Teknisi' }}</div>
                             </td>
-                            <td class="p-3.5">{{ $att->date->format('d M Y') }}</td>
+                            <td class="p-3.5">{{ $att->date ? ($att->date instanceof \DateTimeInterface ? $att->date->format('d M Y') : date('d M Y', strtotime($att->date))) : '-' }}</td>
                             <td class="p-3.5">
-                                @if($att->photo_in)
-                                    <button @click="selectedPhoto = '{{ asset('storage/' . $att->photo_in) }}'" type="button" class="group relative block w-10 h-10 border border-neutral-700 overflow-hidden">
-                                        <img src="{{ asset('storage/' . $att->photo_in) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                @if($att->check_in_photo_url)
+                                    <button @click="selectedPhoto = '{{ $att->check_in_photo_url }}'" type="button" class="group relative block w-10 h-10 border border-neutral-700 overflow-hidden">
+                                        <img src="{{ $att->check_in_photo_url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                                     </button>
                                 @else
                                     <span class="text-neutral-500">-</span>
                                 @endif
                             </td>
                             <td class="p-3.5 font-mono text-emerald-400">
-                                {{ $att->clock_in ? $att->clock_in->format('H:i:s') : '-' }}
+                                {{ $att->clock_in ?? ($att->check_in_time ? substr($att->check_in_time, 0, 5) : '-') }}
                             </td>
                             <td class="p-3.5">
-                                @if($att->photo_out)
-                                    <button @click="selectedPhoto = '{{ asset('storage/' . $att->photo_out) }}'" type="button" class="group relative block w-10 h-10 border border-neutral-700 overflow-hidden">
-                                        <img src="{{ asset('storage/' . $att->photo_out) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                                @if($att->check_out_photo_url)
+                                    <button @click="selectedPhoto = '{{ $att->check_out_photo_url }}'" type="button" class="group relative block w-10 h-10 border border-neutral-700 overflow-hidden">
+                                        <img src="{{ $att->check_out_photo_url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
                                     </button>
                                 @else
                                     <span class="text-neutral-500">-</span>
                                 @endif
                             </td>
                             <td class="p-3.5 font-mono text-amber-400">
-                                {{ $att->clock_out ? $att->clock_out->format('H:i:s') : '-' }}
+                                {{ $att->clock_out ?? ($att->check_out_time ? substr($att->check_out_time, 0, 5) : '-') }}
                             </td>
                             <td class="p-3.5">
                                 <span class="px-2 py-0.5 text-[9px] uppercase font-bold tracking-wider {{ $att->status === 'hadir' || $att->status === 'present' ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800' }}">

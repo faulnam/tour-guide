@@ -108,6 +108,27 @@
                             <td class="p-3.5">
                                 <div>{!! $b->status_badge !!}</div>
                                 <div class="text-[10px] text-neutral-400 mt-1">{{ $b->progress_percentage }}% Selesai</div>
+                                @if($b->status === 'completed')
+                                    @if($b->delivery_method === 'delivery_address')
+                                        <div class="mt-1">
+                                            <span class="inline-block px-1.5 py-0.5 bg-purple-950 text-purple-300 border border-purple-800 text-[9px] font-bold uppercase tracking-wider" title="{{ $b->delivery_address }}">
+                                                🚚 Diantar ke Alamat
+                                            </span>
+                                        </div>
+                                    @elseif($b->delivery_method === 'pickup_workshop')
+                                        <div class="mt-1">
+                                            <span class="inline-block px-1.5 py-0.5 bg-neutral-800 text-neutral-300 border border-neutral-700 text-[9px] font-bold uppercase tracking-wider">
+                                                🏭 Ambil di Workshop
+                                            </span>
+                                        </div>
+                                    @else
+                                        <div class="mt-1">
+                                            <span class="inline-block px-1.5 py-0.5 bg-amber-950 text-amber-300 border border-amber-800 text-[9px] font-bold uppercase tracking-wider">
+                                                ⏳ Menunggu Pilihan
+                                            </span>
+                                        </div>
+                                    @endif
+                                @endif
                             </td>
                             <td class="p-3.5">
                                 <div>{!! $b->payment_badge !!}</div>
