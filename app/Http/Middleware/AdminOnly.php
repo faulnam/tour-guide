@@ -9,20 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminOnly
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
-            return redirect()->route('admin.login')->with('error', 'Please log in to access the admin panel.');
+            return redirect()->route('login')->with('error', 'Silakan masuk terlebih dahulu untuk mengakses panel admin.');
         }
 
-        if (!Auth::user()->isEditor()) {
-            Auth::logout();
-            return redirect()->route('admin.login')->with('error', 'You do not have administrative permissions.');
+        if (!Auth::user()->isAdmin()) {
+            return redirect()->route('login')->with('error', 'Anda tidak memiliki hak akses administrator.');
         }
 
         return $next($request);

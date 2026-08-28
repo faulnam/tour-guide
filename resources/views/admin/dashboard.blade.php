@@ -1,138 +1,161 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard Overview')
-@section('page_title', 'Dashboard Overview')
+@section('title', 'Dashboard Workshop & Bengkel')
 
 @section('content')
 <div class="space-y-8">
     
-    <!-- Welcome Header -->
-    <div class="bg-neutral-900 border border-neutral-800 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-            <h2 class="text-xl md:text-2xl font-bold text-white tracking-tight">
-                Welcome back, {{ auth()->user()->name }}!
-            </h2>
-            <p class="text-xs text-neutral-400 mt-1">
-                Here is a summary of your website contents, portfolio submissions, and customer inquiries.
-            </p>
-        </div>
-        <div class="flex items-center gap-3">
-            <a href="{{ route('admin.projects.create') }}" class="px-4 py-2.5 bg-white text-black hover:bg-neutral-200 text-[11px] uppercase tracking-wider font-semibold transition-colors">
-                + New Project
-            </a>
-            <a href="{{ route('admin.settings.edit') }}" class="px-4 py-2.5 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-500 text-[11px] uppercase tracking-wider transition-colors">
-                Edit Settings
-            </a>
-        </div>
-    </div>
-
-    <!-- 8 Analytical Counter Cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+    <!-- Top KPI Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Projects</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['projects'] }}</div>
-            <a href="{{ route('admin.projects.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Manage Projects &rarr;</a>
-        </div>
-
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Services</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['services'] }}</div>
-            <a href="{{ route('admin.services.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Manage Hierarchy &rarr;</a>
-        </div>
-
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Clients</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['clients'] }}</div>
-            <a href="{{ route('admin.clients.index') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Manage Logos &rarr;</a>
-        </div>
-
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Awards</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['awards'] }}</div>
-            <a href="{{ url('/admin/awards') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">View Awards &rarr;</a>
-        </div>
-
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Blog Posts</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['posts'] }}</div>
-            <a href="{{ url('/admin/blog-posts') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Manage Articles &rarr;</a>
-        </div>
-
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Job Vacancies</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['vacancies'] }}</div>
-            <a href="{{ url('/admin/job-vacancies') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Manage Careers &rarr;</a>
-        </div>
-
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Unread Messages</div>
-            <div class="text-3xl font-bold {{ $stats['unread_messages'] > 0 ? 'text-accent' : 'text-white' }}">
-                {{ $stats['unread_messages'] }}
+        <!-- Total Pendapatan -->
+        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
+            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
+                <span>Total Omzet Bengkel</span>
+                <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm">
+                    <i class="fa-solid fa-rupiah-sign"></i>
+                </div>
             </div>
-            <a href="{{ url('/admin/messages') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">Open Inbox &rarr;</a>
+            <div class="font-racing font-black text-2xl text-emerald-400">
+                Rp {{ number_format($totalRevenue, 0, ',', '.') }}
+            </div>
+            <div class="text-[10px] text-neutral-400">Total DP & Pelunasan terverifikasi</div>
         </div>
 
-        <div class="bg-neutral-900 border border-neutral-800 p-5 space-y-2">
-            <div class="text-xs uppercase tracking-widest text-neutral-500 font-semibold">Subscribers</div>
-            <div class="text-3xl font-bold text-white">{{ $stats['subscribers'] }}</div>
-            <a href="{{ url('/admin/subscribers') }}" class="text-[10px] text-accent hover:underline uppercase tracking-wider inline-block">View Subscribers &rarr;</a>
+        <!-- Antrean Pengerjaan Aktif -->
+        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
+            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
+                <span>Unit Sedang Dikerjakan</span>
+                <div class="w-8 h-8 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center text-sm">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+            </div>
+            <div class="font-racing font-black text-2xl text-white">
+                {{ $activeBookingsCount }} <span class="text-xs text-neutral-400 font-sans font-normal">Kendaraan</span>
+            </div>
+            <div class="text-[10px] text-amber-400 font-bold">{{ $pendingBookingsCount }} Menunggu Konfirmasi</div>
+        </div>
+
+        <!-- Kehadiran Mekanik Hari Ini -->
+        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
+            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
+                <span>Kehadiran Mekanik</span>
+                <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            </div>
+            <div class="font-racing font-black text-2xl text-amber-400">
+                {{ $presentTodayCount }} / {{ $totalMechanics }} <span class="text-xs text-neutral-400 font-sans font-normal">Mekanik</span>
+            </div>
+            <div class="text-[10px] text-neutral-400"><a href="{{ route('admin.attendances.index') }}" class="text-amber-400 underline">Lihat Foto Absensi Kamera &rarr;</a></div>
+        </div>
+
+        <!-- Total Customer & Layanan -->
+        <div class="bg-[#121218] border border-neutral-800 rounded-3xl p-6 space-y-2 shadow-xl">
+            <div class="flex items-center justify-between text-neutral-400 text-xs uppercase font-bold tracking-wider">
+                <span>Customer & Layanan</span>
+                <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-sm">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+            <div class="font-racing font-black text-2xl text-white">
+                {{ $totalCustomers }} <span class="text-xs text-neutral-400 font-sans font-normal">Klien</span>
+            </div>
+            <div class="text-[10px] text-neutral-400">{{ $totalServices }} Paket Modifikasi Aktif</div>
         </div>
 
     </div>
 
-    <!-- Recent Data Tables (2 Columns) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- 2 Column: Today's Camera Attendance Live Feed + Recent Bookings -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Recent Projects -->
-        <div class="bg-neutral-900 border border-neutral-800 p-6 space-y-4">
-            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
-                <h3 class="text-xs uppercase tracking-widest font-bold text-white">Recent Projects</h3>
-                <a href="{{ route('admin.projects.index') }}" class="text-[10px] text-neutral-400 hover:text-white uppercase tracking-wider">View All</a>
+        <!-- Left: Today's Camera Attendance Feed (5 Cols) -->
+        <div class="lg:col-span-5 bg-[#121218] border border-neutral-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="font-racing font-bold text-sm text-white uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-camera text-amber-400"></i>
+                        <span>ABSENSI KAMERA HARI INI</span>
+                    </h3>
+                    <p class="text-[11px] text-neutral-400">Foto selfie masuk mekanik shift hari ini:</p>
+                </div>
+                <a href="{{ route('admin.attendances.index') }}" class="text-[11px] font-bold text-amber-400 hover:underline">Rekap Lengkap &rarr;</a>
             </div>
 
             <div class="space-y-3">
-                @forelse($recentProjects as $p)
-                    <div class="flex items-center justify-between p-3 bg-neutral-950/60 border border-neutral-800/80 text-xs">
-                        <div class="flex items-center gap-3 truncate">
-                            <div class="w-10 h-10 bg-neutral-800 overflow-hidden shrink-0">
-                                @if($p->cover_image)
-                                    <img src="{{ str_starts_with($p->cover_image, 'http') ? $p->cover_image : asset('storage/' . $p->cover_image) }}" class="w-full h-full object-cover">
-                                @endif
-                            </div>
-                            <div class="truncate">
-                                <div class="font-semibold text-white truncate">{{ $p->title }}</div>
-                                <div class="text-[10px] text-neutral-400">{{ $p->service ? $p->service->title : 'Uncategorized' }}</div>
-                            </div>
+                @forelse($todayAttendances as $att)
+                    <div class="p-3.5 rounded-2xl bg-[#0a0a0e] border border-neutral-800 flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-xl overflow-hidden bg-black flex-shrink-0 border border-neutral-700">
+                            @if($att->check_in_photo)
+                                <img src="{{ $att->check_in_photo_url }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-neutral-600"><i class="fa-solid fa-user"></i></div>
+                            @endif
                         </div>
-                        <a href="{{ route('admin.projects.edit', $p) }}" class="text-neutral-400 hover:text-white text-[11px] font-semibold pl-3">Edit &rarr;</a>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold text-xs text-white truncate">{{ $att->user->name ?? 'Mekanik' }}</div>
+                            <div class="text-[10px] text-neutral-400 font-mono">Masuk: <span class="text-emerald-400">{{ $att->check_in_time }} WIB</span></div>
+                            <div class="mt-0.5">{!! $att->status_badge !!}</div>
+                        </div>
                     </div>
                 @empty
-                    <div class="text-center py-6 text-neutral-500 text-xs">No projects available.</div>
+                    <div class="text-center py-8 text-neutral-500 text-xs">
+                        Belum ada mekanik yang melakukan absensi kamera hari ini.
+                    </div>
                 @endforelse
             </div>
         </div>
 
-        <!-- Recent Contact Inquiries -->
-        <div class="bg-neutral-900 border border-neutral-800 p-6 space-y-4">
-            <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
-                <h3 class="text-xs uppercase tracking-widest font-bold text-white">Recent Contact Inquiries</h3>
-                <a href="{{ url('/admin/messages') }}" class="text-[10px] text-neutral-400 hover:text-white uppercase tracking-wider">View Inbox</a>
+        <!-- Right: Recent Workshop Bookings (7 Cols) -->
+        <div class="lg:col-span-7 bg-[#121218] border border-neutral-800 rounded-3xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="font-racing font-bold text-sm text-white uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-car-side text-red-500"></i>
+                        <span>ANTREAN BOOKING TERBARU</span>
+                    </h3>
+                    <p class="text-[11px] text-neutral-400">Pesanan modifikasi motor & mobil yang masuk:</p>
+                </div>
+                <a href="{{ route('admin.bookings.index') }}" class="text-[11px] font-bold text-red-400 hover:underline">Lihat Semua &rarr;</a>
             </div>
 
-            <div class="space-y-3">
-                @forelse($recentMessages as $msg)
-                    <div class="p-3 bg-neutral-950/60 border border-neutral-800/80 text-xs space-y-1">
-                        <div class="flex items-center justify-between">
-                            <div class="font-semibold text-white">{{ $msg->name }}</div>
-                            <div class="text-[10px] text-neutral-500">{{ $msg->created_at->diffForHumans() }}</div>
-                        </div>
-                        <div class="text-[11px] text-neutral-400 truncate">{{ $msg->email }} {{ $msg->company ? '&bull; ' . $msg->company : '' }}</div>
-                        <p class="text-[11px] text-neutral-300 line-clamp-1 italic">{{ $msg->message }}</p>
-                    </div>
-                @empty
-                    <div class="text-center py-6 text-neutral-500 text-xs">No contact inquiries yet.</div>
-                @endforelse
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-[#0a0a0e] text-neutral-400 uppercase tracking-wider font-semibold border-b border-neutral-800">
+                        <tr>
+                            <th class="p-2.5">Kode & Unit</th>
+                            <th class="p-2.5">Customer</th>
+                            <th class="p-2.5">Status</th>
+                            <th class="p-2.5 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-800 text-neutral-300">
+                        @forelse($recentBookings as $bk)
+                            <tr class="hover:bg-neutral-900/50">
+                                <td class="p-2.5">
+                                    <div class="font-mono font-bold text-white">{{ $bk->booking_code }}</div>
+                                    <div class="text-[10px] text-neutral-400">{{ $bk->vehicle_type_label }} {{ $bk->vehicle_brand }} {{ $bk->vehicle_model }}</div>
+                                </td>
+                                <td class="p-2.5">
+                                    <div class="font-bold text-white">{{ $bk->customer_name }}</div>
+                                    <div class="text-[10px] text-neutral-500">{{ $bk->customer_phone }}</div>
+                                </td>
+                                <td class="p-2.5">
+                                    {!! $bk->status_badge !!}
+                                </td>
+                                <td class="p-2.5 text-right">
+                                    <a href="{{ route('admin.bookings.show', $bk->id) }}" class="px-2.5 py-1.5 bg-neutral-800 hover:bg-red-600 text-white rounded-lg text-[10px] font-bold transition-colors">
+                                        Kelola
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="p-6 text-center text-neutral-500">Belum ada booking.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
 

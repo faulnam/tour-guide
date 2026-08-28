@@ -7,72 +7,62 @@ use Illuminate\Database\Seeder;
 
 class PageContentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $contents = [
             // Home Page
             [
                 'key' => 'home_hero_title',
-                'value' => 'We are an Award-Winning interior design firm',
+                'value' => 'Apex Performance & Custom Workshop',
                 'page' => 'home',
                 'section' => 'hero',
                 'label' => 'Home Hero Headline',
             ],
             [
                 'key' => 'home_hero_description',
-                'value' => 'Metrix Interior Architecture is a Jakarta-based interior design consultant firm serving globally. Metrix specializes in retail interior design, commercial interior design, restaurant design, bar cafe interior design, hospitality interior architecture, and office interior design projects. Variety of our portfolios can be found in Indonesia, Malaysia, Singapore and United States.',
+                'value' => 'Bengkel spesialis modifikasi performa tinggi, ECU remap dyno tuning, fabrikasi bodykit widebody, cat oven Spies Hecker, custom bike builder, air suspension, dan servis berkala terlengkap di Jakarta.',
                 'page' => 'home',
                 'section' => 'hero',
                 'label' => 'Home Hero Description',
             ],
             [
                 'key' => 'home_recent_projects_eyebrow',
-                'value' => 'Recent Projects',
+                'value' => 'Hasil Modifikasi Terbaru',
                 'page' => 'home',
                 'section' => 'recent_projects',
-                'label' => 'Recent Projects Section Eyebrow',
+                'label' => 'Recent Projects Eyebrow',
             ],
             [
                 'key' => 'home_recent_projects_subtitle',
-                'value' => 'We are at the forefront of contemporary new trends in interior design.',
+                'value' => 'Mahakarya modifikasi motor & mobil dengan presisi tinggi dan lonjakan tenaga teruji di atas mesin Dyno.',
                 'page' => 'home',
                 'section' => 'recent_projects',
-                'label' => 'Recent Projects Section Subtitle',
+                'label' => 'Recent Projects Subtitle',
             ],
             [
-                'key' => 'home_latest_insights_eyebrow',
-                'value' => 'Latest Insights',
+                'key' => 'home_services_eyebrow',
+                'value' => 'Layanan & Paket Modifikasi',
                 'page' => 'home',
-                'section' => 'latest_insights',
-                'label' => 'Latest Insights Section Eyebrow',
+                'section' => 'services',
+                'label' => 'Services Section Eyebrow',
             ],
             [
-                'key' => 'home_latest_insights_subtitle',
-                'value' => 'Stay inspired with our newest articles, project showcases, and design perspectives.',
+                'key' => 'home_services_subtitle',
+                'value' => 'Pilihan paket pengerjaan profesional dengan jaminan garansi resmi dan suku cadang performa orisinil.',
                 'page' => 'home',
-                'section' => 'latest_insights',
-                'label' => 'Latest Insights Section Subtitle',
-            ],
-            [
-                'key' => 'home_clients_eyebrow',
-                'value' => 'Our Clients',
-                'page' => 'home',
-                'section' => 'clients',
-                'label' => 'Our Clients Section Eyebrow',
+                'section' => 'services',
+                'label' => 'Services Section Subtitle',
             ],
             [
                 'key' => 'home_cta_title',
-                'value' => 'Want to start a new project?',
+                'value' => 'Siap Meningkatkan Performa & Tampilan Kendaraan Anda?',
                 'page' => 'home',
                 'section' => 'cta',
                 'label' => 'Home CTA Title',
             ],
             [
                 'key' => 'home_cta_subtitle',
-                'value' => 'Feel free to talk, share your dream interior imagination and let us make it into reality.',
+                'value' => 'Booking antrean servis & konsultasi modifikasi online sekarang dengan DP terjangkau via Payment Gateway.',
                 'page' => 'home',
                 'section' => 'cta',
                 'label' => 'Home CTA Subtitle',
@@ -81,63 +71,63 @@ class PageContentSeeder extends Seeder
             // About Us Page
             [
                 'key' => 'about_who_we_are_title',
-                'value' => 'Who We Are',
+                'value' => 'Tentang Apex Garage',
                 'page' => 'about',
                 'section' => 'profile',
                 'label' => 'About - Who We Are Title',
             ],
             [
                 'key' => 'about_who_we_are_text',
-                'value' => 'Metrix Interior Architecture is an established Jakarta-based interior design consultant with over two decades of international experience. We have developed high-profile projects ranging from luxury hospitality, prestigious commercial workspaces, destination restaurants, and bespoke residential show units across Southeast Asia and the United States.',
+                'value' => 'Berdiri sejak 2012, Apex Garage telah menjadi destinasi utama bagi para car & motorcycle enthusiast di Indonesia. Dilengkapi fasilitas canggih mulai dari Dyno Jet 224xLC All-Wheel Drive, Spray Booth Oven Jerman, 3D Laser Scanner, hingga mesin bubut CNC presisi tinggi.',
                 'page' => 'about',
                 'section' => 'profile',
                 'label' => 'About - Who We Are Text',
             ],
             [
                 'key' => 'about_mission_title',
-                'value' => 'Our Mission',
+                'value' => 'Visi & Misi Kami',
                 'page' => 'about',
                 'section' => 'mission',
-                'label' => 'About - Our Mission Title',
+                'label' => 'About - Mission Title',
             ],
             [
                 'key' => 'about_mission_text',
-                'value' => 'To conceive timeless, functional, and visually evocative architectural interiors that elevate human experience, amplify client brand identities, and establish enduring value through thoughtful craftsmanship and sustainable innovation.',
+                'value' => 'Menghadirkan standar modifikasi otomotif kelas dunia dengan mengutamakan aspek keselamatan, durabilitas, estetika tinggi, dan lonjakan performa yang terukur secara ilmiah dan transparan.',
                 'page' => 'about',
                 'section' => 'mission',
-                'label' => 'About - Our Mission Text',
+                'label' => 'About - Mission Text',
             ],
 
-            // Career Page
+            // Booking Intro
             [
-                'key' => 'career_intro_title',
-                'value' => 'Join The Crew',
-                'page' => 'career',
+                'key' => 'booking_intro_title',
+                'value' => 'Online Booking & Service Queue',
+                'page' => 'booking',
                 'section' => 'intro',
-                'label' => 'Career - Intro Title',
+                'label' => 'Booking Intro Title',
             ],
             [
-                'key' => 'career_intro_subtitle',
-                'value' => 'We are always looking for passionate architects, designers, 3D visualizers, and project managers to join our dynamic studio in Jakarta.',
-                'page' => 'career',
+                'key' => 'booking_intro_subtitle',
+                'value' => 'Pilih jadwal kedatangan, konsultasikan modifikasi yang diinginkan, dan bayar aman dengan Payment Gateway terverifikasi instan.',
+                'page' => 'booking',
                 'section' => 'intro',
-                'label' => 'Career - Intro Subtitle',
+                'label' => 'Booking Intro Subtitle',
             ],
 
             // Contact Page
             [
                 'key' => 'contact_intro_title',
-                'value' => 'Get In Touch',
+                'value' => 'Hubungi Workshop Kami',
                 'page' => 'contact',
                 'section' => 'intro',
-                'label' => 'Contact - Intro Title',
+                'label' => 'Contact Intro Title',
             ],
             [
                 'key' => 'contact_intro_text',
-                'value' => 'We would love to hear from you. Whether you have a project in mind, a press inquiry, or simply want to say hello, get in touch with our team.',
+                'value' => 'Kunjungi workshop kami di Cilandak, Jakarta Selatan atau hubungi hotline WhatsApp kami untuk konsultasi gratis mengenai spesifikasi modifikasi dan estimasi waktu pengerjaan.',
                 'page' => 'contact',
                 'section' => 'intro',
-                'label' => 'Contact - Intro Text',
+                'label' => 'Contact Intro Text',
             ],
         ];
 

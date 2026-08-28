@@ -1,126 +1,152 @@
-<footer class="bg-black text-neutral-300 pt-20 pb-12 border-t border-neutral-900">
-    <div class="max-w-7xl mx-auto px-6 md:px-12">
-        
-        <!-- Top Row: Brand & Social Icons -->
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between pb-14 border-b border-neutral-900 gap-6">
-            <a href="{{ url('/') }}" class="flex items-center gap-3 tracking-widest2 uppercase font-bold text-white group">
-                <div class="w-8 h-8 bg-white text-black flex items-center justify-center font-bold text-xs tracking-tighter">
-                    M
+<footer class="bg-[#0b0b0f] border-t border-neutral-800/80 text-neutral-400 text-xs">
+    
+    <!-- Top Highlights Banner -->
+    <div class="border-b border-neutral-800/60 py-10 bg-gradient-to-r from-red-950/20 via-[#0e0e14] to-neutral-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+            
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-neutral-900/50 border border-neutral-800">
+                <div class="w-12 h-12 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-gauge-high"></i>
                 </div>
                 <div>
-                    <div class="text-sm font-extrabold tracking-[0.25em]">METRIX</div>
-                    <div class="text-[9px] text-neutral-400 tracking-widest font-normal">INTERIOR ARCHITECTURE</div>
+                    <div class="font-bold text-white uppercase text-sm">Dyno Jet 224xLC</div>
+                    <div class="text-[11px] text-neutral-400">Kalibrasi Tenaga Akurat & Real-Time</div>
                 </div>
-            </a>
-
-            <!-- Social Links -->
-            <div class="flex items-center space-x-5 text-neutral-400">
-                @if($ig = \App\Models\SiteSetting::get('social_instagram'))
-                    <a href="{{ $ig }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="Instagram">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                @endif
-                @if($fb = \App\Models\SiteSetting::get('social_facebook'))
-                    <a href="{{ $fb }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="Facebook">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.688 5H18V0h-3.808C10.595 0 9 1.583 9 4.615V8z"/></svg>
-                    </a>
-                @endif
-                @if($pin = \App\Models\SiteSetting::get('social_pinterest'))
-                    <a href="{{ $pin }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="Pinterest">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.334 1.357-.056.208-.182.253-.419.152-1.564-.728-2.541-3.014-2.541-4.853 0-3.955 2.874-7.587 8.286-7.587 4.349 0 7.73 3.099 7.73 7.242 0 4.322-2.724 7.801-6.507 7.801-1.271 0-2.466-.661-2.875-1.442l-.782 2.981c-.283 1.087-1.049 2.45-1.562 3.284C9.584 23.839 10.77 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
-                    </a>
-                @endif
-                @if($yt = \App\Models\SiteSetting::get('social_youtube'))
-                    <a href="{{ $yt }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="YouTube">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    </a>
-                @endif
-            </div>
-        </div>
-
-        <!-- Middle Row: 3-4 Column Navigation & Details -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 py-14 border-b border-neutral-900 text-xs">
-            
-            <!-- Column 1: Newsletter -->
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest2 font-semibold text-xs">Sign up to stay up to date</h4>
-                <p class="text-neutral-400 text-[11px] leading-relaxed">
-                    Subscribe to our newsletter to be the first to know about new projects and design insights.
-                </p>
-                <form action="{{ url('/newsletter/subscribe') }}" method="POST" class="space-y-3">
-                    @csrf
-                    <div class="flex flex-col space-y-2">
-                        <input type="email" 
-                               name="email" 
-                               required 
-                               placeholder="Email Address" 
-                               class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors placeholder:text-neutral-600">
-                        <button type="submit" 
-                                class="w-full bg-white text-black hover:bg-neutral-200 text-xs uppercase tracking-widest2 py-3 font-semibold transition-colors">
-                            Subscribe
-                        </button>
-                    </div>
-                </form>
             </div>
 
-            <!-- Column 2: Jakarta Office -->
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest2 font-semibold text-xs">Jakarta Office</h4>
-                <p class="text-neutral-400 text-[11px] leading-relaxed whitespace-pre-line">
-                    {{ \App\Models\SiteSetting::get('company_address', "PT. Metrix Indonesia\nJl. Puri Indah Raya Blok I\nKomp. Ruko Puri Blok A No. 18\nPuri Indah Kembangan\nJakarta Barat 11610") }}
-                </p>
-                <a href="{{ \App\Models\SiteSetting::get('company_directions_url', 'https://maps.google.com/?q=PT.+Metrix+Indonesia') }}" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   class="inline-block text-[11px] uppercase tracking-widest font-semibold text-white border-b border-white hover:text-accent hover:border-accent transition-colors pb-0.5">
-                    Get Directions &rarr;
-                </a>
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-neutral-900/50 border border-neutral-800">
+                <div class="w-12 h-12 rounded-xl bg-amber-600/20 text-amber-500 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-spray-can-sparkles"></i>
+                </div>
+                <div>
+                    <div class="font-bold text-white uppercase text-sm">Cat Oven Spies Hecker</div>
+                    <div class="text-[11px] text-neutral-400">Garansi Cat 2 Tahun Bebas Pudar</div>
+                </div>
             </div>
 
-            <!-- Column 3: Contact Details -->
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest2 font-semibold text-xs">Contact Us</h4>
-                <ul class="space-y-2 text-neutral-400 text-[11px]">
-                    @if($p1 = \App\Models\SiteSetting::get('company_phone_1', '+62 21 5801 6187'))
-                        <li><a href="tel:{{ preg_replace('/[^0-9+]/', '', $p1) }}" class="hover:text-white transition-colors">{{ $p1 }}</a></li>
-                    @endif
-                    @if($p2 = \App\Models\SiteSetting::get('company_phone_2', '+62 21 7501 6148'))
-                        <li><a href="tel:{{ preg_replace('/[^0-9+]/', '', $p2) }}" class="hover:text-white transition-colors">{{ $p2 }}</a></li>
-                    @endif
-                    @if($wa = \App\Models\SiteSetting::get('company_whatsapp', '+628170887720'))
-                        <li><a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $wa) }}" target="_blank" class="hover:text-white transition-colors">WA: {{ $wa }}</a></li>
-                    @endif
-                    @if($emInfo = \App\Models\SiteSetting::get('company_email_info', 'info@the-metrix.com'))
-                        <li class="pt-2"><a href="mailto:{{ $emInfo }}" class="text-white hover:text-accent transition-colors">{{ $emInfo }}</a></li>
-                    @endif
-                    @if($emMkt = \App\Models\SiteSetting::get('company_email_marketing', 'marketing1@the-metrix.com'))
-                        <li><a href="mailto:{{ $emMkt }}" class="text-neutral-400 hover:text-white transition-colors">{{ $emMkt }}</a></li>
-                    @endif
-                </ul>
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-neutral-900/50 border border-neutral-800">
+                <div class="w-12 h-12 rounded-xl bg-cyan-600/20 text-cyan-500 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <div class="font-bold text-white uppercase text-sm">Garansi Resmi Build</div>
+                    <div class="text-[11px] text-neutral-400">Jaminan Kualitas Fabrikasi & Suku Cadang</div>
+                </div>
             </div>
 
-            <!-- Column 4: Quick Links -->
-            <div class="space-y-4">
-                <h4 class="text-white uppercase tracking-widest2 font-semibold text-xs">Quick Links</h4>
-                <ul class="space-y-2 text-[11px] uppercase tracking-wider text-neutral-400">
-                    <li><a href="{{ url('/about-us') }}" class="hover:text-white transition-colors">About Us</a></li>
-                    <li><a href="{{ url('/services') }}" class="hover:text-white transition-colors">Services</a></li>
-                    <li><a href="{{ url('/clients') }}" class="hover:text-white transition-colors">Clients</a></li>
-                    <li><a href="{{ url('/awards-publications') }}" class="hover:text-white transition-colors">Awards & Publications</a></li>
-                    <li><a href="{{ url('/career') }}" class="hover:text-white transition-colors">Career</a></li>
-                    <li><a href="{{ url('/our-blog') }}" class="hover:text-white transition-colors">Our Blog</a></li>
-                </ul>
+            <div class="flex items-center gap-4 p-4 rounded-xl bg-neutral-900/50 border border-neutral-800">
+                <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-500 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div>
+                    <div class="font-bold text-white uppercase text-sm">Payment Gateway</div>
+                    <div class="text-[11px] text-neutral-400">Bayar DP & Pelunasan via QRIS / VA Instan</div>
+                </div>
             </div>
 
         </div>
-
-        <!-- Bottom Row: Copyright -->
-        <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-neutral-500 gap-4">
-            <p>{{ \App\Models\SiteSetting::get('footer_copyright', 'Copyright © 2026 PT. Metrix Indonesia All right reserved.') }}</p>
-            <div class="flex items-center space-x-6 text-[10px] uppercase tracking-widest">
-                <a href="{{ url('/admin/login') }}" class="text-neutral-600 hover:text-neutral-300 transition-colors">Admin Portal</a>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Main Footer Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+            
+            <!-- Column 1: Brand Info -->
+            <div class="lg:col-span-2 space-y-4">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-800 rounded-xl flex items-center justify-center text-white font-racing font-black text-lg shadow-lg shadow-red-600/30">
+                        <i class="fa-solid fa-gauge-high text-base"></i>
+                    </div>
+                    <div>
+                        <span class="font-racing font-extrabold text-xl tracking-wider text-white block">APEX<span class="text-red-500">GARAGE</span></span>
+                        <span class="text-[9px] tracking-[0.25em] uppercase text-neutral-400 font-bold block">Tuning & Custom Studio</span>
+                    </div>
+                </a>
+
+                <p class="text-xs text-neutral-400 leading-relaxed max-w-sm">
+                    Bengkel dan studio modifikasi performa tinggi spesialis Motor & Mobil di Jakarta. Layanan terpadu Dyno Jet ECU remap, custom motorcycle builder, bodykit widebody, cat oven Spies Hecker, dan suspensi udara.
+                </p>
+
+                <div class="flex items-center space-x-3 pt-2">
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-red-600 transition-colors flex items-center justify-center">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-red-600 transition-colors flex items-center justify-center">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-red-600 transition-colors flex items-center justify-center">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/6281288889999" target="_blank" class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-emerald-600 transition-colors flex items-center justify-center">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Layanan Modifikasi -->
+            <div class="space-y-3">
+                <div class="text-xs font-bold text-white uppercase tracking-wider font-racing">Layanan Modif</div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="{{ url('/services/ecu-remap-dyno-tuning') }}" class="hover:text-red-400 transition-colors">ECU Remap & Dyno Run</a></li>
+                    <li><a href="{{ url('/services/custom-motorcycle-build') }}" class="hover:text-red-400 transition-colors">Custom Bike & Cafe Racer</a></li>
+                    <li><a href="{{ url('/services/widebody-custom-aerokit') }}" class="hover:text-red-400 transition-colors">Widebody & Carbon Aero</a></li>
+                    <li><a href="{{ url('/services/custom-paint-oven-airbrush') }}" class="hover:text-red-400 transition-colors">Cat Oven Spies Hecker</a></li>
+                    <li><a href="{{ url('/services/air-suspension-big-brake-kit') }}" class="hover:text-red-400 transition-colors">Air Suspension & BBK</a></li>
+                    <li><a href="{{ url('/services/ceramic-coating-detailing-9h') }}" class="hover:text-red-400 transition-colors">Nano Ceramic Coating 9H</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Tautan Cepat -->
+            <div class="space-y-3">
+                <div class="text-xs font-bold text-white uppercase tracking-wider font-racing">Navigasi</div>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="{{ url('/booking') }}" class="text-red-400 font-bold hover:underline"><i class="fa-solid fa-calendar-plus mr-1"></i> Booking Online</a></li>
+                    <li><a href="{{ url('/portfolio') }}" class="hover:text-red-400 transition-colors">Hasil Modifikasi & Dyno</a></li>
+                    <li><a href="{{ url('/about-us') }}" class="hover:text-red-400 transition-colors">Fasilitas Workshop</a></li>
+                    <li><a href="{{ url('/our-blog') }}" class="hover:text-red-400 transition-colors">Tips & Artikel Otomotif</a></li>
+                    <li><a href="{{ url('/contact-us') }}" class="hover:text-red-400 transition-colors">Lokasi & Jam Buka</a></li>
+                    <li><a href="{{ route('login') }}" class="hover:text-red-400 transition-colors">Login 3 Role Portal</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Workshop & Kontak -->
+            <div class="space-y-3">
+                <div class="text-xs font-bold text-white uppercase tracking-wider font-racing">Workshop Info</div>
+                <div class="space-y-2.5 text-xs text-neutral-400">
+                    <div class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-location-dot text-red-500 mt-1"></i>
+                        <span>Jl. TB Simatupang No. 88, Cilandak, Jakarta Selatan</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-phone text-red-500"></i>
+                        <span>+62 21 7890 1234</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-brands fa-whatsapp text-emerald-500"></i>
+                        <span>0812-8888-9999 (Fast Response)</span>
+                    </div>
+                    <div class="flex items-start gap-2.5">
+                        <i class="fa-solid fa-clock text-amber-500 mt-1"></i>
+                        <span>Senin - Sabtu: 08.30 - 18.00 WIB</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright -->
+        <div class="pt-10 mt-10 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+            <div>
+                &copy; {{ date('Y') }} <span class="text-neutral-300 font-bold">Apex Garage Indonesia</span>. All rights reserved. Built with high precision.
+            </div>
+            <div class="flex items-center gap-4">
+                <span>Bengkel Modifikasi Motor & Mobil</span>
+                <span>•</span>
+                <a href="{{ route('admin.login') }}" class="hover:text-neutral-300">Admin Login</a>
+                <span>•</span>
+                <a href="{{ route('login', ['role' => 'karyawan']) }}" class="hover:text-neutral-300">Absensi Karyawan</a>
+            </div>
+        </div>
+    </div>
+
 </footer>

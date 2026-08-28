@@ -3,38 +3,69 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Award;
-use App\Models\BlogPost;
-use App\Models\Client;
+use App\Models\Attendance;
+use App\Models\Booking;
 use App\Models\ContactMessage;
-use App\Models\JobVacancy;
-use App\Models\NewsletterSubscriber;
 use App\Models\Project;
 use App\Models\Service;
+use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display admin dashboard with summary counters and recent items.
-     */
     public function index(): View
     {
-        $stats = [
-            'projects' => Project::count(),
-            'services' => Service::count(),
-            'clients' => Client::count(),
-            'awards' => Award::count(),
-            'posts' => BlogPost::count(),
-            'vacancies' => JobVacancy::count(),
-            'unread_messages' => ContactMessage::unread()->count(),
-            'subscribers' => NewsletterSubscriber::count(),
-        ];
+        $today = Carbon::today();
 
-        $recentProjects = Project::with('service')->latest()->take(5)->get();
-        $recentMessages = ContactMessage::latest()->take(5)->get();
-        $recentSubscribers = NewsletterSubscriber::latest('subscribed_at')->take(5)->get();
+        // Financial & Booking stats
+        $totalRevenue = Booking::whereIn('payment_status', ['dp_paid', 'paid'])->sum('paid_amount');
+        $activeBookingsCount = Booking::whereIn('status', ['confirmed', 'in_progress', 'qc'])->count();
+        $pendingBookingsCount = Booking::where('status', 'pending')->count();
+        $completedBookingsCount = Booking::where('status', 'completed')->count();
 
-        return view('admin.dashboard', compact('stats', 'recentProjects', 'recentMessages', 'recentSubscribers'));
+        // Vehicle distribution
+        $carBookingsCount = Booking::where('vehicle_type', 'mobil')->count();
+        $motorBookingsCount = Booking::where('vehicle_type', 'motor')->count();
+
+        // Mechanics attendance today
+        $totalMechanics = User::where('role', 'karyawan')->count();
+        $presentTodayCount = Attendance::whereDate('date', $today)->whereNotNull('check_in_time')->count();
+
+        // Recent Bookings
+        $recentBookings = Booking::with(['service', 'mechanic'])
+            ->latest()
+            ->take(6)
+            ->get();
+
+        // Today's Attendance Feed (with Camera Snapshots)
+        $todayAttendances = Attendance::with('user')
+            ->whereDate('date', $today)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // Total users & content
+        $totalCustomers = User::where('role', 'customer')->count();
+        $totalServices = Service::count();
+        $totalProjects = Project::count();
+        $unreadMessagesCount = ContactMessage::where('is_read', false)->count();
+
+        return view('admin.dashboard', compact(
+            'totalRevenue',
+            'activeBookingsCount',
+            'pendingBookingsCount',
+            'completedBookingsCount',
+            'carBookingsCount',
+            'motorBookingsCount',
+            'totalMechanics',
+            'presentTodayCount',
+            'recentBookings',
+            'todayAttendances',
+            'totalCustomers',
+            'totalServices',
+            'totalProjects',
+            'unreadMessagesCount'
+        ));
     }
 }

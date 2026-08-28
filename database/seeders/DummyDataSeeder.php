@@ -2,391 +2,344 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attendance;
 use App\Models\Award;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Models\Booking;
+use App\Models\BookingLog;
 use App\Models\Client;
+use App\Models\ContactMessage;
 use App\Models\HeroSlide;
-use App\Models\JobVacancy;
-use App\Models\Project;
-use App\Models\ProjectImage;
+use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Testimonial;
+use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+
+use Illuminate\Support\Facades\Schema;
 
 class DummyDataSeeder extends Seeder
 {
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         // 1. Hero Slides
-        $heroSlides = [
+        HeroSlide::truncate();
+        $slides = [
             [
                 'page' => 'home',
-                'title' => 'Burger & Lobster - Plaza Indonesia',
-                'subtitle' => 'Restaurant & Bar Interior Architecture',
-                'button_text' => 'View Project',
-                'button_link' => '/portfolio/burger-lobster-plaza-indonesia',
-                'image' => 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1920&auto=format&fit=crop',
+                'image' => 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1920&auto=format&fit=crop',
+                'title' => 'PREMIUM MOTORCYCLE & CAR CUSTOM WORKSHOP',
+                'subtitle' => 'Pusat modifikasi performa tinggi, Dyno Jet tuning, fabrikasi bodykit widebody, cat oven Spies Hecker, dan custom build motor berstandar kontes.',
+                'button_text' => 'BOOKING SEKARANG',
+                'button_link' => '/booking',
                 'order' => 1,
                 'is_active' => true,
             ],
             [
                 'page' => 'home',
-                'title' => 'Lumière Penthouse Residence',
-                'subtitle' => 'Show Unit and Residence',
-                'button_text' => 'View Project',
-                'button_link' => '/portfolio/lumiere-penthouse-residence',
-                'image' => 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1920&auto=format&fit=crop',
+                'image' => 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1920&auto=format&fit=crop',
+                'title' => 'HANDMADE CAFE RACER & CUSTOM BIKE BUILD',
+                'subtitle' => 'Wujudkan impian motor custom Anda bersama master builder berpengalaman. Rangka kromoli, tangki monocoque, dan performa mesin terkalibrasi.',
+                'button_text' => 'LIHAT PORTOFOLIO',
+                'button_link' => '/portfolio',
                 'order' => 2,
                 'is_active' => true,
             ],
             [
                 'page' => 'home',
-                'title' => 'The Grand Ballroom & Atrium',
-                'subtitle' => 'Hospitality & Public Space',
-                'button_text' => 'View Project',
-                'button_link' => '/portfolio/the-grand-ballroom-atrium',
-                'image' => 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1920&auto=format&fit=crop',
+                'image' => 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1920&auto=format&fit=crop',
+                'title' => 'ECU REMAPPING & DYNO JET 224xLC TEST',
+                'subtitle' => 'Maksimalkan potensi tenaga dan torsi kendaraan Anda hingga +35% dengan kalibrasi ECU real-time di atas mesin Dyno resmi.',
+                'button_text' => 'KONSULTASI GRATIS',
+                'button_link' => '/contact-us',
                 'order' => 3,
                 'is_active' => true,
             ],
         ];
-
-        foreach ($heroSlides as $slide) {
-            HeroSlide::updateOrCreate(
-                ['title' => $slide['title'], 'page' => $slide['page']],
-                $slide
-            );
+        foreach ($slides as $slide) {
+            HeroSlide::create($slide);
         }
 
-        // 2. Clients (Top Retail, Commercial & Hospitality Brands)
-        $clients = [
-            ['name' => 'Plaza Indonesia', 'logo' => null, 'website_url' => 'https://plazaindonesia.com', 'order' => 1],
-            ['name' => 'Boga Group', 'logo' => null, 'website_url' => 'https://bogagroup.com', 'order' => 2],
-            ['name' => 'Ismaya Group', 'logo' => null, 'website_url' => 'https://ismaya.com', 'order' => 3],
-            ['name' => 'Pakuwon Jati', 'logo' => null, 'website_url' => 'https://pakuwonjati.com', 'order' => 4],
-            ['name' => 'Grand Hyatt', 'logo' => null, 'website_url' => 'https://hyatt.com', 'order' => 5],
-            ['name' => 'Sinar Mas Land', 'logo' => null, 'website_url' => 'https://sinarmasland.com', 'order' => 6],
-            ['name' => 'Ciputra Development', 'logo' => null, 'website_url' => 'https://ciputra.com', 'order' => 7],
-            ['name' => 'Senayan City', 'logo' => null, 'website_url' => 'https://senayancity.com', 'order' => 8],
+        // 2. Partner Brands
+        Client::truncate();
+        $brands = [
+            ['name' => 'Brembo Brakes', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Brembo_logo.svg/320px-Brembo_logo.svg.png', 'website' => 'https://www.brembo.com', 'order' => 1, 'is_active' => true],
+            ['name' => 'Akrapovic Exhaust', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Akrapovi%C4%8D_logo.svg/320px-Akrapovi%C4%8D_logo.svg.png', 'website' => 'https://www.akrapovic.com', 'order' => 2, 'is_active' => true],
+            ['name' => 'Ohlins Suspension', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/%C3%96hlins_logo.svg/320px-%C3%96hlins_logo.svg.png', 'website' => 'https://www.ohlins.com', 'order' => 3, 'is_active' => true],
+            ['name' => 'HKS Japan', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HKS_logo.svg/320px-HKS_logo.svg.png', 'website' => 'https://www.hks-power.co.jp', 'order' => 4, 'is_active' => true],
+            ['name' => 'BBS Forged Wheels', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/BBS_Kraftfahrzeugtechnik_Logo.svg/320px-BBS_Kraftfahrzeugtechnik_Logo.svg.png', 'website' => 'https://bbs.com', 'order' => 5, 'is_active' => true],
+            ['name' => 'Motul Lubricants', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Motul_Logo.svg/320px-Motul_Logo.svg.png', 'website' => 'https://www.motul.com', 'order' => 6, 'is_active' => true],
         ];
-
-        foreach ($clients as $c) {
-            Client::updateOrCreate(['name' => $c['name']], $c);
+        foreach ($brands as $b) {
+            Client::create($b);
         }
 
-        // 3. Projects
-        $restaurantService = Service::where('slug', 'restaurant-bar')->first() ?? Service::first();
-        $workSpaceService = Service::where('slug', 'work-space')->first() ?? Service::first();
-        $publicSpaceService = Service::where('slug', 'public-space')->first() ?? Service::first();
-        $residenceService = Service::where('slug', 'show-unit-and-residence')->first() ?? Service::first();
-        $hospitalityService = Service::where('slug', 'hospitality')->first() ?? Service::first();
-        $retailService = Service::where('slug', 'commercial-retail')->first() ?? Service::first();
-
-        $projects = [
-            [
-                'service_id' => $restaurantService->id,
-                'title' => 'Burger & Lobster - Plaza Indonesia',
-                'slug' => 'burger-lobster-plaza-indonesia',
-                'client' => 'Plaza Indonesia Management',
-                'location' => 'Jakarta, Indonesia',
-                'size' => '758 m²',
-                'year' => '2024',
-                'description' => '<p>Burger & Lobster at Plaza Indonesia introduces an opulent yet contemporary dining atmosphere combining industrial brass tones with dark polished timber and sumptuous bespoke banquette seating.</p><p>The lighting scheme is orchestrated to deliver theatrical warmth across dining clusters while accentuating the central cocktail bar.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => true,
-                'is_recent' => true,
-                'order' => 1,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $restaurantService->id,
-                'title' => 'Sora Japanese Dining & Sake Lounge',
-                'slug' => 'sora-japanese-dining-sake-lounge',
-                'client' => 'Boga Group',
-                'location' => 'PIK, Jakarta',
-                'size' => '420 m²',
-                'year' => '2024',
-                'description' => '<p>An ethereal Japanese dining experience embracing wabi-sabi aesthetics, minimalist fluted timber partitions, and ambient diffused illumination.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => false,
-                'is_recent' => true,
-                'order' => 2,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $restaurantService->id,
-                'title' => 'The Heritage Teahouse',
-                'slug' => 'the-heritage-teahouse',
-                'client' => 'Heritage Hospitality Co.',
-                'location' => 'Surabaya, Indonesia',
-                'size' => '510 m²',
-                'year' => '2023',
-                'description' => '<p>A serene fusion of colonial architectural elements with contemporary Asian minimalism and hand-carved stone accents.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => false,
-                'is_recent' => true,
-                'order' => 3,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $workSpaceService->id,
-                'title' => 'Apex Fintech Innovation Hub',
-                'slug' => 'apex-fintech-innovation-hub',
-                'client' => 'Apex Financial Group',
-                'location' => 'SCBD, Jakarta',
-                'size' => '1,450 m²',
-                'year' => '2024',
-                'description' => '<p>A cutting-edge corporate headquarters designed to foster hybrid collaboration, agile workstations, and executive board sanctuaries.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => true,
-                'is_recent' => true,
-                'order' => 4,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $workSpaceService->id,
-                'title' => 'Nexus Creative Studio HQ',
-                'slug' => 'nexus-creative-studio-hq',
-                'client' => 'Nexus Media',
-                'location' => 'South Jakarta',
-                'size' => '820 m²',
-                'year' => '2023',
-                'description' => '<p>An open mezzanine studio incorporating acoustic felt paneling, exposed industrial beams, and flexible modular break-out pods.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => false,
-                'is_recent' => true,
-                'order' => 5,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $publicSpaceService->id,
-                'title' => 'Grand Central Galleria Atrium',
-                'slug' => 'grand-central-galleria-atrium',
-                'client' => 'Pakuwon Group',
-                'location' => 'Surabaya, Indonesia',
-                'size' => '2,800 m²',
-                'year' => '2024',
-                'description' => '<p>A multi-tiered retail atrium centered around soaring sculptural parametric columns and illuminated living skylights.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => false,
-                'is_recent' => true,
-                'order' => 6,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $residenceService->id,
-                'title' => 'Lumière Penthouse Residence',
-                'slug' => 'lumiere-penthouse-residence',
-                'client' => 'Private Client',
-                'location' => 'Menteng, Jakarta',
-                'size' => '650 m²',
-                'year' => '2024',
-                'description' => '<p>A prestigious multi-level penthouse offering panoramic skyline vistas, custom Italian marble flooring, and concealed smart automation.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => true,
-                'is_recent' => true,
-                'order' => 7,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $residenceService->id,
-                'title' => 'The Opus Luxury Show Villa',
-                'slug' => 'the-opus-luxury-show-villa',
-                'client' => 'Sinar Mas Land',
-                'location' => 'BSD City, Tangerang',
-                'size' => '480 m²',
-                'year' => '2023',
-                'description' => '<p>Modern tropical luxury show unit combining floor-to-ceiling glass pavilions with warm travertine stonework and lush indoor courtyards.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => false,
-                'is_recent' => true,
-                'order' => 8,
-                'status' => 'published',
-            ],
-            [
-                'service_id' => $retailService->id,
-                'title' => 'Maison Joaillerie Flagship Boutique',
-                'slug' => 'maison-joaillerie-flagship-boutique',
-                'client' => 'Maison Group',
-                'location' => 'Senayan City, Jakarta',
-                'size' => '320 m²',
-                'year' => '2024',
-                'description' => '<p>High-jewelry boutique interior featuring velvet vitrines, champagne bronze fixtures, and private VIP consultation salons.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1000&auto=format&fit=crop',
-                'is_featured' => false,
-                'is_recent' => true,
-                'order' => 9,
-                'status' => 'published',
-            ],
-        ];
-
-        foreach ($projects as $pData) {
-            $proj = Project::updateOrCreate(['slug' => $pData['slug']], $pData);
-
-            // Add gallery images
-            if ($proj->images()->count() === 0) {
-                ProjectImage::create([
-                    'project_id' => $proj->id,
-                    'image_path' => $pData['cover_image'],
-                    'order' => 1,
-                ]);
-                ProjectImage::create([
-                    'project_id' => $proj->id,
-                    'image_path' => 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop',
-                    'order' => 2,
-                ]);
-                ProjectImage::create([
-                    'project_id' => $proj->id,
-                    'image_path' => 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=1000&auto=format&fit=crop',
-                    'order' => 3,
-                ]);
-            }
-        }
-
-        // 4. Blog Categories & Posts
-        $catDesign = BlogCategory::updateOrCreate(['slug' => 'design-perspective'], ['title' => 'Design Perspective']);
-        $catAwards = BlogCategory::updateOrCreate(['slug' => 'awards-recognition'], ['title' => 'Awards & Recognition']);
-        $catCaseStudies = BlogCategory::updateOrCreate(['slug' => 'case-studies'], ['title' => 'Case Studies']);
-
-        $blogPosts = [
-            [
-                'blog_category_id' => $catDesign->id,
-                'title' => 'Metrix Interior at IIDA 2025: A Celebration of Design, Culture, and Craft',
-                'slug' => 'metrix-interior-at-iida-2025-a-celebration-of-design-culture-and-craft',
-                'excerpt' => 'This year Metrix Interior joins IIDA (European Customer Choice) to present our latest spatial reflections on culture and lifestyle.',
-                'content' => '<p>This year Metrix Interior joins IIDA (European Customer Choice) to present our latest spatial reflections on culture and lifestyle. Through three curated works showcased globally, Metrix demonstrates a body of work that bridges culture, lifestyle, and innovation.</p><p>We believe interior architecture is more than just aesthetics—it is the living stage where human narratives unfold every day.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
-                'author' => 'Metrix Editorial',
-                'is_published' => true,
-                'published_at' => now()->subDays(5),
-            ],
-            [
-                'blog_category_id' => $catAwards->id,
-                'title' => 'Metrix at IDA Awards 2024',
-                'slug' => 'metrix-at-ida-awards-2024',
-                'excerpt' => 'We are thrilled to share that Metrix Interior has once again proven its design excellence by winning prestigious awards.',
-                'content' => '<p>We are thrilled to share that Metrix Interior has once again proven its design excellence by receiving accolades at the IDA Design Awards 2024. This win reinforces our reputation as a leader in innovative and inspiring interior design benchmarks in Asia.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1000&auto=format&fit=crop',
-                'author' => 'Metrix Editorial',
-                'is_published' => true,
-                'published_at' => now()->subDays(15),
-            ],
-            [
-                'blog_category_id' => $catCaseStudies->id,
-                'title' => 'Designing for Global Taste: Metrix Interior’s Work for Jolly Bar Gurn Malaysia',
-                'slug' => 'designing-for-global-taste-metrix-interiors-work-for-jolly-bar-gurn-malaysia',
-                'excerpt' => 'Bringing its design expertise beyond Indonesia, Metrix Interior has crafted an iconic cross-border hospitality sanctuary.',
-                'content' => '<p>Bringing its design expertise beyond Indonesia, Metrix Interior has crafted an iconic cross-border hospitality destination. Metrix’s palatial design sensibility combining heritage influence with modern panache in craft dining spaces has won international acclaim.</p>',
-                'cover_image' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop',
-                'author' => 'Metrix Editorial',
-                'is_published' => true,
-                'published_at' => now()->subDays(30),
-            ],
-        ];
-
-        foreach ($blogPosts as $post) {
-            BlogPost::updateOrCreate(['slug' => $post['slug']], $post);
-        }
-
-        // 5. Awards
+        // 3. Awards
+        Award::truncate();
         $awards = [
-            [
-                'title' => 'International Design Awards (IDA) 2024 - Gold Winner',
-                'slug' => 'ida-2024-gold-winner',
-                'image' => 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?q=80&w=800&auto=format&fit=crop',
-                'description' => 'Honored with Gold in Commercial Interior Hospitality Category for Burger & Lobster Plaza Indonesia.',
-                'external_link' => 'https://idesignawards.com',
-                'published_date' => '2024-05-10',
-                'order' => 1,
-                'is_active' => true,
-            ],
-            [
-                'title' => 'Asia Pacific Property Awards 2023-2024 - Best Retail Interior',
-                'slug' => 'asia-pacific-property-awards-best-retail-interior',
-                'image' => 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop',
-                'description' => 'Awarded 5-Star Winner for outstanding retail interior architecture and customer journey design.',
-                'external_link' => 'https://propertyawards.net',
-                'published_date' => '2023-11-20',
-                'order' => 2,
-                'is_active' => true,
-            ],
-            [
-                'title' => 'INDE.Awards 2023 - Shortlisted The Social Space',
-                'slug' => 'inde-awards-2023-shortlisted-social-space',
-                'image' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop',
-                'description' => 'Shortlisted among the region’s top commercial interior design studios for civic and hospitality spaces.',
-                'external_link' => 'https://indeawards.com',
-                'published_date' => '2023-08-15',
-                'order' => 3,
-                'is_active' => true,
-            ],
+            ['title' => 'Best Tuner of the Year 2025', 'slug' => 'best-tuner-year-2025', 'year' => '2025', 'organization' => 'Indonesia Modification Expo (IMX)', 'category' => 'National Performance Tuning', 'description' => 'Penghargaan atas dedikasi dalam riset kalibrasi ECU dan efisiensi tenaga mesin turbo tertinggi di ajang IMX 2025.'],
+            ['title' => 'The King of Custom Bike Builder', 'slug' => 'king-custom-bike-builder', 'year' => '2025', 'organization' => 'Kustomfest Indonesia', 'category' => 'Custom Cafe Racer Class', 'description' => 'Juara 1 kategori Custom Cafe Racer dengan mahakarya Honda CB750 The Phantom.'],
+            ['title' => 'Master Paint & Finish Excellence', 'slug' => 'master-paint-finish-excellence', 'year' => '2024', 'organization' => 'Spies Hecker Certified Workshop', 'category' => 'Automotive Paint Standard', 'description' => 'Standar kualitas pengecatan oven dan teknik Candy Clear terbaik dengan garansi 2 tahun.'],
         ];
-
         foreach ($awards as $aw) {
-            Award::updateOrCreate(['slug' => $aw['slug']], $aw);
+            Award::create($aw);
         }
 
-        // 6. Job Vacancies
-        $jobs = [
-            [
-                'title' => 'Senior Interior Designer (Commercial & Hospitality)',
-                'slug' => 'senior-interior-designer',
-                'responsibilities' => "Lead spatial concept design and interior schematics for luxury commercial & hospitality projects.\nCoordinate design presentations, mood boards, material selection, and 3D modeling pipelines.\nCollaborate closely with clients, MEP engineers, contractors, and junior design staff.",
-                'requirements' => "Bachelor's degree in Interior Architecture / Interior Design from reputable university.\nMinimum 5+ years of relevant project experience in high-end hospitality or commercial spaces.\nProficiency in AutoCAD, SketchUp, Enscape/3dsMax, and Adobe Creative Suite.\nStrong presentation and leadership skills in English and Bahasa Indonesia.",
-                'email_subject' => 'Application for Senior Interior Designer - [Your Name]',
-                'posted_at' => now()->subDays(10),
-                'is_active' => true,
-            ],
-            [
-                'title' => '3D Architectural Visualizer',
-                'slug' => '3d-architectural-visualizer',
-                'responsibilities' => "Produce high-fidelity photorealistic 3D interior renderings, lighting studies, and architectural visualizations.\nModel bespoke furniture, custom joinery details, and complex parametric surfaces.\nWork alongside design leads to translate sketches and AutoCAD plans into realistic CG visuals.",
-                'requirements' => "Strong portfolio showcasing high-end realistic interior rendering and lighting expertise.\nProficiency in 3ds Max + Corona / V-Ray, Corona Renderer, Photoshop, and SketchUp.\nDeep understanding of realistic material shaders, texture mapping, and atmospheric lighting.",
-                'email_subject' => 'Application for 3D Architectural Visualizer - [Your Name]',
-                'posted_at' => now()->subDays(14),
-                'is_active' => true,
-            ],
-        ];
-
-        foreach ($jobs as $j) {
-            JobVacancy::updateOrCreate(['slug' => $j['slug']], $j);
-        }
-
-        // 7. Testimonials
+        // 4. Testimonials
+        Testimonial::truncate();
         $testimonials = [
             [
-                'client_name' => 'Michael Pratama',
-                'client_company' => 'Managing Director, Boga Group',
-                'message' => 'Metrix transformed our restaurant concept into an iconic architectural landmark in Jakarta. Their spatial intuition, material mastery, and attention to acoustic detail are second to none in Asia.',
+                'client_name' => 'Bpk. Steven Kurniawan',
+                'client_company' => 'Owner Nissan GT-R R35 LBWK (850 HP)',
+                'message' => 'Hasil dyno tuning dan pengerjaan widebody kit di Apex Garage benar-benar melampaui ekspektasi. Mesin sangat responsif, boost stabil, dan fitting bodykit super rapi tanpa celah!',
                 'photo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
                 'rating' => 5,
                 'order' => 1,
                 'is_active' => true,
             ],
             [
-                'client_name' => 'Elena Wijaya',
-                'client_company' => 'VP Property Development, Pakuwon Jati',
-                'message' => 'Working with Metrix Interior Architecture on our luxury penthouse collection exceeded every expectation. Their commitment to refined luxury and timeless design sets the gold standard.',
-                'photo' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+                'client_name' => 'Bpk. Dimas Prakoso',
+                'client_company' => 'Owner Honda CB750 "The Phantom" Cafe Racer',
+                'message' => 'Detail pengerjaan subframe dan tangki handmade aluminium sangat artistik. Motor tua saya sekarang jadi pusat perhatian kemanapun saya riding. Highly recommended!',
+                'photo' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
                 'rating' => 5,
                 'order' => 2,
                 'is_active' => true,
             ],
             [
-                'client_name' => 'David Tan',
-                'client_company' => 'Director of Operations, Ismaya Group',
-                'message' => 'From initial 3D visualization to flawless fit-out execution, Metrix delivers world-class design integrity. Our guests are consistently awed by the atmosphere.',
-                'photo' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+                'client_name' => 'Rian Aditya',
+                'client_company' => 'Owner Honda Civic Type R FL5',
+                'message' => 'Fitur booking onlinenya praktis banget, bisa bayar DP lewat QRIS langsung terkonfirmasi otomatis. Live tracker progres pengerjaannya juga bikin tenang memantau unit dari kantor.',
+                'photo' => 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=200&auto=format&fit=crop',
                 'rating' => 5,
                 'order' => 3,
                 'is_active' => true,
             ],
         ];
-
         foreach ($testimonials as $t) {
-            Testimonial::updateOrCreate(['client_name' => $t['client_name']], $t);
+            Testimonial::create($t);
         }
+
+        // 5. Customer Vehicles
+        Vehicle::truncate();
+        $cust1 = User::where('email', 'customer@gmail.com')->first();
+        $cust2 = User::where('email', 'bambang@gmail.com')->first();
+
+        if ($cust1) {
+            Vehicle::create([
+                'user_id' => $cust1->id,
+                'type' => 'mobil',
+                'brand' => 'Honda',
+                'model' => 'Civic Type R FL5',
+                'license_plate' => 'B 1999 APX',
+                'year' => '2024',
+                'color' => 'Championship White',
+                'engine_cc' => '2000cc VTEC Turbo',
+                'transmission' => 'manual',
+            ]);
+            Vehicle::create([
+                'user_id' => $cust1->id,
+                'type' => 'motor',
+                'brand' => 'Kawasaki',
+                'model' => 'Ninja ZX-25R',
+                'license_plate' => 'B 4444 RAC',
+                'year' => '2023',
+                'color' => 'Lime Green Racing',
+                'engine_cc' => '250cc Inline-4',
+                'transmission' => 'manual',
+            ]);
+        }
+
+        // 6. Mechanics & Attendances (Past and Today with camera selfie photo simulation)
+        Attendance::truncate();
+        $mechanics = User::where('role', 'karyawan')->get();
+        $today = Carbon::today();
+
+        // Sample camera snapshot placeholder (Webcam image URI)
+        $sampleCamPhoto = 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=400&auto=format&fit=crop';
+        $sampleCamPhoto2 = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=400&auto=format&fit=crop';
+
+        foreach ($mechanics as $idx => $m) {
+            // Absensi Hari Ini
+            Attendance::create([
+                'user_id' => $m->id,
+                'date' => $today->toDateString(),
+                'check_in_time' => sprintf('08:%02d:15', 10 + ($idx * 5)),
+                'check_in_photo' => $sampleCamPhoto,
+                'check_in_lat' => -6.30123400,
+                'check_in_lng' => 106.81234500,
+                'check_out_time' => null, // Still on shift
+                'status' => 'hadir',
+                'work_summary' => 'Menangani kalibrasi ECU Honda Civic Type R dan fabrikasi pipa knalpot titanium ZX-25R.',
+                'notes' => 'Hadir tepat waktu di workshop.',
+            ]);
+
+            // Absensi Kemarin
+            Attendance::create([
+                'user_id' => $m->id,
+                'date' => $today->copy()->subDay()->toDateString(),
+                'check_in_time' => '08:20:00',
+                'check_in_photo' => $sampleCamPhoto,
+                'check_in_lat' => -6.30123400,
+                'check_in_lng' => 106.81234500,
+                'check_out_time' => '17:45:00',
+                'check_out_photo' => $sampleCamPhoto2,
+                'check_out_lat' => -6.30123400,
+                'check_out_lng' => 106.81234500,
+                'status' => 'hadir',
+                'work_summary' => 'Selesai pengerjaan dyno run 5 mobil dan servis berkala moge.',
+                'notes' => 'Shift selesai dengan lancar.',
+            ]);
+        }
+
+        // 7. Bookings & Payments
+        Booking::truncate();
+        Payment::truncate();
+        BookingLog::truncate();
+
+        $leadMekanik = $mechanics->first();
+        $remapService = Service::where('slug', 'ecu-remap-dyno-tuning')->first();
+        $bikeService = Service::where('slug', 'custom-motorcycle-build')->first();
+        $bodyService = Service::where('slug', 'widebody-custom-aerokit')->first();
+
+        // Booking 1: In Progress with Payment Gateway DP Paid
+        $b1 = Booking::create([
+            'booking_code' => 'BK-' . date('Ym') . '-0001',
+            'customer_id' => $cust1?->id,
+            'karyawan_id' => $leadMekanik?->id,
+            'service_id' => $remapService?->id,
+            'customer_name' => 'Rian Aditya',
+            'customer_email' => 'customer@gmail.com',
+            'customer_phone' => '081122334455',
+            'vehicle_type' => 'mobil',
+            'vehicle_brand' => 'Honda',
+            'vehicle_model' => 'Civic Type R FL5',
+            'license_plate' => 'B 1999 APX',
+            'vehicle_year' => '2024',
+            'vehicle_color' => 'Championship White',
+            'booking_date' => $today->toDateString(),
+            'booking_time_slot' => '10:00 WIB',
+            'custom_request' => 'Remap ECU Stage 2 + Pop and Bang Map + Pemasangan Downpipe HKS.',
+            'mechanic_notes' => 'Unit sudah dinaikkan ke atas Dyno Jet. Baseline dyno run mencatatkan 315 WHP. Sedang dalam proses tuning fuel map & boost controller.',
+            'progress_percentage' => 65,
+            'status' => 'in_progress',
+            'total_amount' => 5500000,
+            'dp_amount' => 1500000,
+            'paid_amount' => 1500000,
+            'payment_status' => 'dp_paid',
+            'payment_method' => 'qris',
+            'payment_ref' => 'QRIS-APX-882910',
+            'payment_token' => 'snap-token-simulation-001',
+            'progress_photos' => [
+                'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=600&auto=format&fit=crop',
+                'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=600&auto=format&fit=crop',
+            ],
+        ]);
+
+        // Payment for Booking 1
+        Payment::create([
+            'booking_id' => $b1->id,
+            'user_id' => $cust1?->id,
+            'transaction_code' => Payment::generateTransactionCode(),
+            'amount' => 1500000,
+            'payment_type' => 'dp',
+            'payment_method' => 'qris',
+            'payment_channel' => 'QRIS Instant Payment',
+            'status' => 'settlement',
+            'gateway_reference' => 'QRIS-APX-882910',
+            'paid_at' => Carbon::now()->subHours(2),
+        ]);
+
+        // Logs for Booking 1
+        BookingLog::create([
+            'booking_id' => $b1->id,
+            'user_id' => $leadMekanik?->id,
+            'stage' => 'received',
+            'title' => 'Kendaraan Diterima di Workshop',
+            'description' => 'Unit Honda Civic Type R FL5 (B 1999 APX) telah diterima oleh Lead Tuner Budi Santoso.',
+        ]);
+        BookingLog::create([
+            'booking_id' => $b1->id,
+            'user_id' => $leadMekanik?->id,
+            'stage' => 'machining_dyno',
+            'title' => 'Dyno Run Baseline & Calibration',
+            'description' => 'Uji dyno awal mencatatkan 315 HP. Sedang dilakukan penulisan map ECU Stage 2.',
+        ]);
+
+        // Booking 2: Pending (Menunggu Konfirmasi & Pembayaran)
+        Booking::create([
+            'booking_code' => 'BK-' . date('Ym') . '-0002',
+            'customer_id' => $cust2?->id,
+            'karyawan_id' => null,
+            'service_id' => $bikeService?->id,
+            'customer_name' => 'Bambang Sudiro',
+            'customer_email' => 'bambang@gmail.com',
+            'customer_phone' => '081333445566',
+            'vehicle_type' => 'motor',
+            'vehicle_brand' => 'Yamaha',
+            'vehicle_model' => 'XSR 155',
+            'license_plate' => 'B 3030 YMH',
+            'vehicle_year' => '2023',
+            'vehicle_color' => 'Matte Black',
+            'booking_date' => $today->copy()->addDays(2)->toDateString(),
+            'booking_time_slot' => '13:00 WIB',
+            'custom_request' => 'Konversi full Cafe Racer: potong subframe, ganti stang clip-on, spion bar end, knalpot full system Megaphone.',
+            'mechanic_notes' => null,
+            'progress_percentage' => 0,
+            'status' => 'pending',
+            'total_amount' => 12500000,
+            'dp_amount' => 2500000,
+            'paid_amount' => 0,
+            'payment_status' => 'unpaid',
+            'payment_method' => 'midtrans',
+        ]);
+
+        // 8. Blog Posts & Categories
+        BlogCategory::truncate();
+        BlogPost::truncate();
+
+        $c1 = BlogCategory::create(['title' => 'Tuning & Performa', 'slug' => 'tuning-performa']);
+        $c2 = BlogCategory::create(['title' => 'Kustomisasi Motor', 'slug' => 'kustomisasi-motor']);
+        $c3 = BlogCategory::create(['title' => 'Tips & Perawatan', 'slug' => 'tips-perawatan']);
+
+        BlogPost::create([
+            'blog_category_id' => $c1->id,
+            'title' => 'Panduan Lengkap Remap ECU Stage 1, 2, dan 3: Apa Bedanya?',
+            'slug' => 'panduan-lengkap-remap-ecu-stage-1-2-3',
+            'excerpt' => 'Pelajari perbedaan peningkatan tenaga, komponen pendukung yang wajib diganti, dan risiko setiap tahapan remap ECU mobil dan motor.',
+            'content' => '<p>Remap ECU (Engine Control Unit) merupakan metode paling efektif untuk meningkatkan tenaga dan torsi mesin tanpa perlu membongkar jeroan mesin...</p>',
+            'cover_image' => 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop',
+            'is_published' => true,
+            'published_at' => Carbon::now()->subDays(3),
+        ]);
+
+        BlogPost::create([
+            'blog_category_id' => $c2->id,
+            'title' => '5 Konsep Modifikasi Motor Paling Populer: Dari Cafe Racer Hingga Bobber',
+            'slug' => '5-konsep-modifikasi-motor-paling-populer',
+            'excerpt' => 'Karakteristik unik subframe, posisi riding, stang, dan pemilihan tangki bensin untuk gaya motor custom impian Anda.',
+            'content' => '<p>Dunia motor custom terus berkembang dengan beragam aliran yang mencerminkan karakter pemiliknya...</p>',
+            'cover_image' => 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=800&auto=format&fit=crop',
+            'is_published' => true,
+            'published_at' => Carbon::now()->subDays(7),
+        ]);
+
+        // 9. Contact Inquiries
+        ContactMessage::truncate();
+        ContactMessage::create([
+            'name' => 'Faisal Akbar',
+            'email' => 'faisal.akbar@gmail.com',
+            'phone' => '081298765432',
+            'subject' => 'Estimasi Biaya Pasang Air Suspension Toyota FT86',
+            'message' => 'Halo tim Apex Garage, saya ingin menanyakan paket air suspension 4 titik untuk Toyota FT86 2020 lengkap dengan pemasangan dan hardline setup di bagasi. Berapa estimasi total biaya dan waktu pengerjaannya? Terima kasih.',
+            'is_read' => false,
+        ]);
+
+        Schema::enableForeignKeyConstraints();
     }
 }

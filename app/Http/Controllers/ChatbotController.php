@@ -31,7 +31,6 @@ class ChatbotController extends Controller
         $ip = $request->ip() ?? 'unknown';
         $key = 'chatbot-rate-limit:' . $ip;
 
-        // Rate limiting: max 30 requests per minute per IP
         if (RateLimiter::tooManyAttempts($key, 30)) {
             $seconds = RateLimiter::availableIn($key);
             return response()->json([
@@ -66,20 +65,20 @@ class ChatbotController extends Controller
         return response()->json([
             'suggestions' => [
                 [
-                    'label' => 'Tahapan & Alur Proyek',
-                    'prompt' => 'Bagaimana tahapan konsultasi dan alur pengerjaan proyek interior di Metrix?',
+                    'label' => 'Estimasi Remap ECU Mobil/Motor',
+                    'prompt' => 'Berapa perkiraan kenaikan tenaga (HP & Torsi) dan biaya untuk Remap ECU Stage 2?',
                 ],
                 [
-                    'label' => 'Konsep Desain Ruang Tamu',
-                    'prompt' => 'Apa rekomendasi konsep desain interior untuk ruang tamu modern Japandi?',
+                    'label' => 'Konsep Motor Custom Cafe Racer',
+                    'prompt' => 'Saya ingin custom motor Yamaha XSR 155 / Honda CB jadi Cafe Racer, apa saja yang perlu diubah?',
                 ],
                 [
-                    'label' => 'Layanan Komersial & Kantor',
-                    'prompt' => 'Jelaskan layanan desain interior untuk kantor dan ruang komersial.',
+                    'label' => 'Paket Widebody & Cat Oven Spies Hecker',
+                    'prompt' => 'Bagaimana proses pembuatan custom bodykit widebody dan cat oven di Apex Garage?',
                 ],
                 [
-                    'label' => 'Jadwal Konsultasi & Survey',
-                    'prompt' => 'Bagaimana cara menjadwalkan konsultasi atau survei lokasi dengan tim arsitek?',
+                    'label' => 'Cara Booking & Pembayaran DP',
+                    'prompt' => 'Bagaimana cara booking jadwal servis atau dyno test di website Apex Garage?',
                 ],
             ]
         ]);

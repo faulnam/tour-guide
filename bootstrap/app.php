@@ -15,11 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
 
         $middleware->redirectTo(
-            guests: '/admin/login',
+            guests: '/login',
         );
 
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminOnly::class,
+            'karyawan' => \App\Http\Middleware\KaryawanOnly::class,
+            'customer' => \App\Http\Middleware\CustomerOnly::class,
         ]);
 
         $middleware->append(\App\Http\Middleware\CleanDemoContentMiddleware::class);

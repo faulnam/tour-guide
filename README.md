@@ -1,92 +1,91 @@
-# Sistem Informasi Company Profile dan Manajemen Portofolio Interior Design Terpadu
+# Apex Garage — Bengkel Modifikasi Motor & Mobil (Performance Tuning & Custom Studio)
 
-Sistem Informasi Company Profile dan Manajemen Portofolio Interior Design Terpadu adalah platform berbasis web modern yang dirancang untuk industri arsitektur dan desain interior mewah. Aplikasi ini mengintegrasikan portal profil interaktif untuk menampilkan portofolio proyek eksklusif, katalog layanan berjenjang 2 level, galeri foto dinamis, publikasi penghargaan dan berita desain, lowongan pekerjaan interaktif, integrasi chatbot AI cerdas berbasis Google Gemini, serta panel CMS administratif dengan kontrol akses berbasis peran (RBAC).
-
----
-
-## Akun Role Asli (Production / Default)
-
-Berikut adalah daftar akun pengguna asli untuk setiap peran sistem:
-
-| Peran | Email | Password |
-|---|---|---|
-| Super Admin | `admin@the-metrix.com` | `qwertyu123` |
-| Editor | `editor@the-metrix.com` | `qwertyu123` |
+Aplikasi Web Company Profile & Workshop Management System terintegrasi untuk bengkel modifikasi motor dan mobil performa tinggi, dilengkapi dengan sistem **Booking Online & Payment Gateway**, **3 Role Portal (Admin, Karyawan/Mekanik, Customer)**, serta **Sistem Absensi Karyawan dengan Kamera Webcam Real-Time**.
 
 ---
 
-## Akun Role Demo (Fitur Auto Delete 3 Menit)
+## 🏎️ Fitur Utama
 
-Aplikasi ini dilengkapi dengan akun demo untuk pengujian interaktif setiap peran. Setiap data atau konten baru yang dibuat oleh akun demo akan secara otomatis terhapus dari sistem dalam waktu 3 menit setelah pembuatan.
+### 1. Rebranding Bengkel Otomotif (Motor & Mobil)
+- **Layanan Modifikasi**: ECU Remap & Dyno Run, Custom Cafe Racer / Bobber, Widebody Kit, Cat Oven Spies Hecker, Air Suspension & BBK, Nano Ceramic Coating 9H.
+- **Portofolio Tuning & Dyno Stats**: Tampilan Before/After dyno run (Peningkatan Horsepower & Torsi terukur), galeri modifikasi motor & mobil.
+- **AI Automotive Tuning Consultant**: Chatbot cerdas berbasis Google Gemini AI untuk konsultasi modifikasi kendaraan secara interaktif.
 
-| Peran Demo | Email Demo | Password Demo | Masa Berlaku Konten |
-|---|---|---|---|
-| Demo Super Admin | `demo_admin@the-metrix.com` | `password` | 3 Menit Otomatis Terhapus |
-| Demo Editor | `demo_editor@the-metrix.com` | `password` | 3 Menit Otomatis Terhapus |
+### 2. Sistem Booking Online & Payment Gateway
+- **Multi-Step Wizard**: Pemilihan kendaraan (Mobil/Motor), input plat nomor & spesifikasi, pemilihan paket servis, serta pemilihan slot tanggal dan jam.
+- **Kalkulasi Down Payment (DP)**: Perhitungan DP otomatis untuk mengunci slot lift bengkel.
+- **Payment Gateway Simulator**: Simulasi pembayaran via QRIS instant (Gopay/OVO/Dana/BCA), Virtual Account, dan kartu kredit.
+- **Live Build Progress Tracker**: Pelanggan dapat memantau progres tahapan pengerjaan kendaraan secara real-time disertai foto dan catatan mekanik.
 
----
-
-## Fitur Utama
-
-- **Portal Profil Publik & Portofolio**: Menampilkan profil perusahaan arsitektur, proyek-proyek unggulan, dan detail proyek dengan galeri multi foto beresolusi tinggi.
-- **Katalog Layanan Bertingkat (2-Level Hierarchy)**: Layanan utama (Interior Design, Interior Styling, 3D Visualization) dan sub-layanan (Work Space, Public Space, Hospitality, Show Unit & Residence, Commercial & Retail, Restaurant & Bar).
-- **Showcase Penghargaan & Publikasi**: Menampilkan riwayat penghargaan dan publikasi media desain dengan sistem pagination.
-- **Modul Karir & Lowongan Kerja**: Pengumuman lowongan pekerjaan interaktif dengan format accordion dan tautan pengajuan lamaran.
-- **Blog & Wawasan Desain**: Publikasi artikel dan wawasan tren desain interior yang dikelompokkan berdasarkan kategori.
-- **Grid Logo Klien & Rekanan**: Etalase logo klien dan partner korporat yang responsif.
-- **Asisten AI Chatbot (Google Gemini)**: Chatbot interaktif cerdas untuk menjawab pertanyaan pengunjung terkait layanan dan konsultasi interior secara otomatis.
-- **Formulir Kontak & Inbox Admin**: Pengiriman formulir kontak yang tersimpan langsung ke inbox pesan admin dengan indikator status baca.
-- **Buletin Newsletter**: Formulir berlangganan buletin email berkala dengan fitur ekspor data subscriber ke CSV.
-- **Panel CMS Administratif**: Pengelolaan menyeluruh terhadap portofolio, layanan, blog, lowongan karir, slide banner, ulasan testimoni, pengaturan statistik, dan copywriting teks statis.
-- **Manajemen Pengguna & Role Akses**: Pemisahan hak akses antara Super Admin (akses penuh ke sistem dan user) dan Editor (fokus pada konten portofolio dan media).
-- **Pembersihan Otomatis Data Demo**: Mekanisme otomatis berbasis event listener dan cron schedule untuk menghapus konten uji coba demo setelah 3 menit.
-
----
-
-## Teknologi yang Digunakan (Tech Stack)
-
-- **Backend Framework**: PHP 8.2 & Laravel 11
-- **Database**: MySQL 8
-- **Autentikasi & Otorisasi**: Laravel Session-Based Authentication & Role Middleware
-- **Frontend Styling**: Standalone Tailwind CSS CLI (Clean & Fast)
-- **Frontend Interactivity**: Alpine.js & Vanilla JavaScript
-- **Rich Text Editor**: Quill.js
-- **Artificial Intelligence**: Google Gemini API (`gemini-3.5-flash-lite`)
-- **Automation**: Laravel Scheduler & Eloquent Event Listeners
+### 3. Tiga (3) Role Portal Pengguna
+- **Admin**:
+  - Dashboard analitik bengkel (omzet, antrean aktif, kehadiran mekanik).
+  - Manajemen booking, assign teknisi, dan invoice.
+  - **Rekap Absensi Kamera Karyawan** dengan galeri foto selfie snapshot & filter status/tanggal.
+  - Manajemen karyawan & mekanik, layanan, portofolio build, partner brand, penghargaan, dan blog.
+- **Karyawan / Mekanik**:
+  - **Sistem Absensi Kamera Webcam**: Snapshot foto selfie saat Check-In dan Check-Out dengan watermark jam WIB dan GPS.
+  - Status keterlambatan otomatis (hadir <= 08:30 WIB, terlambat > 08:30 WIB).
+  - Manajemen tugas modifikasi unit kendaraan: update persentase progres, stage pengerjaan, dan upload foto log teknisi.
+- **Customer**:
+  - Garasi Kendaraan Saya (My Garage): Simpan data motor & mobil untuk booking cepat 1-klik.
+  - Live Tracker pengerjaan unit kendaraan dan invoice digital.
 
 ---
 
-## Panduan Instalasi & Menjalankan Proyek
+## 🔐 Akun Demo & Kredensial Login
 
-1. **Clone repository dan masuk ke direktori proyek**:
+Akses halaman login di `/login` atau gunakan switch demo tab pada form login:
+
+| Role | Email | Password | Hak Akses |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `admin@bengkel.com` | `admin123` | Akses penuh CMS, Booking, Rekap Absensi Kamera, Karyawan |
+| **Karyawan** | `mekanik@bengkel.com` | `mekanik123` | Portal Mekanik, Absensi Kamera Webcam, Tugas Pengerjaan |
+| **Customer** | `customer@gmail.com` | `customer123` | Garasi Kendaraan, Live Tracker Booking, Riwayat Invoice |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend**: Laravel 11.x (PHP 8.2+)
+- **Database**: MySQL (`db_bengkel`)
+- **Frontend**: Blade Templating, Vanilla CSS / Tailwind CLI, Alpine.js, FontAwesome 6, Swiper.js
+- **Kamera & Media**: HTML5 MediaDevices API (`getUserMedia`), Canvas base64 capture
+- **AI**: Google Gemini API via GeminiService
+
+---
+
+## 🚀 Panduan Instalasi & Menjalankan
+
+1. **Clone repositori**:
    ```bash
-   cd d:/laragonzo/www/interior
+   git clone https://github.com/faulnam/bengkel.git
+   cd bengkel
    ```
 
-2. **Install dependensi PHP**:
-   ```bash
-   composer install
+2. **Konfigurasi Lingkungan (`.env`)**:
+   ```env
+   APP_NAME="Apex Garage"
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=db_bengkel
+   DB_USERNAME=root
+   DB_PASSWORD=
    ```
 
-3. **Konfigurasi Environment**:
+3. **Migrasi & Seed Database**:
    ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-   Pastikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) pada file `.env` sudah sesuai dengan database MySQL lokal Anda.
-
-4. **Jalankan Migrasi dan Seeder**:
-   ```bash
-   php artisan migrate --seed
+   php artisan migrate:fresh --seed
+   php artisan storage:link
    ```
 
-5. **Kompilasi Asset Tailwind CSS (Opsional / Standalone)**:
-   ```bash
-   ./tailwindcss-windows-x64.exe -i ./resources/css/app.css -o ./public/css/app.css --minify
-   ```
-
-6. **Jalankan Server Lokal**:
+4. **Jalankan Server Lokal**:
    ```bash
    php artisan serve
    ```
-   Aplikasi siap diakses melalui peramban web di `http://localhost:8000`. Panel admin dapat diakses di `http://localhost:8000/admin`.
+   Buka browser di `http://localhost:8000`.
+
+---
+
+© 2026 **Apex Garage Indonesia**. Built with high precision.

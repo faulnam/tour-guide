@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['super_admin', 'editor'])->default('super_admin');
+            $table->string('role')->default('customer'); // admin, karyawan, customer, super_admin
+            $table->string('specialty')->nullable(); // For mechanic/karyawan position
+            $table->string('avatar')->nullable();
+            $table->text('address')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

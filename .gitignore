@@ -1,4 +1,7 @@
 *.log
+*.exe
+tailwindcss.exe
+tailwindcss-windows-x64.exe
 .DS_Store
 .env
 .env.backup
@@ -20,6 +23,9 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/app/public/absensi/*
+/storage/app/public/bookings/*
+!/storage/app/public/.gitignore
 /vendor
 _ide_helper.php
 Homestead.json

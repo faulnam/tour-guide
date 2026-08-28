@@ -1,153 +1,81 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Our Blog & Latest Insights — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Interior Architecture'))
-@section('meta_description', 'Read the latest design perspectives, award announcements, and spatial architectural case studies from Metrix Interior.')
+@section('meta_title', 'Blog Otomotif & Tips Tuning — Apex Garage')
+@section('meta_description', 'Artikel terbaru seputar modifikasi mobil, ECU remap, setting dyno jet, custom motorcycle builder, dan tips perawatan mesin.')
 
 @section('content')
 
-    <!-- Hero Banner -->
-    <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop');">
+<!-- Hero Banner -->
+<section class="py-16 bg-[#0c0c10] border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div class="inline-flex items-center gap-2 bg-red-600/10 border border-red-500/30 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-red-400">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Apex Tuning Journal</span>
         </div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
+        <h1 class="font-racing font-black text-3xl sm:text-5xl text-white uppercase tracking-tight">
+            BLOG & ARTIKEL OTOMOTIF
+        </h1>
+        <p class="text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto">
+            Wawasan teknis modifikasi motor & mobil, ulasan dyno run, dan tips perawatan dari master tuner.
+        </p>
+    </div>
+</section>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">News &amp; Perspectives</div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
-                Our Blog
-            </h1>
-            <div class="min-h-[40px] flex items-center justify-center text-neutral-300 text-xs md:text-sm max-w-xl mx-auto"
-                 x-data="{
-                    text: '',
-                    phrases: [
-                        'Perspectives on contemporary design trends and spatial innovations.',
-                        'Exploring architectural excellence and interior philosophy.',
-                        'Behind the scenes of our newest hospitality and retail projects.',
-                        'Design thoughts, material innovations, and award stories.'
-                    ],
-                    phraseIndex: 0,
-                    charIndex: 0,
-                    isDeleting: false,
-                    typeSpeed: 50,
-                    deleteSpeed: 25,
-                    pauseTime: 2000,
-                    init() { this.type(); },
-                    type() {
-                        const current = this.phrases[this.phraseIndex];
-                        if (this.isDeleting) {
-                            this.text = current.substring(0, this.charIndex - 1);
-                            this.charIndex--;
-                        } else {
-                            this.text = current.substring(0, this.charIndex + 1);
-                            this.charIndex++;
-                        }
-                        let speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
-                        if (!this.isDeleting && this.charIndex === current.length) {
-                            speed = this.pauseTime;
-                            this.isDeleting = true;
-                        } else if (this.isDeleting && this.charIndex === 0) {
-                            this.isDeleting = false;
-                            this.phraseIndex = (this.phraseIndex + 1) % this.phrases.length;
-                            speed = 350;
-                        }
-                        setTimeout(() => this.type(), speed);
-                    }
-                 }">
-                <p class="leading-relaxed">
-                    <span x-text="text">Stay inspired with our newest articles, project showcases, thought leadership, and interior design perspectives.</span><span class="inline-block w-0.5 h-4 bg-white ml-1 align-middle animate-cursor"></span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Category Pill Filter Tabs -->
-    @if(isset($categories) && $categories->count())
-        <section class="bg-neutral-bg border-b border-neutral-200 sticky top-16 z-30">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center gap-2 md:gap-3 overflow-x-auto py-4 text-xs uppercase tracking-wider font-semibold whitespace-nowrap scrollbar-none">
-                <a href="{{ url('/our-blog') }}" 
-                   class="px-4 py-2 border transition-colors {{ !$currentCategory ? 'border-black bg-black text-white' : 'border-neutral-300 text-neutral-600 hover:border-black hover:text-black' }}">
-                    All Articles
-                </a>
-                @foreach($categories as $cat)
-                    <a href="{{ url('/our-blog?category=' . $cat->slug) }}" 
-                       class="px-4 py-2 border transition-colors {{ $currentCategory && $currentCategory->id === $cat->id ? 'border-black bg-black text-white' : 'border-neutral-300 text-neutral-600 hover:border-black hover:text-black' }}">
-                        {{ $cat->title }} ({{ $cat->posts_count }})
+<!-- Blog Articles Grid -->
+<section class="py-16 bg-[#09090b]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @forelse($posts as $post)
+                <article class="bg-[#121218] border border-neutral-800 rounded-3xl overflow-hidden hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between group shadow-xl hover:-translate-y-1">
+                    <a href="{{ url('/our-blog/' . $post->slug) }}" class="block overflow-hidden h-52 bg-neutral-900">
+                        <img src="{{ $post->cover_image ? (str_starts_with($post->cover_image, 'http') ? $post->cover_image : asset('storage/' . $post->cover_image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop' }}" 
+                             alt="{{ $post->title }}" 
+                             loading="lazy"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     </a>
-                @endforeach
-            </div>
-        </section>
-    @endif
 
-    <!-- Blog Articles Grid -->
-    <section class="py-20 md:py-28 bg-white">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
-            
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
-                <div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
-                        {{ $currentCategory ? $currentCategory->title : 'Latest Articles' }}
-                    </h2>
-                    <p class="text-neutral-body text-xs mt-1">
-                        Showing {{ $posts->total() }} articles
-                    </p>
-                </div>
-            </div>
-
-            <!-- Articles Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @forelse($posts as $post)
-                    <article class="group bg-white border border-neutral-200 flex flex-col justify-between overflow-hidden hover:border-black transition-all">
-                        <a href="{{ url('/our-blog/' . $post->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900">
-                            <img src="{{ $post->cover_image ? (str_starts_with($post->cover_image, 'http') ? $post->cover_image : asset('storage/' . $post->cover_image)) : 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop' }}" 
-                                 alt="{{ $post->title }}" 
-                                 loading="lazy"
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </a>
-
-                        <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
-                            <div class="space-y-2">
-                                @if($post->category)
-                                    <div class="eyebrow text-[10px] text-accent font-semibold">
-                                        {{ $post->category->title }}
-                                    </div>
-                                @endif
-                                <h3 class="text-base font-bold text-black group-hover:text-accent transition-colors line-clamp-2">
-                                    <a href="{{ url('/our-blog/' . $post->slug) }}">
-                                        {{ $post->title }}
-                                    </a>
-                                </h3>
-                                @if($post->excerpt)
-                                    <p class="text-xs text-neutral-body line-clamp-3 leading-relaxed">
-                                        {{ $post->excerpt }}
-                                    </p>
-                                @endif
-                            </div>
-
-                            <div class="pt-4 border-t border-neutral-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-400">
-                                <span>{{ $post->published_at ? $post->published_at->format('M d, Y') : $post->created_at->format('M d, Y') }}</span>
-                                <span class="group-hover:text-black font-semibold transition-colors">Read Article &rarr;</span>
-                            </div>
+                    <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            @if($post->category)
+                                <div class="text-[10px] text-red-400 uppercase font-bold tracking-wider font-racing">
+                                    {{ $post->category->title }}
+                                </div>
+                            @endif
+                            <h3 class="font-racing font-bold text-base text-white group-hover:text-red-400 transition-colors line-clamp-2">
+                                <a href="{{ url('/our-blog/' . $post->slug) }}">
+                                    {{ $post->title }}
+                                </a>
+                            </h3>
+                            @if($post->excerpt)
+                                <p class="text-xs text-neutral-400 line-clamp-3 leading-relaxed">
+                                    {{ $post->excerpt }}
+                                </p>
+                            @endif
                         </div>
-                    </article>
-                @empty
-                    <div class="col-span-3 text-center py-16 text-neutral-400 text-sm">
-                        No articles found in this category.
+
+                        <div class="pt-4 border-t border-neutral-800/80 flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-500">
+                            <span>{{ $post->published_at ? $post->published_at->translatedFormat('d M Y') : $post->created_at->translatedFormat('d M Y') }}</span>
+                            <span class="group-hover:text-red-400 font-bold transition-colors">Baca Artikel &rarr;</span>
+                        </div>
                     </div>
-                @endforelse
-            </div>
-
-            <!-- Pagination -->
-            @if($posts->hasPages())
-                <div class="pt-8 flex justify-center">
-                    {{ $posts->links() }}
+                </article>
+            @empty
+                <div class="col-span-3 text-center py-16 text-neutral-500 text-xs">
+                    Belum ada artikel yang dipublikasikan.
                 </div>
-            @endif
-
+            @endforelse
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    @include('partials.cta-section')
+        @if($posts->hasPages())
+            <div class="pt-6 flex justify-center">
+                {{ $posts->links() }}
+            </div>
+        @endif
+
+    </div>
+</section>
+
+@include('partials.cta-section')
 
 @endsection

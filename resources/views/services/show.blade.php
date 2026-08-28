@@ -1,86 +1,107 @@
 @extends('layouts.app')
 
-@section('meta_title', $service->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Interior Architecture'))
-@section('meta_description', $service->excerpt ?: 'Explore projects and spatial design solutions for ' . $service->title)
+@section('meta_title', $service->title . ' — Layanan Apex Garage')
+@section('meta_description', $service->excerpt ?? 'Layanan modifikasi performa di Apex Garage.')
 
 @section('content')
 
-    <!-- Hero Banner -->
-    <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('{{ $service->image ? (str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image)) : 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2000&auto=format&fit=crop' }}');">
+<div class="py-12 bg-[#09090b]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-2 text-xs text-neutral-400">
+            <a href="{{ url('/') }}" class="hover:text-white">Beranda</a>
+            <span>/</span>
+            <a href="{{ url('/services') }}" class="hover:text-white">Layanan</a>
+            <span>/</span>
+            <span class="text-red-400 font-bold truncate">{{ $service->title }}</span>
         </div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">
-                <a href="{{ url('/services') }}" class="hover:underline">Services</a> &bull; {{ $service->title }}
-            </div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
-                {{ $service->title }}
-            </h1>
-            @if($service->excerpt)
-                <p class="text-neutral-300 text-xs md:text-sm max-w-2xl mx-auto leading-relaxed">
-                    {{ $service->excerpt }}
-                </p>
-            @endif
-        </div>
-    </section>
-
-    <!-- Sub-Services Navigation Tabs (if any) -->
-    @if($service->children->count())
-        <section class="bg-neutral-bg border-b border-neutral-200 sticky top-16 z-30">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center gap-2 md:gap-4 overflow-x-auto py-4 text-xs uppercase tracking-wider font-semibold whitespace-nowrap scrollbar-none">
-                <a href="{{ url('/services/' . $service->slug) }}" 
-                   class="px-4 py-2 border border-black bg-black text-white">
-                    All {{ $service->title }}
-                </a>
-                @foreach($service->children as $child)
-                    <a href="{{ url('/services/' . $service->slug . '/' . $child->slug) }}" 
-                       class="px-4 py-2 border border-neutral-300 text-neutral-600 hover:border-black hover:text-black transition-colors">
-                        {{ $child->title }}
-                    </a>
-                @endforeach
-            </div>
-        </section>
-    @endif
-
-    <!-- Projects Grid -->
-    <section class="py-20 md:py-28 bg-white">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+        <!-- Main Service Detail -->
+        <div class="bg-[#121218] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
-                <div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
-                        {{ $service->title }} Portfolios
-                    </h2>
-                    <p class="text-neutral-body text-xs mt-1">
-                        Showing {{ $projects->total() }} completed projects
-                    </p>
-                </div>
-            </div>
+            <div class="relative h-72 sm:h-96">
+                <img src="{{ $service->image }}" alt="{{ $service->title }}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#121218] via-black/40 to-transparent"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse($projects as $project)
-                    @include('partials.project-card', ['project' => $project])
-                @empty
-                    <div class="col-span-3 text-center py-16 text-neutral-400 text-sm">
-                        No projects found under this service category.
+                <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            {!! $service->vehicle_badge !!}
+                            @if($service->warranty)
+                                <span class="px-2.5 py-0.5 rounded text-[10px] uppercase font-bold bg-neutral-900/80 border border-neutral-700 text-neutral-300">
+                                    <i class="fa-solid fa-shield mr-1 text-cyan-400"></i> Garansi {{ $service->warranty }}
+                                </span>
+                            @endif
+                        </div>
+                        <h1 class="font-racing font-black text-2xl sm:text-4xl text-white uppercase tracking-tight">
+                            {{ $service->title }}
+                        </h1>
                     </div>
-                @endforelse
+
+                    <div class="text-left sm:text-right bg-black/60 backdrop-blur-md p-3.5 rounded-2xl border border-neutral-800">
+                        <div class="text-[10px] text-neutral-400 uppercase">Mulai Dari</div>
+                        <div class="font-racing font-black text-2xl text-red-500">{{ $service->formatted_price }}</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Pagination -->
-            @if($projects->hasPages())
-                <div class="pt-8 flex justify-center">
-                    {{ $projects->links() }}
+            <div class="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Left Content (2 Cols) -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div>
+                        <h2 class="font-racing font-bold text-lg text-white uppercase mb-3">DESKRIPSI PENGERJAAN</h2>
+                        <div class="prose prose-invert prose-xs sm:prose-sm text-neutral-300 leading-relaxed max-w-none">
+                            {!! $service->description !!}
+                        </div>
+                    </div>
+
+                    @if(!empty($service->features))
+                        <div class="pt-4 border-t border-neutral-800">
+                            <h3 class="font-racing font-bold text-sm text-white uppercase mb-3">FITUR & KEUNGGULAN PAKET</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-200">
+                                @foreach($service->features as $feat)
+                                    <div class="flex items-center gap-2.5 p-3 rounded-xl bg-[#0a0a0e] border border-neutral-800">
+                                        <i class="fa-solid fa-check text-red-500"></i>
+                                        <span>{{ $feat }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
-            @endif
+
+                <!-- Right Sidebar CTA (1 Col) -->
+                <div class="space-y-6">
+                    <div class="bg-[#0a0a0e] border border-neutral-800 p-6 rounded-2xl space-y-4">
+                        <h4 class="font-racing font-bold text-xs text-white uppercase tracking-wider">BOOKING LAYANAN INI</h4>
+                        
+                        <div class="space-y-2 text-xs text-neutral-300">
+                            <div class="flex justify-between"><span class="text-neutral-500">Estimasi Durasi:</span> <span class="font-bold text-white">{{ $service->estimated_duration ?? 'Menyesuaikan' }}</span></div>
+                            <div class="flex justify-between"><span class="text-neutral-500">Tipe Kendaraan:</span> <span class="font-bold uppercase text-amber-400">{{ $service->vehicle_type }}</span></div>
+                            <div class="flex justify-between"><span class="text-neutral-500">Garansi:</span> <span class="text-emerald-400">{{ $service->warranty ?? 'Garansi Kepuasan' }}</span></div>
+                        </div>
+
+                        <div class="pt-2">
+                            <a href="{{ url('/booking?service_id=' . $service->id) }}" 
+                               class="w-full py-3.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white rounded-xl text-xs font-racing font-bold uppercase tracking-wider block text-center shadow-lg shadow-red-600/30 transition-all">
+                                <i class="fa-solid fa-calendar-check mr-1.5"></i>
+                                <span>Booking Antrean Online</span>
+                            </a>
+                        </div>
+
+                        <div class="text-[10px] text-neutral-500 text-center">
+                            Pembayaran DP instan via QRIS / VA Gateway.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    @include('partials.cta-section')
+    </div>
+</div>
 
 @endsection

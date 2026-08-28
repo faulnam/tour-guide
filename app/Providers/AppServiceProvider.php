@@ -29,15 +29,11 @@ class AppServiceProvider extends ServiceProvider
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 
-        // Share active hierarchical services and site settings with public views
+        // Share active services and site settings with public views
         View::composer(['layouts.app', 'partials.header', 'partials.footer'], function ($view) {
             if (Schema::hasTable('services')) {
-                $navServices = Service::parents()
-                    ->active()
+                $navServices = Service::active()
                     ->ordered()
-                    ->with(['children' => function ($q) {
-                        $q->active()->ordered();
-                    }])
                     ->get();
                 $view->with('navServices', $navServices);
             }

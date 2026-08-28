@@ -1,25 +1,34 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-neutral-900">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-neutral-950">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Admin Dashboard') — Metrix Interior CMS</title>
+    <title>@yield('title', 'Admin Dashboard') — Apex Garage CMS</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Quill Rich Text Editor CSS (via CDN) -->
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
 
-    <!-- Compiled Tailwind CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ file_exists(public_path('css/app.css')) ? filemtime(public_path('css/app.css')) : time() }}">
+    <!-- Compiled CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ time() }}">
 
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.14.3/dist/cdn.min.js"></script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-racing { font-family: 'Orbitron', sans-serif; }
+        .glow-red { box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.3); }
+    </style>
 
     @stack('styles')
 </head>
@@ -40,136 +49,147 @@
         
         <!-- Sidebar Navigation -->
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" 
-               class="fixed inset-y-0 left-0 z-50 w-64 bg-neutral-900 border-r border-neutral-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto">
+               class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0f0f14] border-r border-neutral-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto">
             
             <!-- Logo / Brand Header -->
             <div class="h-16 flex items-center justify-between px-6 border-b border-neutral-800">
-                <a href="{{ url('/admin') }}" class="flex items-center gap-3">
-                    <div class="w-7 h-7 bg-white text-black font-bold flex items-center justify-center text-xs tracking-tighter">
-                        M
+                <a href="{{ url('/admin') }}" class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-gradient-to-br from-red-600 to-red-800 text-white font-racing font-black flex items-center justify-center text-xs rounded-xl shadow-lg shadow-red-600/30">
+                        <i class="fa-solid fa-gauge-high"></i>
                     </div>
-                    <span class="font-extrabold tracking-[0.2em] text-xs text-white">METRIX CMS</span>
+                    <div>
+                        <span class="font-racing font-extrabold text-sm text-white tracking-wider">APEX<span class="text-red-500">CMS</span></span>
+                        <span class="text-[8px] uppercase tracking-widest text-neutral-400 block -mt-0.5">Workshop System</span>
+                    </div>
                 </a>
                 <button @click="sidebarOpen = false" class="lg:hidden text-neutral-400 hover:text-white">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
             <!-- Navigation Links -->
-            <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto text-xs font-medium">
+            <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto text-xs font-semibold">
                 
-                <div class="px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-semibold">Core</div>
+                <div class="px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Workshop Operations</div>
                 
                 <a href="{{ url('/admin') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    <span>Dashboard</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-chart-line text-sm w-4 text-center"></i>
+                    <span>Dashboard Bengkel</span>
                 </a>
 
-                <div class="pt-5 px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-semibold">Content Management</div>
-
-                <a href="{{ url('/admin/projects') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/projects*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                    <span>Projects & Portfolio</span>
+                <a href="{{ url('/admin/bookings') }}" 
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/bookings*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-car-side text-sm w-4 text-center"></i>
+                        <span>Kelola Booking & Antrean</span>
+                    </div>
+                    @php $pendingCount = \App\Models\Booking::where('status', 'pending')->count(); @endphp
+                    @if($pendingCount > 0)
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $pendingCount }}</span>
+                    @endif
                 </a>
+
+                <a href="{{ url('/admin/attendances') }}" 
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/attendances*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-camera text-sm w-4 text-center text-amber-400"></i>
+                    <span>Rekap Absensi Kamera</span>
+                </a>
+
+                <a href="{{ url('/admin/employees') }}" 
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/employees*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-wrench text-sm w-4 text-center"></i>
+                    <span>Karyawan & Mekanik</span>
+                </a>
+
+                <div class="pt-5 px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Katalog & Portofolio</div>
 
                 <a href="{{ url('/admin/services') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/services*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-                    <span>Services (2-Level)</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/services*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-spray-can-sparkles text-sm w-4 text-center"></i>
+                    <span>Layanan Modifikasi</span>
+                </a>
+
+                <a href="{{ url('/admin/projects') }}" 
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/projects*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-fire text-sm w-4 text-center"></i>
+                    <span>Portofolio & Dyno Builds</span>
                 </a>
 
                 <a href="{{ url('/admin/clients') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/clients*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    <span>Clients & Logos</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/clients*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-handshake text-sm w-4 text-center"></i>
+                    <span>Partner Brand & Parts</span>
                 </a>
 
                 <a href="{{ url('/admin/awards') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/awards*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                    <span>Awards & Publications</span>
-                </a>
-
-                <a href="{{ url('/admin/job-vacancies') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/job-vacancies*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    <span>Job Vacancies</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/awards*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-trophy text-sm w-4 text-center"></i>
+                    <span>Penghargaan & Kontes</span>
                 </a>
 
                 <a href="{{ url('/admin/blog-posts') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/blog-posts*') || request()->is('admin/blog-categories*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
-                    <span>Blog & Insights</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/blog*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-newspaper text-sm w-4 text-center"></i>
+                    <span>Blog Otomotif</span>
                 </a>
 
                 <a href="{{ url('/admin/hero-slides') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/hero-slides*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/hero-slides*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-images text-sm w-4 text-center"></i>
                     <span>Hero Slides</span>
                 </a>
 
                 <a href="{{ url('/admin/testimonials') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/testimonials*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                    <span>Testimonials</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/testimonials*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-comment-dots text-sm w-4 text-center"></i>
+                    <span>Testimoni Customer</span>
                 </a>
 
-                <div class="pt-5 px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-semibold">Site Configuration</div>
+                <div class="pt-5 px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Sistem & Konfigurasi</div>
 
                 <a href="{{ url('/admin/settings') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/settings*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span>Site Settings (Stats & Info)</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/settings*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-gears text-sm w-4 text-center"></i>
+                    <span>Pengaturan Workshop & Gateway</span>
                 </a>
 
                 <a href="{{ url('/admin/page-contents') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/page-contents*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                    <span>Page Copywriting</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/page-contents*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-file-lines text-sm w-4 text-center"></i>
+                    <span>Copywriting Halaman</span>
                 </a>
 
                 <a href="{{ url('/admin/messages') }}" 
-                   class="flex items-center justify-between px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/messages*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
+                   class="flex items-center justify-between px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/messages*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
                     <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        <span>Inbox Messages</span>
+                        <i class="fa-solid fa-inbox text-sm w-4 text-center"></i>
+                        <span>Pesan Masuk</span>
                     </div>
                     @php $unreadCount = \App\Models\ContactMessage::where('is_read', false)->count(); @endphp
                     @if($unreadCount > 0)
-                        <span class="bg-accent text-black text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $unreadCount }}</span>
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{{ $unreadCount }}</span>
                     @endif
                 </a>
 
-                <a href="{{ url('/admin/subscribers') }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/subscribers*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
-                    <span>Newsletter Subscribers</span>
+                <a href="{{ url('/admin/users') }}" 
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors {{ request()->is('admin/users*') ? 'bg-red-600/15 text-red-400 border border-red-500/30 font-bold' : 'text-neutral-300 hover:bg-neutral-800/60 hover:text-white' }}">
+                    <i class="fa-solid fa-users text-sm w-4 text-center"></i>
+                    <span>Kelola Pengguna (3 Role)</span>
                 </a>
-
-                @if(auth()->check() && auth()->user()->isSuperAdmin())
-                    <div class="pt-5 px-3 pb-2 text-[10px] uppercase tracking-widest text-neutral-500 font-semibold">User Administration</div>
-
-                    <a href="{{ url('/admin/users') }}" 
-                       class="flex items-center gap-3 px-3 py-2.5 rounded-none text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors {{ request()->is('admin/users*') ? 'bg-neutral-800 text-white font-semibold' : '' }}">
-                        <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        <span>Admin Users</span>
-                    </a>
-                @endif
 
             </nav>
 
-            <!-- User Info / Bottom Section -->
+            <!-- User Info & Logout -->
             <div class="p-4 border-t border-neutral-800 flex items-center justify-between text-xs">
                 <div class="truncate">
-                    <div class="font-medium text-white truncate">{{ auth()->user()->name ?? 'Administrator' }}</div>
-                    <div class="text-[10px] text-neutral-400 capitalize">{{ auth()->user()->role ?? 'super_admin' }}</div>
+                    <div class="font-bold text-white truncate">{{ auth()->user()->name ?? 'Administrator' }}</div>
+                    <div class="text-[10px] text-red-400 capitalize font-mono">{{ auth()->user()->role ?? 'super_admin' }}</div>
                 </div>
                 <form action="{{ url('/admin/logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="p-1.5 text-neutral-400 hover:text-red-400 transition-colors" title="Sign Out">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    <button type="submit" class="p-2 text-neutral-400 hover:text-red-400 transition-colors" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket text-sm"></i>
                     </button>
                 </form>
             </div>
@@ -179,59 +199,50 @@
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-neutral-950">
             
-            <!-- Topbar Header -->
-            <header class="h-16 bg-neutral-900 border-b border-neutral-800 flex items-center justify-between px-6 z-10">
+            <!-- Top Bar -->
+            <header class="h-16 bg-[#0f0f14] border-b border-neutral-800 flex items-center justify-between px-6">
                 <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = true" class="lg:hidden text-neutral-400 hover:text-white p-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <button @click="sidebarOpen = true" class="lg:hidden text-neutral-400 hover:text-white">
+                        <i class="fa-solid fa-bars text-lg"></i>
                     </button>
-                    <h1 class="text-sm font-semibold tracking-wider text-white uppercase">@yield('page_title', 'Dashboard')</h1>
+                    <span class="font-bold text-sm text-white">@yield('title', 'Admin Panel')</span>
                 </div>
 
-                <div class="flex items-center gap-4 text-xs">
-                    <a href="{{ url('/') }}" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-neutral-700 text-neutral-300 hover:border-neutral-500 hover:text-white transition-colors text-[11px] uppercase tracking-wider">
-                        <span>View Live Site</span>
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                <div class="flex items-center gap-3">
+                    <a href="{{ url('/') }}" target="_blank" class="px-3 py-1.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white text-xs font-semibold rounded-xl border border-neutral-800 flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        <span>Lihat Website</span>
                     </a>
                 </div>
             </header>
 
-            <!-- Page Body -->
-            <main class="flex-1 overflow-y-auto p-6 md:p-8">
+            <!-- Page Body Content -->
+            <main class="flex-1 overflow-y-auto p-6 sm:p-8">
                 
-                <!-- Flash Messages -->
                 @if(session('success'))
-                    <div class="mb-6 bg-emerald-950/60 border border-emerald-800 text-emerald-300 px-4 py-3 text-xs uppercase tracking-wider flex items-center justify-between">
+                    <div class="mb-6 bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 px-4 py-3 rounded-2xl text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i>
                         <span>{{ session('success') }}</span>
                     </div>
                 @endif
 
                 @if(session('error'))
-                    <div class="mb-6 bg-red-950/60 border border-red-800 text-red-300 px-4 py-3 text-xs uppercase tracking-wider flex items-center justify-between">
+                    <div class="mb-6 bg-red-500/15 border border-red-500/40 text-red-400 px-4 py-3 rounded-2xl text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
                         <span>{{ session('error') }}</span>
                     </div>
                 @endif
 
-                @if ($errors->any())
-                    <div class="mb-6 bg-red-950/60 border border-red-800 text-red-300 p-4 text-xs">
-                        <p class="font-semibold uppercase tracking-wider mb-2">There were some errors with your submission:</p>
-                        <ul class="list-disc list-inside space-y-1">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 @yield('content')
+
             </main>
 
         </div>
 
     </div>
 
-    <!-- Quill Rich Text Editor Script (via CDN) -->
-    <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+    <!-- Quill Rich Text JS -->
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 
     @stack('scripts')
 </body>
