@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Online Booking & Consultation — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_title', 'Online Booking & Consultation — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
 @section('meta_description', 'Booking antrean servis & modifikasi motor dan mobil online dengan payment gateway.')
 
 @section('content')
@@ -23,7 +23,7 @@
         </div>
     </section>
 
-    <!-- Booking Form Section (Clean Metrix Style) -->
+    <!-- Booking Form Section -->
     <section class="py-20 md:py-28 bg-white" x-data="{
         step: 1,
         vehicleType: '{{ $selectedVehicleType !== 'all' ? $selectedVehicleType : 'mobil' }}',
@@ -85,24 +85,24 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-                        <label class="p-5 border bg-white cursor-pointer transition-all flex items-center gap-4"
-                               :class="vehicleType === 'mobil' ? 'border-black shadow-sm' : 'border-neutral-200 text-neutral-500 hover:border-neutral-400'">
+                        <label class="p-5 border bg-white cursor-pointer transition-all flex items-center justify-between"
+                               :class="vehicleType === 'mobil' ? 'border-black shadow-sm ring-1 ring-black' : 'border-neutral-200 text-neutral-500 hover:border-neutral-400'">
                             <input type="radio" name="vehicle_type" value="mobil" x-model="vehicleType" class="sr-only">
-                            <span class="text-2xl">🚗</span>
                             <div>
                                 <div class="font-bold text-xs uppercase tracking-wider text-black">Mobil / Supercar</div>
-                                <div class="text-[11px] text-neutral-500">ECU Remap, Widebody, Air Suspension</div>
+                                <div class="text-[11px] text-neutral-500 mt-0.5">ECU Remap, Widebody, Air Suspension</div>
                             </div>
+                            <span class="w-3.5 h-3.5 rounded-full border border-neutral-300 flex items-center justify-center" :class="vehicleType === 'mobil' ? 'bg-black border-black' : ''"></span>
                         </label>
 
-                        <label class="p-5 border bg-white cursor-pointer transition-all flex items-center gap-4"
-                               :class="vehicleType === 'motor' ? 'border-black shadow-sm' : 'border-neutral-200 text-neutral-500 hover:border-neutral-400'">
+                        <label class="p-5 border bg-white cursor-pointer transition-all flex items-center justify-between"
+                               :class="vehicleType === 'motor' ? 'border-black shadow-sm ring-1 ring-black' : 'border-neutral-200 text-neutral-500 hover:border-neutral-400'">
                             <input type="radio" name="vehicle_type" value="motor" x-model="vehicleType" class="sr-only">
-                            <span class="text-2xl">🏍️</span>
                             <div>
                                 <div class="font-bold text-xs uppercase tracking-wider text-black">Motor / Moge</div>
-                                <div class="text-[11px] text-neutral-500">Cafe Racer, Dyno, Knalpot Titanium</div>
+                                <div class="text-[11px] text-neutral-500 mt-0.5">Cafe Racer, Dyno, Knalpot Titanium</div>
                             </div>
+                            <span class="w-3.5 h-3.5 rounded-full border border-neutral-300 flex items-center justify-center" :class="vehicleType === 'motor' ? 'bg-black border-black' : ''"></span>
                         </label>
                     </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('meta_title', 'Portal Karyawan — Metrix Garage')</title>
+    <title>@yield('meta_title', 'Portal Karyawan — BENGKEL')</title>
     
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
         }
     </script>
 
-    <!-- Base Metrix CSS -->
+    <!-- Base Bengkel CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Alpine.js -->
@@ -47,7 +47,7 @@
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-6">
                 <a href="{{ route('karyawan.dashboard') }}" class="font-bold text-xl tracking-widest3 uppercase text-black font-sans">
-                    METRIX <span class="text-xs text-neutral-400 font-normal">STAFF</span>
+                    BENGKEL <span class="text-xs text-neutral-400 font-normal">STAFF</span>
                 </a>
                 <nav class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-semibold">
                     <a href="{{ route('karyawan.dashboard') }}" class="hover:text-accent transition-colors {{ request()->routeIs('karyawan.dashboard') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Dashboard</a>
@@ -92,7 +92,7 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-neutral-200 py-6 text-center text-xs text-neutral-400">
-        <p>&copy; {{ date('Y') }} Metrix Garage Staff Portal. All rights reserved.</p>
+        <p>&copy; {{ date('Y') }} BENGKEL Staff Portal. All rights reserved.</p>
     </footer>
 
     @stack('scripts')

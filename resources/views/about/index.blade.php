@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('meta_title', 'About Us & Workshop Studio — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
-@section('meta_description', 'About Metrix Garage, our engineering philosophy, dyno tuning equipment, and expert certified master technicians.')
+@section('meta_title', 'About Us & Workshop Studio — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_description', 'About BENGKEL, our engineering philosophy, dyno tuning equipment, and expert certified master technicians.')
 
 @section('content')
 
@@ -15,7 +15,7 @@
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
             <div class="eyebrow-light">Precision Engineering &amp; Custom Studio</div>
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
-                About Metrix
+                About BENGKEL
             </h1>
             <p class="text-neutral-300 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
                 Dedicated to exceptional automotive performance, custom bike craftsmanship, and state-of-the-art dyno tuning calibration.
@@ -35,7 +35,7 @@
                     </h2>
                     <div class="text-neutral-700 text-sm md:text-base space-y-4 leading-relaxed">
                         <p>
-                            Metrix Garage lahir dari passion mendalam terhadap performa motorsport dan estetika kendaraan kustom. Kami percaya bahwa setiap motor dan mobil memiliki potensi maksimal yang dapat dieksplorasi melalui kalibrasi data akurat dan ketelitian craftsmanship.
+                            BENGKEL lahir dari passion mendalam terhadap performa motorsport dan estetika kendaraan kustom. Kami percaya bahwa setiap motor dan mobil memiliki potensi maksimal yang dapat dieksplorasi melalui kalibrasi data akurat dan ketelitian craftsmanship.
                         </p>
                         <p>
                             Mulai dari dyno tuning ECU remap, custom motorcycle fabrication, widebody aerokit, hingga pengecatan oven Spies Hecker, seluruh proses dikerjakan oleh teknisi bersertifikasi dengan jaminan kualitas dan transparansi pengerjaan.
@@ -45,8 +45,8 @@
 
                 <div class="lg:col-span-6">
                     <div class="aspect-[4/3] bg-neutral-900 border border-neutral-200 overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=1000&auto=format&fit=crop" 
-                             alt="Metrix Workshop" 
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000&auto=format&fit=crop" 
+                             alt="BENGKEL Workshop" 
                              class="w-full h-full object-cover">
                     </div>
                 </div>

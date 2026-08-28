@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title', $service->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_title', $service->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
 @section('meta_description', $service->excerpt ?: 'Explore tuning projects and modification packages for ' . $service->title)
 
 @section('content')

@@ -8,7 +8,7 @@
                 <div class="swiper-slide relative flex items-center justify-center">
                     <!-- Slide Background Image -->
                     <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-100" 
-                         style="background-image: url('{{ $slide->image ? (str_starts_with($slide->image, 'http') ? $slide->image : asset('storage/' . $slide->image)) : 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1920&auto=format&fit=crop' }}');">
+                         style="background-image: url('{{ $slide->image ? (str_starts_with($slide->image, 'http') ? $slide->image : asset('storage/' . $slide->image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1920&auto=format&fit=crop' }}');">
                     </div>
                     
                     <!-- Dark Gradient Overlay -->
@@ -23,7 +23,7 @@
                         @endif
 
                         @if($slide->title)
-                            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
+                            <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
                                 {{ $slide->title }}
                             </h2>
                         @endif
@@ -40,16 +40,16 @@
             @empty
                 <!-- Fallback Default Slide -->
                 <div class="swiper-slide relative flex items-center justify-center">
-                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=1920&auto=format&fit=crop');"></div>
+                    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1920&auto=format&fit=crop');"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/50"></div>
                     <div class="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-6 pt-16">
-                        <div class="eyebrow-light tracking-widest3">Restaurant & Bar Interior Architecture</div>
-                        <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
-                            Burger & Lobster &bull; Plaza Indonesia
+                        <div class="eyebrow-light tracking-widest3">Performance Tuning &amp; Custom Studio</div>
+                        <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+                            Crafting High-Performance Machines
                         </h2>
                         <div class="pt-4">
-                            <a href="{{ url('/services') }}" class="btn-outline">
-                                View Project &rarr;
+                            <a href="{{ url('/booking') }}" class="btn-outline">
+                                Booking Modifikasi &rarr;
                             </a>
                         </div>
                     </div>

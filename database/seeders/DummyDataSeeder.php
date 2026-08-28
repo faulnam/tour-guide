@@ -68,12 +68,12 @@ class DummyDataSeeder extends Seeder
         // 2. Partner Brands
         Client::truncate();
         $brands = [
-            ['name' => 'Brembo Brakes', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Brembo_logo.svg/320px-Brembo_logo.svg.png', 'website' => 'https://www.brembo.com', 'order' => 1, 'is_active' => true],
-            ['name' => 'Akrapovic Exhaust', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Akrapovi%C4%8D_logo.svg/320px-Akrapovi%C4%8D_logo.svg.png', 'website' => 'https://www.akrapovic.com', 'order' => 2, 'is_active' => true],
-            ['name' => 'Ohlins Suspension', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/%C3%96hlins_logo.svg/320px-%C3%96hlins_logo.svg.png', 'website' => 'https://www.ohlins.com', 'order' => 3, 'is_active' => true],
-            ['name' => 'HKS Japan', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HKS_logo.svg/320px-HKS_logo.svg.png', 'website' => 'https://www.hks-power.co.jp', 'order' => 4, 'is_active' => true],
-            ['name' => 'BBS Forged Wheels', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/BBS_Kraftfahrzeugtechnik_Logo.svg/320px-BBS_Kraftfahrzeugtechnik_Logo.svg.png', 'website' => 'https://bbs.com', 'order' => 5, 'is_active' => true],
-            ['name' => 'Motul Lubricants', 'logo_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Motul_Logo.svg/320px-Motul_Logo.svg.png', 'website' => 'https://www.motul.com', 'order' => 6, 'is_active' => true],
+            ['name' => 'Brembo Brakes', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Brembo_logo.svg/320px-Brembo_logo.svg.png', 'website_url' => 'https://www.brembo.com', 'order' => 1, 'is_active' => true],
+            ['name' => 'Akrapovic Exhaust', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Akrapovi%C4%8D_logo.svg/320px-Akrapovi%C4%8D_logo.svg.png', 'website_url' => 'https://www.akrapovic.com', 'order' => 2, 'is_active' => true],
+            ['name' => 'Ohlins Suspension', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/%C3%96hlins_logo.svg/320px-%C3%96hlins_logo.svg.png', 'website_url' => 'https://www.ohlins.com', 'order' => 3, 'is_active' => true],
+            ['name' => 'HKS Japan', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/HKS_logo.svg/320px-HKS_logo.svg.png', 'website_url' => 'https://www.hks-power.co.jp', 'order' => 4, 'is_active' => true],
+            ['name' => 'BBS Forged Wheels', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/BBS_Kraftfahrzeugtechnik_Logo.svg/320px-BBS_Kraftfahrzeugtechnik_Logo.svg.png', 'website_url' => 'https://bbs.com', 'order' => 5, 'is_active' => true],
+            ['name' => 'Motul Lubricants', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Motul_Logo.svg/320px-Motul_Logo.svg.png', 'website_url' => 'https://www.motul.com', 'order' => 6, 'is_active' => true],
         ];
         foreach ($brands as $b) {
             Client::create($b);
@@ -82,9 +82,33 @@ class DummyDataSeeder extends Seeder
         // 3. Awards
         Award::truncate();
         $awards = [
-            ['title' => 'Best Tuner of the Year 2025', 'slug' => 'best-tuner-year-2025', 'year' => '2025', 'organization' => 'Indonesia Modification Expo (IMX)', 'category' => 'National Performance Tuning', 'description' => 'Penghargaan atas dedikasi dalam riset kalibrasi ECU dan efisiensi tenaga mesin turbo tertinggi di ajang IMX 2025.'],
-            ['title' => 'The King of Custom Bike Builder', 'slug' => 'king-custom-bike-builder', 'year' => '2025', 'organization' => 'Kustomfest Indonesia', 'category' => 'Custom Cafe Racer Class', 'description' => 'Juara 1 kategori Custom Cafe Racer dengan mahakarya Honda CB750 The Phantom.'],
-            ['title' => 'Master Paint & Finish Excellence', 'slug' => 'master-paint-finish-excellence', 'year' => '2024', 'organization' => 'Spies Hecker Certified Workshop', 'category' => 'Automotive Paint Standard', 'description' => 'Standar kualitas pengecatan oven dan teknik Candy Clear terbaik dengan garansi 2 tahun.'],
+            [
+                'title' => 'Best Tuner of the Year 2025 — IMX',
+                'slug' => 'best-tuner-year-2025',
+                'image' => 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=800&auto=format&fit=crop',
+                'description' => 'Penghargaan atas riset kalibrasi ECU dan efisiensi tenaga mesin turbo tertinggi di ajang Indonesia Modification Expo (IMX) 2025.',
+                'published_date' => '2025-10-15',
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'The King of Custom Bike Builder — Kustomfest',
+                'slug' => 'king-custom-bike-builder',
+                'image' => 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=800&auto=format&fit=crop',
+                'description' => 'Juara 1 kategori Custom Cafe Racer dengan mahakarya Honda CB750 The Phantom di Kustomfest Indonesia.',
+                'published_date' => '2025-08-20',
+                'order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Master Paint & Finish Excellence — Spies Hecker',
+                'slug' => 'master-paint-finish-excellence',
+                'image' => 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop',
+                'description' => 'Standar kualitas pengecatan oven dan teknik Candy Clear terbaik dengan garansi 2 tahun dari Spies Hecker.',
+                'published_date' => '2024-12-10',
+                'order' => 3,
+                'is_active' => true,
+            ],
         ];
         foreach ($awards as $aw) {
             Award::create($aw);
@@ -96,7 +120,7 @@ class DummyDataSeeder extends Seeder
             [
                 'client_name' => 'Bpk. Steven Kurniawan',
                 'client_company' => 'Owner Nissan GT-R R35 LBWK (850 HP)',
-                'message' => 'Hasil dyno tuning dan pengerjaan widebody kit di Apex Garage benar-benar melampaui ekspektasi. Mesin sangat responsif, boost stabil, dan fitting bodykit super rapi tanpa celah!',
+                'message' => 'Hasil dyno tuning dan pengerjaan widebody kit di BENGKEL benar-benar melampaui ekspektasi. Mesin sangat responsif, boost stabil, dan fitting bodykit super rapi tanpa celah!',
                 'photo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
                 'rating' => 5,
                 'order' => 1,
@@ -334,9 +358,8 @@ class DummyDataSeeder extends Seeder
         ContactMessage::create([
             'name' => 'Faisal Akbar',
             'email' => 'faisal.akbar@gmail.com',
-            'phone' => '081298765432',
-            'subject' => 'Estimasi Biaya Pasang Air Suspension Toyota FT86',
-            'message' => 'Halo tim Apex Garage, saya ingin menanyakan paket air suspension 4 titik untuk Toyota FT86 2020 lengkap dengan pemasangan dan hardline setup di bagasi. Berapa estimasi total biaya dan waktu pengerjaannya? Terima kasih.',
+            'company' => 'Toyota FT86 Club Indonesia',
+            'message' => 'Halo tim BENGKEL, saya ingin menanyakan paket air suspension 4 titik untuk Toyota FT86 2020 lengkap dengan pemasangan dan hardline setup di bagasi. Berapa estimasi total biaya dan waktu pengerjaannya? Terima kasih.',
             'is_read' => false,
         ]);
 

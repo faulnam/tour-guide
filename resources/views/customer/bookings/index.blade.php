@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 
-@section('meta_title', 'Riwayat Booking Saya — Metrix Garage')
+@section('meta_title', 'Riwayat Booking Saya — BENGKEL')
 
 @section('content')
 <div class="space-y-6">

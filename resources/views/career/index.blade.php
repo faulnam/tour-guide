@@ -1,30 +1,30 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Career — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Interior Architecture'))
-@section('meta_description', 'Join our creative studio in Jakarta. Explore career opportunities in interior design, architecture, and 3D visualization.')
+@section('meta_title', 'Career & Team — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_description', 'Bergabunglah bersama tim bengkel modifikasi, master tuner, custom motorcycle builder, dan teknisi cat profesional di Jakarta.')
 
 @section('content')
 
     <!-- Hero Banner -->
     <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2000&auto=format&fit=crop');">
+             style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">Join The Studio</div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
-                Career
+            <div class="eyebrow-light">Join The Tuning &amp; Custom Crew</div>
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+                Karir &amp; Tim
             </h1>
             <div class="min-h-[40px] flex items-center justify-center text-neutral-300 text-xs md:text-sm max-w-xl mx-auto"
                  x-data="{
                     text: '',
                     phrases: [
-                        '{{ addslashes(\App\Models\PageContent::get('career_intro_subtitle', 'We are looking for passionate architects and designers to join our studio.')) }}',
-                        'Shape the future of luxury interior architecture with us.',
-                        'Cultivating curiosity, creativity, and bespoke craftsmanship.',
-                        'Explore our open opportunities in design, 3D art, and management.'
+                        'Kembangkan potensi Anda bersama tim modifikasi performa terdepan.',
+                        'Kami mencari Master Tuner, Mekanik Balap, dan Custom Fabricator berbakat.',
+                        'Fasilitas dyno modern, spray booth oven, dan standar motorsport internasional.',
+                        'Eksplorasi lowongan kerja teknisi dan workshop engineer di bawah ini.'
                     ],
                     phraseIndex: 0,
                     charIndex: 0,
@@ -55,34 +55,34 @@
                     }
                  }">
                 <p class="leading-relaxed">
-                    <span x-text="text">{{ \App\Models\PageContent::get('career_intro_subtitle', 'We are always looking for passionate architects, designers, 3D visualizers, and project managers to join our dynamic studio in Jakarta.') }}</span><span class="inline-block w-0.5 h-4 bg-white ml-1 align-middle animate-cursor"></span>
+                    <span x-text="text">Bergabunglah bersama workshop modifikasi motor & mobil terkemuka di Jakarta.</span><span class="inline-block w-0.5 h-4 bg-white ml-1 align-middle animate-cursor"></span>
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Company Culture / Who We Are & Mission Section -->
+    <!-- Workshop Culture Section -->
     <section class="py-20 md:py-24 bg-white border-b border-neutral-200">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                 
                 <div class="space-y-4">
-                    <div class="eyebrow text-accent font-semibold">Studio Life</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
-                        {{ \App\Models\PageContent::get('about_who_we_are_title', 'Who We Are') }}
+                    <div class="eyebrow text-accent font-semibold">Workshop Life</div>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase font-sans">
+                        {{ \App\Models\PageContent::get('about_who_we_are_title', 'Siapa Kami') }}
                     </h2>
                     <p class="text-neutral-body text-xs md:text-sm leading-relaxed">
-                        {{ \App\Models\PageContent::get('career_who_we_are', 'At Metrix, we cultivate a vibrant team culture fueled by curiosity, creativity, and dedication to excellence.') }}
+                        {{ \App\Models\PageContent::get('career_who_we_are', 'Di BENGKEL, kami mengedepankan lingkungan kerja yang profesional, presisi tinggi, dan budaya continuous learning dalam teknologi otomotif terkini.') }}
                     </p>
                 </div>
 
                 <div class="space-y-4 lg:border-l lg:border-neutral-200 lg:pl-16">
                     <div class="eyebrow text-accent font-semibold">Our Culture</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
-                        {{ \App\Models\PageContent::get('about_mission_title', 'Our Mission') }}
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase font-sans">
+                        {{ \App\Models\PageContent::get('about_mission_title', 'Misi Tim Kami') }}
                     </h2>
                     <p class="text-neutral-body text-xs md:text-sm leading-relaxed">
-                        {{ \App\Models\PageContent::get('career_mission', 'We welcome passionate minds who seek to redefine boundaries in interior architecture and experiential design.') }}
+                        {{ \App\Models\PageContent::get('career_mission', 'Mencetak mahakarya modifikasi motor & mobil dengan standar keselamatan prima dan lonjakan performa yang teruji secara transparan.') }}
                     </p>
                 </div>
 
@@ -95,12 +95,12 @@
         <div class="max-w-5xl mx-auto px-6 space-y-12">
             
             <div class="text-center space-y-3">
-                <div class="eyebrow text-accent font-semibold">Open Positions</div>
-                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-black">
-                    {{ \App\Models\PageContent::get('career_intro_title', 'Join The Crew') }}
+                <div class="eyebrow text-accent font-semibold">Lowongan Tersedia</div>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-black uppercase font-sans">
+                    {{ \App\Models\PageContent::get('career_intro_title', 'Posisi Yang Dibutuhkan') }}
                 </h2>
                 <p class="text-neutral-body text-xs md:text-sm max-w-xl mx-auto">
-                    Explore our available roles below. Click on any opening to view details, responsibilities, and application requirements.
+                    Klik pada posisi di bawah untuk melihat rincian tanggung jawab, kualifikasi, dan cara pengiriman portofolio/CV.
                 </p>
             </div>
 
@@ -122,7 +122,7 @@
                                     <span>Full Time</span>
                                     @if($vacancy->posted_at)
                                         <span>&bull;</span>
-                                        <span>Posted {{ $vacancy->posted_at->format('M d, Y') }}</span>
+                                        <span>Diposting {{ $vacancy->posted_at->format('d M Y') }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                             
                             @if($vacancy->responsibilities)
                                 <div class="space-y-3">
-                                    <h4 class="text-xs font-bold uppercase tracking-wider text-black">Key Responsibilities:</h4>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-black">Tanggung Jawab Utama:</h4>
                                     <ul class="list-disc list-inside space-y-1.5 text-xs text-neutral-body leading-relaxed">
                                         @foreach(explode("\n", $vacancy->responsibilities) as $resp)
                                             @if(trim($resp))
@@ -153,7 +153,7 @@
 
                             @if($vacancy->requirements)
                                 <div class="space-y-3">
-                                    <h4 class="text-xs font-bold uppercase tracking-wider text-black">Requirements &amp; Qualifications:</h4>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-black">Persyaratan &amp; Kualifikasi:</h4>
                                     <ul class="list-disc list-inside space-y-1.5 text-xs text-neutral-body leading-relaxed">
                                         @foreach(explode("\n", $vacancy->requirements) as $req)
                                             @if(trim($req))
@@ -165,15 +165,15 @@
                             @endif
 
                             @php
-                                $hrEmail = \App\Models\SiteSetting::get('company_email_hr', 'hrd1@the-metrix.com');
-                                $subject = urlencode($vacancy->email_subject ?: 'Application for ' . $vacancy->title . ' - [Your Name]');
-                                $mailto = "mailto:{$hrEmail}?subject={$subject}&body=Dear%20Metrix%20Recruitment%20Team,%0A%0APlease%20find%20attached%20my%20CV%20and%20portfolio%20for%20the%20position%20of%20" . urlencode($vacancy->title) . ".";
+                                $hrEmail = \App\Models\SiteSetting::get('company_email_hr', 'hrd@bengkelmodifikasi.id');
+                                $subject = urlencode($vacancy->email_subject ?: 'Lamaran Posisi ' . $vacancy->title . ' - [Nama Anda]');
+                                $mailto = "mailto:{$hrEmail}?subject={$subject}&body=Halo%20Tim%20HRD%20BENGKEL,%0A%0ASaya%20bermaksud%20mengajukan%20lamaran%20untuk%20posisi%20" . urlencode($vacancy->title) . ".%20Terlampir%20CV%20dan%20Portofolio%20saya.";
                             @endphp
 
                             <div class="pt-4 flex items-center justify-between flex-wrap gap-4 border-t border-neutral-100">
-                                <span class="text-xs text-neutral-400">Send your resume and portfolio (max 10MB PDF)</span>
+                                <span class="text-xs text-neutral-400">Kirim CV &amp; portofolio pengerjaan Anda (PDF max 10MB)</span>
                                 <a href="{{ $mailto }}" class="btn-dark">
-                                    Apply Now &rarr;
+                                    Kirim Lamaran &rarr;
                                 </a>
                             </div>
 
@@ -182,9 +182,9 @@
                     </div>
                 @empty
                     <div class="bg-white p-12 text-center text-neutral-400 text-sm border border-neutral-200">
-                        There are currently no active job vacancies. Feel free to send your open portfolio to 
-                        <a href="mailto:{{ \App\Models\SiteSetting::get('company_email_hr', 'hrd1@the-metrix.com') }}" class="text-black font-semibold underline">
-                            {{ \App\Models\SiteSetting::get('company_email_hr', 'hrd1@the-metrix.com') }}
+                        Saat ini belum ada lowongan terbuka. Silakan kirimkan CV dan portofolio Anda ke 
+                        <a href="mailto:{{ \App\Models\SiteSetting::get('company_email_hr', 'hrd@bengkelmodifikasi.id') }}" class="text-black font-semibold underline">
+                            {{ \App\Models\SiteSetting::get('company_email_hr', 'hrd@bengkelmodifikasi.id') }}
                         </a>.
                     </div>
                 @endforelse

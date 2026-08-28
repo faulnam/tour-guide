@@ -28,6 +28,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Customer\BookingController as CustomerBookingController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
+use App\Http\Controllers\Customer\ProfileController as CustomerProfileController;
 use App\Http\Controllers\Customer\VehicleController as CustomerVehicleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Karyawan\AbsensiController as KaryawanAbsensiController;
@@ -42,7 +43,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Public Routes — Apex Garage
+| Public Routes — BENGKEL Modifikasi Motor & Mobil
 |--------------------------------------------------------------------------
 */
 
@@ -105,25 +106,39 @@ Route::get('/chatbot/suggestions', [ChatbotController::class, 'getSuggestions'])
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::post('/login-submit', [AuthController::class, 'login'])->name('login.submit');
     Route::get('/admin/login', [AuthController::class, 'showLogin'])->name('admin.login');
     
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+    Route::post('/register-submit', [AuthController::class, 'register'])->name('register.submit');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
+// Cek Garansi Cepat (Bisa diakses publik & customer)
+Route::match(['GET', 'POST'], '/cek-garansi', [CustomerProfileController::class, 'checkWarranty'])->name('warranty.check');
+
 
 /*
 |--------------------------------------------------------------------------
-| Customer Portal Routes (/customer/*)
+| Customer Portal Routes (/customer/*) — Jatidiri, Pesanan, Cek Garansi
 |--------------------------------------------------------------------------
 */
 
 Route::middleware(['auth', 'customer'])->prefix('customer')->name('customer.')->group(function () {
-    Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
+    // Hub Utama Customer (Jatidiri, Pesanan, Cek Garansi)
+    Route::get('/profile', [CustomerProfileController::class, 'index'])->name('profile');
+    Route::get('/account', [CustomerProfileController::class, 'index'])->name('account');
+    Route::get('/dashboard', function () {
+        return redirect()->route('customer.profile');
+    })->name('dashboard');
+
+    Route::put('/profile', [CustomerProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/password', [CustomerProfileController::class, 'updatePassword'])->name('password.update');
+
     Route::get('/bookings', [CustomerBookingController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/{id}', [CustomerBookingController::class, 'show'])->name('bookings.show');
     Route::get('/vehicles', [CustomerVehicleController::class, 'index'])->name('vehicles.index');

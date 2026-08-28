@@ -82,7 +82,7 @@
                     <input type="text" 
                            id="company_name" 
                            name="company_name" 
-                           value="{{ old('company_name', $settings['company_name'] ?? 'Metrix Interior Architecture') }}" 
+                           value="{{ old('company_name', $settings['company_name'] ?? 'BENGKEL') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -105,7 +105,7 @@
                 <input type="text" 
                        id="company_tagline" 
                        name="company_tagline" 
-                       value="{{ old('company_tagline', $settings['company_tagline'] ?? 'World-Class Interior Architecture & Spatial Design') }}" 
+                       value="{{ old('company_tagline', $settings['company_tagline'] ?? 'Workshop & Studio Modifikasi Motor dan Mobil') }}" 
                        class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
             </div>
         </div>
@@ -126,7 +126,7 @@
                     <input type="email" 
                            id="contact_email" 
                            name="contact_email" 
-                           value="{{ old('contact_email', $settings['contact_email'] ?? 'info@the-metrix.com') }}" 
+                           value="{{ old('contact_email', $settings['contact_email'] ?? 'info@bengkelmodifikasi.id') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -137,7 +137,7 @@
                     <input type="email" 
                            id="career_email" 
                            name="career_email" 
-                           value="{{ old('career_email', $settings['career_email'] ?? 'hrd@the-metrix.com') }}" 
+                           value="{{ old('career_email', $settings['career_email'] ?? 'hrd@bengkelmodifikasi.id') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
             </div>
@@ -204,7 +204,7 @@
                     <input type="url" 
                            id="instagram_url" 
                            name="instagram_url" 
-                           value="{{ old('instagram_url', $settings['instagram_url'] ?? 'https://instagram.com/metrix_interior') }}" 
+                           value="{{ old('instagram_url', $settings['instagram_url'] ?? 'https://instagram.com/bengkelmodifikasi') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -215,7 +215,7 @@
                     <input type="url" 
                            id="facebook_url" 
                            name="facebook_url" 
-                           value="{{ old('facebook_url', $settings['facebook_url'] ?? 'https://facebook.com/metrixinterior') }}" 
+                           value="{{ old('facebook_url', $settings['facebook_url'] ?? 'https://facebook.com/bengkelmodifikasi') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -226,7 +226,7 @@
                     <input type="url" 
                            id="linkedin_url" 
                            name="linkedin_url" 
-                           value="{{ old('linkedin_url', $settings['linkedin_url'] ?? 'https://linkedin.com/company/metrix-interior') }}" 
+                           value="{{ old('linkedin_url', $settings['linkedin_url'] ?? 'https://linkedin.com/company/bengkelmodifikasi') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
             </div>

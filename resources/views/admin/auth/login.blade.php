@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Admin Login — Metrix Interior CMS</title>
+    <title>Admin Login — BENGKEL CMS</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,10 +22,10 @@
         <!-- Brand Header -->
         <div class="text-center space-y-3">
             <div class="w-10 h-10 bg-white text-black font-bold flex items-center justify-center text-sm tracking-tighter mx-auto">
-                M
+                B
             </div>
             <h2 class="text-lg font-extrabold tracking-[0.25em] text-white uppercase">
-                Metrix CMS
+                BENGKEL CMS
             </h2>
             <p class="text-xs text-neutral-400">
                 Sign in to manage company profile and portfolio contents

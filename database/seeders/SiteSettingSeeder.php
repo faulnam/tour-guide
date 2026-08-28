@@ -11,10 +11,10 @@ class SiteSettingSeeder extends Seeder
     {
         $settings = [
             // General Info
-            ['key' => 'site_title', 'value' => 'Apex Garage — Workshop & Bengkel Modifikasi Motor & Mobil Terkemuka Jakarta', 'group' => 'general', 'type' => 'text'],
-            ['key' => 'company_name', 'value' => 'Apex Garage & Performance Custom', 'group' => 'general', 'type' => 'text'],
-            ['key' => 'company_tagline', 'value' => 'Precision Tuning, Custom Fabrication & High-Performance Garage for Cars & Motorcycles', 'group' => 'general', 'type' => 'text'],
-            ['key' => 'meta_description_default', 'value' => 'Apex Garage adalah bengkel spesialis modifikasi mobil dan motor, dyno tuning ECU remap, custom bodykit, cat oven, air suspension, dan servis berkala profesional di Jakarta.', 'group' => 'general', 'type' => 'textarea'],
+            ['key' => 'site_title', 'value' => 'BENGKEL — Workshop Modifikasi Motor & Mobil Jakarta', 'group' => 'general', 'type' => 'text'],
+            ['key' => 'company_name', 'value' => 'BENGKEL', 'group' => 'general', 'type' => 'text'],
+            ['key' => 'company_tagline', 'value' => 'Workshop & Studio Modifikasi Motor dan Mobil', 'group' => 'general', 'type' => 'text'],
+            ['key' => 'meta_description_default', 'value' => 'BENGKEL adalah spesialis modifikasi performa mobil dan motor, dyno tuning ECU remap, custom builder, widebody kit, dan cat oven di Jakarta.', 'group' => 'general', 'type' => 'textarea'],
             
             // Contact & Workshop
             ['key' => 'contact_email', 'value' => 'info@apexgarage.id', 'group' => 'contact', 'type' => 'text'],

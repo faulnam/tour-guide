@@ -1,16 +1,35 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Daftar Akun Customer — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_title', 'Daftar Akun Customer — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
 
 @section('content')
 
-    <section class="py-28 md:py-36 bg-neutral-bg min-h-[85vh] flex items-center justify-center">
+    <!-- Hero Banner -->
+    <section class="relative bg-neutral-900 text-white pt-36 pb-16 md:pt-48 md:pb-20 overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
+             style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop');">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-3">
+            <div class="eyebrow-light">Customer Registration</div>
+            <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-white uppercase font-sans">
+                Daftar Akun
+            </h1>
+            <p class="text-neutral-300 text-xs md:text-sm max-w-md mx-auto">
+                Buat akun customer untuk memantau progress pengerjaan modifikasi dan klaim garansi servis.
+            </p>
+        </div>
+    </section>
+
+    <!-- Register Form Section -->
+    <section class="py-16 md:py-24 bg-neutral-bg min-h-[60vh] flex items-center justify-center">
         <div class="w-full max-w-md mx-auto px-6">
             
-            <div class="bg-white border border-neutral-200 p-8 md:p-10 shadow-sm space-y-6">
+            <div class="bg-white border border-neutral-200 p-8 md:p-10 shadow-lg space-y-6">
                 
-                <div class="text-center space-y-2">
-                    <div class="text-2xl font-bold uppercase tracking-widest3 font-sans">METRIX</div>
+                <div class="text-center space-y-1">
+                    <div class="text-2xl font-bold uppercase tracking-widest3 font-sans">{{ \App\Models\SiteSetting::get('company_name', 'BENGKEL') }}</div>
                     <div class="eyebrow text-[10px] text-neutral-400">Pendaftaran Akun Customer</div>
                 </div>
 

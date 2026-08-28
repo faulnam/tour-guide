@@ -1,5 +1,5 @@
-<!-- Metrix AI Consultant Floating Widget (Clean Minimalist Luxury Styling) -->
-<div x-data="metrixChatbot()" x-init="init()" class="fixed bottom-6 right-6 z-40">
+<!-- BENGKEL AI Consultant Floating Widget (Clean Minimalist Luxury Styling) -->
+<div x-data="bengkelChatbot()" x-init="init()" class="fixed bottom-6 right-6 z-40">
     
     <!-- Minimalist Teaser Prompt (Auto appears when unopened) -->
     <div x-show="showTeaser && !isOpen" 
@@ -14,7 +14,7 @@
         <div class="flex items-start justify-between">
             <div class="flex items-center space-x-2">
                 <span class="w-1.5 h-1.5 bg-black inline-block"></span>
-                <span class="eyebrow text-[10px] text-black font-bold">Metrix AI Consultant</span>
+                <span class="eyebrow text-[10px] text-black font-bold">BENGKEL AI Consultant</span>
             </div>
             <button @click="dismissTeaser()" class="text-neutral-400 hover:text-black text-sm">&times;</button>
         </div>
@@ -58,10 +58,10 @@
         <div class="px-5 py-4 border-b border-neutral-200 bg-white flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div class="w-8 h-8 bg-black text-white flex items-center justify-center text-xs font-bold font-sans">
-                    M
+                    B
                 </div>
                 <div>
-                    <h3 class="text-xs uppercase tracking-widest font-bold text-black">Metrix AI Consultant</h3>
+                    <h3 class="text-xs uppercase tracking-widest font-bold text-black">BENGKEL AI Consultant</h3>
                     <div class="flex items-center space-x-1.5 text-[10px] text-neutral-500 mt-0.5">
                         <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block"></span>
                         <span>Performance &amp; Tuning Expert</span>
@@ -90,7 +90,7 @@
             
             <!-- Default Welcome Card -->
             <div class="p-4 bg-white border border-neutral-200 space-y-2">
-                <div class="eyebrow text-[9px] text-accent font-semibold">Selamat Datang di Metrix Garage</div>
+                <div class="eyebrow text-[9px] text-accent font-semibold">Selamat Datang di BENGKEL Modifikasi</div>
                 <p class="text-neutral-700 text-xs leading-relaxed">
                     Halo! Saya asisten AI spesialis modifikasi performa motor dan mobil. Silakan ajukan pertanyaan seputar ECU Remap, Dyno tuning, custom build, atau booking servis.
                 </p>
@@ -119,7 +119,7 @@
                              :class="msg.role === 'user' 
                                  ? 'bg-black text-white' 
                                  : 'bg-white text-neutral-800 border border-neutral-200 shadow-sm'">
-                            <div class="metrix-chat-body" x-html="renderMarkdown(msg.text)"></div>
+                            <div class="bengkel-chat-body" x-html="renderMarkdown(msg.text)"></div>
                         </div>
 
                         <!-- Timestamp & Copy Helper for Model -->
@@ -171,17 +171,17 @@
 </div>
 
 <style>
-.metrix-chat-body p { margin-bottom: 0.5rem; }
-.metrix-chat-body p:last-child { margin-bottom: 0; }
-.metrix-chat-body strong { font-weight: 700; color: inherit; }
-.metrix-chat-body ul { list-style-type: disc; margin-left: 1.1rem; margin-bottom: 0.5rem; }
-.metrix-chat-body ol { list-style-type: decimal; margin-left: 1.1rem; margin-bottom: 0.5rem; }
-.metrix-chat-body li { margin-bottom: 0.25rem; }
-.metrix-chat-body a { text-decoration: underline; font-weight: 600; color: inherit; }
+.bengkel-chat-body p { margin-bottom: 0.5rem; }
+.bengkel-chat-body p:last-child { margin-bottom: 0; }
+.bengkel-chat-body strong { font-weight: 700; color: inherit; }
+.bengkel-chat-body ul { list-style-type: disc; margin-left: 1.1rem; margin-bottom: 0.5rem; }
+.bengkel-chat-body ol { list-style-type: decimal; margin-left: 1.1rem; margin-bottom: 0.5rem; }
+.bengkel-chat-body li { margin-bottom: 0.25rem; }
+.bengkel-chat-body a { text-decoration: underline; font-weight: 600; color: inherit; }
 </style>
 
 <script>
-function metrixChatbot() {
+function bengkelChatbot() {
     return {
         isOpen: false,
         showTeaser: false,
@@ -193,13 +193,13 @@ function metrixChatbot() {
         messages: [],
         suggestions: [
             { label: 'Estimasi ECU Remap & Dyno Run', prompt: 'Berapa estimasi biaya dan peningkatan performa untuk remap ECU mobil/motor?' },
-            { label: 'Konsep Motor Cafe Racer / Bobber', prompt: 'Bagaimana tahapan dan estimasi waktu build motor custom Cafe Racer di Metrix?' },
-            { label: 'Paket Cat Oven Spies Hecker', prompt: 'Apa keunggulan dan garansi pengecatan oven Spies Hecker di Metrix Garage?' },
+            { label: 'Konsep Motor Cafe Racer / Bobber', prompt: 'Bagaimana tahapan dan estimasi waktu build motor custom Cafe Racer di BENGKEL?' },
+            { label: 'Paket Cat Oven Spies Hecker', prompt: 'Apa keunggulan dan garansi pengecatan oven Spies Hecker di BENGKEL?' },
             { label: 'Cara Booking Online & Bayar DP', prompt: 'Bagaimana alur booking online servis dan pembayaran DP via Payment Gateway?' }
         ],
 
         init() {
-            const saved = sessionStorage.getItem('metrix_chat_history');
+            const saved = sessionStorage.getItem('bengkel_chat_history');
             if (saved) {
                 try { this.messages = JSON.parse(saved); } catch(e) { this.messages = []; }
             }
@@ -250,46 +250,50 @@ function metrixChatbot() {
             this.startThinkingAnimation();
 
             try {
-                const historyPayload = this.messages.map(m => ({
-                    role: m.role === 'user' ? 'user' : 'model',
-                    text: m.text
-                }));
-
-                const response = await fetch('{{ route("chatbot.send") }}', {
+                const response = await fetch('{{ route('chatbot.send') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
-                    body: JSON.stringify({ message: text, history: historyPayload.slice(-8) })
+                    body: JSON.stringify({ message: text })
                 });
 
                 const data = await response.json();
-
-                if (response.ok && data.success) {
-                    const replyTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    this.messages.push({ role: 'model', text: data.reply, time: replyTime });
-                    this.saveHistory();
-                } else {
-                    this.errorMessage = data.message || 'Terjadi kendala saat memproses jawaban.';
-                }
-            } catch (error) {
-                this.errorMessage = 'Koneksi terputus. Silakan coba kembali.';
-            } finally {
-                this.isThinking = false;
                 this.stopThinkingAnimation();
-                this.scrollToBottom();
+                this.isThinking = false;
+
+                if (data.status === 'success' && data.reply) {
+                    const replyTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    this.messages.push({
+                        role: 'model',
+                        text: data.reply,
+                        time: replyTime
+                    });
+                    this.saveHistory();
+                    this.scrollToBottom();
+                } else {
+                    this.errorMessage = data.message || 'Terjadi gangguan saat memproses jawaban. Silakan coba kembali.';
+                }
+            } catch (err) {
+                this.stopThinkingAnimation();
+                this.isThinking = false;
+                this.errorMessage = 'Gagal terhubung dengan server chatbot. Periksa koneksi Anda.';
             }
         },
 
         startThinkingAnimation() {
-            const statuses = ['Menganalisis spesifikasi kendaraan...', 'Menghitung estimasi performa...', 'Menyiapkan rincian rekomendasi tuning...'];
-            let index = 0;
+            const statuses = [
+                'Sedang membaca parameter mesin & dyno...',
+                'Mengkalkulasi rasio performa dan rekomendasi paket...',
+                'Menyusun estimasi dan arahan teknis...'
+            ];
+            let idx = 0;
             this.thinkingStatus = statuses[0];
             this.thinkingInterval = setInterval(() => {
-                index = (index + 1) % statuses.length;
-                this.thinkingStatus = statuses[index];
+                idx = (idx + 1) % statuses.length;
+                this.thinkingStatus = statuses[idx];
             }, 1800);
         },
 
@@ -300,17 +304,6 @@ function metrixChatbot() {
             }
         },
 
-        confirmClearChat() {
-            if (confirm('Hapus seluruh riwayat percakapan?')) {
-                this.messages = [];
-                sessionStorage.removeItem('metrix_chat_history');
-            }
-        },
-
-        saveHistory() {
-            try { sessionStorage.setItem('metrix_chat_history', JSON.stringify(this.messages)); } catch(e) {}
-        },
-
         scrollToBottom() {
             this.$nextTick(() => {
                 if (this.$refs.chatContainer) {
@@ -319,29 +312,63 @@ function metrixChatbot() {
             });
         },
 
+        saveHistory() {
+            try { sessionStorage.setItem('bengkel_chat_history', JSON.stringify(this.messages)); } catch(e) {}
+        },
+
+        confirmClearChat() {
+            if (confirm('Hapus riwayat percakapan konsultasi?')) {
+                this.messages = [];
+                sessionStorage.removeItem('bengkel_chat_history');
+            }
+        },
+
         copyText(text, event) {
             navigator.clipboard.writeText(text).then(() => {
-                const btn = event.currentTarget;
-                const orig = btn.innerHTML;
-                btn.innerHTML = '<span>Tersalin</span>';
-                setTimeout(() => { btn.innerHTML = orig; }, 2000);
+                const btn = event.target;
+                const orig = btn.innerText;
+                btn.innerText = 'Tersalin!';
+                setTimeout(() => { btn.innerText = orig; }, 1500);
             });
         },
 
         renderMarkdown(raw) {
             if (!raw) return '';
-            let text = raw.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            text = text.replace(/\*([^\*\n]+)\*/g, '<em>$1</em>');
-            text = text.replace(/^[\*\-]\s+(.+)$/gm, '<li>$1</li>');
-            text = text.replace(/(<li>.*<\/li>)/gms, '<ul>$1</ul>');
-            text = text.replace(/<\/ul>\s*<ul>/g, '');
-            text = text.replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>');
-            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-            text = text.replace(/\n\n+/g, '</p><p>');
-            text = text.replace(/\n/g, '<br>');
-            return '<p>' + text + '</p>';
+            let html = raw
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // Bold
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Italic
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            // Inline code
+            html = html.replace(/`(.*?)`/g, '<code class="bg-neutral-100 px-1 py-0.5 font-mono text-[10px]">$1</code>');
+            // Links
+            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+            // Paragraphs and Lists
+            const lines = html.split('\n');
+            let inList = false;
+            let result = '';
+
+            for (let line of lines) {
+                let trimmed = line.trim();
+                if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+                    if (!inList) { result += '<ul>'; inList = true; }
+                    result += '<li>' + trimmed.substring(2) + '</li>';
+                } else {
+                    if (inList) { result += '</ul>'; inList = false; }
+                    if (trimmed.length > 0) {
+                        result += '<p>' + trimmed + '</p>';
+                    }
+                }
+            }
+            if (inList) result += '</ul>';
+
+            return result;
         }
-    }
+    };
 }
 </script>

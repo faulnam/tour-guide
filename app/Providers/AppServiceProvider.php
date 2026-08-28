@@ -32,7 +32,11 @@ class AppServiceProvider extends ServiceProvider
         // Share active services and site settings with public views
         View::composer(['layouts.app', 'partials.header', 'partials.footer'], function ($view) {
             if (Schema::hasTable('services')) {
-                $navServices = Service::active()
+                $navServices = Service::whereNull('parent_id')
+                    ->active()
+                    ->with(['children' => function ($q) {
+                        $q->where('is_active', true)->orderBy('order')->orderBy('title');
+                    }])
                     ->ordered()
                     ->get();
                 $view->with('navServices', $navServices);

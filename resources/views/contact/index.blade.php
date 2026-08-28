@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Contact Us & Workshop Studio — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_title', 'Contact Us & Workshop Studio — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
 @section('meta_description', 'Hubungi kami untuk konsultasi modifikasi motor & mobil, hotline towing, dan jadwal dyno tuning di Jakarta.')
 
 @section('content')
@@ -18,7 +18,7 @@
                 Contact Us
             </h1>
             <p class="text-neutral-300 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-                Konsultasikan rencana modifikasi, tuning dyno, atau kebutuhan servis kendaraan Anda dengan master tuner Metrix.
+                Konsultasikan rencana modifikasi, tuning dyno, atau kebutuhan servis kendaraan Anda dengan master tuner BENGKEL.
             </p>
         </div>
     </section>
@@ -41,7 +41,7 @@
                         <div class="pt-2 space-y-1">
                             <div class="font-bold text-black uppercase tracking-wider text-[11px]">Alamat Studio:</div>
                             <p class="text-neutral-600 whitespace-pre-line leading-relaxed">
-                                {{ \App\Models\SiteSetting::get('company_address', "Metrix Garage & Tuning\nJl. TB Simatupang No. 88\nCilandak, Jakarta Selatan 12430") }}
+                                {{ \App\Models\SiteSetting::get('company_address', "BENGKEL Modifikasi Motor & Mobil\nJl. TB Simatupang No. 88\nCilandak, Jakarta Selatan 12430") }}
                             </p>
                         </div>
 

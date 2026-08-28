@@ -53,8 +53,8 @@
                 <!-- Invoice Header -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-neutral-200 gap-4">
                     <div>
-                        <div class="text-2xl font-bold uppercase tracking-widest3 font-sans">METRIX GARAGE</div>
-                        <div class="text-[11px] text-neutral-500 uppercase mt-0.5">Workshop &amp; Tuning Studio</div>
+                        <div class="text-2xl font-extrabold uppercase tracking-widest3 font-sans">BENGKEL</div>
+                        <div class="text-[11px] text-neutral-500 uppercase mt-0.5">Workshop &amp; Studio Modifikasi Motor &amp; Mobil</div>
                     </div>
                     <div class="text-left sm:text-right">
                         <span class="inline-block px-3 py-1 text-[10px] uppercase tracking-wider font-bold"
@@ -117,7 +117,7 @@
                         <div class="p-6 bg-white border border-dashed border-neutral-300 flex flex-col items-center justify-center space-y-4 max-w-sm mx-auto text-center">
                             <div class="text-[11px] font-bold uppercase tracking-widest text-black">QRIS Standar Nasional</div>
                             <div class="p-4 bg-white border border-neutral-200">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=METRIX-PAY-{{ $payment->invoice_number }}" alt="QRIS Code" class="w-44 h-44">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BENGKEL-PAY-{{ $payment->invoice_number }}" alt="QRIS Code" class="w-44 h-44">
                             </div>
                             <div class="text-[10px] text-neutral-500">Mendukung BCA Mobile, GoPay, OVO, ShopeePay, DANA, Livin Mandiri</div>
                         </div>

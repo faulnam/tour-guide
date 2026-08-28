@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title', $project->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_title', $project->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
 @section('meta_description', $project->description ?: 'Detail modifikasi dan dyno test untuk ' . $project->title)
 
 @section('content')

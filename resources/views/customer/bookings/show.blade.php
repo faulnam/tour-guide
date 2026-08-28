@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 
-@section('meta_title', 'Detail Booking ' . $booking->booking_code . ' — Metrix Garage')
+@section('meta_title', 'Detail Booking ' . $booking->booking_code . ' — BENGKEL')
 
 @section('content')
 <div class="space-y-6">

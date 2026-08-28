@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 
-@section('meta_title', 'Garasi Kendaraan Saya — Metrix Garage')
+@section('meta_title', 'Garasi Kendaraan Saya — BENGKEL')
 
 @section('content')
 <div class="space-y-6" x-data="{ showModal: false }">
@@ -27,7 +27,7 @@
                             <span class="text-xs uppercase tracking-widest text-neutral-400 font-semibold">{{ $v->type }} • {{ $v->year ?? '2024' }}</span>
                             <h3 class="text-lg font-bold text-black uppercase mt-0.5">{{ $v->brand }} {{ $v->model }}</h3>
                         </div>
-                        <span class="text-2xl">{{ $v->type === 'motor' ? '🏍️' : '🚗' }}</span>
+                        <span class="px-2 py-0.5 text-[9px] uppercase font-bold bg-neutral-bg border border-neutral-300 text-black">{{ $v->type }}</span>
                     </div>
 
                     <div class="p-3 bg-neutral-bg border border-neutral-200 space-y-1 text-xs">

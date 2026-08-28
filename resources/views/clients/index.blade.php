@@ -1,30 +1,30 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Our Clients — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Interior Architecture'))
-@section('meta_description', 'Discover the distinguished clients and global brands that have partnered with Metrix Interior Architecture.')
+@section('meta_title', 'Performance Partners & Clients — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_description', 'Official partners and aftermarket performance brands supporting BENGKEL tuning and custom builds.')
 
 @section('content')
 
     <!-- Hero Banner -->
     <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop');">
+             style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">Collaborations</div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
-                Our Clients
+            <div class="eyebrow-light">Official Aftermarket &amp; Racing Partners</div>
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+                Our Partners
             </h1>
             <div class="min-h-[40px] flex items-center justify-center text-neutral-300 text-xs md:text-sm max-w-xl mx-auto"
                  x-data="{
                     text: '',
                     phrases: [
-                        'Collaborating with visionary developers and global hospitality leaders.',
-                        'Over 60+ distinguished brand partners across 5 countries.',
-                        'Building enduring spatial legacies and commercial success.',
-                        'Trusted by industry pioneers in retail, dining, and workplace design.'
+                        'Bekerja sama dengan produsen part motorsport & aftermarket dunia.',
+                        'Dukungan teknologi Dyno Jet, ECU Standalone, dan Cat Oven Spies Hecker.',
+                        'Mitra resmi komponen remap, suspensi udara, turbocharger & titanium exhaust.',
+                        'Dipercaya oleh komunitas dan antusias modifikasi mobil & motor di Indonesia.'
                     ],
                     phraseIndex: 0,
                     charIndex: 0,
@@ -55,19 +55,22 @@
                     }
                  }">
                 <p class="leading-relaxed">
-                    <span x-text="text">We have had the privilege to collaborate with visionary developers, global hospitality brands, and leading restaurateurs across Asia and beyond.</span><span class="inline-block w-0.5 h-4 bg-white ml-1 align-middle animate-cursor"></span>
+                    <span x-text="text">Didukung oleh brand aftermarket performa tinggi dunia untuk menghadirkan modifikasi presisi dan bergaransi resmi.</span><span class="inline-block w-0.5 h-4 bg-white ml-1 align-middle animate-cursor"></span>
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Clients Grid -->
+    <!-- Clients / Brand Partners Grid -->
     <section class="py-20 md:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
             
             <div class="text-center max-w-2xl mx-auto space-y-2">
-                <div class="eyebrow">Trust &amp; Partnership</div>
-                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">Distinguished Partners</h2>
+                <div class="eyebrow text-accent font-semibold">Official Performance Network</div>
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase font-sans">
+                    Partner &amp; Brand Resmi
+                </h2>
+                <div class="w-12 h-0.5 bg-black mx-auto mt-2"></div>
             </div>
 
             <!-- Grid of Logos -->
@@ -87,7 +90,7 @@
                     </div>
                 @empty
                     <div class="col-span-6 text-center py-12 text-neutral-400 text-sm">
-                        Client logos will appear here.
+                        Daftar partner brand akan tampil di sini.
                     </div>
                 @endforelse
             </div>

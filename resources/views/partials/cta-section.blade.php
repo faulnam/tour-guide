@@ -41,7 +41,7 @@
                 }
              }">
             <p class="leading-relaxed">
-                <span x-text="text">Diskusikan rencana modifikasi motor &amp; mobil Anda dengan master tuner Metrix.</span><span class="inline-block w-0.5 h-3.5 bg-black ml-1 align-middle animate-cursor"></span>
+                <span x-text="text">Diskusikan rencana modifikasi motor &amp; mobil Anda dengan master tuner BENGKEL.</span><span class="inline-block w-0.5 h-3.5 bg-black ml-1 align-middle animate-cursor"></span>
             </p>
         </div>
 

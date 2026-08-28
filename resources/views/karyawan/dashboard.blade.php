@@ -1,6 +1,6 @@
 @extends('layouts.karyawan')
 
-@section('meta_title', 'Dashboard Karyawan — Metrix Garage')
+@section('meta_title', 'Dashboard Karyawan — BENGKEL')
 
 @section('content')
 <div class="space-y-8">

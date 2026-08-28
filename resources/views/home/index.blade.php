@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title', \App\Models\SiteSetting::get('site_title', 'Metrix Garage — Workshop & Studio Modifikasi Motor & Mobil'))
+@section('meta_title', \App\Models\SiteSetting::get('site_title', 'BENGKEL — Workshop Modifikasi Motor & Mobil'))
 @section('meta_description', \App\Models\SiteSetting::get('meta_description_default', 'Bengkel spesialis modifikasi performa motor dan mobil, dyno tuning ECU remap, custom builder, widebody kit, cat oven Spies Hecker di Jakarta.'))
 
 @section('content')
@@ -143,7 +143,7 @@
                     </h2>
                     <div class="section-desc space-y-4">
                         <p>
-                            {{ \App\Models\PageContent::get('home_about_desc_1', 'Metrix Garage adalah workshop modifikasi performa motor dan mobil berstandar motorsport di Jakarta. Kami menggabungkan kalibrasi data akurat mesin Dyno Jet dengan seni fabrikasi kustom tingkat tinggi.') }}
+                            {{ \App\Models\PageContent::get('home_about_desc_1', 'BENGKEL adalah workshop modifikasi performa motor dan mobil berstandar motorsport di Jakarta. Kami menggabungkan kalibrasi data akurat mesin Dyno Jet dengan seni fabrikasi kustom tingkat tinggi.') }}
                         </p>
                         <p>
                             {{ \App\Models\PageContent::get('home_about_desc_2', 'Didukung oleh teknisi bersertifikasi dan peralatan modern, setiap proyek modifikasi dikerjakan dengan standar presisi tinggi, garansi pengerjaan, dan kemudahan booking online.') }}
@@ -160,7 +160,7 @@
                 <div class="lg:col-span-5">
                     <div class="aspect-[4/3] bg-neutral-900 border border-neutral-200 overflow-hidden shadow-lg">
                         <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" 
-                             alt="Workshop Metrix" 
+                             alt="Workshop BENGKEL" 
                              class="w-full h-full object-cover">
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 @extends('layouts.karyawan')
 
-@section('meta_title', 'Absensi Kamera Live — Metrix Garage')
+@section('meta_title', 'Absensi Kamera Live — BENGKEL')
 
 @section('content')
 

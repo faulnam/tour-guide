@@ -1,6 +1,6 @@
 @extends('layouts.customer')
 
-@section('meta_title', 'Customer Dashboard & Garasi — Metrix Garage')
+@section('meta_title', 'Customer Dashboard & Garasi — BENGKEL')
 
 @section('content')
 

@@ -13,7 +13,7 @@ class PageContentSeeder extends Seeder
             // Home Page
             [
                 'key' => 'home_hero_title',
-                'value' => 'Apex Performance & Custom Workshop',
+                'value' => 'BENGKEL Performance & Custom Workshop',
                 'page' => 'home',
                 'section' => 'hero',
                 'label' => 'Home Hero Headline',
@@ -71,14 +71,14 @@ class PageContentSeeder extends Seeder
             // About Us Page
             [
                 'key' => 'about_who_we_are_title',
-                'value' => 'Tentang Apex Garage',
+                'value' => 'Tentang BENGKEL',
                 'page' => 'about',
                 'section' => 'profile',
                 'label' => 'About - Who We Are Title',
             ],
             [
                 'key' => 'about_who_we_are_text',
-                'value' => 'Berdiri sejak 2012, Apex Garage telah menjadi destinasi utama bagi para car & motorcycle enthusiast di Indonesia. Dilengkapi fasilitas canggih mulai dari Dyno Jet 224xLC All-Wheel Drive, Spray Booth Oven Jerman, 3D Laser Scanner, hingga mesin bubut CNC presisi tinggi.',
+                'value' => 'Berdiri sejak 2012, BENGKEL telah menjadi destinasi utama bagi para car & motorcycle enthusiast di Indonesia. Dilengkapi fasilitas canggih mulai dari Dyno Jet 224xLC All-Wheel Drive, Spray Booth Oven Jerman, 3D Laser Scanner, hingga mesin bubut CNC presisi tinggi.',
                 'page' => 'about',
                 'section' => 'profile',
                 'label' => 'About - Who We Are Text',

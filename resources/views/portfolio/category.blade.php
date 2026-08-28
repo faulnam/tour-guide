@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('meta_title', $service->title . ' Portfolio — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Interior Architecture'))
-@section('meta_description', 'Discover ' . $service->title . ' interior architecture and design portfolios by Metrix.')
+@section('meta_title', $service->title . ' Portfolio — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_description', 'Koleksi hasil modifikasi dan dyno test kategori ' . $service->title . ' oleh BENGKEL.')
 
 @section('content')
 
     <!-- Hero Banner -->
     <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('{{ $service->image ? (str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image)) : 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2000&auto=format&fit=crop' }}');">
+             style="background-image: url('{{ $service->image ? (str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop' }}');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
             <div class="eyebrow-light">Portfolio Category</div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
                 {{ $service->title }}
             </h1>
             @if($service->excerpt)
@@ -49,11 +49,11 @@
             
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
                 <div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase font-sans">
                         {{ $service->title }} Projects
                     </h2>
                     <p class="text-neutral-body text-xs mt-1">
-                        Showing {{ $projects->total() }} portfolio results
+                        Menampilkan {{ $projects->total() }} unit modifikasi selesai
                     </p>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                     @include('partials.project-card', ['project' => $project])
                 @empty
                     <div class="col-span-3 text-center py-16 text-neutral-400 text-sm">
-                        No projects found under the "{{ $service->title }}" category yet.
+                        Belum ada proyek modifikasi di kategori "{{ $service->title }}".
                     </div>
                 @endforelse
             </div>

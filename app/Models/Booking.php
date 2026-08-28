@@ -115,4 +115,85 @@ class Booking extends Model
     {
         return $this->vehicle_type === 'motor' ? '🏍️ Motor' : '🚗 Mobil';
     }
+
+    /**
+     * Warranty duration in days based on service type.
+     */
+    public function getWarrantyDaysAttribute(): int
+    {
+        if ($this->service) {
+            $slug = strtolower($this->service->slug ?? '');
+            if (str_contains($slug, 'build') || str_contains($slug, 'restoration') || str_contains($slug, 'body') || str_contains($slug, 'paint')) {
+                return 180; // 6 months warranty
+            }
+            if (str_contains($slug, 'ecu') || str_contains($slug, 'tuning') || str_contains($slug, 'engine') || str_contains($slug, 'turbo') || str_contains($slug, 'exhaust')) {
+                return 90; // 3 months warranty
+            }
+        }
+        return 30; // Standard 30 days warranty
+    }
+
+    /**
+     * Warranty start date (when status is completed).
+     */
+    public function getWarrantyStartDateAttribute(): ?\Illuminate\Support\Carbon
+    {
+        return $this->updated_at ?? $this->created_at;
+    }
+
+    /**
+     * Warranty end date.
+     */
+    public function getWarrantyEndDateAttribute(): ?\Illuminate\Support\Carbon
+    {
+        $start = $this->warranty_start_date;
+        return $start ? $start->copy()->addDays($this->warranty_days) : null;
+    }
+
+    /**
+     * Check if warranty is currently active.
+     */
+    public function getIsWarrantyActiveAttribute(): bool
+    {
+        if ($this->status !== 'completed') {
+            return false;
+        }
+
+        $end = $this->warranty_end_date;
+        return $end ? now()->lte($end) : false;
+    }
+
+    /**
+     * Number of days remaining for warranty.
+     */
+    public function getWarrantyRemainingDaysAttribute(): int
+    {
+        if (!$this->is_warranty_active) {
+            return 0;
+        }
+
+        $end = $this->warranty_end_date;
+        return $end ? max(0, (int) now()->diffInDays($end, false)) : 0;
+    }
+
+    /**
+     * Warranty status badge.
+     */
+    public function getWarrantyStatusBadgeAttribute(): string
+    {
+        if ($this->status !== 'completed') {
+            return '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-neutral-100 text-neutral-600 border border-neutral-200">Menunggu Pengerjaan Selesai</span>';
+        }
+
+        if ($this->is_warranty_active) {
+            $days = $this->warranty_remaining_days;
+            if ($days <= 7) {
+                return '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-600 border border-amber-500/30">Garansi Aktif (' . $days . ' Hari Lagi)</span>';
+            }
+            return '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-600 border border-emerald-500/30">✓ Garansi Aktif (' . $days . ' Hari)</span>';
+        }
+
+        return '<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/20 text-red-600 border border-red-500/30">Masa Garansi Berakhir</span>';
+    }
 }
+

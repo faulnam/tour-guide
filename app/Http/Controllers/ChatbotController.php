@@ -74,11 +74,11 @@ class ChatbotController extends Controller
                 ],
                 [
                     'label' => 'Paket Widebody & Cat Oven Spies Hecker',
-                    'prompt' => 'Bagaimana proses pembuatan custom bodykit widebody dan cat oven di Apex Garage?',
+                    'prompt' => 'Bagaimana proses pembuatan custom bodykit widebody dan cat oven di BENGKEL?',
                 ],
                 [
                     'label' => 'Cara Booking & Pembayaran DP',
-                    'prompt' => 'Bagaimana cara booking jadwal servis atau dyno test di website Apex Garage?',
+                    'prompt' => 'Bagaimana cara booking jadwal servis atau dyno test di website BENGKEL?',
                 ],
             ]
         ]);

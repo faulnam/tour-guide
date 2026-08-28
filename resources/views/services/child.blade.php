@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('meta_title', $child->title . ' — ' . $parent->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Interior Architecture'))
-@section('meta_description', $child->excerpt ?: 'Explore ' . $child->title . ' projects designed by Metrix Interior Architecture.')
+@section('meta_title', $child->title . ' — ' . $parent->title . ' — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_description', $child->excerpt ?: 'Eksplorasi layanan ' . $child->title . ' dari BENGKEL Modifikasi Motor & Mobil.')
 
 @section('content')
 
     <!-- Hero Banner -->
     <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('{{ $child->image ? (str_starts_with($child->image, 'http') ? $child->image : asset('storage/' . $child->image)) : 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop' }}');">
+             style="background-image: url('{{ $child->image ? (str_starts_with($child->image, 'http') ? $child->image : asset('storage/' . $child->image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop' }}');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
 
@@ -20,7 +20,7 @@
                 <span>&bull;</span>
                 <span>{{ $child->title }}</span>
             </div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
                 {{ $child->title }}
             </h1>
             @if($child->excerpt)
@@ -55,11 +55,11 @@
             
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
                 <div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase font-sans">
                         {{ $child->title }} Projects
                     </h2>
                     <p class="text-neutral-body text-xs mt-1">
-                        Showing {{ $projects->total() }} completed projects
+                        Menampilkan {{ $projects->total() }} unit modifikasi selesai
                     </p>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                     @include('partials.project-card', ['project' => $project])
                 @empty
                     <div class="col-span-3 text-center py-16 text-neutral-400 text-sm">
-                        No projects currently listed under {{ $child->title }}.
+                        Belum ada proyek modifikasi yang terdaftar di kategori {{ $child->title }}.
                     </div>
                 @endforelse
             </div>

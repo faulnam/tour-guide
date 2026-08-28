@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('page_title', 'Admin Panel') — Metrix Studio</title>
+    <title>@yield('page_title', 'Admin Panel') — BENGKEL CMS</title>
 
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,7 +77,7 @@
             <!-- Brand Logo -->
             <div class="h-16 flex items-center justify-between px-6 border-b border-neutral-800">
                 <a href="{{ url('/admin/dashboard') }}" class="font-bold text-xl tracking-widest3 uppercase text-white font-sans">
-                    METRIX <span class="text-accent text-xs font-normal">ADMIN</span>
+                    BENGKEL <span class="text-accent text-xs font-normal">ADMIN</span>
                 </a>
                 <button @click="sidebarOpen = false" class="lg:hidden text-neutral-400 hover:text-white">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>

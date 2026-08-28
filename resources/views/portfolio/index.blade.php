@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Portfolio & Modification Builds — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
-@section('meta_description', 'Galeri hasil modifikasi motor dan mobil, pengujian dyno jet power run, custom bike builder, dan widebody di Metrix Garage.')
+@section('meta_title', 'Portfolio & Modification Builds — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_description', 'Galeri hasil modifikasi motor dan mobil, pengujian dyno jet power run, custom bike builder, dan widebody di BENGKEL.')
 
 @section('content')
 

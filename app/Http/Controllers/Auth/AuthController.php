@@ -93,7 +93,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('customer.dashboard')->with('success', 'Akun berhasil didaftarkan! Selamat datang di Apex Garage.');
+        return redirect()->route('home')->with('success', 'Akun berhasil didaftarkan! Selamat datang di ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage') . '.');
     }
 
     /**
@@ -106,7 +106,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar dari sistem.');
+        return redirect()->route('home')->with('success', 'Anda telah berhasil keluar dari sistem.');
     }
 
     /**
@@ -117,7 +117,7 @@ class AuthController extends Controller
         $redirect = match ($user->role) {
             'admin', 'super_admin' => redirect()->intended(route('admin.dashboard')),
             'karyawan' => redirect()->intended(route('karyawan.dashboard')),
-            default => redirect()->intended(route('customer.dashboard')),
+            default => redirect()->intended(route('home')),
         };
 
         if ($message) {

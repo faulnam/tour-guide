@@ -1,6 +1,6 @@
 @extends('layouts.karyawan')
 
-@section('meta_title', 'Update Pengerjaan Unit ' . $booking->booking_code . ' — Metrix Garage')
+@section('meta_title', 'Update Pengerjaan Unit ' . $booking->booking_code . ' — BENGKEL')
 
 @section('content')
 <div class="space-y-6">

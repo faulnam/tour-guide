@@ -28,7 +28,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-400 mb-1">Email Address *</label>
-                    <input type="email" name="email" required value="{{ old('email') }}" placeholder="email@metrixgarage.com"
+                    <input type="email" name="email" required value="{{ old('email') }}" placeholder="email@bengkel.com"
                            class="w-full bg-neutral-950 border border-neutral-700 px-3 py-2.5 text-xs text-white focus:outline-none focus:border-white">
                 </div>
 

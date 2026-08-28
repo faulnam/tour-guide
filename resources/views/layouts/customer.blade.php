@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('meta_title', 'Customer Portal & Garage — Metrix Garage')</title>
+    <title>@yield('meta_title', 'Customer Portal & Garage — BENGKEL')</title>
     
     <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
         }
     </script>
 
-    <!-- Base Metrix CSS -->
+    <!-- Base Bengkel CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Alpine.js -->
@@ -46,13 +46,15 @@
     <header class="bg-white border-b border-neutral-200 sticky top-0 z-30">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-6">
-                <a href="{{ route('customer.dashboard') }}" class="font-bold text-xl tracking-widest3 uppercase text-black font-sans">
-                    METRIX <span class="text-xs text-neutral-400 font-normal">CUSTOMER</span>
+                <a href="{{ url('/') }}" class="font-bold text-xl tracking-widest3 uppercase text-black font-sans">
+                    BENGKEL <span class="text-xs text-neutral-400 font-normal">CUSTOMER</span>
                 </a>
                 <nav class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-semibold">
-                    <a href="{{ route('customer.dashboard') }}" class="hover:text-accent transition-colors {{ request()->routeIs('customer.dashboard') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Overview</a>
-                    <a href="{{ route('customer.bookings.index') }}" class="hover:text-accent transition-colors {{ request()->routeIs('customer.bookings*') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Riwayat Booking</a>
-                    <a href="{{ route('customer.vehicles.index') }}" class="hover:text-accent transition-colors {{ request()->routeIs('customer.vehicles*') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Garasi Saya</a>
+                    <a href="{{ url('/') }}" class="text-neutral-500 hover:text-black transition-colors">&larr; Beranda</a>
+                    <a href="{{ route('customer.profile', ['tab' => 'identity']) }}" class="hover:text-accent transition-colors {{ request()->get('tab') === 'identity' ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">👤 Jatidiri</a>
+                    <a href="{{ route('customer.profile', ['tab' => 'orders']) }}" class="hover:text-accent transition-colors {{ request()->get('tab') === 'orders' ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">📦 Informasi Pesanan</a>
+                    <a href="{{ route('customer.profile', ['tab' => 'warranty']) }}" class="hover:text-accent transition-colors {{ request()->get('tab') === 'warranty' ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">🛡️ Cek Garansi</a>
+                    <a href="{{ route('customer.vehicles.index') }}" class="hover:text-accent transition-colors {{ request()->routeIs('customer.vehicles*') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">🚗 Garasi Saya</a>
                     <a href="{{ url('/booking') }}" class="text-accent hover:underline font-bold">+ Booking Baru</a>
                 </nav>
             </div>
@@ -93,7 +95,7 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t border-neutral-200 py-6 text-center text-xs text-neutral-400">
-        <p>&copy; {{ date('Y') }} Metrix Garage Customer Portal. All rights reserved.</p>
+        <p>&copy; {{ date('Y') }} BENGKEL Customer Portal. All rights reserved.</p>
     </footer>
 
     @stack('scripts')

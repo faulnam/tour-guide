@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Services & Modification Packages — ' . \App\Models\SiteSetting::get('company_name', 'Metrix Garage'))
+@section('meta_title', 'Services & Modification Packages — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
 @section('meta_description', 'Layanan modifikasi performa tinggi: ECU Remap Dyno Run, Custom Motorcycle Builder, Widebody Kit, Cat Oven Spies Hecker, dan Air Suspension di Jakarta.')
 
 @section('content')
