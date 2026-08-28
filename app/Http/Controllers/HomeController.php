@@ -53,6 +53,7 @@ class HomeController extends Controller
             ->with('category')
             ->take(3)
             ->get();
+        $recentPosts = $latestPosts;
 
         // 7. Performance Brand Partners
         $clients = Client::active()
@@ -71,6 +72,7 @@ class HomeController extends Controller
             'popularServices',
             'mechanics',
             'latestPosts',
+            'recentPosts',
             'clients',
             'testimonials'
         ));

@@ -299,7 +299,8 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @forelse($recentPosts as $post)
+                @php $blogItems = $recentPosts ?? $latestPosts ?? collect(); @endphp
+                @forelse($blogItems as $post)
                     <article class="group bg-white border border-neutral-200 flex flex-col justify-between overflow-hidden hover:border-black transition-all">
                         <a href="{{ url('/our-blog/' . $post->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900">
                             <img src="{{ $post->cover_image ? (str_starts_with($post->cover_image, 'http') ? $post->cover_image : asset('storage/' . $post->cover_image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop' }}" 

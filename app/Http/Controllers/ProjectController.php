@@ -10,6 +10,23 @@ use Illuminate\View\View;
 class ProjectController extends Controller
 {
     /**
+     * Display all projects portfolio index page.
+     */
+    public function index(): View
+    {
+        $projects = Project::published()
+            ->with('service')
+            ->orderBy('order')
+            ->paginate(12);
+
+        $categories = Service::active()
+            ->ordered()
+            ->get();
+
+        return view('portfolio.index', compact('projects', 'categories'));
+    }
+
+    /**
      * Display a single project portfolio detail page.
      */
     public function show(string $slug): View

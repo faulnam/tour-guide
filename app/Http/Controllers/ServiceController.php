@@ -13,8 +13,7 @@ class ServiceController extends Controller
      */
     public function index(): View
     {
-        $services = Service::parents()
-            ->active()
+        $services = Service::active()
             ->ordered()
             ->with(['children' => function ($q) {
                 $q->active()->ordered();
@@ -35,8 +34,7 @@ class ServiceController extends Controller
      */
     public function show(string $parentSlug): View
     {
-        $service = Service::parents()
-            ->where('slug', $parentSlug)
+        $service = Service::where('slug', $parentSlug)
             ->active()
             ->with(['children' => function ($q) {
                 $q->active()->ordered();
