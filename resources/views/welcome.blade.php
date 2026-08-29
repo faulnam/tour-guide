@@ -9,19 +9,15 @@
         <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop');"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-primary-dark via-primary-dark/50 to-transparent"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
-                <i class="fa-solid fa-compass text-accent"></i>
-                <span>{{ \App\Models\PageContent::get('home_hero_eyebrow', 'HPI Certified Indonesian Tour Guides') }}</span>
-            </div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+        <div class="relative z-10 max-w-4xl mx-auto text-center space-y-4">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-snug uppercase font-sans max-w-3xl mx-auto">
                 {{ \App\Models\PageContent::get('home_hero_title', 'Jelajahi Keajaiban Nusantara Bersama Pemandu Resmi') }}
             </h1>
-            <p class="section-desc text-gray-200 max-w-2xl mx-auto text-xs md:text-sm leading-relaxed">
+            <p class="text-gray-200 max-w-xl mx-auto text-xs sm:text-sm leading-relaxed">
                 {{ \App\Models\PageContent::get('home_hero_subtitle', 'Layanan pemandu wisata privat & ekspedisi alam terbaik di seluruh Indonesia.') }}
             </p>
-            <div class="pt-4 flex items-center justify-center gap-4">
-                <a href="{{ url('/booking') }}" class="btn-primary flex items-center gap-2 shadow-md">
+            <div class="pt-3 flex items-center justify-center gap-4">
+                <a href="{{ url('/booking') }}" class="px-6 py-2.5 rounded-lg bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                     <i class="fa-solid fa-calendar-check text-xs"></i>
                     <span>Booking Pemandu Sekarang &rarr;</span>
                 </a>

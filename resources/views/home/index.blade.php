@@ -33,11 +33,6 @@
 
         <!-- Hero Content Layer -->
         <div class="relative z-10 max-w-4xl mx-auto px-5 md:px-8 text-center space-y-4 pt-16">
-            <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-[11px] font-semibold uppercase tracking-wider">
-                <i class="fa-solid fa-certificate text-accent text-xs"></i>
-                <span>{{ \App\Models\PageContent::get('home_hero_eyebrow', 'HPI Certified Indonesian Tour Guides') }}</span>
-            </div>
-
             <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase leading-snug font-sans max-w-3xl mx-auto">
                 {{ \App\Models\PageContent::get('home_hero_title', 'Jelajahi Keajaiban Nusantara Bersama Pemandu Resmi') }}
             </h1>

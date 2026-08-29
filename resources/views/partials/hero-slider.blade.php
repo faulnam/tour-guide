@@ -16,13 +16,6 @@
 
                     <!-- Slide Content -->
                     <div class="relative z-10 max-w-4xl mx-auto px-5 md:px-8 text-center space-y-4 pt-16">
-                        @if($slide->subtitle)
-                            <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-[11px] font-semibold uppercase tracking-wider">
-                                <i class="fa-solid fa-location-dot text-xs"></i>
-                                <span>{{ $slide->subtitle }}</span>
-                            </div>
-                        @endif
-
                         @if($slide->title)
                             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-snug uppercase font-sans max-w-3xl mx-auto">
                                 {{ $slide->title }}
@@ -44,7 +37,6 @@
                     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop');"></div>
                     <div class="absolute inset-0 bg-gradient-to-t from-primary-dark/90 via-primary-dark/40 to-primary-dark/60"></div>
                     <div class="relative z-10 max-w-4xl mx-auto px-5 text-center space-y-4 pt-16">
-                        <div class="text-accent tracking-widest text-[11px] uppercase font-bold">Licensed Indonesian Local Guides</div>
                         <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-snug uppercase font-sans max-w-3xl mx-auto">
                             Jelajahi Keajaiban Nusantara
                         </h2>

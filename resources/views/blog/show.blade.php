@@ -45,7 +45,7 @@
                     <span>Kembali ke Semua Artikel</span>
                 </a>
 
-                <a href="{{ url('/booking') }}" class="btn-primary flex items-center gap-2 shadow-md">
+                <a href="{{ url('/booking') }}" class="px-6 py-2.5 rounded-xl bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                     <i class="fa-solid fa-calendar-check text-xs"></i>
                     <span>Booking Pemandu Wisata &rarr;</span>
                 </a>
