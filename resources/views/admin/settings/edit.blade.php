@@ -82,7 +82,7 @@
                     <input type="text" 
                            id="company_name" 
                            name="company_name" 
-                           value="{{ old('company_name', $settings['company_name'] ?? 'BENGKEL') }}" 
+                           value="{{ old('company_name', $settings['company_name'] ?? 'NUSANTARA TOUR GUIDE') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -93,7 +93,7 @@
                     <input type="text" 
                            id="established_year" 
                            name="established_year" 
-                           value="{{ old('established_year', $settings['established_year'] ?? '1998') }}" 
+                           value="{{ old('established_year', $settings['established_year'] ?? '2016') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
             </div>
@@ -105,7 +105,7 @@
                 <input type="text" 
                        id="company_tagline" 
                        name="company_tagline" 
-                       value="{{ old('company_tagline', $settings['company_tagline'] ?? 'Workshop & Studio Modifikasi Motor dan Mobil') }}" 
+                       value="{{ old('company_tagline', $settings['company_tagline'] ?? 'Pemandu Wisata Resmi Berlisensi HPI Seluruh Indonesia') }}" 
                        class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
             </div>
         </div>
@@ -126,7 +126,7 @@
                     <input type="email" 
                            id="contact_email" 
                            name="contact_email" 
-                           value="{{ old('contact_email', $settings['contact_email'] ?? 'info@bengkelmodifikasi.id') }}" 
+                           value="{{ old('contact_email', $settings['contact_email'] ?? 'halo@tourguide.id') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -137,7 +137,7 @@
                     <input type="email" 
                            id="career_email" 
                            name="career_email" 
-                           value="{{ old('career_email', $settings['career_email'] ?? 'hrd@bengkelmodifikasi.id') }}" 
+                           value="{{ old('career_email', $settings['career_email'] ?? 'karir@tourguide.id') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
             </div>
@@ -150,7 +150,7 @@
                     <input type="text" 
                            id="contact_phone" 
                            name="contact_phone" 
-                           value="{{ old('contact_phone', $settings['contact_phone'] ?? '+62 21 5830 1888') }}" 
+                           value="{{ old('contact_phone', $settings['contact_phone'] ?? '+62 361 890 5678') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -161,7 +161,7 @@
                     <input type="text" 
                            id="contact_whatsapp" 
                            name="contact_whatsapp" 
-                           value="{{ old('contact_whatsapp', $settings['contact_whatsapp'] ?? '+62 811 8888 9999') }}" 
+                           value="{{ old('contact_whatsapp', $settings['contact_whatsapp'] ?? '081288889999') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -172,19 +172,19 @@
                     <input type="text" 
                            id="office_hours" 
                            name="office_hours" 
-                           value="{{ old('office_hours', $settings['office_hours'] ?? 'Mon - Fri: 09:00 - 18:00 WIB') }}" 
+                           value="{{ old('office_hours', $settings['office_hours'] ?? 'Setiap Hari: 07:00 - 22:00 WITA') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
             </div>
 
             <div>
                 <label for="office_address" class="block text-[11px] uppercase tracking-wider font-semibold text-neutral-300 mb-2">
-                    Studio &amp; Office Address
+                    Tourism Hub &amp; Office Address
                 </label>
                 <textarea id="office_address" 
                           name="office_address" 
                           rows="2" 
-                          class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-2.5 focus:outline-none focus:border-white transition-colors">{{ old('office_address', $settings['office_address'] ?? 'Jl. Surya Wijaya Blok 11 No. 43, Kedoya Utara, Kebon Jeruk, Jakarta Barat 11520, Indonesia') }}</textarea>
+                          class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-2.5 focus:outline-none focus:border-white transition-colors">{{ old('office_address', $settings['office_address'] ?? 'Jl. Danau Tamblingan No. 88, Sanur, Denpasar Selatan, Bali 80228, Indonesia') }}</textarea>
             </div>
         </div>
 
@@ -204,7 +204,7 @@
                     <input type="url" 
                            id="instagram_url" 
                            name="instagram_url" 
-                           value="{{ old('instagram_url', $settings['instagram_url'] ?? 'https://instagram.com/bengkelmodifikasi') }}" 
+                           value="{{ old('instagram_url', $settings['instagram_url'] ?? 'https://instagram.com/nusantaratourguide') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -215,7 +215,7 @@
                     <input type="url" 
                            id="facebook_url" 
                            name="facebook_url" 
-                           value="{{ old('facebook_url', $settings['facebook_url'] ?? 'https://facebook.com/bengkelmodifikasi') }}" 
+                           value="{{ old('facebook_url', $settings['facebook_url'] ?? 'https://facebook.com/nusantaratourguide') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
 
@@ -226,7 +226,7 @@
                     <input type="url" 
                            id="linkedin_url" 
                            name="linkedin_url" 
-                           value="{{ old('linkedin_url', $settings['linkedin_url'] ?? 'https://linkedin.com/company/bengkelmodifikasi') }}" 
+                           value="{{ old('linkedin_url', $settings['linkedin_url'] ?? 'https://linkedin.com/company/nusantaratourguide') }}" 
                            class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
                 </div>
             </div>

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.customer')
 
-@section('meta_title', 'Akun Customer — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
+@section('meta_title', 'Akun Traveler — ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide'))
 
 @section('content')
 
@@ -348,33 +348,34 @@
                                 </div>
                             </div>
 
-                            <!-- Mechanic Update Note -->
+                            <!-- Tour Guide Update Note -->
                             @if($booking->mechanic_notes)
-                                <div class="p-4 bg-neutral-50 border border-neutral-200 text-xs space-y-1">
-                                    <div class="font-bold text-black uppercase tracking-wider text-[10px]">Catatan Terkini dari Mekanik:</div>
-                                    <p class="text-neutral-700">{{ $booking->mechanic_notes }}</p>
+                                <div class="p-4 bg-[#F8FAF9] rounded-xl border border-gray-100 text-xs space-y-1">
+                                    <div class="font-bold text-primary uppercase tracking-wider text-[10px]">Catatan Lapangan dari Pemandu:</div>
+                                    <p class="text-gray-700">{{ $booking->mechanic_notes }}</p>
                                 </div>
                             @endif
 
                             <!-- Action Buttons -->
-                            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-neutral-200">
-                                <div class="text-xs text-neutral-500">
-                                    Permintaan khusus: <span class="italic text-neutral-700">{{ $booking->custom_request ?? 'Tidak ada catatan tambahan' }}</span>
+                            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-gray-100">
+                                <div class="text-xs text-gray-500">
+                                    Permintaan khusus: <span class="italic text-primary">{{ $booking->custom_request ?? 'Tidak ada catatan tambahan' }}</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('company_whatsapp', '+6281288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL') . ', saya ingin menanyakan status pengerjaan booking ' . $booking->booking_code . ' untuk kendaraan ' . $booking->vehicle_model . ' (' . $booking->license_plate . ')') }}"
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('contact_whatsapp', '081288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') . ', saya ingin konsultasi status booking ' . $booking->booking_code . ' destinasi ' . $booking->vehicle_brand) }}"
                                        target="_blank"
-                                       class="px-3 py-1.5 bg-neutral-800 text-white text-xs uppercase tracking-wider font-semibold hover:bg-black transition-colors flex items-center gap-1.5">
-                                        <span>Hubungi Admin (WA)</span>
+                                       class="px-3.5 py-2 bg-primary text-white rounded-lg text-xs uppercase tracking-wider font-bold hover:bg-secondary transition-colors flex items-center gap-1.5 shadow-sm">
+                                        <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                                        <span>Chat Support</span>
                                     </a>
                                     <a href="{{ route('booking.checkout', $booking->booking_code) }}"
-                                       class="px-3 py-1.5 border border-black bg-black text-white text-xs uppercase tracking-wider font-semibold hover:bg-white hover:text-black transition-colors">
+                                       class="px-3.5 py-2 rounded-lg border border-accent bg-accent text-neutral-dark text-xs uppercase tracking-wider font-bold hover:bg-accent-dark hover:text-white transition-all shadow-sm">
                                         @if($booking->status === 'completed' && $booking->remaining_amount > 0)
-                                            Pelunasan &amp; Penyerahan Unit &rarr;
+                                            Pelunasan &amp; Selesai &rarr;
                                         @elseif($booking->status === 'completed')
-                                            Invoice &amp; Opsi Penyerahan &rarr;
+                                            Invoice &amp; Travel Pass &rarr;
                                         @else
-                                            Detail / Invoice &rarr;
+                                            Detail &amp; Travel Pass &rarr;
                                         @endif
                                     </a>
                                 </div>
@@ -382,14 +383,15 @@
 
                         </div>
                     @empty
-                        <div class="bg-white border border-neutral-200 p-8 text-center space-y-3">
-                            <div class="text-3xl">—</div>
-                            <h4 class="text-sm font-bold uppercase tracking-wider text-black">Tidak Ada Pesanan yang Sedang Aktif</h4>
-                            <p class="text-xs text-neutral-500 max-w-md mx-auto">
-                                Kendaraan Anda belum memiliki pengerjaan aktif saat ini. Anda dapat melakukan booking paket modifikasi atau konsultasi service kapan saja.
+                        <div class="bg-white rounded-2xl border border-gray-100 p-8 text-center space-y-3 shadow-soft">
+                            <div class="text-3xl text-sage"><i class="fa-solid fa-compass"></i></div>
+                            <h4 class="text-sm font-bold uppercase tracking-wider text-primary">Tidak Ada Jadwal Trip Aktif Saat Ini</h4>
+                            <p class="text-xs text-gray-500 max-w-md mx-auto">
+                                Anda belum memiliki agenda tur yang sedang berlangsung. Rencanakan liburan impian Anda bersama pemandu lokal berlisensi resmi Nusantara Tour Guide.
                             </p>
-                            <a href="{{ url('/booking') }}" class="inline-block px-5 py-2.5 bg-black text-white text-xs uppercase tracking-wider font-bold hover:bg-neutral-800 transition-colors">
-                                Mulai Booking Sekarang &rarr;
+                            <a href="{{ url('/booking') }}" class="btn-primary inline-flex items-center gap-2 shadow-md">
+                                <i class="fa-solid fa-calendar-check text-xs"></i>
+                                <span>Booking Pemandu Sekarang &rarr;</span>
                             </a>
                         </div>
                     @endforelse
@@ -503,13 +505,13 @@
                             </div>
                             <div class="flex items-center md:justify-end">
                                 @if($warrantySearchResult->is_warranty_active)
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('company_whatsapp', '+6281288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL') . ', saya ingin melakukan KLAIM GARANSI untuk Booking ' . $warrantySearchResult->booking_code . ' Plat ' . $warrantySearchResult->license_plate . ' (' . $warrantySearchResult->vehicle_model . ')') }}"
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('contact_whatsapp', '081288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') . ', saya ingin konsultasi bantuan voucher/asuransi untuk Booking ' . $warrantySearchResult->booking_code . ' destinasi ' . $warrantySearchResult->vehicle_brand) }}"
                                        target="_blank"
-                                       class="px-4 py-2 bg-emerald-700 text-white text-xs uppercase tracking-wider font-bold hover:bg-emerald-800 transition-colors">
-                                        Klaim Garansi (WA) &rarr;
+                                       class="px-4 py-2 bg-primary text-white rounded-lg text-xs uppercase tracking-wider font-bold hover:bg-secondary transition-colors shadow-sm">
+                                        Bantuan Layanan (WA) &rarr;
                                     </a>
                                 @else
-                                    <span class="text-neutral-500 text-xs italic">Garansi sudah tidak aktif</span>
+                                    <span class="text-gray-400 text-xs italic">Voucher / proteksi sudah kedaluwarsa</span>
                                 @endif
                             </div>
                         </div>
@@ -518,17 +520,17 @@
 
                 <!-- Active Warranty Cards for Current Customer -->
                 <div class="space-y-4">
-                    <div class="text-xs uppercase tracking-widest font-bold text-black">
-                        Daftar Garansi Pekerjaan Selesai Milik Anda ({{ $warrantyBookings->count() }})
+                    <div class="text-xs uppercase tracking-wider font-bold text-primary">
+                        Daftar Jaminan Layanan &amp; Voucher Trip Anda ({{ $warrantyBookings->count() }})
                     </div>
 
                     @forelse($warrantyBookings as $wb)
-                        <div class="bg-white border border-neutral-200 p-6 md:p-8 space-y-6 shadow-sm">
-                            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-200 pb-4">
+                        <div class="tour-card p-6 md:p-8 space-y-6 shadow-soft bg-white">
+                            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-4">
                                 <div>
-                                    <div class="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">Nomor Garansi / Booking</div>
-                                    <div class="text-lg font-bold font-mono text-black">{{ $wb->booking_code }}</div>
-                                    <div class="text-xs text-neutral-500">
+                                    <div class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Nomor Reservasi / Voucher</div>
+                                    <div class="text-lg font-bold font-mono text-primary">{{ $wb->booking_code }}</div>
+                                    <div class="text-xs text-gray-500">
                                         Diselesaikan pada: {{ $wb->warranty_start_date ? $wb->warranty_start_date->translatedFormat('d F Y') : '-' }}
                                     </div>
                                 </div>
@@ -540,63 +542,63 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
                                 <div>
-                                    <span class="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold">Kendaraan:</span>
-                                    <span class="font-bold text-black text-sm">{{ $wb->vehicle_brand }} {{ $wb->vehicle_model }}</span>
-                                    <div class="font-mono text-neutral-600">{{ $wb->license_plate }}</div>
+                                    <span class="text-gray-400 block text-[10px] uppercase tracking-wider font-bold">Destinasi:</span>
+                                    <span class="font-bold text-primary text-sm">{{ $wb->vehicle_brand }}</span>
+                                    <div class="text-gray-500 font-mono">{{ $wb->vehicle_model }}</div>
                                 </div>
 
                                 <div>
-                                    <span class="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold">Paket & Part Bergaransi:</span>
-                                    <span class="font-bold text-black text-sm">{{ $wb->service ? $wb->service->title : 'Tuning & Performance Package' }}</span>
-                                    <div class="text-neutral-500 text-[11px] mt-0.5">Durasi garansi: {{ $wb->warranty_days }} Hari</div>
+                                    <span class="text-gray-400 block text-[10px] uppercase tracking-wider font-bold">Paket Pemandu Wisata:</span>
+                                    <span class="font-bold text-primary text-sm">{{ $wb->service ? $wb->service->title : 'Private Guided Tour' }}</span>
+                                    <div class="text-sage text-[11px] mt-0.5 font-semibold">Lisensi HPI / APGI</div>
                                 </div>
 
                                 <div>
-                                    <span class="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold">Masa Berlaku Garansi:</span>
-                                    <span class="font-bold text-black text-sm">
+                                    <span class="text-gray-400 block text-[10px] uppercase tracking-wider font-bold">Masa Berlaku Voucher:</span>
+                                    <span class="font-bold text-primary text-sm">
                                         Hingga {{ $wb->warranty_end_date ? $wb->warranty_end_date->translatedFormat('d F Y') : '-' }}
                                     </span>
                                     @if($wb->is_warranty_active)
-                                        <div class="text-emerald-600 font-semibold text-[11px] mt-0.5">
-                                            Sisa {{ $wb->warranty_remaining_days }} hari masa perlindungan
+                                        <div class="text-emerald-700 font-bold text-[11px] mt-0.5">
+                                            Aktif (Sisa {{ $wb->warranty_remaining_days }} hari)
                                         </div>
                                     @endif
                                 </div>
                             </div>
 
                             <!-- Warranty Coverage Terms -->
-                            <div class="p-4 bg-neutral-50 border border-neutral-200 text-xs space-y-1.5">
-                                <div class="font-bold uppercase tracking-wider text-[10px] text-neutral-600">Cakupan Jaminan Garansi Bengkel:</div>
-                                <ul class="list-disc list-inside text-neutral-600 text-[11px] space-y-0.5">
-                                    <li>Gratis setting ulang / re-dyno tune jika terjadi penurunan performa non-human error.</li>
-                                    <li>Garansi instalasi bebas bocor pada sistem exhaust, turbo piping, dan suspensi.</li>
-                                    <li>Pengecekan torsi baut dan cairan pelumas gratis pada 1.000 KM pertama setelah pengerjaan.</li>
+                            <div class="p-4 bg-[#F8FAF9] rounded-xl border border-gray-100 text-xs space-y-1.5">
+                                <div class="font-bold uppercase tracking-wider text-[10px] text-primary">Cakupan Jaminan &amp; Proteksi Trip:</div>
+                                <ul class="list-disc list-inside text-gray-600 text-[11px] space-y-0.5">
+                                    <li>Jaminan pendampingan oleh pemandu bersertifikasi resmi HPI/APGI berwawasan budaya luas.</li>
+                                    <li>Asuransi kecelakaan diri dan santunan medis darurat selama durasi pendampingan berlangsung.</li>
+                                    <li>Reschedule voucher fleksibel tanpa penalti apabila destinasi ditutup karena faktor alam/cuaca.</li>
                                 </ul>
                             </div>
 
                             <!-- Claim Button -->
-                            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-neutral-200">
-                                <div class="text-xs text-neutral-400">
-                                    Mekanik pelaksana: <strong>{{ $wb->mechanic ? $wb->mechanic->name : 'Master Mechanic Bengkel' }}</strong>
+                            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-gray-100">
+                                <div class="text-xs text-gray-500">
+                                    Pemandu utama: <strong>{{ $wb->guide ? $wb->guide->name : 'Pemandu Berlisensi HPI' }}</strong>
                                 </div>
 
                                 @if($wb->is_warranty_active)
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('company_whatsapp', '+6281288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL') . ', saya ingin mengajukan KLAIM GARANSI untuk Booking ' . $wb->booking_code . ' kendaraan ' . $wb->vehicle_model . ' (' . $wb->license_plate . '). Mohon arahan jadwal kedatangan.') }}"
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('contact_whatsapp', '081288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') . ', saya ingin konsultasi voucher trip ' . $wb->booking_code . ' destinasi ' . $wb->vehicle_brand) }}"
                                        target="_blank"
-                                       class="px-5 py-2.5 bg-emerald-600 text-white text-xs uppercase tracking-wider font-bold hover:bg-emerald-700 transition-colors flex items-center gap-2">
-                                        <span>🛡️ Klaim Garansi via WhatsApp &rarr;</span>
+                                       class="px-5 py-2.5 bg-primary text-white rounded-lg text-xs uppercase tracking-wider font-bold hover:bg-secondary transition-colors flex items-center gap-2 shadow-sm">
+                                        <span>🛡️ Bantuan Layanan (WA) &rarr;</span>
                                     </a>
                                 @else
-                                    <span class="text-neutral-400 text-xs uppercase font-semibold">Garansi Selesai</span>
+                                    <span class="text-gray-400 text-xs uppercase font-semibold">Voucher Telah Digunakan</span>
                                 @endif
                             </div>
                         </div>
                     @empty
-                        <div class="bg-white border border-neutral-200 p-8 text-center space-y-3">
-                            <div class="text-3xl">🛡️</div>
-                            <h4 class="text-sm font-bold uppercase tracking-wider text-black">Belum Ada Garansi Pengerjaan</h4>
-                            <p class="text-xs text-neutral-500 max-w-md mx-auto">
-                                Garansi resmi bengkel akan otomatis aktif begitu status pengerjaan kendaraan Anda diselesaikan (Completed).
+                        <div class="bg-white rounded-2xl border border-gray-100 p-8 text-center space-y-3 shadow-soft">
+                            <div class="text-3xl text-sage"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h4 class="text-sm font-bold uppercase tracking-wider text-primary">Belum Ada Voucher Jaminan Aktif</h4>
+                            <p class="text-xs text-gray-500 max-w-md mx-auto">
+                                Jaminan proteksi &amp; sertifikat perjalanan resmi akan otomatis aktif setelah status trip Anda diselesaikan.
                             </p>
                         </div>
                     @endforelse

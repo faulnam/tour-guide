@@ -181,7 +181,7 @@ class BookingController extends Controller
         // Log delivery preference
         $methodLabel = $validated['delivery_method'] === 'delivery_address' 
             ? 'Diantar ke Alamat Customer (' . ($validated['delivery_address'] ?? 'Alamat Terdaftar') . ')'
-            : 'Diambil Sendiri ke Workshop BENGKEL';
+            : 'Selesai di Titik Kumpul / Hotel';
 
         BookingLog::create([
             'booking_id' => $booking->id,

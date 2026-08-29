@@ -16,7 +16,7 @@ class KaryawanOnly
         }
 
         if (!Auth::user()->isKaryawan() && !Auth::user()->isAdmin()) {
-            return redirect()->route('login')->with('error', 'Akses khusus untuk Karyawan dan Teknisi Bengkel.');
+            return redirect()->route('login')->with('error', 'Akses khusus untuk Pemandu Wisata dan Staf Operasional Nusantara Tour Guide.');
         }
 
         return $next($request);

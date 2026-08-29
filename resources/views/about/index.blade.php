@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
-@section('meta_title', 'About Us & Workshop Studio — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
-@section('meta_description', 'About BENGKEL, our engineering philosophy, dyno tuning equipment, and expert certified master technicians.')
+@section('meta_title', 'Tentang Kami — ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide'))
+@section('meta_description', 'Mengenal Nusantara Tour Guide, filosofi eco-tourism berkelanjutan, sertifikasi resmi HPI, armada transportasi wisata, dan jaringan pemandu profesional se-Indonesia.')
 
 @section('content')
 
     <!-- 1. Hero Header Banner -->
-    <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop');">
+    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
+             style="background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2000&auto=format&fit=crop');">
         </div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">Precision Engineering &amp; Custom Studio</div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-leaf text-accent"></i>
+                <span>Pemandu Wisata Resmi HPI &amp; Eco-Tourism Indonesia</span>
+            </div>
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
-                About BENGKEL
+                Tentang Nusantara Tour Guide
             </h1>
-            <p class="text-neutral-300 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-                Dedicated to exceptional automotive performance, custom bike craftsmanship, and state-of-the-art dyno tuning calibration.
+            <p class="text-gray-200 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+                Mendedikasikan pelayanan kepramuwisataan terbaik untuk menghadirkan pengalaman liburan autentik, aman, dan berkesan di seluruh penjuru Indonesia.
             </p>
         </div>
     </section>
@@ -29,24 +32,27 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                 
                 <div class="lg:col-span-6 space-y-6">
-                    <div class="eyebrow text-accent font-semibold">Our Philosophy</div>
-                    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-black leading-tight uppercase font-sans">
-                        Engineering Precision Without Compromise
+                    <div class="eyebrow text-sage font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-heart text-accent"></i>
+                        <span>Filosofi &amp; Komitmen Kami</span>
+                    </div>
+                    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-primary leading-tight">
+                        Menjelajah dengan Rasa Hormat, Keselamatan &amp; Cerita Berharga
                     </h2>
-                    <div class="text-neutral-700 text-sm md:text-base space-y-4 leading-relaxed">
+                    <div class="text-gray-700 text-sm md:text-base space-y-4 leading-relaxed">
                         <p>
-                            BENGKEL lahir dari passion mendalam terhadap performa motorsport dan estetika kendaraan kustom. Kami percaya bahwa setiap motor dan mobil memiliki potensi maksimal yang dapat dieksplorasi melalui kalibrasi data akurat dan ketelitian craftsmanship.
+                            Nusantara Tour Guide didirikan atas kecintaan mendalam terhadap kekayaan alam dan keragaman budaya Indonesia. Kami percaya bahwa liburan yang luar biasa bukan hanya tentang berpindah lokasi, melainkan menyelami kearifan lokal, sejarah, serta menjalin koneksi hangat dengan masyarakat setempat.
                         </p>
                         <p>
-                            Mulai dari dyno tuning ECU remap, custom motorcycle fabrication, widebody aerokit, hingga pengecatan oven Spies Hecker, seluruh proses dikerjakan oleh teknisi bersertifikasi dengan jaminan kualitas dan transparansi pengerjaan.
+                            Seluruh pemandu kami adalah putra daerah berlisensi resmi HPI (Himpunan Pramuwisata Indonesia) dan APGI (Asosiasi Pemandu Gunung Indonesia) yang dibekali pelatihan pertolongan pertama, etika konservasi alam, dan kemampuan komunikasi multibahasa.
                         </p>
                     </div>
                 </div>
 
                 <div class="lg:col-span-6">
-                    <div class="aspect-[4/3] bg-neutral-900 border border-neutral-200 overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000&auto=format&fit=crop" 
-                             alt="BENGKEL Workshop" 
+                    <div class="aspect-[4/3] rounded-2xl bg-neutral-900 border border-gray-100 overflow-hidden shadow-elevated">
+                        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Pemandu Wisata Nusantara" 
                              class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -55,40 +61,49 @@
         </div>
     </section>
 
-    <!-- 3. Facilities & Modern Equipment -->
-    <section class="py-20 md:py-28 bg-neutral-bg border-t border-neutral-200">
+    <!-- 3. Standards & Safety Facilities -->
+    <section class="py-20 md:py-28 bg-[#F8FAF9] border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
             
             <div class="text-center space-y-3 max-w-2xl mx-auto">
-                <div class="eyebrow text-accent font-semibold">State-of-the-Art Facilities</div>
-                <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-black uppercase font-sans">
-                    Workshop &amp; Testing Rig
+                <div class="eyebrow text-sage font-bold">Standar Kualitas &amp; Keselamatan</div>
+                <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-primary uppercase font-sans">
+                    Fasilitas &amp; Lisensi Operasional
                 </h2>
-                <div class="w-12 h-0.5 bg-black mx-auto"></div>
+                <div class="w-12 h-0.5 bg-accent mx-auto"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white border border-neutral-200 p-8 space-y-4 shadow-sm hover:border-black transition-colors">
-                    <div class="eyebrow text-[10px] text-accent font-semibold">Testing Facility</div>
-                    <h3 class="text-lg font-bold text-black uppercase">Dyno Jet 224xLC Chassis Dyno</h3>
-                    <p class="text-xs text-neutral-body leading-relaxed">
-                        Mampu menguji hingga 2,000 HP dengan dual high-velocity blower cooling untuk kalibrasi daya kuda, torsi, dan AFR secara akurat.
+                <div class="tour-card p-8 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-sage-light flex items-center justify-center text-sage text-xl">
+                        <i class="fa-solid fa-id-card-clip"></i>
+                    </div>
+                    <div class="eyebrow text-[10px] text-sage font-bold">100% Legal &amp; Resmi</div>
+                    <h3 class="text-lg font-bold text-primary">Lisensi HPI &amp; BNSP</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Seluruh pemandu mengantongi sertifikat kompetensi resmi Badan Nasional Sertifikasi Profesi (BNSP) dan terdaftar di DPD HPI terkait.
                     </p>
                 </div>
 
-                <div class="bg-white border border-neutral-200 p-8 space-y-4 shadow-sm hover:border-black transition-colors">
-                    <div class="eyebrow text-[10px] text-accent font-semibold">Refinishing Booth</div>
-                    <h3 class="text-lg font-bold text-black uppercase">Down-Draft Spray Oven</h3>
-                    <p class="text-xs text-neutral-body leading-relaxed">
-                        Ruang cat oven bertekanan positif dengan cat premium Spies Hecker bergaransi 2 tahun, bebas debu dan menghasilkan kilau wet-look sempurna.
+                <div class="tour-card p-8 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-sage-light flex items-center justify-center text-sage text-xl">
+                        <i class="fa-solid fa-kit-medical"></i>
+                    </div>
+                    <div class="eyebrow text-[10px] text-sage font-bold">First-Aid &amp; Safety</div>
+                    <h3 class="text-lg font-bold text-primary">P3K &amp; Standar Maritim/Gunung</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Dilengkapi kotak P3K lengkap, masker gas respirator standar kimia untuk Kawah Ijen, life-jacket bersertifikasi, serta radio komunikasi.
                     </p>
                 </div>
 
-                <div class="bg-white border border-neutral-200 p-8 space-y-4 shadow-sm hover:border-black transition-colors">
-                    <div class="eyebrow text-[10px] text-accent font-semibold">Custom Rig</div>
-                    <h3 class="text-lg font-bold text-black uppercase">TIG &amp; Tube Bending Machine</h3>
-                    <p class="text-xs text-neutral-body leading-relaxed">
-                        Peralatan bending mandrel presisi untuk pembuatan rangka motor custom Cafe Racer, Bobber, dan knalpot titanium kustom.
+                <div class="tour-card p-8 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-sage-light flex items-center justify-center text-sage text-xl">
+                        <i class="fa-solid fa-van-shuttle"></i>
+                    </div>
+                    <div class="eyebrow text-[10px] text-sage font-bold">Fleet &amp; Equipment</div>
+                    <h3 class="text-lg font-bold text-primary">Armada Bersih &amp; Terawat</h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Pilihan mobil MPV/Van pariwisata ber-AC dingin, Jeep 4x4 khusus Bromo, dan kapal Phinisi berizin kelaiklautan resmi Syahbandar.
                     </p>
                 </div>
             </div>
@@ -97,84 +112,115 @@
     </section>
 
     <!-- 4. Stats Animated Counter Bar -->
-    <section class="py-16 md:py-24 bg-black text-white" 
+    <section class="py-16 md:py-24 bg-primary-dark text-white" 
              x-data="{
                  started: false,
-                 c1: 0,
-                 c2: 0,
-                 c3: 0,
-                 c4: '0.0',
+                 c1: 0, c2: 0, c3: 0, c4: '0.0',
                  init() {
                      let observer = new IntersectionObserver((entries) => {
                          if (entries[0].isIntersecting && !this.started) {
-                             this.startCounter();
+                             this.runCounter();
                              observer.disconnect();
                          }
-                     }, { threshold: 0.2 });
+                     }, { threshold: 0.25 });
                      observer.observe(this.$el);
                  },
-                 startCounter() {
+                 runCounter() {
                      this.started = true;
                      const duration = 2200;
-                     const startTime = performance.now();
-                     const step = (currentTime) => {
-                         const elapsed = currentTime - startTime;
-                         const progress = Math.min(elapsed / duration, 1);
-                         const ease = 1 - Math.pow(1 - progress, 4);
-                         
-                         this.c1 = Math.floor(ease * 1450);
-                         this.c2 = Math.floor(ease * 3200);
-                         this.c3 = Math.floor(ease * 28);
-                         this.c4 = (ease * 99.4).toFixed(1);
-                         
-                         if (progress < 1) {
-                             requestAnimationFrame(step);
-                         } else {
-                             this.c1 = 1450;
-                             this.c2 = 3200;
-                             this.c3 = 28;
-                             this.c4 = '99.4';
-                         }
+                     const start = performance.now();
+                     const tick = (now) => {
+                         const t = Math.min((now - start) / duration, 1);
+                         const ease = 1 - Math.pow(1 - t, 4);
+                         this.c1 = Math.floor(ease * 2850);
+                         this.c2 = Math.floor(ease * 120);
+                         this.c3 = Math.floor(ease * 34);
+                         this.c4 = (ease * 99.8).toFixed(1);
+                         if (t < 1) requestAnimationFrame(tick);
+                         else { this.c1 = 2850; this.c2 = 120; this.c3 = 34; this.c4 = '99.8'; }
                      };
-                     requestAnimationFrame(step);
+                     requestAnimationFrame(tick);
                  }
              }">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-neutral-800">
-                
-                <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
-                        <span x-text="Number(c1).toLocaleString('id-ID')">0</span>+
-                    </div>
-                    <div class="eyebrow-light text-[11px] text-neutral-400">Vehicles Tuned</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-white/10">
+                <div class="pt-4 md:pt-0 md:px-6 first:pt-0">
+                    <div class="text-3xl md:text-5xl font-bold text-accent"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
+                    <div class="text-xs uppercase tracking-wider text-gray-300 mt-1 font-semibold">Wisatawan Terlayani</div>
                 </div>
-
-                <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
-                        <span x-text="Number(c2).toLocaleString('id-ID')">0</span>+
-                    </div>
-                    <div class="eyebrow-light text-[11px] text-neutral-400">Dyno Run Tests</div>
+                <div class="pt-4 md:pt-0 md:px-6">
+                    <div class="text-3xl md:text-5xl font-bold text-accent"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
+                    <div class="text-xs uppercase tracking-wider text-gray-300 mt-1 font-semibold">Pemandu Berlisensi HPI</div>
                 </div>
-
-                <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans">
-                        <span x-text="c3">0</span>
-                    </div>
-                    <div class="eyebrow-light text-[11px] text-neutral-400">Contest Awards</div>
+                <div class="pt-4 md:pt-0 md:px-6">
+                    <div class="text-3xl md:text-5xl font-bold text-accent"><span x-text="c3">0</span></div>
+                    <div class="text-xs uppercase tracking-wider text-gray-300 mt-1 font-semibold">Provinsi di Indonesia</div>
                 </div>
-
-                <div class="pt-4 md:pt-0 px-4 space-y-2">
-                    <div class="text-4xl md:text-5xl font-extrabold text-accent tracking-tight font-sans">
-                        <span x-text="c4">0.0</span>%
-                    </div>
-                    <div class="eyebrow-light text-[11px] text-neutral-400">Client Satisfaction</div>
+                <div class="pt-4 md:pt-0 md:px-6">
+                    <div class="text-3xl md:text-5xl font-bold text-accent"><span x-text="c4">0.0</span>%</div>
+                    <div class="text-xs uppercase tracking-wider text-gray-300 mt-1 font-semibold">Kepuasan Pelanggan</div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- 5. CTA Section -->
+    <!-- 5. Certified Guides Team -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+            <div class="text-center space-y-3 max-w-2xl mx-auto">
+                <div class="eyebrow text-sage font-bold">Tim Pemandu Utama</div>
+                <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-primary uppercase">
+                    Pemandu Berlisensi HPI Pilihan
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="tour-card p-6 text-center space-y-4">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" 
+                         alt="I Wayan Arta" 
+                         class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-accent">
+                    <div>
+                        <h3 class="text-base font-bold text-primary">I Wayan Arta</h3>
+                        <div class="text-xs text-sage font-semibold">Lead Cultural Guide — Bali &amp; Nusa Penida</div>
+                        <div class="text-[11px] text-gray-500 mt-1">Sertifikasi HPI Bali #BALI-2018-0921</div>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Spesialis pemandu filosofi pura, tradisi melukat, sejarah kerajaan Bali kuno, dan rute trekking tebing tersembunyi.
+                    </p>
+                </div>
+
+                <div class="tour-card p-6 text-center space-y-4">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" 
+                         alt="Bagas Pratama" 
+                         class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-accent">
+                    <div>
+                        <h3 class="text-base font-bold text-primary">Bagas Pratama</h3>
+                        <div class="text-xs text-sage font-semibold">Mountain &amp; Volcano Specialist — Bromo &amp; Ijen</div>
+                        <div class="text-[11px] text-gray-500 mt-1">Sertifikasi APGI Jawa Timur #APGI-2020-0412</div>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Berpengalaman lebih dari 8 tahun memandu pendakian golden sunrise Bromo, geologi kawah aktif, dan ekspedisi api biru Ijen.
+                    </p>
+                </div>
+
+                <div class="tour-card p-6 text-center space-y-4">
+                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=400&auto=format&fit=crop" 
+                         alt="La Ode Rizal" 
+                         class="w-24 h-24 rounded-full mx-auto object-cover border-2 border-accent">
+                    <div>
+                        <h3 class="text-base font-bold text-primary">La Ode Rizal</h3>
+                        <div class="text-xs text-sage font-semibold">Marine &amp; Liveaboard Guide — Komodo &amp; Raja Ampat</div>
+                        <div class="text-[11px] text-gray-500 mt-1">PADI Divemaster #DM-482910 &amp; TNK Naturalist</div>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Ahli navigasi perairan karang Flores &amp; Papua, pemandu pengamatan satwa Komodo, dan instruktur snorkeling Manta Ray.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CTA Section -->
     @include('partials.cta-section')
 
 @endsection

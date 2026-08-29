@@ -48,7 +48,7 @@ class AuthController extends Controller
 
             if (!$user->is_active) {
                 Auth::logout();
-                return back()->withErrors(['email' => 'Akun Anda sedang dinonaktifkan oleh manajemen bengkel.'])->onlyInput('email');
+                return back()->withErrors(['email' => 'Akun Anda sedang dinonaktifkan oleh manajemen pariwisata.'])->onlyInput('email');
             }
 
             return $this->redirectBasedOnRole($user, 'Selamat datang kembali, ' . $user->name . '!');

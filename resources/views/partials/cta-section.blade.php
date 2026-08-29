@@ -1,16 +1,21 @@
-<section class="py-24 md:py-32 bg-white text-center border-t border-neutral-100">
+<section class="py-20 md:py-28 bg-[#F8FAF9] text-center border-t border-gray-100">
     <div class="max-w-4xl mx-auto px-6 space-y-6">
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-black leading-tight uppercase">
-            {{ \App\Models\PageContent::get('home_cta_title', 'Want to build or tune your machine?') }}
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage/10 text-sage text-xs font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-earth-asia"></i>
+            <span>Jelajah Wisata Indonesia</span>
+        </div>
+
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-primary leading-tight">
+            {{ \App\Models\PageContent::get('home_cta_title', 'Siap Mewujudkan Liburan Impian Anda di Indonesia?') }}
         </h2>
         
-        <div class="min-h-[40px] flex items-center justify-center text-neutral-body text-xs md:text-sm max-w-xl mx-auto"
+        <div class="min-h-[40px] flex items-center justify-center text-gray-600 text-xs md:text-sm max-w-xl mx-auto"
              x-data="{
                 text: '',
                 phrases: [
-                    'Diskusikan konsep modifikasi, target tenaga dyno, atau kebutuhan servis kendaraan Anda.',
-                    'Kunci jadwal antrean teknisi kami dengan sistem booking online praktis.',
-                    'Dapatkan hasil modifikasi bergaransi dan teruji di atas mesin Dyno Jet.'
+                    'Jelajahi surga Raja Ampat, Labuan Bajo, Bromo, hingga Tana Toraja bersama pemandu lokal resmi HPI.',
+                    'Rute kustom fleksibel, armada nyaman ber-AC, dan dokumentasi foto/drone sinematik.',
+                    'Kunci jadwal keberangkatan Anda dengan sistem booking online praktis & DP terjangkau.'
                 ],
                 phraseIndex: 0,
                 charIndex: 0,
@@ -40,17 +45,19 @@
                     setTimeout(() => this.type(), speed);
                 }
              }">
-            <p class="leading-relaxed">
-                <span x-text="text">Diskusikan rencana modifikasi motor &amp; mobil Anda dengan master tuner BENGKEL.</span><span class="inline-block w-0.5 h-3.5 bg-black ml-1 align-middle animate-cursor"></span>
+            <p class="leading-relaxed font-medium">
+                <span x-text="text">Rencanakan petualangan wisata tak terlupakan bersama Nusantara Tour Guide.</span><span class="inline-block w-0.5 h-3.5 bg-primary ml-1 align-middle animate-cursor"></span>
             </p>
         </div>
 
         <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <a href="{{ url('/booking') }}" class="btn-dark">
-                Booking Online
+            <a href="{{ url('/booking') }}" class="px-7 py-3.5 rounded-xl bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Booking Guide Sekarang</span>
             </a>
-            <a href="{{ url('/contact-us') }}" class="btn-outline-dark">
-                Contact Us
+            <a href="{{ url('/contact-us') }}" class="px-7 py-3.5 rounded-xl border border-gray-300 hover:border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-comments"></i>
+                <span>Konsultasi Itinerary</span>
             </a>
         </div>
     </div>

@@ -13,56 +13,56 @@ class PageContentSeeder extends Seeder
             // Home Page
             [
                 'key' => 'home_hero_title',
-                'value' => 'BENGKEL Performance & Custom Workshop',
+                'value' => 'Jelajahi Keajaiban Nusantara Bersama Pemandu Lokal Berlisensi Resmi',
                 'page' => 'home',
                 'section' => 'hero',
                 'label' => 'Home Hero Headline',
             ],
             [
                 'key' => 'home_hero_description',
-                'value' => 'Bengkel spesialis modifikasi performa tinggi, ECU remap dyno tuning, fabrikasi bodykit widebody, cat oven Spies Hecker, custom bike builder, air suspension, dan servis berkala terlengkap di Jakarta.',
+                'value' => 'Layanan pemandu wisata privat & ekspedisi alam terbaik di Indonesia. Nikmati keindahan Raja Ampat, Labuan Bajo, Bromo, Bali, hingga Tana Toraja dengan aman, nyaman, dan kaya wawasan budaya bersama pemandu resmi bersertifikasi HPI.',
                 'page' => 'home',
                 'section' => 'hero',
                 'label' => 'Home Hero Description',
             ],
             [
                 'key' => 'home_recent_projects_eyebrow',
-                'value' => 'Hasil Modifikasi Terbaru',
+                'value' => 'Destinasi Unggulan & Ekspedisi Terbaru',
                 'page' => 'home',
                 'section' => 'recent_projects',
                 'label' => 'Recent Projects Eyebrow',
             ],
             [
                 'key' => 'home_recent_projects_subtitle',
-                'value' => 'Mahakarya modifikasi motor & mobil dengan presisi tinggi dan lonjakan tenaga teruji di atas mesin Dyno.',
+                'value' => 'Dokumentasi perjalanan nyata para traveler menjelajahi surga tersembunyi Indonesia bersama tim pemandu kami.',
                 'page' => 'home',
                 'section' => 'recent_projects',
                 'label' => 'Recent Projects Subtitle',
             ],
             [
                 'key' => 'home_services_eyebrow',
-                'value' => 'Layanan & Paket Modifikasi',
+                'value' => 'Layanan & Paket Pemandu Wisata',
                 'page' => 'home',
                 'section' => 'services',
                 'label' => 'Services Section Eyebrow',
             ],
             [
                 'key' => 'home_services_subtitle',
-                'value' => 'Pilihan paket pengerjaan profesional dengan jaminan garansi resmi dan suku cadang performa orisinil.',
+                'value' => 'Pilihan layanan pemandu privat, wisata bahari & liveaboard, pendakian gunung vulkanik, hingga tur budaya & fotografi profesional.',
                 'page' => 'home',
                 'section' => 'services',
                 'label' => 'Services Section Subtitle',
             ],
             [
                 'key' => 'home_cta_title',
-                'value' => 'Siap Meningkatkan Performa & Tampilan Kendaraan Anda?',
+                'value' => 'Siap Mewujudkan Liburan Impian Anda di Indonesia?',
                 'page' => 'home',
                 'section' => 'cta',
                 'label' => 'Home CTA Title',
             ],
             [
                 'key' => 'home_cta_subtitle',
-                'value' => 'Booking antrean servis & konsultasi modifikasi online sekarang dengan DP terjangkau via Payment Gateway.',
+                'value' => 'Booking pemandu wisata privat Anda sekarang dengan proses mudah, jadwal fleksibel, dan kunci jadwal dengan DP terjangkau.',
                 'page' => 'home',
                 'section' => 'cta',
                 'label' => 'Home CTA Subtitle',
@@ -71,14 +71,14 @@ class PageContentSeeder extends Seeder
             // About Us Page
             [
                 'key' => 'about_who_we_are_title',
-                'value' => 'Tentang BENGKEL',
+                'value' => 'Tentang Nusantara Tour Guide',
                 'page' => 'about',
                 'section' => 'profile',
                 'label' => 'About - Who We Are Title',
             ],
             [
                 'key' => 'about_who_we_are_text',
-                'value' => 'Berdiri sejak 2012, BENGKEL telah menjadi destinasi utama bagi para car & motorcycle enthusiast di Indonesia. Dilengkapi fasilitas canggih mulai dari Dyno Jet 224xLC All-Wheel Drive, Spray Booth Oven Jerman, 3D Laser Scanner, hingga mesin bubut CNC presisi tinggi.',
+                'value' => 'Berdiri sejak 2016, Nusantara Tour Guide berkomitmen menghadirkan pengalaman liburan autentik dan mendalam di seluruh pelosok Indonesia. Seluruh pemandu kami adalah putra daerah asli berlisensi resmi HPI (Himpunan Pramuwisata Indonesia) dan APGI yang terlatih dalam standar pertolongan pertama, etika konservasi alam, serta keramahtamahan khas Indonesia.',
                 'page' => 'about',
                 'section' => 'profile',
                 'label' => 'About - Who We Are Text',
@@ -92,49 +92,49 @@ class PageContentSeeder extends Seeder
             ],
             [
                 'key' => 'about_mission_text',
-                'value' => 'Menghadirkan standar modifikasi otomotif kelas dunia dengan mengutamakan aspek keselamatan, durabilitas, estetika tinggi, dan lonjakan performa yang terukur secara ilmiah dan transparan.',
+                'value' => 'Menjadi platform pemandu wisata terdepan dan terpercaya di Indonesia yang menghubungkan wisatawan dengan keindahan alam, kearifan lokal, dan pemberdayaan ekonomi masyarakat pariwisata berkelanjutan (sustainable eco-tourism).',
                 'page' => 'about',
                 'section' => 'mission',
                 'label' => 'About - Mission Text',
             ],
 
-            // Booking Intro
+            // Values
             [
-                'key' => 'booking_intro_title',
-                'value' => 'Online Booking & Service Queue',
-                'page' => 'booking',
-                'section' => 'intro',
-                'label' => 'Booking Intro Title',
+                'key' => 'about_values_title',
+                'value' => 'Standar Keunggulan Pemandu Kami',
+                'page' => 'about',
+                'section' => 'values',
+                'label' => 'About - Values Title',
             ],
             [
-                'key' => 'booking_intro_subtitle',
-                'value' => 'Pilih jadwal kedatangan, konsultasikan modifikasi yang diinginkan, dan bayar aman dengan Payment Gateway terverifikasi instan.',
-                'page' => 'booking',
-                'section' => 'intro',
-                'label' => 'Booking Intro Subtitle',
+                'key' => 'about_values_text',
+                'value' => '100% Pemandu Resmi Bersertifikat | Berorientasi Keselamatan & First-Aid | Fleksibilitas Waktu Penuh | Narasi Budaya yang Kaya & Mendalam | Menghormati Adat & Kelestarian Alam.',
+                'page' => 'about',
+                'section' => 'values',
+                'label' => 'About - Values Text',
             ],
 
-            // Contact Page
+            // Safety & Quality Assurance
             [
-                'key' => 'contact_intro_title',
-                'value' => 'Hubungi Workshop Kami',
-                'page' => 'contact',
-                'section' => 'intro',
-                'label' => 'Contact Intro Title',
+                'key' => 'about_facility_title',
+                'value' => 'Standar Keamanan, Lisensi & Armada',
+                'page' => 'about',
+                'section' => 'facilities',
+                'label' => 'About - Facility Title',
             ],
             [
-                'key' => 'contact_intro_text',
-                'value' => 'Kunjungi workshop kami di Cilandak, Jakarta Selatan atau hubungi hotline WhatsApp kami untuk konsultasi gratis mengenai spesifikasi modifikasi dan estimasi waktu pengerjaan.',
-                'page' => 'contact',
-                'section' => 'intro',
-                'label' => 'Contact Intro Text',
+                'key' => 'about_facility_text',
+                'value' => 'Didukung armada mobil wisata terawat, perlengkapan snorkeling steril, kapal Phinisi standar keselamatan maritim, alat navigasi GPS, serta perlengkapan respirator pendakian gunung yang selalu diinspeksi secara berkala demi keselamatan wisatawan.',
+                'page' => 'about',
+                'section' => 'facilities',
+                'label' => 'About - Facility Text',
             ],
         ];
 
-        foreach ($contents as $item) {
+        foreach ($contents as $content) {
             PageContent::updateOrCreate(
-                ['key' => $item['key']],
-                $item
+                ['key' => $content['key']],
+                $content
             );
         }
     }

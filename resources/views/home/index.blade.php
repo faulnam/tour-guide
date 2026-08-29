@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('meta_title', \App\Models\SiteSetting::get('site_title', 'BENGKEL — Workshop Modifikasi Motor & Mobil'))
-@section('meta_description', \App\Models\SiteSetting::get('meta_description_default', 'Bengkel spesialis modifikasi performa motor dan mobil, dyno tuning ECU remap, custom builder, widebody kit, cat oven Spies Hecker di Jakarta.'))
+@section('meta_title', \App\Models\SiteSetting::get('site_title', 'Nusantara Tour Guide — Pemandu Wisata Resmi Berlisensi HPI'))
+@section('meta_description', \App\Models\SiteSetting::get('meta_description_default', 'Layanan pemandu wisata privat berlisensi resmi HPI di seluruh destinasi Indonesia: Bali, Raja Ampat, Labuan Bajo, Bromo, Yogyakarta, dan Tana Toraja.'))
 
 @section('content')
 
     <!-- 1. Hero Slider Section (Swiper Full-Screen Slides) -->
-    <section class="relative bg-black text-white min-h-[85vh] lg:h-[90vh] flex items-center justify-center overflow-hidden">
+    <section class="relative bg-primary-dark text-white min-h-[85vh] lg:h-[90vh] flex items-center justify-center overflow-hidden">
         
         <!-- Swiper Container -->
         <div class="swiper heroSwiper absolute inset-0 w-full h-full z-0">
@@ -16,13 +16,13 @@
                         <img src="{{ str_starts_with($slide->image, 'http') ? $slide->image : asset('storage/' . $slide->image) }}" 
                              alt="{{ $slide->title }}" 
                              class="w-full h-full object-cover object-center filter brightness-[0.55] transition-transform duration-[7000ms] scale-100 ease-out">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary-dark/40 to-primary-dark/50"></div>
                     </div>
                 @empty
                     <div class="swiper-slide relative">
-                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop" 
+                        <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2000&auto=format&fit=crop" 
                              class="w-full h-full object-cover filter brightness-[0.55]">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-dark/95 via-primary-dark/40 to-primary-dark/50"></div>
                     </div>
                 @endforelse
             </div>
@@ -33,12 +33,13 @@
 
         <!-- Hero Content Layer -->
         <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center space-y-6 pt-20">
-            <div class="eyebrow-light tracking-widest3">
-                {{ \App\Models\PageContent::get('home_hero_eyebrow', 'Performance Tuning & Custom Studio') }}
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-certificate text-accent"></i>
+                <span>{{ \App\Models\PageContent::get('home_hero_eyebrow', 'HPI Certified Indonesian Tour Guides') }}</span>
             </div>
 
             <h1 class="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white uppercase leading-tight font-sans">
-                {{ \App\Models\PageContent::get('home_hero_title', 'Crafting High-Performance Machines') }}
+                {{ \App\Models\PageContent::get('home_hero_title', 'Jelajahi Keajaiban Nusantara Bersama Pemandu Resmi') }}
             </h1>
 
             <!-- Typing Animated Subtitle -->
@@ -46,10 +47,10 @@
                  x-data="{
                     text: '',
                     phrases: [
-                        'Spesialis ECU Remap & Dyno Run Kalibrasi Tenaga Akurat.',
-                        'Custom Motorcycle Builder: Cafe Racer, Bobber & Tracker.',
-                        'Widebody Kit, Carbon Aerodynamics & Cat Oven Spies Hecker.',
-                        'Sistem Booking Online Terintegrasi dengan Payment Gateway.'
+                        'Pemandu Lokal Berlisensi Resmi HPI di 34 Provinsi Indonesia.',
+                        'Ekspedisi Bahari Raja Ampat, Komodo & Liveaboard Phinisi.',
+                        'Petualangan Sunrise Gunung Bromo & Blue Fire Kawah Ijen.',
+                        'Wisata Budaya Sakral Ubud Bali & Warisan Megalitik Tana Toraja.'
                     ],
                     phraseIndex: 0,
                     charIndex: 0,
@@ -79,18 +80,20 @@
                         setTimeout(() => this.type(), speed);
                     }
                  }">
-                <p class="leading-relaxed">
-                    <span x-text="text">{{ \App\Models\PageContent::get('home_hero_subtitle', 'Spesialis modifikasi performa motor dan mobil di Jakarta.') }}</span><span class="inline-block w-0.5 h-4 bg-white ml-1 align-middle animate-cursor"></span>
+                <p class="leading-relaxed font-medium">
+                    <span x-text="text">{{ \App\Models\PageContent::get('home_hero_subtitle', 'Layanan pemandu wisata privat & ekspedisi alam terbaik di seluruh Indonesia.') }}</span><span class="inline-block w-0.5 h-4 bg-accent ml-1 align-middle animate-cursor"></span>
                 </p>
             </div>
 
             <!-- Call to Actions -->
             <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-                <a href="{{ url('/booking') }}" class="btn-dark">
-                    Booking Servis &amp; Modif
+                <a href="{{ url('/booking') }}" class="px-8 py-4 rounded-xl bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Booking Pemandu Wisata</span>
                 </a>
-                <a href="{{ url('/portfolio') }}" class="btn-outline">
-                    View Portfolio
+                <a href="{{ url('/portfolio') }}" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>Lihat Destinasi</span>
                 </a>
             </div>
         </div>
@@ -99,7 +102,7 @@
 
 
     <!-- 2. Stats Highlight Bar (Animated Count-Up) -->
-    <section class="border-y border-neutral-200 bg-white py-12"
+    <section class="border-y border-gray-100 bg-white py-12"
              x-data="{
                  started: false,
                  c1: 0, c2: 0, c3: 0, c4: '0.0',
@@ -119,37 +122,37 @@
                      const tick = (now) => {
                          const t = Math.min((now - start) / duration, 1);
                          const ease = 1 - Math.pow(1 - t, 4);
-                         this.c1 = Math.floor(ease * 1450);
-                         this.c2 = Math.floor(ease * 3200);
-                         this.c3 = Math.floor(ease * 28);
-                         this.c4 = (ease * 99.4).toFixed(1);
+                         this.c1 = Math.floor(ease * 2850);
+                         this.c2 = Math.floor(ease * 120);
+                         this.c3 = Math.floor(ease * 34);
+                         this.c4 = (ease * 99.8).toFixed(1);
                          if (t < 1) requestAnimationFrame(tick);
-                         else { this.c1 = 1450; this.c2 = 3200; this.c3 = 28; this.c4 = '99.4'; }
+                         else { this.c1 = 2850; this.c2 = 120; this.c3 = 34; this.c4 = '99.8'; }
                      };
                      requestAnimationFrame(tick);
                  }
              }">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-neutral-200">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-gray-100">
                 
                 <div class="pt-4 md:pt-0 md:px-6 first:pt-0">
-                    <div class="stat-number"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
-                    <div class="eyebrow text-neutral-500 mt-1">Vehicles Tuned</div>
+                    <div class="stat-number text-primary"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
+                    <div class="eyebrow text-gray-500 mt-1">Wisatawan Dipandu</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
-                    <div class="eyebrow text-neutral-500 mt-1">Dyno Run Tests</div>
+                    <div class="stat-number text-primary"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
+                    <div class="eyebrow text-gray-500 mt-1">Pemandu Berlisensi HPI</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number"><span x-text="c3">0</span></div>
-                    <div class="eyebrow text-neutral-500 mt-1">Contest Awards</div>
+                    <div class="stat-number text-primary"><span x-text="c3">0</span></div>
+                    <div class="eyebrow text-gray-500 mt-1">Provinsi Terjangkau</div>
                 </div>
 
                 <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number"><span x-text="c4">0.0</span>%</div>
-                    <div class="eyebrow text-neutral-500 mt-1">Client Satisfaction</div>
+                    <div class="stat-number text-primary"><span x-text="c4">0.0</span>%</div>
+                    <div class="eyebrow text-gray-500 mt-1">Tingkat Kepuasan</div>
                 </div>
 
             </div>
@@ -158,38 +161,40 @@
 
 
     <!-- 3. What We Do / About Teaser Section -->
-    <section class="py-20 md:py-28 bg-neutral-bg">
+    <section class="py-20 md:py-28 bg-[#F8FAF9]">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                 
                 <!-- Left Story Column -->
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="eyebrow text-accent font-semibold">
-                        {{ \App\Models\PageContent::get('home_about_eyebrow', 'What We Do') }}
+                    <div class="eyebrow text-sage font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-map-pin text-accent"></i>
+                        <span>{{ \App\Models\PageContent::get('home_about_eyebrow', 'Tentang Nusantara Tour Guide') }}</span>
                     </div>
-                    <h2 class="section-title">
-                        {{ \App\Models\PageContent::get('home_about_title', 'Engineered for Performance. Crafted for Distinction.') }}
+                    <h2 class="section-title text-primary">
+                        {{ \App\Models\PageContent::get('home_about_title', 'Menghubungkan Anda dengan Keindahan Autentik Nusantara') }}
                     </h2>
-                    <div class="section-desc space-y-4">
+                    <div class="section-desc space-y-4 text-gray-600">
                         <p>
-                            {{ \App\Models\PageContent::get('home_about_desc_1', 'BENGKEL adalah workshop modifikasi performa motor dan mobil berstandar motorsport di Jakarta. Kami menggabungkan kalibrasi data akurat mesin Dyno Jet dengan seni fabrikasi kustom tingkat tinggi.') }}
+                            {{ \App\Models\PageContent::get('home_about_desc_1', 'Nusantara Tour Guide adalah platform pemandu wisata privat dan ekspedisi alam nomor satu di Indonesia. Kami menghadirkan putra daerah asli bersertifikasi HPI (Himpunan Pramuwisata Indonesia) dan APGI untuk mendampingi liburan Anda dengan aman, nyaman, dan berwawasan luas.') }}
                         </p>
                         <p>
-                            {{ \App\Models\PageContent::get('home_about_desc_2', 'Didukung oleh teknisi bersertifikasi dan peralatan modern, setiap proyek modifikasi dikerjakan dengan standar presisi tinggi, garansi pengerjaan, dan kemudahan booking online.') }}
+                            {{ \App\Models\PageContent::get('home_about_desc_2', 'Setiap ekspedisi dirancang dengan fleksibilitas tinggi, armada transportasi ber-AC terawat, perlengkapan keselamatan standar, serta kemudahan sistem booking online dengan down payment praktis.') }}
                         </p>
                     </div>
                     <div class="pt-2">
-                        <a href="{{ url('/about-us') }}" class="btn-dark">
-                            Discover Our Studio &rarr;
+                        <a href="{{ url('/about-us') }}" class="btn-primary flex items-center gap-2 inline-flex">
+                            <span>Pelajari Standar Layanan Kami</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Right Featured Image Column -->
                 <div class="lg:col-span-5">
-                    <div class="aspect-[4/3] bg-neutral-900 border border-neutral-200 overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop" 
-                             alt="Workshop BENGKEL" 
+                    <div class="aspect-[4/3] rounded-2xl bg-neutral-900 border border-gray-100 overflow-hidden shadow-elevated">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Pemandu Wisata Bali & Indonesia" 
                              class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -200,49 +205,55 @@
 
 
     <!-- 4. Featured Services Section -->
-    <section class="py-20 md:py-28 bg-white border-t border-neutral-200">
+    <section class="py-20 md:py-28 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-6">
                 <div>
-                    <div class="eyebrow text-accent font-semibold">Tuning &amp; Workshop Services</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black mt-1 uppercase">
-                        Our Modification Packages
+                    <div class="eyebrow text-sage font-bold">Layanan Pemandu Wisata</div>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary mt-1 uppercase">
+                        Paket Pemandu &amp; Ekspedisi Unggulan
                     </h2>
                 </div>
-                <a href="{{ url('/services') }}" class="eyebrow text-black hover:text-accent font-semibold transition-colors">
-                    View All Services &rarr;
+                <a href="{{ url('/services') }}" class="eyebrow text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
+                    <span>Lihat Semua Paket</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
             </div>
 
             <!-- Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($popularServices->take(6) as $service)
-                    <div class="group bg-white border border-neutral-200 hover:border-black transition-all flex flex-col justify-between overflow-hidden">
-                        <a href="{{ url('/services/' . $service->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900">
+                    <div class="tour-card flex flex-col justify-between group">
+                        <a href="{{ url('/services/' . $service->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900 relative">
                             <img src="{{ str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image) }}" 
                                  alt="{{ $service->title }}" 
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            @if($service->is_popular)
+                                <div class="absolute top-3 right-3 bg-accent text-primary-dark font-bold text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider shadow-sm">
+                                    Favorit Traveler
+                                </div>
+                            @endif
                         </a>
 
                         <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
                             <div class="space-y-2">
-                                <div class="eyebrow text-[10px] text-neutral-400 capitalize">
-                                    {{ $service->vehicle_type }} • {{ $service->formatted_price }}
+                                <div class="eyebrow text-[10px] text-sage font-bold">
+                                    {{ $service->formatted_price }} • {{ $service->estimated_duration ?? '1 Hari' }}
                                 </div>
-                                <h3 class="text-base font-bold text-black group-hover:text-accent transition-colors">
+                                <h3 class="text-base font-bold text-primary group-hover:text-sage transition-colors">
                                     <a href="{{ url('/services/' . $service->slug) }}">
                                         {{ $service->title }}
                                     </a>
                                 </h3>
-                                <p class="text-xs text-neutral-body line-clamp-3 leading-relaxed">
+                                <p class="text-xs text-gray-600 line-clamp-3 leading-relaxed">
                                     {{ $service->excerpt }}
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-neutral-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-400">
-                                <span>{{ $service->estimated_duration ?? 'Tuning Package' }}</span>
-                                <span class="group-hover:text-black font-semibold transition-colors">Learn More &rarr;</span>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] uppercase tracking-wider text-gray-500">
+                                <span class="font-medium text-xs">{{ $service->warranty ?? 'Berlisensi HPI' }}</span>
+                                <span class="group-hover:text-primary font-bold text-primary transition-colors">Detail &rarr;</span>
                             </div>
                         </div>
                     </div>
@@ -253,57 +264,27 @@
     </section>
 
 
-    <!-- 5. Featured Projects & Dyno Builds Section -->
-    <section class="py-20 md:py-28 bg-neutral-bg border-t border-neutral-200">
+    <!-- 5. Featured Destinations / Trips Showcase Section -->
+    <section class="py-20 md:py-28 bg-[#F8FAF9] border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200 pb-6">
                 <div>
-                    <div class="eyebrow text-accent font-semibold">Selected Works</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black mt-1 uppercase">
-                        Featured Builds &amp; Dyno Runs
+                    <div class="eyebrow text-sage font-bold">Destinasi Pilihan Indonesia</div>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary mt-1 uppercase">
+                        Galeri Perjalanan &amp; Ekspedisi Nyata
                     </h2>
                 </div>
-                <a href="{{ url('/portfolio') }}" class="eyebrow text-black hover:text-accent font-semibold transition-colors">
-                    Explore All Works &rarr;
+                <a href="{{ url('/portfolio') }}" class="eyebrow text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
+                    <span>Jelajahi Semua Destinasi</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
             </div>
 
             <!-- Projects Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($featuredProjects->take(6) as $project)
-                    <div class="group bg-white border border-neutral-200 hover:border-black transition-all flex flex-col justify-between overflow-hidden">
-                        <a href="{{ url('/portfolio/' . $project->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900">
-                            <img src="{{ str_starts_with($project->cover_image, 'http') ? $project->cover_image : asset('storage/' . $project->cover_image) }}" 
-                                 alt="{{ $project->title }}" 
-                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </a>
-
-                        <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
-                            <div class="space-y-2">
-                                <div class="eyebrow text-[10px] text-neutral-400">
-                                    {{ $project->vehicle_type === 'motor' ? 'Motor Custom' : 'Mobil Performance' }} • {{ $project->year }}
-                                </div>
-                                <h3 class="text-base font-bold text-black group-hover:text-accent transition-colors line-clamp-2">
-                                    <a href="{{ url('/portfolio/' . $project->slug) }}">
-                                        {{ $project->title }}
-                                    </a>
-                                </h3>
-                                <p class="text-xs text-neutral-body line-clamp-2 leading-relaxed">
-                                    {{ $project->description }}
-                                </p>
-                            </div>
-
-                            <div class="pt-4 border-t border-neutral-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-400">
-                                <span>{{ $project->client ?? 'Custom Build' }}</span>
-                                @if($project->dyno_hp_after)
-                                    <span class="font-bold text-black">{{ $project->dyno_hp_after }} HP (+{{ $project->hp_gain }} WHP)</span>
-                                @else
-                                    <span class="group-hover:text-black font-semibold transition-colors">View Details &rarr;</span>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                    @include('partials.project-card', ['project' => $project])
                 @endforeach
             </div>
 
@@ -311,28 +292,29 @@
     </section>
 
 
-    <!-- 6. Our Blog / Latest Articles Section -->
-    <section class="py-20 md:py-28 bg-white border-t border-neutral-200">
+    <!-- 6. Our Blog / Latest Travel Guides Section -->
+    <section class="py-20 md:py-28 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-6">
                 <div>
-                    <div class="eyebrow text-accent font-semibold">News &amp; Perspectives</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black mt-1 uppercase">
-                        From Our Blog
+                    <div class="eyebrow text-sage font-bold">Tips &amp; Wawasan Wisata</div>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary mt-1 uppercase">
+                        Travel Blog &amp; Panduan Wisata Indonesia
                     </h2>
                 </div>
-                <a href="{{ url('/our-blog') }}" class="eyebrow text-black hover:text-accent font-semibold transition-colors">
-                    Read All Articles &rarr;
+                <a href="{{ url('/our-blog') }}" class="eyebrow text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
+                    <span>Baca Semua Artikel</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @php $blogItems = $recentPosts ?? $latestPosts ?? collect(); @endphp
                 @forelse($blogItems as $post)
-                    <article class="group bg-white border border-neutral-200 flex flex-col justify-between overflow-hidden hover:border-black transition-all">
+                    <article class="tour-card flex flex-col justify-between group">
                         <a href="{{ url('/our-blog/' . $post->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900">
-                            <img src="{{ $post->cover_image ? (str_starts_with($post->cover_image, 'http') ? $post->cover_image : asset('storage/' . $post->cover_image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=800&auto=format&fit=crop' }}" 
+                            <img src="{{ $post->cover_image ? (str_starts_with($post->cover_image, 'http') ? $post->cover_image : asset('storage/' . $post->cover_image)) : 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=800&auto=format&fit=crop' }}" 
                                  alt="{{ $post->title }}" 
                                  loading="lazy"
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
@@ -341,30 +323,30 @@
                         <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
                             <div class="space-y-2">
                                 @if($post->category)
-                                    <div class="eyebrow text-[10px] text-accent font-semibold">
+                                    <div class="eyebrow text-[10px] text-sage font-bold">
                                         {{ $post->category->title }}
                                     </div>
                                 @endif
-                                <h3 class="text-base font-bold text-black group-hover:text-accent transition-colors line-clamp-2">
+                                <h3 class="text-base font-bold text-primary group-hover:text-sage transition-colors line-clamp-2">
                                     <a href="{{ url('/our-blog/' . $post->slug) }}">
                                         {{ $post->title }}
                                     </a>
                                 </h3>
                                 @if($post->excerpt)
-                                    <p class="text-xs text-neutral-body line-clamp-3 leading-relaxed">
+                                    <p class="text-xs text-gray-600 line-clamp-3 leading-relaxed">
                                         {{ $post->excerpt }}
                                     </p>
                                 @endif
                             </div>
-                            <div class="pt-4 border-t border-neutral-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-400">
-                                <span>{{ $post->published_at ? $post->published_at->format('M d, Y') : $post->created_at->format('M d, Y') }}</span>
-                                <span class="group-hover:text-black font-semibold transition-colors">Read Article &rarr;</span>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-gray-500">
+                                <span>{{ $post->published_at ? $post->published_at->format('d M Y') : $post->created_at->format('d M Y') }}</span>
+                                <span class="group-hover:text-primary font-bold text-primary transition-colors">Baca Lengkap &rarr;</span>
                             </div>
                         </div>
                     </article>
                 @empty
-                    <div class="col-span-3 text-center py-12 text-neutral-400 text-sm">
-                        No articles published yet.
+                    <div class="col-span-3 text-center py-12 text-gray-400 text-sm">
+                        Belum ada artikel yang diterbitkan.
                     </div>
                 @endforelse
             </div>
@@ -373,45 +355,45 @@
     </section>
 
 
-    <!-- 7. Partner & Client Brands Running Marquee -->
-    <section class="py-20 md:py-28 bg-white border-t border-neutral-200 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+    <!-- 7. Tourism Partners & Airlines Running Marquee -->
+    <section class="py-16 md:py-24 bg-[#F8FAF9] border-t border-gray-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-10">
             <div class="text-center space-y-2">
-                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black uppercase">
-                    {{ \App\Models\PageContent::get('home_clients_eyebrow', 'Official Performance Partners') }}
+                <div class="eyebrow text-sage font-bold">Kolaborasi &amp; Jaringan</div>
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary uppercase">
+                    Mitra Resmi Pariwisata &amp; Maskapai
                 </h2>
-                <div class="w-12 h-0.5 bg-black mx-auto"></div>
             </div>
 
             <!-- Running Marquee Track -->
-            <div class="relative w-full overflow-hidden mask-marquee py-4">
+            <div class="relative w-full overflow-hidden mask-marquee py-2">
                 @if($clients->count() > 0)
                     <div class="animate-marquee flex items-center gap-8 md:gap-12">
                         
                         @foreach($clients as $client)
-                            <div class="flex-shrink-0 flex items-center justify-center p-4 h-20 w-44 md:w-52 border border-neutral-100 hover:border-neutral-400 bg-white transition-all shadow-sm group">
+                            <div class="flex-shrink-0 flex items-center justify-center p-4 h-20 w-48 md:w-56 rounded-xl border border-gray-200/80 bg-white transition-all shadow-sm group">
                                 @if($client->logo)
                                     <img src="{{ str_starts_with($client->logo, 'http') ? $client->logo : asset('storage/' . $client->logo) }}" 
                                          alt="{{ $client->name }}" 
                                          title="{{ $client->name }}"
                                          loading="lazy"
-                                         class="max-h-10 max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                                         class="max-h-11 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
                                 @else
-                                    <span class="text-xs font-bold tracking-wider text-neutral-600 uppercase group-hover:text-black">{{ $client->name }}</span>
+                                    <span class="text-xs font-bold tracking-wider text-gray-700 uppercase group-hover:text-primary">{{ $client->name }}</span>
                                 @endif
                             </div>
                         @endforeach
 
                         @foreach($clients as $client)
-                            <div class="flex-shrink-0 flex items-center justify-center p-4 h-20 w-44 md:w-52 border border-neutral-100 hover:border-neutral-400 bg-white transition-all shadow-sm group">
+                            <div class="flex-shrink-0 flex items-center justify-center p-4 h-20 w-48 md:w-56 rounded-xl border border-gray-200/80 bg-white transition-all shadow-sm group">
                                 @if($client->logo)
                                     <img src="{{ str_starts_with($client->logo, 'http') ? $client->logo : asset('storage/' . $client->logo) }}" 
                                          alt="{{ $client->name }}" 
                                          title="{{ $client->name }}"
                                          loading="lazy"
-                                         class="max-h-10 max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                                         class="max-h-11 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
                                 @else
-                                    <span class="text-xs font-bold tracking-wider text-neutral-600 uppercase group-hover:text-black">{{ $client->name }}</span>
+                                    <span class="text-xs font-bold tracking-wider text-gray-700 uppercase group-hover:text-primary">{{ $client->name }}</span>
                                 @endif
                             </div>
                         @endforeach
@@ -420,9 +402,9 @@
                 @endif
             </div>
 
-            <div class="text-center pt-4">
-                <a href="{{ url('/clients') }}" class="eyebrow text-black hover:text-accent font-semibold border-b border-black pb-1 inline-block">
-                    View Complete Partner Roster &rarr;
+            <div class="text-center pt-2">
+                <a href="{{ url('/clients') }}" class="eyebrow text-primary hover:text-accent font-bold border-b border-primary pb-1 inline-block">
+                    Lihat Seluruh Jaringan Mitra &rarr;
                 </a>
             </div>
 
@@ -432,45 +414,44 @@
 
     <!-- 8. Testimonials Section -->
     @if(isset($testimonials) && $testimonials->count())
-        <section class="py-20 md:py-28 bg-neutral-bg border-t border-neutral-200">
+        <section class="py-20 md:py-28 bg-white border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
                 
                 <div class="text-center space-y-3 max-w-2xl mx-auto">
-                    <div class="eyebrow text-accent font-semibold">Client Endorsements</div>
-                    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-black uppercase">
-                        What Enthusiasts Say
+                    <div class="eyebrow text-sage font-bold">Ulasan Nyata Wisatawan</div>
+                    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-primary uppercase">
+                        Cerita &amp; Kesan Traveler
                     </h2>
-                    <div class="w-12 h-0.5 bg-black mx-auto"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     @foreach($testimonials as $testi)
-                        <div class="bg-white border border-neutral-200 p-8 flex flex-col justify-between space-y-6 hover:border-black transition-all group shadow-sm">
+                        <div class="tour-card p-8 flex flex-col justify-between space-y-6 group">
                             <div class="space-y-4">
-                                <div class="flex items-center gap-1 text-amber-500 text-xs">
+                                <div class="flex items-center gap-1 text-amber-500 text-sm">
                                     @for($i = 0; $i < ($testi->rating ?? 5); $i++)
-                                        <span>&#9733;</span>
+                                        <i class="fa-solid fa-star text-xs"></i>
                                     @endfor
                                 </div>
-                                <p class="text-neutral-700 text-xs md:text-sm leading-relaxed italic">
+                                <p class="text-gray-700 text-xs md:text-sm leading-relaxed italic">
                                     &ldquo;{{ $testi->message }}&rdquo;
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-neutral-100 flex items-center gap-4">
+                            <div class="pt-4 border-t border-gray-100 flex items-center gap-4">
                                 @if($testi->photo)
                                     <img src="{{ str_starts_with($testi->photo, 'http') ? $testi->photo : asset('storage/' . $testi->photo) }}" 
                                          alt="{{ $testi->client_name }}" 
-                                         class="w-10 h-10 rounded-full object-cover border border-neutral-200">
+                                         class="w-11 h-11 rounded-full object-cover border border-gray-200">
                                 @else
-                                    <div class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs">
+                                    <div class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">
                                         {{ substr($testi->client_name, 0, 1) }}
                                     </div>
                                 @endif
                                 <div>
-                                    <div class="text-xs font-bold text-black uppercase tracking-wider">{{ $testi->client_name }}</div>
+                                    <div class="text-xs font-bold text-primary uppercase tracking-wider">{{ $testi->client_name }}</div>
                                     @if($testi->client_company)
-                                        <div class="text-[11px] text-neutral-500">{{ $testi->client_company }}</div>
+                                        <div class="text-[11px] text-gray-500">{{ $testi->client_company }}</div>
                                     @endif
                                 </div>
                             </div>

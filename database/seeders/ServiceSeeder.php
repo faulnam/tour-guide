@@ -10,190 +10,206 @@ class ServiceSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. ECU Remap & Dyno Tuning (Mobil & Motor)
+        // 1. Private Guided Tour & Custom Itinerary (Wisata Privat Eksklusif)
         $s1 = Service::updateOrCreate(
-            ['slug' => 'ecu-remap-dyno-tuning'],
+            ['slug' => 'private-guided-custom-tour'],
             [
-                'title' => 'ECU Remapping & Dyno Jet Test',
+                'title' => 'Private Guided Tour & Custom Itinerary',
                 'vehicle_type' => 'both',
-                'category' => 'tuning_dyno',
-                'excerpt' => 'Optimasi tenaga mesin (HP & Torsi) hingga +35% dengan kalibrasi ECU profesional di mesin Dyno Jet 224xLC.',
-                'description' => 'Layanan kalibrasi ECU on-the-fly untuk mobil turbo, bensin, diesel common rail, dan moge/motor sport. Dikalibrasi langsung di atas mesin Dyno Jet 224xLC bersertifikasi internasional untuk efisiensi bahan bakar dan performa puncak yang aman.',
-                'base_price' => 2500000,
-                'estimated_duration' => '1 Hari (4-6 Jam)',
-                'warranty' => 'Garansi Software Seumur Hidup + 1x Free Fine Tuning',
+                'category' => 'private_tour',
+                'excerpt' => 'Layanan pemandu wisata privat berlisensi HPI dengan kebebasan waktu, rute kustom fleksibel, dan mobil ber-AC.',
+                'description' => 'Eksplorasi destinasi impian Anda di Indonesia tanpa terburu-buru dengan pemandu lokal profesional bersertifikasi HPI. Kami merancang rencana perjalanan (itinerary) yang disesuaikan secara personal dengan ritme perjalanan keluarga, pasangan, maupun solo traveler.',
+                'base_price' => 750000,
+                'estimated_duration' => '1 Hari (10-12 Jam)',
+                'warranty' => 'Jaminan Layanan Pemandu Berlisensi Resmi HPI + Asuransi Perjalanan',
                 'features' => [
-                    'Before & After Dyno Graph Sheet',
-                    'Pop & Bang / Flame Map Options',
-                    'Speed & RPM Limiter Removal',
-                    'Optimasi Air-Fuel Ratio (AFR)',
-                    'Safe Boost & Timing Calibration',
+                    'Pemandu Lokal Berlisensi Resmi HPI (Fasih Bahasa Indonesia & Inggris)',
+                    'Rute Kustom & Fleksibel Tanpa Batasan Titik Wisata',
+                    'Transportasi Mobil Nyaman Ber-AC + Driver Profesional + BBM',
+                    'Tiket Masuk Prioritas (Fast-Track) Destinasi Wisata Utama',
+                    'Rekomendasi Kuliner Otentik Lokal Non-Turistik',
                 ],
-                'icon' => 'gauge-high',
-                'image' => 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop',
+                'icon' => 'compass',
+                'image' => 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1000&auto=format&fit=crop',
                 'order' => 1,
                 'is_popular' => true,
                 'is_active' => true,
             ]
         );
 
-        // 2. Custom Bike Build & Cafe Racer (Motor)
+        // 2. Island Hopping & Marine Snorkeling Guide (Wisata Bahari & Liveaboard)
         $s2 = Service::updateOrCreate(
-            ['slug' => 'custom-motorcycle-build'],
+            ['slug' => 'island-hopping-marine-guide'],
             [
-                'title' => 'Custom Motorcycle Build (Cafe Racer & Bobber)',
+                'title' => 'Island Hopping & Marine Snorkeling Guide',
                 'vehicle_type' => 'motor',
-                'category' => 'modifikasi',
-                'excerpt' => 'Fabrikasi rangka custom, tangki handmade, pengerjaan Cafe Racer, Scrambler, Bobber, dan Chopper.',
-                'description' => 'Ubah motor standar Anda menjadi mahakarya custom handmade. Tim desainer dan builder kami menangani mulai dari perancangan subframe, tangki bensin plat galvanis handmade, knalpot stainless custom, hingga sistem kelistrikan tersembunyi berstandar kontes.',
-                'base_price' => 12500000,
-                'estimated_duration' => '14 - 30 Hari Kerja',
-                'warranty' => 'Garansi Rangka & Konstruksi 1 Tahun',
+                'category' => 'marine_tour',
+                'excerpt' => 'Pemandu spesialis wisata laut, snorkeling karang perawan, dan berenang bersama Pari Manta serta Penyu di Labuan Bajo & Raja Ampat.',
+                'description' => 'Jelajahi keajaiban bawah laut kepulauan Indonesia didampingi PADI Divemaster dan marine naturalist guide berpengalaman. Termasuk perlengkapan snorkeling steril berstandar tinggi, briefing keselamatan arus laut, dan dokumentasi underwater Go-Pro 4K.',
+                'base_price' => 1250000,
+                'estimated_duration' => 'Full Day / Liveaboard 3D2N',
+                'warranty' => 'Standar Keselamatan Kelautan Internasional + First-Aid Certified',
                 'features' => [
-                    'Desain 3D Konsep Kustomisasi',
-                    'Subframe & Swingarm Fabrikasi Khusus',
-                    'Tangki & Body Billet/Plat Handmade',
-                    'Custom Exhaust Stainless 304 / Titanium',
-                    'Jok Kulit Asli Hand-Stitched',
+                    'Pemandu Laut Bersertifikasi PADI / Naturalist Guide',
+                    'Perlengkapan Snorkeling Lengkap & Steril (Mask, Snorkel, Fin, Life Jacket)',
+                    'Spot Snorkeling Terbaik & Tersembunyi (Secret Corals & Manta Point)',
+                    'Dokumentasi Foto & Video Bawah Air (Underwater Action Cam 4K)',
+                    'Briefing Keamanan Arus & Perlindungan Ekosistem Terumbu Karang',
                 ],
-                'icon' => 'motorcycle',
-                'image' => 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1000&auto=format&fit=crop',
+                'icon' => 'water',
+                'image' => 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1000&auto=format&fit=crop',
                 'order' => 2,
                 'is_popular' => true,
                 'is_active' => true,
             ]
         );
 
-        // 3. Widebody & Custom Aero Kit (Mobil)
+        // 3. Volcano Trekking & Adventure Expedition Guide (Gunung & Petualangan)
         $s3 = Service::updateOrCreate(
-            ['slug' => 'widebody-custom-aerokit'],
+            ['slug' => 'volcano-trekking-adventure'],
             [
-                'title' => 'Widebody Kit & Carbon Fiber Aero',
+                'title' => 'Volcano Trekking & Sunrise Adventure Guide',
                 'vehicle_type' => 'mobil',
-                'category' => 'body_paint',
-                'excerpt' => 'Fabrikasi Widebody Kit, Overfender, Splitter Carbon Fiber, Ducktail, dan GT Wing agresif presisi tinggi.',
-                'description' => 'Pembuatan bodi kit custom presisi menggunakan material FRP high-grade dan Real Dry Carbon Fiber. Dibuat dengan pemodelan 3D scanning untuk fitting sempurna tanpa celah layaknya kit pabrikan ternama.',
-                'base_price' => 18000000,
-                'estimated_duration' => '10 - 21 Hari Kerja',
-                'warranty' => 'Garansi Pemasangan & Fitting 1 Tahun',
+                'category' => 'adventure',
+                'excerpt' => 'Ekspedisi mendaki Gunung Bromo Sunrise, Fenomena Api Biru Kawah Ijen, dan Gunung Rinjani dengan pemandu gunung berlisensi.',
+                'description' => 'Taklukkan puncak-puncak vulkanik spektakuler Nusantara dengan pendampingan guide gunung bersertifikasi APGI. Kami menyediakan masker gas respirator standar kimia untuk Kawah Ijen, Jeep 4x4 off-road untuk lautan pasir Bromo, serta peralatan pendukung pendakian yang aman.',
+                'base_price' => 950000,
+                'estimated_duration' => '1 - 3 Hari Pendakian',
+                'warranty' => 'Pemandu Bersertifikasi APGI (Asosiasi Pemandu Gunung Indonesia)',
                 'features' => [
-                    '3D Digital Laser Scanning & Fitting',
-                    'Material FRP & Real Carbon Fiber Infusion',
-                    'Custom Front Splitter, Side Skirt, Diffuser',
-                    'Overfender Widebody Stance Presisi',
-                    'Pengecatan Oven Standar Pabrikan',
+                    'Pemandu Gunung Berlisensi Resmi APGI',
+                    'Sewa Mobil Jeep 4x4 Off-Road Khusus Medan Vulkanik',
+                    'Masker Gas Respirator Profesional & Senter Kepala (Headlamp)',
+                    'Penentuan Titik Spot Golden Sunrise Terbaik & Minim Keramaian',
+                    'Manajemen Waktu Pendakian & Pertolongan Pertama Medis Lapangan',
                 ],
-                'icon' => 'car-burst',
-                'image' => 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1000&auto=format&fit=crop',
+                'icon' => 'mountain',
+                'image' => 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?q=80&w=1000&auto=format&fit=crop',
                 'order' => 3,
                 'is_popular' => true,
                 'is_active' => true,
             ]
         );
 
-        // 4. Custom Paint, Airbrush & Cat Oven Spies Hecker (Motor & Mobil)
+        // 4. Cultural Heritage & Spiritual Walking Tour (Warisan Budaya & Sejarah)
         $s4 = Service::updateOrCreate(
-            ['slug' => 'custom-paint-oven-airbrush'],
+            ['slug' => 'cultural-heritage-spiritual-tour'],
             [
-                'title' => 'Custom Paint, Airbrush & Cat Oven Spies Hecker',
+                'title' => 'Cultural Heritage & Spiritual Walking Tour',
                 'vehicle_type' => 'both',
-                'category' => 'body_paint',
-                'excerpt' => 'Pengecatan full body di ruang Oven berteknologi Spies Hecker Jerman: Candy Paint, Chameleon, Livery Racing.',
-                'description' => 'Fasilitas Spray Booth Oven bebas debu dengan cat premium Spies Hecker & Glasurit. Menawarkan efek warna eksklusif mulai dari Candy Red, Chameleon ChromaFlair, Satin Chrome, hingga Realist Airbrush Grafis balap.',
-                'base_price' => 4500000,
-                'estimated_duration' => '5 - 12 Hari Kerja',
-                'warranty' => 'Garansi Cat 2 Tahun Bebas Pudar & Mengelupas',
+                'category' => 'culture',
+                'excerpt' => 'Jelajah filosofi candi Borobudur, spiritualitas pura di Bali, hingga upacara adat sakral Tana Toraja bersama budayawan lokal.',
+                'description' => 'Pahami makna mendalam di balik relief candi kuno, arsitektur keraton, dan ritual tradisi suku-suku Nusantara. Pemandu kami adalah budayawan dan sejarawan lokal yang mampu menyampaikan kisah sejarah Indonesia secara memikat dan penuh penghormatan tradisi.',
+                'base_price' => 600000,
+                'estimated_duration' => 'Setengah Hari (4-6 Jam)',
+                'warranty' => 'Akses Khusus Budayawan & Pemandu Sejarah Senior',
                 'features' => [
-                    'Dust-Free Down-Draft Spray Booth Oven',
-                    'Spies Hecker & Glasurit Paint Material',
-                    'Custom Candy, Pearl & Chameleon Finish',
-                    '5x Lapisan Clear Coat High-Solid Gloss',
-                    'Polishing 3-Step Finishing Mirror Look',
+                    'Pemandu Sejarawan / Budayawan Lokal Berpengalaman',
+                    'Eksplorasi Relief & Filosofi Candi Warisan Dunia UNESCO',
+                    'Akses Upacara Adat Tradisional & Edukasi Etika Busana Sakral',
+                    'Workshop Singkat Kerajinan Tangan (Batik / Anyaman / Ukir Tradisional)',
+                    'Audio Receiver Wireless untuk Narasi yang Jernih di Area Candi',
                 ],
-                'icon' => 'spray-can-sparkles',
-                'image' => 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1000&auto=format&fit=crop',
+                'icon' => 'landmark',
+                'image' => 'https://images.unsplash.com/photo-1596402184320-417e7178b2cd?q=80&w=1000&auto=format&fit=crop',
                 'order' => 4,
                 'is_popular' => false,
                 'is_active' => true,
             ]
         );
 
-        // 5. Air Suspension & Big Brake Kit (Mobil & Motor)
+        // 5. Wildlife & Eco-Jungle Safari Guide (Satwa Liar & Hutan Hujan)
         $s5 = Service::updateOrCreate(
-            ['slug' => 'air-suspension-big-brake-kit'],
+            ['slug' => 'wildlife-eco-jungle-safari'],
             [
-                'title' => 'Air Suspension Management & Big Brake Kit',
+                'title' => 'Wildlife & Eco-Jungle Safari Guide',
                 'vehicle_type' => 'mobil',
-                'category' => 'kaki_kaki',
-                'excerpt' => 'Instalasi Air Suspension 2/4 titik dengan remote Bluetooth manajemen pintar + Big Brake Kit 4/6 Pot.',
-                'description' => 'Sistem suspensi udara canggih untuk stance ceper maksimal namun tetap nyaman untuk harian. Dilengkapi manajemen ketinggian otomatis via smartphone, kompresor senyap, serta upgrade pengereman Big Brake Kit (Brembo/AP Racing).',
-                'base_price' => 22000000,
-                'estimated_duration' => '3 - 5 Hari Kerja',
-                'warranty' => 'Garansi Airbag & Kompresor 1 Tahun',
+                'category' => 'nature',
+                'excerpt' => 'Menyusuri habitat Orangutan Tanjung Puting dengan Klotok atau melacak Komodo purba dengan ranger berlisensi konservasi.',
+                'description' => 'Pengalaman ekspedisi ramah lingkungan menyusuri hutan tropis tertua di bumi dan habitat satwa endemik Indonesia. Didampingi ranger konservasi berlisensi yang memahami tingkah laku satwa liar, rute jejak satwa, serta prinsip ecotourism berkelanjutan.',
+                'base_price' => 1500000,
+                'estimated_duration' => '2 - 4 Hari Ekspedisi',
+                'warranty' => 'Pemandu Konservasi Berizin Balai Taman Nasional RI',
                 'features' => [
-                    'Air Suspension Kit 2/4 Point Smart System',
-                    'Bluetooth & Hardwire Controller Display',
-                    'Big Brake Kit 4/6 Pot Caliper + Floating Disc',
-                    'Braided Brake Lines Stainless Steel',
-                    'Free Wheel Alignment & Camber Adjustment',
+                    'Ranger Resmi & Pemandu Konservasi Satwa Liar',
+                    'Kapal Klotok Tradisional Kayu Ulin Nyaman & Beratap',
+                    'Penyusuran Sungai Hutan Hujan Tropis & Feeding Station Satwa',
+                    'Peneropong Binokular Kualitas Tinggi untuk Pengamatan Burung/Satwa',
+                    'Kontribusi Donasi Pelestarian Hutan & Satwa Endemik Indonesia',
                 ],
-                'icon' => 'gears',
-                'image' => 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=1000&auto=format&fit=crop',
+                'icon' => 'tree',
+                'image' => 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop',
                 'order' => 5,
                 'is_popular' => false,
                 'is_active' => true,
             ]
         );
 
-        // 6. Ceramic Coating & Auto Detailing 9H (Motor & Mobil)
+        // 6. Travel Photography & Drone Cinematic Tour Guide (Dokumentasi Visual Liburan)
         $s6 = Service::updateOrCreate(
-            ['slug' => 'ceramic-coating-detailing-9h'],
+            ['slug' => 'photography-drone-tour-guide'],
             [
-                'title' => 'Nano Ceramic Coating 9H & Ultimate Detailing',
+                'title' => 'Cinematic Photography & Drone Tour Guide',
                 'vehicle_type' => 'both',
-                'category' => 'detailing_coating',
-                'excerpt' => 'Proteksi cat kilau kaca permanen dengan 3 layer Nano Ceramic 9H, Paint Correction, dan Interior Treatment.',
-                'description' => 'Perawatan cat tingkat tertinggi untuk menghilangkan goresan halus (swirl marks) hingga 95%. Dilapisi Nano Ceramic Coating 9H memberikan efek hidrofobik daun talas ekstrem, perlindungan sinar UV, dan kilap tahan hingga 3 tahun.',
-                'base_price' => 1500000,
-                'estimated_duration' => '1 - 2 Hari',
-                'warranty' => 'Garansi Kilap & Garansi Maintenance 3 Tahun',
+                'category' => 'photo_tour',
+                'excerpt' => 'Pemandu sekaligus fotografer profesional bersertifikasi drone pilot untuk dokumentasi video sinematik 4K liburan Anda.',
+                'description' => 'Abadikan momen liburan istimewa di lanskap terindah Indonesia dengan hasil foto beresolusi tinggi dan rekaman drone 4K siap posting di media sosial. Pemandu kami memandu rute terbaik pada golden hour dan mengarahkan pose alami terbaik.',
+                'base_price' => 1100000,
+                'estimated_duration' => '1 Hari Penuh',
+                'warranty' => 'Hasil Foto Color Graded Selesai dalam 24 Jam',
                 'features' => [
-                    'Multi-Stage Paint Correction (Menghilangkan Swirls)',
-                    '3-Layer 9H Nano Ceramic Glass Coating',
-                    'Hydrophobic Water Beading Effect Ekstrem',
-                    'Engine Bay Detailing & Dressing',
-                    'Interior Deep Clean + Fogging Anti-Bakteri',
+                    'Pemandu Sekaligus Fotografer & Pilot Drone Berlisensi FASI',
+                    'Kamera Mirrorless Full-Frame Sony/Canon + Drone DJI 4K HDR',
+                    'Pengambilan Sudut Angle Terbaik Sesuai Golden Hour',
+                    '50+ Foto Edited High-Res + 3 Video Reels/TikTok Siap Upload',
+                    'Semua File Mentah (RAW/Master) Dikirim via Google Drive Hari yang Sama',
                 ],
-                'icon' => 'sparkles',
-                'image' => 'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=1000&auto=format&fit=crop',
+                'icon' => 'camera',
+                'image' => 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop',
                 'order' => 6,
                 'is_popular' => true,
                 'is_active' => true,
             ]
         );
 
-        // 7. Tune Up Performa & Servis Berkala (Motor & Mobil)
-        $s7 = Service::updateOrCreate(
-            ['slug' => 'tune-up-performa-servis-berkala'],
+        // Child Services under Private Guided Custom Tour
+        Service::updateOrCreate(
+            ['slug' => 'bali-heritage-private-day-tour'],
             [
-                'title' => 'Tune Up Performa & Servis Berkala Lengkap',
-                'vehicle_type' => 'both',
-                'category' => 'servis_berkala',
-                'excerpt' => 'Servis berkala, gurah mesin carbon cleaner, flushing oli matic/manual, kalibrasi injektor, dan scanner diagnostik.',
-                'description' => 'Servis komprehensif mengembalikan tenaga mesin seperti baru. Pemeriksaan 40 titik kendaraan, pembersihan ruang bakar tanpa bongkar mesin, flushing cairan rem, dan penggantian oli performa tinggi.',
-                'base_price' => 750000,
-                'estimated_duration' => '2 - 3 Jam',
-                'warranty' => 'Garansi Servis 1 Bulan / 1.000 KM',
-                'features' => [
-                    'Pemeriksaan 40 Titik Kondisi Kendaraan',
-                    'Carbon Cleaner / Gurah Ruang Bakar',
-                    'Ultrasonic Cleaning Nozzle Injektor',
-                    'OBD2 Computer Diagnostics Scan',
-                    'Free Cuci & Vakum Mobil/Motor',
-                ],
-                'icon' => 'wrench',
-                'image' => 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1000&auto=format&fit=crop',
-                'order' => 7,
+                'parent_id' => $s1->id,
+                'title' => 'Bali Heritage & Scenic Day Excursion',
+                'vehicle_type' => 'mobil',
+                'category' => 'private_tour',
+                'excerpt' => 'Paket pemandu privat 1 hari mengeksplorasi Ubud, Tegalalang Rice Terrace, Pura Tirta Empul, dan Air Terjun Kanto Lampo.',
+                'description' => 'Pemandu privat Wayan Arta akan menjemput Anda di hotel dan mendampingi seharian penuh menjelajahi keindahan alam dan spiritualitas pulau Dewata.',
+                'base_price' => 650000,
+                'estimated_duration' => '10 Jam',
+                'warranty' => 'HPI Bali Guide Licensed',
+                'features' => ['Pemandu Lokal Asli Bali', 'Mobil Avanza/Innova Reborn', 'Air Mineral Dingin & Sarung Masuk Pura'],
+                'icon' => 'map-location-dot',
+                'image' => 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=600&auto=format&fit=crop',
+                'order' => 1,
+                'is_popular' => true,
+                'is_active' => true,
+            ]
+        );
+
+        Service::updateOrCreate(
+            ['slug' => 'yogyakarta-borobudur-prambanan-guide'],
+            [
+                'parent_id' => $s1->id,
+                'title' => 'Yogyakarta Royal Heritage & Temple Trail',
+                'vehicle_type' => 'mobil',
+                'category' => 'private_tour',
+                'excerpt' => 'Pemandu candi bersertifikasi UNESCO untuk eksplorasi Candi Borobudur, Candi Prambanan, dan Keraton Yogyakarta.',
+                'description' => 'Kupas tuntas filosofi arsitektur Mataram Kuno dan relief Borobudur bersama sejarawan lokal terbaik di Yogyakarta.',
+                'base_price' => 700000,
+                'estimated_duration' => '9 Jam',
+                'warranty' => 'Pemandu Resmi Taman Wisata Candi',
+                'features' => ['Pemandu Candi Khusus Naik Struktur', 'Transportasi Nyaman', 'Tiket Reservasi Borobudur Terjamin'],
+                'icon' => 'monument',
+                'image' => 'https://images.unsplash.com/photo-1596402184320-417e7178b2cd?q=80&w=600&auto=format&fit=crop',
+                'order' => 2,
                 'is_popular' => false,
                 'is_active' => true,
             ]

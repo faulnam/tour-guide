@@ -1,5 +1,5 @@
-<!-- BENGKEL AI Consultant Floating Widget (Clean Minimalist Luxury Styling) -->
-<div x-data="bengkelChatbot()" x-init="init()" class="fixed bottom-6 right-6 z-40">
+<!-- Nusantara Tour Guide AI Travel Consultant Floating Widget -->
+<div x-data="tourGuideChatbot()" x-init="init()" class="fixed bottom-6 right-6 z-40">
     
     <!-- Minimalist Teaser Prompt (Auto appears when unopened) -->
     <div x-show="showTeaser && !isOpen" 
@@ -10,36 +10,33 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 translate-y-3"
          x-cloak
-         class="absolute bottom-16 right-0 mb-2 w-72 bg-white text-black border border-neutral-200 p-4 shadow-xl text-xs space-y-2">
+         class="absolute bottom-16 right-0 mb-2 w-72 bg-white text-[#1A2E26] rounded-2xl border border-gray-100 p-4 shadow-elevated text-xs space-y-2">
         <div class="flex items-start justify-between">
             <div class="flex items-center space-x-2">
-                <span class="w-1.5 h-1.5 bg-black inline-block"></span>
-                <span class="eyebrow text-[10px] text-black font-bold">BENGKEL AI Consultant</span>
+                <span class="w-2 h-2 bg-emerald-500 rounded-full inline-block"></span>
+                <span class="eyebrow text-[10px] text-primary font-bold">Nusantara AI Travel Guide</span>
             </div>
-            <button @click="dismissTeaser()" class="text-neutral-400 hover:text-black text-sm">&times;</button>
+            <button @click="dismissTeaser()" class="text-gray-400 hover:text-gray-700 text-sm">&times;</button>
         </div>
-        <p class="text-neutral-600 text-[11px] leading-relaxed">
-            Ingin konsultasi seputar spesifikasi ECU remap, dyno tuning, custom build, atau estimasi biaya?
+        <p class="text-gray-600 text-[11px] leading-relaxed">
+            Butuh rekomendasi itinerary wisata Indonesia, estimasi biaya tur, atau tips persiapan liburan?
         </p>
-        <button @click="openChat()" class="text-[10px] uppercase tracking-widest font-semibold text-black hover:text-accent underline block pt-1">
-            Mulai Konsultasi &rarr;
+        <button @click="openChat()" class="text-[10px] uppercase tracking-wider font-bold text-accent-dark hover:text-primary flex items-center gap-1 pt-1">
+            <span>Tanya Pemandu AI</span>
+            <i class="fa-solid fa-arrow-right text-[9px]"></i>
         </button>
     </div>
 
     <!-- Floating Toggle Button -->
     <button @click="toggleChat()" 
             type="button"
-            class="group w-14 h-14 bg-black text-white hover:bg-neutral-900 border border-black flex items-center justify-center shadow-2xl transition-all duration-300 focus:outline-none"
-            aria-label="Toggle AI Consultation Chat">
+            class="group w-14 h-14 bg-primary text-white hover:bg-secondary rounded-2xl flex items-center justify-center shadow-elevated hover:shadow-glow transition-all duration-300 focus:outline-none"
+            aria-label="Toggle AI Travel Consultation Chat">
         <div class="relative w-6 h-6 flex items-center justify-center">
             <!-- Chat Icon -->
-            <svg x-show="!isOpen" class="w-5 h-5 transition-transform group-hover:scale-105" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-            </svg>
+            <i x-show="!isOpen" class="fa-solid fa-compass text-xl text-accent transition-transform group-hover:rotate-45"></i>
             <!-- Close (X) Icon -->
-            <svg x-show="isOpen" x-cloak class="w-5 h-5 transition-transform rotate-0 group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+            <i x-show="isOpen" x-cloak class="fa-solid fa-xmark text-xl text-white transition-transform group-hover:rotate-90"></i>
         </div>
     </button>
 
@@ -52,20 +49,20 @@
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
          x-cloak
-         class="absolute bottom-16 right-0 mb-3 w-[92vw] sm:w-[410px] bg-white text-black border border-neutral-200 shadow-2xl flex flex-col z-50 overflow-hidden font-sans"
+         class="absolute bottom-16 right-0 mb-3 w-[92vw] sm:w-[410px] bg-white text-[#1A2E26] rounded-2xl border border-gray-100 shadow-2xl flex flex-col z-50 overflow-hidden font-sans"
          style="height: min(580px, calc(100vh - 120px)); max-height: calc(100vh - 120px);">
         
         <!-- Window Header -->
-        <div class="px-5 py-4 border-b border-neutral-200 bg-white flex items-center justify-between">
+        <div class="px-5 py-4 border-b border-gray-100 bg-primary text-white flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-black text-white flex items-center justify-center text-xs font-bold font-sans">
-                    B
+                <div class="w-8 h-8 rounded-lg bg-accent text-primary-dark flex items-center justify-center text-xs font-bold font-sans shadow-sm">
+                    <i class="fa-solid fa-compass"></i>
                 </div>
                 <div>
-                    <h3 class="text-xs uppercase tracking-widest font-bold text-black">BENGKEL AI Consultant</h3>
-                    <div class="flex items-center space-x-1.5 text-[10px] text-neutral-500 mt-0.5">
-                        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block"></span>
-                        <span>Performance &amp; Tuning Expert</span>
+                    <h3 class="text-xs uppercase tracking-wider font-bold text-white">Nusantara AI Travel Guide</h3>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-accent mt-0.5">
+                        <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block"></span>
+                        <span>Konsultan Wisata Seluruh Indonesia</span>
                     </div>
                 </div>
             </div>
@@ -73,303 +70,257 @@
             <div class="flex items-center space-x-2">
                 <button @click="confirmClearChat()" 
                         type="button" 
-                        class="p-1.5 text-neutral-400 hover:text-black transition-colors text-[11px] uppercase tracking-wider" 
+                        class="p-1.5 text-gray-300 hover:text-white transition-colors text-xs" 
                         title="Hapus Percakapan">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    <i class="fa-regular fa-trash-can"></i>
                 </button>
                 <button @click="isOpen = false" 
                         type="button" 
-                        class="p-1.5 text-neutral-400 hover:text-black transition-colors"
+                        class="p-1.5 text-gray-300 hover:text-white transition-colors"
                         aria-label="Tutup Chat">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
         </div>
 
         <!-- Chat Body Messages Scroll Area -->
-        <div x-ref="chatContainer" class="flex-1 p-5 overflow-y-auto space-y-4 bg-neutral-bg/60 text-xs">
+        <div x-ref="chatContainer" class="flex-1 p-5 overflow-y-auto space-y-4 bg-[#F8FAF9] text-xs">
             
             <!-- Default Welcome Card -->
-            <div class="p-4 bg-white border border-neutral-200 space-y-2">
-                <div class="eyebrow text-[9px] text-accent font-semibold">Selamat Datang di BENGKEL Modifikasi</div>
-                <p class="text-neutral-700 text-xs leading-relaxed">
-                    Halo! Saya asisten AI spesialis modifikasi performa motor dan mobil. Silakan ajukan pertanyaan seputar ECU Remap, Dyno tuning, custom build, atau booking servis.
+            <div class="p-4 bg-white rounded-xl border border-gray-100 shadow-soft space-y-2">
+                <div class="eyebrow text-[9px] text-sage font-bold uppercase tracking-wider">Selamat Datang di Nusantara Tour Guide</div>
+                <p class="text-gray-700 text-xs leading-relaxed">
+                    Halo! Saya asisten AI konsultan perjalanan Indonesia. Tanyakan seputar rekomendasi destinasi Raja Ampat, Labuan Bajo, Bromo, Bali, tips persiapan, atau booking pemandu berlisensi resmi HPI!
                 </p>
             </div>
 
             <!-- Suggestion Quick Prompts -->
-            <div class="space-y-1.5 pt-1">
-                <div class="eyebrow text-[9px] text-neutral-400 uppercase">Topik Populer:</div>
-                <div class="flex flex-wrap gap-1.5">
-                    <template x-for="(sug, idx) in suggestions" :key="idx">
+            <div x-show="messages.length === 0 && suggestions.length > 0" class="space-y-2">
+                <div class="text-[10px] uppercase tracking-wider font-bold text-gray-500">Pilihan Topik Populer:</div>
+                <div class="flex flex-col gap-1.5">
+                    <template x-for="(sug, index) in suggestions" :key="index">
                         <button @click="sendPredefined(sug.prompt)" 
-                                type="button" 
-                                class="text-left px-2.5 py-1.5 bg-white hover:bg-black hover:text-white text-neutral-700 border border-neutral-200 text-[10px] tracking-wide transition-all">
-                            <span x-text="sug.label"></span>
+                                type="button"
+                                class="text-left px-3.5 py-2.5 bg-white hover:bg-sage-light hover:border-sage border border-gray-200 text-gray-800 rounded-lg text-xs font-medium transition-all shadow-sm">
+                            <span x-text="sug.label"></span> &rarr;
                         </button>
                     </template>
                 </div>
             </div>
 
-            <!-- Messages Stream -->
-            <template x-for="(msg, index) in messages" :key="index">
+            <!-- Message List -->
+            <template x-for="(msg, i) in messages" :key="i">
                 <div :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
-                    <div class="max-w-[85%] space-y-1" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
-                        
-                        <div class="p-3.5 text-xs leading-relaxed" 
-                             :class="msg.role === 'user' 
-                                 ? 'bg-black text-white' 
-                                 : 'bg-white text-neutral-800 border border-neutral-200 shadow-sm'">
-                            <div class="bengkel-chat-body" x-html="renderMarkdown(msg.text)"></div>
-                        </div>
-
-                        <!-- Timestamp & Copy Helper for Model -->
-                        <div class="flex items-center space-x-2 px-1 text-[9px] text-neutral-400" :class="msg.role === 'user' ? 'justify-end' : 'justify-start'">
-                            <span x-text="msg.time"></span>
-                            <template x-if="msg.role === 'model'">
-                                <button @click="copyText(msg.text, $event)" class="hover:text-black uppercase tracking-widest text-[8px]">
-                                    Salin
-                                </button>
-                            </template>
-                        </div>
-
+                    <div :class="msg.role === 'user' 
+                                    ? 'bg-primary text-white rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] shadow-sm' 
+                                    : 'bg-white text-gray-800 border border-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-[90%] shadow-soft leading-relaxed'">
+                        <div class="text-xs space-y-1.5 break-words" x-html="renderMarkdown(msg.text)"></div>
+                        <div class="text-[9px] mt-1 text-right" 
+                             :class="msg.role === 'user' ? 'text-gray-300' : 'text-gray-400'" 
+                             x-text="msg.time"></div>
                     </div>
                 </div>
             </template>
 
-            <!-- Thinking Status Animation Indicator -->
-            <div x-show="isThinking" x-cloak class="flex items-center space-x-2 p-3 bg-white border border-neutral-200 w-fit text-neutral-600 text-xs shadow-sm">
-                <svg class="animate-spin w-3.5 h-3.5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                </svg>
-                <span class="text-[11px]" x-text="thinkingStatus"></span>
-            </div>
-
-            <!-- Error Banner -->
-            <div x-show="errorMessage" x-cloak class="p-3 bg-red-50 border border-red-200 text-red-700 text-xs">
-                <span x-text="errorMessage"></span>
+            <!-- Loading Bubble -->
+            <div x-show="isLoading" class="flex justify-start">
+                <div class="bg-white border border-gray-100 rounded-2xl rounded-tl-none px-4 py-3 shadow-soft flex items-center space-x-1.5 text-xs text-gray-500">
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-bounce"></span>
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    <span class="ml-1 text-[11px]">Pemandu AI sedang merangkum...</span>
+                </div>
             </div>
 
         </div>
 
-        <!-- Chat Input Footer -->
-        <div class="p-3 border-t border-neutral-200 bg-white">
+        <!-- Window Footer / Input Form -->
+        <div class="p-3 border-t border-gray-100 bg-white">
             <form @submit.prevent="sendMessage()" class="flex items-center space-x-2">
                 <input type="text" 
-                       x-model="userInput" 
-                       :disabled="isThinking"
-                       placeholder="Tulis pertanyaan seputar modifikasi..." 
-                       class="flex-1 bg-neutral-bg border border-neutral-300 text-black text-xs px-3.5 py-2.5 focus:outline-none focus:border-black transition-colors disabled:bg-neutral-100 placeholder:text-neutral-400">
+                       x-model="inputMessage" 
+                       x-ref="messageInput"
+                       :disabled="isLoading"
+                       placeholder="Tanyakan destinasi, rute, atau tips wisata..." 
+                       class="flex-1 bg-gray-50 border border-gray-200 text-xs px-3.5 py-2.5 rounded-xl focus:outline-none focus:border-primary transition-colors disabled:opacity-50 text-gray-800">
                 <button type="submit" 
-                        :disabled="!userInput.trim() || isThinking" 
-                        class="px-4 py-2.5 bg-black text-white hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed text-xs uppercase tracking-widest font-semibold transition-colors flex items-center space-x-1">
-                    <span>Kirim</span>
+                        :disabled="isLoading || !inputMessage.trim()"
+                        class="px-4 py-2.5 bg-primary text-white hover:bg-secondary rounded-xl font-bold transition-all disabled:opacity-40 shadow-sm flex items-center justify-center">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
                 </button>
             </form>
+            <div class="mt-1.5 text-center">
+                <span class="text-[9px] text-gray-400">Didukung Google Gemini &bull; Wisata Resmi Indonesia</span>
+            </div>
         </div>
+
     </div>
+
 </div>
 
-<style>
-.bengkel-chat-body p { margin-bottom: 0.5rem; }
-.bengkel-chat-body p:last-child { margin-bottom: 0; }
-.bengkel-chat-body strong { font-weight: 700; color: inherit; }
-.bengkel-chat-body ul { list-style-type: disc; margin-left: 1.1rem; margin-bottom: 0.5rem; }
-.bengkel-chat-body ol { list-style-type: decimal; margin-left: 1.1rem; margin-bottom: 0.5rem; }
-.bengkel-chat-body li { margin-bottom: 0.25rem; }
-.bengkel-chat-body a { text-decoration: underline; font-weight: 600; color: inherit; }
-</style>
-
 <script>
-function bengkelChatbot() {
+function tourGuideChatbot() {
     return {
         isOpen: false,
         showTeaser: false,
-        userInput: '',
-        isThinking: false,
-        thinkingStatus: 'Sedang menganalisis spesifikasi tuning...',
-        thinkingInterval: null,
-        errorMessage: '',
+        isLoading: false,
+        inputMessage: '',
         messages: [],
         suggestions: [
-            { label: 'Estimasi ECU Remap & Dyno Run', prompt: 'Berapa estimasi biaya dan peningkatan performa untuk remap ECU mobil/motor?' },
-            { label: 'Konsep Motor Cafe Racer / Bobber', prompt: 'Bagaimana tahapan dan estimasi waktu build motor custom Cafe Racer di BENGKEL?' },
-            { label: 'Paket Cat Oven Spies Hecker', prompt: 'Apa keunggulan dan garansi pengecatan oven Spies Hecker di BENGKEL?' },
-            { label: 'Cara Booking Online & Bayar DP', prompt: 'Bagaimana alur booking online servis dan pembayaran DP via Payment Gateway?' }
+            { label: 'Itinerary Raja Ampat 4D3N', prompt: 'Berapa estimasi biaya dan rekomendasi itinerary 4D3N ke Wayag & Misool Raja Ampat beserta pemandu?' },
+            { label: 'Sailing Komodo & Labuan Bajo', prompt: 'Kapan musim terbaik untuk liveaboard ke Pulau Padar, Pink Beach, dan snorkeling bersama Manta Ray?' },
+            { label: 'Paket Sunrise Bromo & Ijen Blue Fire', prompt: 'Apa saja persiapan dan perlengkapan mendaki untuk tur sunrise Bromo dan Kawah Ijen?' },
+            { label: 'Pemandu Budaya Bali & Toraja', prompt: 'Bagaimana etika berkunjung dan rute wisata warisan budaya spiritual di Bali dan Tana Toraja?' }
         ],
 
         init() {
-            const saved = sessionStorage.getItem('bengkel_chat_history');
+            const saved = localStorage.getItem('nusantara_tour_chat_history');
             if (saved) {
-                try { this.messages = JSON.parse(saved); } catch(e) { this.messages = []; }
+                try {
+                    this.messages = JSON.parse(saved);
+                } catch (e) {
+                    this.messages = [];
+                }
             }
 
-            setTimeout(() => {
-                if (!this.isOpen && this.messages.length === 0) {
+            const teaserDismissed = sessionStorage.getItem('nusantara_chat_teaser_dismissed');
+            if (!teaserDismissed && this.messages.length === 0) {
+                setTimeout(() => {
                     this.showTeaser = true;
-                }
-            }, 3500);
+                }, 4000);
+            }
+        },
+
+        dismissTeaser() {
+            this.showTeaser = false;
+            sessionStorage.setItem('nusantara_chat_teaser_dismissed', '1');
         },
 
         openChat() {
             this.isOpen = true;
             this.showTeaser = false;
-            this.scrollToBottom();
+            this.$nextTick(() => {
+                this.scrollToBottom();
+                this.$refs.messageInput?.focus();
+            });
         },
 
         toggleChat() {
             this.isOpen = !this.isOpen;
             if (this.isOpen) {
                 this.showTeaser = false;
-                this.scrollToBottom();
+                this.$nextTick(() => {
+                    this.scrollToBottom();
+                    this.$refs.messageInput?.focus();
+                });
             }
         },
 
-        dismissTeaser() {
-            this.showTeaser = false;
-        },
-
-        sendPredefined(prompt) {
-            this.userInput = prompt;
+        sendPredefined(promptText) {
+            this.inputMessage = promptText;
             this.sendMessage();
         },
 
         async sendMessage() {
-            const text = this.userInput.trim();
-            if (!text || this.isThinking) return;
+            const text = this.inputMessage.trim();
+            if (!text || this.isLoading) return;
 
-            this.errorMessage = '';
-            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
 
-            this.messages.push({ role: 'user', text: text, time: currentTime });
-            this.userInput = '';
+            this.messages.push({
+                role: 'user',
+                text: text,
+                time: timeString
+            });
+
+            this.inputMessage = '';
+            this.isLoading = true;
             this.saveHistory();
-            this.scrollToBottom();
-
-            this.isThinking = true;
-            this.startThinkingAnimation();
+            this.$nextTick(() => this.scrollToBottom());
 
             try {
-                const response = await fetch('{{ route('chatbot.send') }}', {
+                const historyPayload = this.messages.slice(-10).map(m => ({
+                    role: m.role === 'user' ? 'user' : 'model',
+                    text: m.text
+                }));
+
+                const response = await fetch('{{ route("chatbot.send") }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
-                    body: JSON.stringify({ message: text })
+                    body: JSON.stringify({
+                        message: text,
+                        history: historyPayload
+                    })
                 });
 
                 const data = await response.json();
-                this.stopThinkingAnimation();
-                this.isThinking = false;
 
-                if (data.status === 'success' && data.reply) {
-                    const replyTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                if (data.success) {
                     this.messages.push({
-                        role: 'model',
+                        role: 'assistant',
                         text: data.reply,
-                        time: replyTime
+                        time: new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0')
                     });
-                    this.saveHistory();
-                    this.scrollToBottom();
                 } else {
-                    this.errorMessage = data.message || 'Terjadi gangguan saat memproses jawaban. Silakan coba kembali.';
+                    this.messages.push({
+                        role: 'assistant',
+                        text: data.message || 'Mohon maaf, terjadi kendala teknis pada layanan pemandu AI. Silakan hubungi admin kami via WhatsApp.',
+                        time: new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0')
+                    });
                 }
             } catch (err) {
-                this.stopThinkingAnimation();
-                this.isThinking = false;
-                this.errorMessage = 'Gagal terhubung dengan server chatbot. Periksa koneksi Anda.';
+                this.messages.push({
+                    role: 'assistant',
+                    text: 'Tidak dapat terhubung ke server pemandu wisata. Silakan periksa koneksi internet Anda.',
+                    time: new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0')
+                });
+            } finally {
+                this.isLoading = false;
+                this.saveHistory();
+                this.$nextTick(() => this.scrollToBottom());
             }
-        },
-
-        startThinkingAnimation() {
-            const statuses = [
-                'Sedang membaca parameter mesin & dyno...',
-                'Mengkalkulasi rasio performa dan rekomendasi paket...',
-                'Menyusun estimasi dan arahan teknis...'
-            ];
-            let idx = 0;
-            this.thinkingStatus = statuses[0];
-            this.thinkingInterval = setInterval(() => {
-                idx = (idx + 1) % statuses.length;
-                this.thinkingStatus = statuses[idx];
-            }, 1800);
-        },
-
-        stopThinkingAnimation() {
-            if (this.thinkingInterval) {
-                clearInterval(this.thinkingInterval);
-                this.thinkingInterval = null;
-            }
-        },
-
-        scrollToBottom() {
-            this.$nextTick(() => {
-                if (this.$refs.chatContainer) {
-                    this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
-                }
-            });
-        },
-
-        saveHistory() {
-            try { sessionStorage.setItem('bengkel_chat_history', JSON.stringify(this.messages)); } catch(e) {}
         },
 
         confirmClearChat() {
-            if (confirm('Hapus riwayat percakapan konsultasi?')) {
+            if (confirm('Apakah Anda ingin menghapus seluruh riwayat konsultasi ini?')) {
                 this.messages = [];
-                sessionStorage.removeItem('bengkel_chat_history');
+                localStorage.removeItem('nusantara_tour_chat_history');
             }
         },
 
-        copyText(text, event) {
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = event.target;
-                const orig = btn.innerText;
-                btn.innerText = 'Tersalin!';
-                setTimeout(() => { btn.innerText = orig; }, 1500);
-            });
+        saveHistory() {
+            localStorage.setItem('nusantara_tour_chat_history', JSON.stringify(this.messages.slice(-20)));
         },
 
-        renderMarkdown(raw) {
-            if (!raw) return '';
-            let html = raw
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
-
-            // Bold
-            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Italic
-            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-            // Inline code
-            html = html.replace(/`(.*?)`/g, '<code class="bg-neutral-100 px-1 py-0.5 font-mono text-[10px]">$1</code>');
-            // Links
-            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-
-            // Paragraphs and Lists
-            const lines = html.split('\n');
-            let inList = false;
-            let result = '';
-
-            for (let line of lines) {
-                let trimmed = line.trim();
-                if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
-                    if (!inList) { result += '<ul>'; inList = true; }
-                    result += '<li>' + trimmed.substring(2) + '</li>';
-                } else {
-                    if (inList) { result += '</ul>'; inList = false; }
-                    if (trimmed.length > 0) {
-                        result += '<p>' + trimmed + '</p>';
-                    }
-                }
+        scrollToBottom() {
+            if (this.$refs.chatContainer) {
+                this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight;
             }
-            if (inList) result += '</ul>';
+        },
 
-            return result;
+        renderMarkdown(rawText) {
+            if (!rawText) return '';
+            let escaped = rawText
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Bold **text**
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Bullet points
+            escaped = escaped.replace(/^\s*[\-\*]\s+(.*)$/gm, '<li class="ml-3 list-disc">$1</li>');
+            // Numbered list
+            escaped = escaped.replace(/^\s*(\d+)\.\s+(.*)$/gm, '<li class="ml-3 list-decimal">$2</li>');
+            // Paragraph breaks
+            escaped = escaped.replace(/\n\n/g, '<div class="h-2"></div>');
+            escaped = escaped.replace(/\n/g, '<br>');
+
+            return escaped;
         }
-    };
+    }
 }
 </script>

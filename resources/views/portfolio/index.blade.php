@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Portfolio & Modification Builds — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
-@section('meta_description', 'Galeri hasil modifikasi motor dan mobil, pengujian dyno jet power run, custom bike builder, dan widebody di BENGKEL.')
+@section('meta_title', 'Destinasi Wisata & Ekspedisi — ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide'))
+@section('meta_description', 'Dokumentasi nyata ekspedisi wisata di seluruh Indonesia: Raja Ampat, Labuan Bajo Komodo, Gunung Bromo & Ijen, Bali, dan Tana Toraja.')
 
 @section('content')
 
     <!-- Hero Banner -->
-    <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop');">
+    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
+             style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2000&auto=format&fit=crop');">
         </div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">Selected Works &amp; Masterpiece Builds</div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-earth-asia text-accent"></i>
+                <span>Galeri Perjalanan Nyata</span>
+            </div>
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
-                Our Portfolio
+                Destinasi Wisata Nusantara
             </h1>
-            <p class="text-neutral-300 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-                Koleksi kendaraan modifikasi performa tinggi, hasil uji dyno jet, dan motor kustom berstandar kontes.
+            <p class="text-gray-200 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+                Koleksi dokumentasi perjalanan eksklusif para traveler menjelajahi surga tersembunyi Indonesia bersama pemandu lokal berlisensi.
             </p>
         </div>
     </section>
@@ -27,13 +30,13 @@
     <section class="py-20 md:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-6">
                 <div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-black">
-                        All Completed Builds
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary uppercase">
+                        Semua Ekspedisi &amp; Rute Wisata
                     </h2>
-                    <p class="text-neutral-body text-xs mt-1">
-                        Showing {{ $projects->total() }} projects
+                    <p class="text-gray-500 text-xs mt-1">
+                        Menampilkan {{ $projects->total() }} rute perjalanan aktif di Indonesia
                     </p>
                 </div>
             </div>

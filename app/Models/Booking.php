@@ -59,7 +59,7 @@ class Booking extends Model
 
     public static function generateBookingCode(): string
     {
-        $prefix = 'BK-' . date('Ym') . '-';
+        $prefix = 'TG-' . date('Ym') . '-';
         $count = self::whereYear('created_at', date('Y'))
                      ->whereMonth('created_at', date('m'))
                      ->count() + 1;
@@ -72,6 +72,16 @@ class Booking extends Model
     }
 
     public function mechanic(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'karyawan_id');
+    }
+
+    public function tourGuide(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'karyawan_id');
+    }
+
+    public function guide(): BelongsTo
     {
         return $this->belongsTo(User::class, 'karyawan_id');
     }
@@ -100,10 +110,10 @@ class Booking extends Model
     {
         return match ($this->status) {
             'pending' => 'Menunggu Konfirmasi',
-            'confirmed' => 'Terkonfirmasi Masuk',
-            'in_progress' => 'Sedang Dikerjakan',
-            'qc' => 'QC & Dyno Test',
-            'completed' => 'Selesai / Siap Diambil',
+            'confirmed' => 'Jadwal Terkonfirmasi',
+            'in_progress' => 'Tur Sedang Berlangsung',
+            'qc' => 'Dokumentasi & Review Tur',
+            'completed' => 'Tur Selesai Sukses',
             'cancelled' => 'Dibatalkan',
             default => ucfirst($this->status),
         };
@@ -113,7 +123,7 @@ class Booking extends Model
     {
         return match ($this->payment_status) {
             'paid' => 'Lunas Penuh',
-            'dp_paid' => 'DP Terbayar',
+            'dp_paid' => 'DP Terbayar (Booking Locked)',
             'refunded' => 'Dana Dikembalikan (Refund)',
             default => 'Belum Bayar',
         };
@@ -123,10 +133,10 @@ class Booking extends Model
     {
         return match ($this->status) {
             'pending' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800">Menunggu Konfirmasi</span>',
-            'confirmed' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-300 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">Terkonfirmasi Masuk</span>',
-            'in_progress' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-300 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800 animate-pulse">Sedang Dikerjakan</span>',
-            'qc' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-300 dark:bg-cyan-950 dark:text-cyan-300 dark:border-cyan-800">QC & Dyno Test</span>',
-            'completed' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">Selesai / Ready</span>',
+            'confirmed' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-300 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">Jadwal Terkonfirmasi</span>',
+            'in_progress' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800 animate-pulse">Tur Berlangsung</span>',
+            'qc' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-teal-100 text-teal-800 border border-teal-300 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-800">Dokumentasi & Review</span>',
+            'completed' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-green-100 text-green-800 border border-green-300 dark:bg-green-950 dark:text-green-300 dark:border-green-800">Tur Selesai</span>',
             'cancelled' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-800 border border-red-300 dark:bg-red-950 dark:text-red-300 dark:border-red-800">Dibatalkan</span>',
             default => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 border border-neutral-300 dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700">' . ucfirst($this->status) . '</span>',
         };
@@ -136,7 +146,7 @@ class Booking extends Model
     {
         return match ($this->payment_status) {
             'paid' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">Lunas Penuh</span>',
-            'dp_paid' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-cyan-100 text-cyan-800 border border-cyan-300 dark:bg-cyan-950 dark:text-cyan-300 dark:border-cyan-800">DP Terbayar</span>',
+            'dp_paid' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-teal-100 text-teal-800 border border-teal-300 dark:bg-teal-950 dark:text-teal-300 dark:border-teal-800">DP Terbayar</span>',
             'refunded' => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-300 dark:bg-purple-950 dark:text-purple-300 dark:border-purple-800">Refund</span>',
             default => '<span class="inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-950 dark:text-amber-300 dark:border-amber-800">Belum Bayar</span>',
         };
@@ -144,7 +154,14 @@ class Booking extends Model
 
     public function getVehicleTypeLabelAttribute(): string
     {
-        return $this->vehicle_type === 'motor' ? 'Motor' : 'Mobil';
+        return match ($this->vehicle_type) {
+            'private' => 'Private Guided Tour',
+            'group' => 'Open Trip / Group Tour',
+            'family' => 'Family & Custom Expedition',
+            'motor' => 'Adventure Trip',
+            'mobil' => 'Comfort Tour',
+            default => 'Private Guided Tour',
+        };
     }
 
     /**
@@ -251,7 +268,7 @@ class Booking extends Model
     {
         return match ($this->delivery_method) {
             'delivery_address' => 'Diantar ke Alamat Customer (Delivery / Towing)',
-            default => 'Diambil Sendiri ke Workshop BENGKEL',
+            default => 'Selesai di Titik Kumpul / Hotel',
         };
     }
 }

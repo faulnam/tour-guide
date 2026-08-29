@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
-@section('meta_title', 'Services & Modification Packages — ' . \App\Models\SiteSetting::get('company_name', 'BENGKEL'))
-@section('meta_description', 'Layanan modifikasi performa tinggi: ECU Remap Dyno Run, Custom Motorcycle Builder, Widebody Kit, Cat Oven Spies Hecker, dan Air Suspension di Jakarta.')
+@section('meta_title', 'Paket Pemandu Wisata & Ekspedisi — ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide'))
+@section('meta_description', 'Pilihan paket pemandu wisata berlisensi resmi HPI: Privat Tour Bali & Jogja, Island Hopping Labuan Bajo & Raja Ampat, Volcano Trekking Bromo-Ijen, dan Ecotourism Safari.')
 
 @section('content')
 
     <!-- Hero Header -->
-    <section class="relative bg-neutral-900 text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center opacity-60 scale-105 transform transition-transform duration-1000" 
-             style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2000&auto=format&fit=crop');">
+    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
+             style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2000&auto=format&fit=crop');">
         </div>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/85"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="eyebrow-light">Performance Tuning &amp; Custom Fabrication</div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-compass text-accent"></i>
+                <span>Layanan Pemandu Wisata Seluruh Indonesia</span>
+            </div>
             <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
-                Our Services
+                Paket Pemandu &amp; Ekspedisi
             </h1>
-            <p class="text-neutral-300 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
-                Dari kalibrasi performa dyno run hingga fabrikasi kustom motor &amp; mobil, kami menyediakan layanan terpadu berstandar motorsport.
+            <p class="text-gray-200 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+                Dari tur privat budaya hingga penjelajahan alam liar dan bahari, kami menyediakan pemandu berlisensi resmi HPI dengan standar terbaik.
             </p>
         </div>
     </section>
@@ -28,26 +31,26 @@
         <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-20">
             
             @foreach($services as $index => $service)
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-12 {{ $index > 0 ? 'border-t border-neutral-200' : '' }}">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-12 {{ $index > 0 ? 'border-t border-gray-100' : '' }}">
                     
                     <!-- Left Column: Service Title & Intro -->
-                    <div class="lg:col-span-5 space-y-6">
-                        <div class="text-3xl font-extrabold text-neutral-300">0{{ $index + 1 }}</div>
-                        <div class="eyebrow text-accent font-semibold capitalize">{{ $service->vehicle_type }} • {{ $service->formatted_price }}</div>
-                        <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-black uppercase font-sans">
+                    <div class="lg:col-span-5 space-y-5">
+                        <div class="text-4xl font-extrabold text-sage/20">0{{ $index + 1 }}</div>
+                        <div class="eyebrow text-sage font-bold">{{ $service->formatted_price }} • {{ $service->estimated_duration ?? '1 Hari' }}</div>
+                        <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary uppercase font-sans">
                             {{ $service->title }}
                         </h2>
                         @if($service->excerpt)
-                            <p class="text-neutral-body text-xs md:text-sm leading-relaxed">
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed">
                                 {{ $service->excerpt }}
                             </p>
                         @endif
 
                         @if(!empty($service->features))
-                            <ul class="space-y-2 text-xs text-neutral-700">
+                            <ul class="space-y-2 text-xs text-gray-700">
                                 @foreach(array_slice($service->features, 0, 4) as $feat)
-                                    <li class="flex items-center gap-2">
-                                        <span class="w-1.5 h-1.5 bg-black inline-block"></span>
+                                    <li class="flex items-center gap-2.5">
+                                        <i class="fa-solid fa-check text-emerald-600 text-xs"></i>
                                         <span>{{ $feat }}</span>
                                     </li>
                                 @endforeach
@@ -55,19 +58,20 @@
                         @endif
 
                         <div class="pt-4 flex flex-wrap items-center gap-3">
-                            <a href="{{ url('/services/' . $service->slug) }}" class="btn-dark">
-                                View Details &rarr;
+                            <a href="{{ url('/services/' . $service->slug) }}" class="btn-primary flex items-center gap-2">
+                                <span>Rincian Paket</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <a href="{{ url('/booking?service_id=' . $service->id) }}" class="btn-outline-dark">
-                                Book Package
+                            <a href="{{ url('/booking?service_id=' . $service->id) }}" class="px-6 py-3 rounded-lg border border-gray-300 hover:border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs uppercase tracking-wider transition-all">
+                                Booking Paket Ini
                             </a>
                         </div>
                     </div>
 
                     <!-- Right Column: Image Preview -->
                     <div class="lg:col-span-7">
-                        <div class="relative aspect-[16/10] bg-neutral-900 overflow-hidden border border-neutral-200 shadow-sm">
-                            <img src="{{ $service->image ? (str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image)) : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1000&auto=format&fit=crop' }}" 
+                        <div class="relative aspect-[16/10] bg-neutral-900 overflow-hidden rounded-2xl border border-gray-100 shadow-soft">
+                            <img src="{{ $service->image ? (str_starts_with($service->image, 'http') ? $service->image : asset('storage/' . $service->image)) : 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1000&auto=format&fit=crop' }}" 
                                  alt="{{ $service->title }}" 
                                  class="w-full h-full object-cover">
                         </div>

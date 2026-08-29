@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('meta_title', 'Portal Karyawan — BENGKEL')</title>
+    <title>@yield('meta_title', 'Portal Pemandu Wisata — Nusantara Tour Guide')</title>
     
-    <!-- Google Fonts Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Tailwind Play CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,12 +18,18 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ["'Plus Jakarta Sans'", 'Inter', 'sans-serif'],
                     },
                     colors: {
-                        'neutral-bg': '#f8f9fa',
-                        'neutral-body': '#6b7280',
-                        'accent': '#b08d57',
+                        primary: '#0F2F24',
+                        'primary-dark': '#0A1E17',
+                        secondary: '#1B4D3E',
+                        accent: '#C5A880',
+                        'accent-dark': '#9E8159',
+                        sage: '#407B64',
+                        'sage-light': '#E9F2EE',
+                        'neutral-bg': '#F8FAF9',
+                        'neutral-dark': '#0B1713',
                     },
                     letterSpacing: {
                         'widest2': '0.15em',
@@ -33,37 +40,40 @@
         }
     </script>
 
-    <!-- Base Bengkel CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Compiled CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ time() }}">
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('styles')
 </head>
-<body class="bg-neutral-bg text-black font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-[#F8FAF9] text-[#1A2E26] font-sans antialiased min-h-screen flex flex-col justify-between">
 
     <!-- Top Clean Navbar -->
-    <header class="bg-white border-b border-neutral-200 sticky top-0 z-30">
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-30 shadow-soft">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-6">
-                <a href="{{ route('karyawan.dashboard') }}" class="font-bold text-xl tracking-widest3 uppercase text-black font-sans">
-                    BENGKEL <span class="text-xs text-neutral-400 font-normal">STAFF</span>
+                <a href="{{ route('karyawan.dashboard') }}" class="flex items-center gap-2 font-bold text-lg tracking-wider uppercase text-primary font-sans">
+                    <div class="w-7 h-7 rounded-lg bg-accent flex items-center justify-center text-primary-dark">
+                        <i class="fa-solid fa-compass text-xs"></i>
+                    </div>
+                    <span>NUSANTARA <span class="text-xs text-sage font-bold">GUIDE PORTAL</span></span>
                 </a>
-                <nav class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-semibold">
-                    <a href="{{ route('karyawan.dashboard') }}" class="hover:text-accent transition-colors {{ request()->routeIs('karyawan.dashboard') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Dashboard</a>
-                    <a href="{{ route('karyawan.absensi.index') }}" class="hover:text-accent transition-colors {{ request()->routeIs('karyawan.absensi*') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Absensi Kamera</a>
-                    <a href="{{ route('karyawan.tasks.index') }}" class="hover:text-accent transition-colors {{ request()->routeIs('karyawan.tasks*') ? 'text-black border-b-2 border-black pb-1' : 'text-neutral-500' }}">Pekerjaan Bengkel</a>
+                <nav class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-bold">
+                    <a href="{{ route('karyawan.dashboard') }}" class="hover:text-primary transition-colors {{ request()->routeIs('karyawan.dashboard') ? 'text-primary border-b-2 border-primary pb-1' : 'text-gray-500' }}">Dashboard</a>
+                    <a href="{{ route('karyawan.absensi.index') }}" class="hover:text-primary transition-colors {{ request()->routeIs('karyawan.absensi*') ? 'text-primary border-b-2 border-primary pb-1' : 'text-gray-500' }}">Absensi Kamera</a>
+                    <a href="{{ route('karyawan.tasks.index') }}" class="hover:text-primary transition-colors {{ request()->routeIs('karyawan.tasks*') ? 'text-primary border-b-2 border-primary pb-1' : 'text-gray-500' }}">Tugas Pemandu (Trip)</a>
                 </nav>
             </div>
 
             <div class="flex items-center space-x-4">
                 <div class="text-right hidden sm:block">
-                    <div class="text-xs font-bold text-black">{{ auth()->user()->name }}</div>
-                    <div class="text-[10px] text-neutral-400 uppercase">{{ auth()->user()->position ?? 'Mekanik / Teknisi' }}</div>
+                    <div class="text-xs font-bold text-primary">{{ auth()->user()->name }}</div>
+                    <div class="text-[10px] text-sage font-semibold uppercase">{{ auth()->user()->position ?? 'Tour Guide Berlisensi HPI' }}</div>
                 </div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="text-xs uppercase tracking-wider font-semibold px-3 py-1.5 border border-neutral-300 hover:border-black transition-colors">
+                    <button type="submit" class="text-xs uppercase tracking-wider font-bold px-3 py-1.5 rounded-lg border border-gray-300 hover:border-primary hover:text-primary transition-colors">
                         Logout
                     </button>
                 </form>
@@ -75,7 +85,7 @@
         <div class="bg-amber-500 text-black px-6 py-2 text-xs font-medium border-b border-amber-600 flex items-center justify-between flex-wrap gap-2">
             <div class="flex items-center gap-2 max-w-7xl mx-auto w-full">
                 <span class="inline-block w-2 h-2 rounded-full bg-black animate-pulse"></span>
-                <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo karyawan/mekanik. Semua perubahan dan penugasan akan otomatis direset dalam 25 menit.</span>
+                <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo pemandu wisata (guide). Uji coba absensi kamera selfie & update progres trip aktif penuh.</span>
             </div>
         </div>
     @endif
@@ -83,25 +93,28 @@
     <!-- Main Content Area -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-10">
         @if(session('success'))
-            <div class="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between">
+            <div class="mb-6 p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-sm">
                 <span>{{ session('success') }}</span>
                 <button onclick="this.parentElement.remove()" class="text-emerald-500 hover:text-emerald-800">&times;</button>
             </div>
         @endif
 
         @if(session('error'))
-            <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 text-xs flex items-center justify-between">
+            <div class="mb-6 p-4 bg-rose-50 rounded-xl border border-rose-200 text-rose-800 text-xs flex items-center justify-between shadow-sm">
                 <span>{{ session('error') }}</span>
-                <button onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-800">&times;</button>
+                <button onclick="this.parentElement.remove()" class="text-rose-500 hover:text-rose-800">&times;</button>
             </div>
         @endif
 
         @yield('content')
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-neutral-200 py-6 text-center text-xs text-neutral-400">
-        <p>&copy; {{ date('Y') }} BENGKEL Staff Portal. All rights reserved.</p>
+    <!-- Portal Footer -->
+    <footer class="bg-white border-t border-gray-100 py-6 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>Portal Pemandu Wisata &bull; {{ \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') }}</div>
+            <div class="text-[11px] text-gray-400">Pemandu Resmi Berlisensi HPI Indonesia</div>
+        </div>
     </footer>
 
     @stack('scripts')

@@ -17,66 +17,66 @@ class AdminUserSeeder extends Seeder
         |--------------------------------------------------------------------------
         | 1. AKUN ASLI (REAL ACCOUNTS)
         | Password untuk SEMUA akun asli: qwertyu123
-        | Kredensial akun asli TIDAK DITAMPILKAN di halaman login portal.
+        | Kredensial akun asli TIDAK DITAMPILKAN di login helper.
         |--------------------------------------------------------------------------
         */
 
         // Super Admin Asli
         User::updateOrCreate(
-            ['email' => 'admin@bengkel.com'],
+            ['email' => 'admin@tourguide.id'],
             [
-                'name' => 'BENGKEL Master Admin',
+                'name' => 'Nusantara Master Admin',
                 'phone' => '081288889999',
                 'password' => Hash::make('qwertyu123'),
                 'role' => 'admin',
-                'specialty' => 'Workshop Director & Lead Tuner',
+                'specialty' => 'Tour Operations Director & Chief Expeditioner',
                 'avatar' => null,
-                'address' => 'Jl. Otomotif Raya No. 88, Jakarta Selatan',
+                'address' => 'Jl. Danau Tamblingan No. 88, Sanur, Denpasar, Bali 80228',
                 'is_active' => true,
             ]
         );
 
-        // Karyawan / Mekanik 1 Asli - Kepala Mekanik & Dyno Tuner
+        // Karyawan / Tour Guide 1 Asli - Pemandu Budaya & Wisata Bahari Bali & Nusa Penida
         User::updateOrCreate(
-            ['email' => 'mekanik@bengkel.com'],
+            ['email' => 'guide@tourguide.id'],
             [
-                'name' => 'Budi Santoso (Lead Tuner)',
+                'name' => 'I Wayan Arta (Lead Bali Guide)',
                 'phone' => '081234567890',
                 'password' => Hash::make('qwertyu123'),
                 'role' => 'karyawan',
-                'specialty' => 'Dyno Jet Tuning & ECU Remapping',
+                'specialty' => 'HPI Certified - Bali Heritage, Spiritual & Nusa Penida',
                 'avatar' => null,
-                'address' => 'Jakarta Selatan',
+                'address' => 'Ubud, Gianyar, Bali',
                 'is_active' => true,
             ]
         );
 
-        // Karyawan / Mekanik 2 Asli - Spesialis Motor Custom
+        // Karyawan / Tour Guide 2 Asli - Spesialis Gunung & Petualangan Bromo-Ijen
         User::updateOrCreate(
-            ['email' => 'indra@bengkel.com'],
+            ['email' => 'putra@tourguide.id'],
             [
-                'name' => 'Indra Wijaya (Bike Builder)',
+                'name' => 'Bagas Pratama (Mountain Trekker)',
                 'phone' => '081399887766',
                 'password' => Hash::make('qwertyu123'),
                 'role' => 'karyawan',
-                'specialty' => 'Custom Bike Fabrication & Cafe Racer Builder',
+                'specialty' => 'Certified Mountaineer - Bromo Sunrise & Ijen Blue Fire',
                 'avatar' => null,
-                'address' => 'Tangerang',
+                'address' => 'Malang, Jawa Timur',
                 'is_active' => true,
             ]
         );
 
-        // Karyawan / Mekanik 3 Asli - Spesialis Bodykit & Cat Oven
+        // Karyawan / Tour Guide 3 Asli - Spesialis Marine & Liveaboard Komodo & Raja Ampat
         User::updateOrCreate(
-            ['email' => 'reza@bengkel.com'],
+            ['email' => 'laode@tourguide.id'],
             [
-                'name' => 'Reza Pratama (Paint Master)',
+                'name' => 'La Ode Rizal (Marine & Island Guide)',
                 'phone' => '081277665544',
                 'password' => Hash::make('qwertyu123'),
                 'role' => 'karyawan',
-                'specialty' => 'Custom Bodywork, Carbon Fiber & Oven Painting',
+                'specialty' => 'PADI Divemaster & Komodo National Park Naturalist Guide',
                 'avatar' => null,
-                'address' => 'Depok',
+                'address' => 'Labuan Bajo, Nusa Tenggara Timur',
                 'is_active' => true,
             ]
         );
@@ -114,52 +114,52 @@ class AdminUserSeeder extends Seeder
         /*
         |--------------------------------------------------------------------------
         | 2. AKUN DEMO (DEMO ACCOUNTS)
-        | Akun ini ditampilkan di halaman login portal.
-        | Setiap perubahan data oleh akun demo akan otomatis dibersihkan / di-revert dalam 25 menit.
+        | Akun ini ditampilkan di halaman login portal helper.
+        | Setiap perubahan data oleh akun demo akan otomatis dibersihkan dalam 25 menit.
         |--------------------------------------------------------------------------
         */
 
         // Demo Admin (CMS Portal Admin)
         User::updateOrCreate(
-            ['email' => 'demoadmin@bengkel.com'],
+            ['email' => 'demoadmin@tourguide.id'],
             [
-                'name' => 'Demo Administrator',
+                'name' => 'Demo Tour Administrator',
                 'phone' => '081299778899',
                 'password' => Hash::make('demoadmin123'),
                 'role' => 'admin',
-                'specialty' => 'Workshop Management Supervisor (Demo)',
+                'specialty' => 'Nusantara Tour Operations Supervisor (Demo)',
                 'avatar' => null,
-                'address' => 'Jl. Otomotif Raya Demo No. 88, Jakarta Selatan',
+                'address' => 'Kawasan Pariwisata Nusa Dua, Bali',
                 'is_active' => true,
             ]
         );
 
-        // Demo Karyawan / Mekanik (Karyawan Portal)
+        // Demo Karyawan / Tour Guide (Karyawan Portal)
         User::updateOrCreate(
-            ['email' => 'demomekanik@bengkel.com'],
+            ['email' => 'demoguide@tourguide.id'],
             [
-                'name' => 'Demo Mekanik (Dyno Tuner)',
+                'name' => 'Demo Tour Guide (HPI Certified)',
                 'phone' => '081299445566',
-                'password' => Hash::make('demomekanik123'),
+                'password' => Hash::make('demoguide123'),
                 'role' => 'karyawan',
-                'specialty' => 'Dyno Jet Tuning & ECU Specialist (Demo)',
+                'specialty' => 'Licensed Indonesian Local Guide & Naturalist (Demo)',
                 'avatar' => null,
-                'address' => 'Jl. Workshop Demo No. 2, Jakarta Selatan',
+                'address' => 'Jl. Sunset Road No. 10, Kuta, Bali',
                 'is_active' => true,
             ]
         );
 
         // Demo Customer (Customer Portal)
         User::updateOrCreate(
-            ['email' => 'democustomer@bengkel.com'],
+            ['email' => 'democustomer@tourguide.id'],
             [
-                'name' => 'Demo Customer',
+                'name' => 'Demo Traveler (Wisatawan)',
                 'phone' => '081299112233',
                 'password' => Hash::make('democustomer123'),
                 'role' => 'customer',
                 'specialty' => null,
                 'avatar' => null,
-                'address' => 'Jl. Demo Customer No. 1, Jakarta Selatan',
+                'address' => 'Kebayoran Baru, Jakarta Selatan',
                 'is_active' => true,
             ]
         );

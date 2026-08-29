@@ -12,49 +12,51 @@
             window.addEventListener('scroll', () => { scrolled = window.pageYOffset > 20 });
         "
         :class="{
-            'bg-white/95 backdrop-blur-md text-black shadow-sm border-b border-neutral-200 py-2.5': scrolled || {{ $isLightPage ? 'true' : 'false' }},
-            'bg-gradient-to-b from-black/85 via-black/35 to-transparent text-white py-3.5': !scrolled && !{{ $isLightPage ? 'true' : 'false' }}
+            'bg-white/95 backdrop-blur-md text-[#1A2E26] shadow-sm border-b border-gray-100 py-3': scrolled || {{ $isLightPage ? 'true' : 'false' }},
+            'bg-gradient-to-b from-primary-dark/90 via-primary-dark/40 to-transparent text-white py-4': !scrolled && !{{ $isLightPage ? 'true' : 'false' }}
         }"
         class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
     
     <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between">
         
         <!-- Brand / Logo -->
-        <a href="{{ url('/') }}" class="group flex items-center space-x-2.5 shrink-0 transition-opacity hover:opacity-85">
-            <span class="font-extrabold text-xl tracking-widest3 uppercase font-sans"
-                  :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-black' : 'text-white'">
-                {{ \App\Models\SiteSetting::get('company_name', 'BENGKEL') }}
-            </span>
+        <a href="{{ url('/') }}" class="group flex items-center space-x-3 shrink-0 transition-opacity hover:opacity-90">
+            <div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-primary-dark shadow-sm">
+                <i class="fa-solid fa-compass text-sm"></i>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-bold text-base md:text-lg tracking-wider uppercase font-sans leading-none"
+                      :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-primary' : 'text-white'">
+                    {{ \App\Models\SiteSetting::get('company_name', 'NUSANTARA') }}
+                </span>
+                <span class="text-[9px] uppercase tracking-widest text-accent font-semibold">TOUR GUIDE INDONESIA</span>
+            </div>
         </a>
 
-        <!-- Desktop Navigation Menu (Consistent Across All Pages) -->
-        <nav class="hidden lg:flex items-center space-x-4 xl:space-x-6 text-[11px] uppercase tracking-wider font-medium">
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden lg:flex items-center space-x-4 xl:space-x-6 text-[11px] uppercase tracking-wider font-semibold">
             
             <!-- Home -->
             <a href="{{ url('/') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('/') ? 'text-accent font-bold' : '' }}">
-                Home
+                Beranda
             </a>
 
             <!-- About Us -->
             <a href="{{ url('/about-us') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('about-us*') ? 'text-accent font-bold' : '' }}">
-                About Us
+                Tentang Kami
             </a>
 
-            <!-- Services Dropdown (Hierarchical Menu with Sub-categories) -->
+            <!-- Services Dropdown (Paket Pemandu) -->
             <div class="relative" 
                  @mouseenter="servicesDropdown = true" 
                  @mouseleave="servicesDropdown = false">
                 
                 <a href="{{ url('/services') }}" 
-                   class="inline-flex items-center space-x-1 transition-colors duration-200 hover:text-accent py-1.5 {{ request()->is('services*') ? 'text-accent font-bold' : '' }}">
-                    <span>Services</span>
-                    <svg class="w-3 h-3 transition-transform duration-200" 
-                         :class="servicesDropdown ? 'rotate-180' : ''" 
-                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
+                   class="inline-flex items-center space-x-1.5 transition-colors duration-200 hover:text-accent py-1.5 {{ request()->is('services*') ? 'text-accent font-bold' : '' }}">
+                    <span>Layanan Guide</span>
+                    <i class="fa-solid fa-chevron-down text-[9px] transition-transform duration-200" :class="servicesDropdown ? 'rotate-180' : ''"></i>
                 </a>
 
                 <!-- Desktop Dropdown Box -->
@@ -66,11 +68,11 @@
                      x-transition:leave-start="opacity-100 translate-y-0"
                      x-transition:leave-end="opacity-0 translate-y-1"
                      x-cloak
-                     class="absolute top-full left-0 mt-0.5 w-64 bg-white text-black shadow-2xl border border-neutral-200 py-2 z-50">
+                     class="absolute top-full left-0 mt-1 w-72 bg-white text-[#1A2E26] shadow-xl rounded-xl border border-gray-100 py-2.5 z-50 overflow-hidden">
                     
                     <a href="{{ url('/services') }}" 
-                       class="block px-4 py-2.5 text-[10px] uppercase tracking-widest font-bold text-black hover:bg-neutral-100 hover:text-accent transition-colors border-b border-neutral-100 mb-1">
-                        All Modification Packages &rarr;
+                       class="block px-4 py-2 text-[10px] uppercase tracking-widest font-bold text-primary hover:bg-sage-light hover:text-primary transition-colors border-b border-gray-100 mb-1">
+                        Semua Paket Pemandu Wisata &rarr;
                     </a>
 
                     @if(isset($navServices) && $navServices->count())
@@ -78,18 +80,18 @@
                             @if($parentService->children->count())
                                 <div class="relative group/sub" x-data="{ subOpen: false }" @mouseenter="subOpen = true" @mouseleave="subOpen = false">
                                     <a href="{{ url('/services/' . $parentService->slug) }}" 
-                                       class="flex items-center justify-between px-4 py-2 text-[11px] uppercase tracking-wider text-gray-800 hover:bg-neutral-50 hover:text-accent transition-colors">
+                                       class="flex items-center justify-between px-4 py-2 text-[11px] tracking-wide text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
                                         <span>{{ $parentService->title }}</span>
-                                        <svg class="w-2.5 h-2.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        <i class="fa-solid fa-chevron-right text-[9px] text-gray-400"></i>
                                     </a>
 
                                     <div x-show="subOpen" 
                                          x-transition
                                          x-cloak
-                                         class="absolute left-full top-0 w-60 bg-white text-black shadow-2xl border border-neutral-200 py-2">
+                                         class="absolute left-full top-0 w-64 bg-white text-[#1A2E26] shadow-xl rounded-xl border border-gray-100 py-2">
                                         @foreach($parentService->children as $childService)
                                             <a href="{{ url('/services/' . $parentService->slug . '/' . $childService->slug) }}" 
-                                               class="block px-4 py-2 text-[11px] uppercase tracking-wider text-gray-700 hover:bg-neutral-50 hover:text-accent transition-colors">
+                                               class="block px-4 py-2 text-[11px] tracking-wide text-gray-600 hover:bg-sage-light hover:text-primary transition-colors">
                                                 {{ $childService->title }}
                                             </a>
                                         @endforeach
@@ -97,7 +99,7 @@
                                 </div>
                             @else
                                 <a href="{{ url('/services/' . $parentService->slug) }}" 
-                                   class="block px-4 py-2 text-[11px] uppercase tracking-wider text-gray-800 hover:bg-neutral-50 hover:text-accent transition-colors">
+                                   class="block px-4 py-2 text-[11px] tracking-wide text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
                                     {{ $parentService->title }}
                                 </a>
                             @endif
@@ -106,97 +108,88 @@
                 </div>
             </div>
 
-            <!-- Portfolio -->
+            <!-- Destinations / Portfolio -->
             <a href="{{ url('/portfolio') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('portfolio*') ? 'text-accent font-bold' : '' }}">
-                Portfolio
+                Destinasi Wisata
             </a>
 
-            <!-- Awards -->
+            <!-- Awards / Certifications -->
             <a href="{{ url('/awards-publications') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('awards-publications*') || request()->is('awards*') ? 'text-accent font-bold' : '' }}">
-                Awards
+                Sertifikasi HPI
             </a>
 
             <!-- Partners -->
             <a href="{{ url('/clients') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('clients*') ? 'text-accent font-bold' : '' }}">
-                Partners
-            </a>
-
-            <!-- Booking Online -->
-            <a href="{{ url('/booking') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('booking*') ? 'text-accent font-bold' : '' }}">
-                Booking
+                Mitra
             </a>
 
             <!-- Blog -->
             <a href="{{ url('/our-blog') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('our-blog*') || request()->is('blog*') ? 'text-accent font-bold' : '' }}">
-                Blog
+                Travel Blog
             </a>
 
             <!-- Contact -->
             <a href="{{ url('/contact-us') }}" 
                class="transition-colors duration-200 hover:text-accent {{ request()->is('contact-us*') ? 'text-accent font-bold' : '' }}">
-                Contact
+                Kontak
             </a>
 
         </nav>
 
-        <!-- Right Side: User Portal / Login Button -->
+        <!-- Right Side: Booking Button & User Portal -->
         <div class="hidden lg:flex items-center space-x-3 shrink-0">
+            <!-- Booking Online CTA Button -->
+            <a href="{{ url('/booking') }}" 
+               class="px-4 py-2 bg-accent hover:bg-accent-dark text-neutral-dark hover:text-white rounded-lg transition-all text-[11px] uppercase tracking-wider font-bold shadow-sm flex items-center space-x-1.5">
+                <i class="fa-solid fa-calendar-check text-xs"></i>
+                <span>Booking Guide</span>
+            </a>
+
             @if(auth()->check())
                 @php $user = auth()->user(); @endphp
-                <div class="flex items-center space-x-2.5 text-xs">
-                    <span class="text-[11px] uppercase tracking-wider font-semibold"
-                          :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-neutral-700' : 'text-neutral-200'">
+                <div class="flex items-center space-x-2.5 text-xs pl-2 border-l border-gray-200/50">
+                    <span class="text-[11px] uppercase tracking-wider font-semibold truncate max-w-[120px]"
+                          :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-gray-700' : 'text-gray-200'">
                         {{ $user->name }}
                     </span>
 
                     @if($user->isAdmin())
                         <a href="{{ url('/admin') }}" 
-                           class="px-3 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
-                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
-                               ? 'border-black bg-black text-white hover:bg-white hover:text-black' 
-                               : 'border-white bg-white text-black hover:bg-transparent hover:text-white'">
+                           class="px-3 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-primary text-white hover:bg-secondary border-primary">
                             Admin CMS
                         </a>
                     @elseif($user->isKaryawan())
                         <a href="{{ url('/karyawan/absensi') }}" 
-                           class="px-3 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
-                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
-                               ? 'border-black bg-black text-white hover:bg-white hover:text-black' 
-                               : 'border-white bg-white text-black hover:bg-transparent hover:text-white'">
-                            Absensi &amp; Tasks
+                           class="px-3 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-sage text-white hover:bg-primary border-sage">
+                            Portal Guide
                         </a>
                     @else
                         <a href="{{ url('/customer/profile') }}" 
-                           class="px-3 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
-                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
-                               ? 'border-black bg-black text-white hover:bg-white hover:text-black' 
-                               : 'border-white bg-white text-black hover:bg-transparent hover:text-white'">
-                            Garasi Saya
+                           class="px-3 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-primary text-white hover:bg-secondary border-primary">
+                            Akun Saya
                         </a>
                     @endif
 
                     <form action="{{ url('/logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" 
-                                class="text-xs transition-colors p-1" 
-                                :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-neutral-400 hover:text-red-500' : 'text-neutral-400 hover:text-red-400'"
+                                class="text-xs transition-colors p-1.5 text-gray-400 hover:text-rose-500" 
                                 title="Sign Out">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <i class="fa-solid fa-right-from-bracket"></i>
                         </button>
                     </form>
                 </div>
             @else
                 <a href="{{ route('login') }}" 
-                   class="px-3.5 py-1.5 border transition-all text-[10px] uppercase tracking-wider font-semibold"
+                   class="px-3.5 py-2 rounded-lg border transition-all text-[11px] uppercase tracking-wider font-semibold"
                    :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
-                       ? 'border-black text-black hover:bg-black hover:text-white' 
-                       : 'border-white text-white hover:bg-white hover:text-black'">
-                    Portal Login
+                       ? 'border-gray-300 text-gray-800 hover:border-primary hover:bg-primary hover:text-white' 
+                       : 'border-white/50 text-white hover:bg-white hover:text-primary'">
+                    <i class="fa-regular fa-user mr-1"></i> Login
                 </a>
             @endif
         </div>
@@ -205,11 +198,11 @@
         <div class="lg:hidden flex items-center">
             <button @click="mobileMenuOpen = !mobileMenuOpen" 
                     type="button" 
-                    class="p-1.5 transition-colors focus:outline-none"
-                    :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-black' : 'text-white'"
+                    class="p-2 rounded-lg transition-colors focus:outline-none"
+                    :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-primary bg-gray-100' : 'text-white bg-white/10 backdrop-blur-sm'"
                     aria-label="Toggle Navigation Menu">
-                <svg x-show="!mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                <svg x-show="mobileMenuOpen" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <i x-show="!mobileMenuOpen" class="fa-solid fa-bars text-lg"></i>
+                <i x-show="mobileMenuOpen" x-cloak class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
 
@@ -224,37 +217,37 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-2"
          x-cloak
-         class="lg:hidden bg-black text-white px-6 py-6 border-t border-neutral-800 space-y-3 max-h-[85vh] overflow-y-auto">
+         class="lg:hidden bg-primary-dark text-white px-6 py-6 border-t border-primary/50 space-y-3 max-h-[85vh] overflow-y-auto">
         
-        <a href="{{ url('/') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('/') ? 'text-accent font-bold' : '' }}">Home</a>
-        <a href="{{ url('/about-us') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('about-us*') ? 'text-accent font-bold' : '' }}">About Us</a>
+        <a href="{{ url('/') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('/') ? 'text-accent font-bold' : '' }}">Beranda</a>
+        <a href="{{ url('/about-us') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('about-us*') ? 'text-accent font-bold' : '' }}">Tentang Kami</a>
 
         <!-- Mobile Services Accordion -->
-        <div x-data="{ mobileServicesOpen: false }" class="border-b border-neutral-800 py-1.5">
+        <div x-data="{ mobileServicesOpen: false }" class="border-b border-primary/40 py-2">
             <button @click="mobileServicesOpen = !mobileServicesOpen" class="w-full flex items-center justify-between text-xs uppercase tracking-wider hover:text-accent {{ request()->is('services*') ? 'text-accent font-bold' : '' }}">
-                <span>Services</span>
-                <svg class="w-3.5 h-3.5 transition-transform" :class="mobileServicesOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <span>Layanan Guide</span>
+                <i class="fa-solid fa-chevron-down text-xs transition-transform" :class="mobileServicesOpen ? 'rotate-180' : ''"></i>
             </button>
 
             <div x-show="mobileServicesOpen" x-cloak class="pl-4 pt-2 space-y-2">
-                <a href="{{ url('/services') }}" @click="mobileMenuOpen = false" class="block text-[10px] uppercase tracking-wider text-neutral-400 hover:text-white font-bold">All Services &rarr;</a>
+                <a href="{{ url('/services') }}" @click="mobileMenuOpen = false" class="block text-[10px] uppercase tracking-wider text-accent font-bold">Semua Paket &rarr;</a>
                 @if(isset($navServices) && $navServices->count())
                     @foreach($navServices as $pService)
                         <div x-data="{ subOpen: false }" class="space-y-1.5">
                             <div class="flex items-center justify-between">
-                                <a href="{{ url('/services/' . $pService->slug) }}" @click="mobileMenuOpen = false" class="text-[10px] uppercase tracking-wider text-neutral-300 hover:text-white font-medium">
+                                <a href="{{ url('/services/' . $pService->slug) }}" @click="mobileMenuOpen = false" class="text-[10px] tracking-wide text-gray-300 hover:text-white font-medium">
                                     {{ $pService->title }}
                                 </a>
                                 @if($pService->children->count())
-                                    <button @click="subOpen = !subOpen" class="p-1 text-neutral-400">
-                                        <svg class="w-2.5 h-2.5 transition-transform" :class="subOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    <button @click="subOpen = !subOpen" class="p-1 text-gray-400">
+                                        <i class="fa-solid fa-chevron-down text-[8px] transition-transform" :class="subOpen ? 'rotate-180' : ''"></i>
                                     </button>
                                 @endif
                             </div>
                             @if($pService->children->count())
-                                <div x-show="subOpen" x-cloak class="pl-3 space-y-1.5 border-l border-neutral-800">
+                                <div x-show="subOpen" x-cloak class="pl-3 space-y-1.5 border-l border-primary/40">
                                     @foreach($pService->children as $cService)
-                                        <a href="{{ url('/services/' . $pService->slug . '/' . $cService->slug) }}" @click="mobileMenuOpen = false" class="block text-[9px] uppercase tracking-wider text-neutral-400 hover:text-accent">
+                                        <a href="{{ url('/services/' . $pService->slug . '/' . $cService->slug) }}" @click="mobileMenuOpen = false" class="block text-[9px] tracking-wide text-gray-400 hover:text-accent">
                                             {{ $cService->title }}
                                         </a>
                                     @endforeach
@@ -266,29 +259,29 @@
             </div>
         </div>
 
-        <a href="{{ url('/portfolio') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('portfolio*') ? 'text-accent font-bold' : '' }}">Portfolio</a>
-        <a href="{{ url('/awards-publications') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('awards*') ? 'text-accent font-bold' : '' }}">Awards</a>
-        <a href="{{ url('/clients') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('clients*') ? 'text-accent font-bold' : '' }}">Partners</a>
-        <a href="{{ url('/booking') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 text-accent font-semibold">Booking Online</a>
-        <a href="{{ url('/our-blog') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('our-blog*') || request()->is('blog*') ? 'text-accent font-bold' : '' }}">Blog</a>
-        <a href="{{ url('/contact-us') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-1.5 border-b border-neutral-800 hover:text-accent {{ request()->is('contact-us*') ? 'text-accent font-bold' : '' }}">Contact Us</a>
+        <a href="{{ url('/portfolio') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('portfolio*') ? 'text-accent font-bold' : '' }}">Destinasi Wisata</a>
+        <a href="{{ url('/awards-publications') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('awards*') ? 'text-accent font-bold' : '' }}">Sertifikasi HPI</a>
+        <a href="{{ url('/clients') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('clients*') ? 'text-accent font-bold' : '' }}">Mitra Pariwisata</a>
+        <a href="{{ url('/booking') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 text-accent font-bold">Booking Pemandu</a>
+        <a href="{{ url('/our-blog') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('our-blog*') || request()->is('blog*') ? 'text-accent font-bold' : '' }}">Travel Blog</a>
+        <a href="{{ url('/contact-us') }}" @click="mobileMenuOpen = false" class="block text-xs uppercase tracking-wider py-2 border-b border-primary/40 hover:text-accent {{ request()->is('contact-us*') ? 'text-accent font-bold' : '' }}">Kontak Kami</a>
 
-        <div class="pt-3 border-t border-neutral-800 space-y-2">
+        <div class="pt-3 border-t border-primary/40 space-y-2">
             @if(auth()->check())
-                <div class="text-[10px] text-neutral-400">Signed in as <strong class="text-white">{{ auth()->user()->name }}</strong></div>
+                <div class="text-[10px] text-gray-400">Signed in as <strong class="text-white">{{ auth()->user()->name }}</strong></div>
                 @if(auth()->user()->isAdmin())
-                    <a href="{{ url('/admin') }}" class="block text-center py-2 bg-neutral-900 border border-neutral-700 text-white text-xs uppercase tracking-wider font-semibold">Admin CMS</a>
+                    <a href="{{ url('/admin') }}" class="block text-center py-2.5 bg-primary rounded-lg border border-primary text-white text-xs uppercase tracking-wider font-semibold">Admin CMS</a>
                 @elseif(auth()->user()->isKaryawan())
-                    <a href="{{ url('/karyawan/absensi') }}" class="block text-center py-2 bg-neutral-900 border border-neutral-700 text-white text-xs uppercase tracking-wider font-semibold">Absensi &amp; Tasks</a>
+                    <a href="{{ url('/karyawan/absensi') }}" class="block text-center py-2.5 bg-sage rounded-lg border border-sage text-white text-xs uppercase tracking-wider font-semibold">Portal Guide &amp; Absensi</a>
                 @else
-                    <a href="{{ url('/customer/profile') }}" class="block text-center py-2 bg-neutral-900 border border-neutral-700 text-white text-xs uppercase tracking-wider font-semibold">Garasi Saya</a>
+                    <a href="{{ url('/customer/profile') }}" class="block text-center py-2.5 bg-primary rounded-lg border border-primary text-white text-xs uppercase tracking-wider font-semibold">Portal Traveler</a>
                 @endif
                 <form action="{{ url('/logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="w-full text-center py-1.5 text-neutral-400 hover:text-red-400 text-xs uppercase tracking-wider">Logout</button>
+                    <button type="submit" class="w-full text-center py-2 text-gray-400 hover:text-rose-400 text-xs uppercase tracking-wider">Logout</button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="block text-center py-2 border border-white text-white text-xs uppercase tracking-wider font-semibold">Portal Login</a>
+                <a href="{{ route('login') }}" class="block text-center py-2.5 rounded-lg border border-accent bg-accent text-neutral-dark text-xs uppercase tracking-wider font-bold">Portal Login</a>
             @endif
         </div>
     </div>

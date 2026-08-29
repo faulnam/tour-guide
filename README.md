@@ -1,95 +1,112 @@
-# Apex Garage — Bengkel Modifikasi Motor & Mobil (Performance Tuning & Custom Studio)
+# Nusantara Tour Guide — Layanan Pemandu Wisata Resmi Berlisensi Indonesia (HPI Certified)
 
-Aplikasi Web Company Profile & Workshop Management System terintegrasi untuk bengkel modifikasi motor dan mobil performa tinggi, dilengkapi dengan sistem **Booking Online & Payment Gateway**, **3 Role Portal (Admin, Karyawan/Mekanik, Customer)**, serta **Sistem Absensi Karyawan dengan Kamera Webcam Real-Time**.
+Aplikasi Web Company Profile, Online Tour Booking & Integrated Tourism Operations Management System terintegrasi untuk layanan pemandu wisata resmi di seluruh penjuru Indonesia. Dilengkapi dengan **Sistem Reservasi & Digital Travel Pass**, **Multi-Payment Simulator**, **3 Role Portal (Admin, Pemandu Wisata/Karyawan, Traveler/Customer)**, **Sistem Absensi Selfie GPS Pemandu**, serta **Konsultan Wisata Cerdas AI (Google Gemini)**.
 
 ---
 
-## 🏎️ Fitur Utama
+## 🌴 Cakupan Destinasi Wisata Indonesia
 
-### 1. Rebranding Bengkel Otomotif (Motor & Mobil)
-- **Layanan Modifikasi**: ECU Remap & Dyno Run, Custom Cafe Racer / Bobber, Widebody Kit, Cat Oven Spies Hecker, Air Suspension & BBK, Nano Ceramic Coating 9H.
-- **Portofolio Tuning & Dyno Stats**: Tampilan Before/After dyno run (Peningkatan Horsepower & Torsi terukur), galeri modifikasi motor & mobil.
-- **AI Automotive Tuning Consultant**: Chatbot cerdas berbasis Google Gemini AI untuk konsultasi modifikasi kendaraan secara interaktif.
+Layanan pemandu wisata ini mencakup seluruh destinasi unggulan & permata tersembunyi Indonesia:
+- **Bali**: Pemandu Wisata Budaya & Pura Heritage (Ubud, Tanah Lot, Uluwatu, Kintamani, Jatiluwih).
+- **Nusa Tenggara Timur**: Ekspedisi Taman Nasional Komodo & Labuan Bajo (Padar, Pink Beach, Manta Point, Cunca Wulang).
+- **Papua Barat Daya**: Surga Bahari Raja Ampat (Wayag, Piaynemo, Misool, Sawinggrai).
+- **Jawa Timur**: Ekspedisi Sunrise Bromo, Penanjakan, Kawah Ijen Blue Fire, Savana Teletubbies.
+- **D.I. Yogyakarta & Jawa Tengah**: Wisata Budaya Candi Borobudur, Prambanan, Keraton Yogya, Goa Pindul.
+- **Sulawesi Selatan**: Eksplorasi Budaya Adat Kete Kesu & Londa Tana Toraja.
+- **Kalimantan Tengah**: Safari Susur Sungai Klotok & Konservasi Orangutan Taman Nasional Tanjung Puting.
+- **Kalimantan Timur**: Kepulauan Derawan, Maratua, Kakaban Stingless Jellyfish Lake.
+- **Bangka Belitung**: Island Hopping Geopark Batu Granit Belitung & Mercusuar Lengkuas.
 
-### 2. Sistem Booking Online & Payment Gateway
-- **Multi-Step Wizard**: Pemilihan kendaraan (Mobil/Motor), input plat nomor & spesifikasi, pemilihan paket servis, serta pemilihan slot tanggal dan jam.
-- **Kalkulasi Down Payment (DP)**: Perhitungan DP otomatis untuk mengunci slot lift bengkel.
-- **Payment Gateway Simulator**: Simulasi pembayaran via QRIS instant (Gopay/OVO/Dana/BCA), Virtual Account, dan kartu kredit.
-- **Live Build Progress Tracker**: Pelanggan dapat memantau progres tahapan pengerjaan kendaraan secara real-time disertai foto dan catatan mekanik.
+---
 
-### 3. Tiga (3) Role Portal Pengguna
-- **Admin**:
-  - Dashboard analitik bengkel (omzet, antrean aktif, kehadiran mekanik).
-  - Manajemen booking, assign teknisi, dan invoice.
-  - **Rekap Absensi Kamera Karyawan** dengan galeri foto selfie snapshot & filter status/tanggal.
-  - Manajemen karyawan & mekanik, layanan, portofolio build, partner brand, penghargaan, dan blog.
-- **Karyawan / Mekanik**:
-  - **Sistem Absensi Kamera Webcam**: Snapshot foto selfie saat Check-In dan Check-Out dengan watermark jam WIB dan GPS.
-  - Status keterlambatan otomatis (hadir <= 08:30 WIB, terlambat > 08:30 WIB).
-  - Manajemen tugas modifikasi unit kendaraan: update persentase progres, stage pengerjaan, dan upload foto log teknisi.
-- **Customer**:
-  - Garasi Kendaraan Saya (My Garage): Simpan data motor & mobil untuk booking cepat 1-klik.
-  - Live Tracker pengerjaan unit kendaraan dan invoice digital.
+## 🧭 Fitur Unggulan Platform
+
+### 1. Rebranding & Visual Aesthetic Alam Nusantara
+- **Palette Eksklusif**: Menggunakan palet luxury eco-tourism: *Deep Forest Emerald (`#0F2F24`)*, *Pine Green (`#1B4D3E`)*, *Warm Sand Champagne (`#C5A880`)*, *Sage Green (`#407B64`)*, dan *Pure Soft Slate (`#F8FAF9`)*.
+- **Tipografi Modern**: Google Fonts *Plus Jakarta Sans* & *Inter* dipadukan dengan icon set *Font Awesome 6*.
+- **Katalog Layanan Bertingkat**: Paket Private Tour, Group Excursion, Family Heritage, Snorkeling/Diving Charter, dan Trekking Ekspedisi Gunung.
+- **AI Tour Consultant**: Chatbot cerdas berbasis Google Gemini AI yang dilatih khusus dengan panduan resmi kepemanduan HPI, regulasi taman nasional, dan etika konservasi alam Indonesia.
+
+### 2. Sistem Reservasi Online, DP & Digital Travel Pass
+- **3-Step Booking Wizard**: Pemilihan destinasi Indonesia, titik temu (bandara/hotel), estimasi peserta, preferensi bahasa pemandu, tanggal dan slot waktu.
+- **Kalkulasi Otomatis DP 30%**: Menghitung uang muka untuk mengunci jadwal pemandu lokal resmi.
+- **Simulator Pembayaran Multi-Channel**: Simulasi instan QRIS (Gopay/OVO/Dana/BCA), Virtual Account (Mandiri, BRI, BNI), dan Transfer Bank.
+- **Digital Travel Pass**: E-tiket & invoice digital resmi dengan live stage tracker perjalanan lapangan.
+
+### 3. Tiga (3) Role Portal Terintegrasi
+
+#### 👑 1. Portal Administrator CMS (`/admin`)
+- **Dashboard Analitik**: Rangkuman omzet reservasi, trip aktif, log presensi kamera pemandu, dan pesan masuk.
+- **Manajemen Reservasi**: Kelola status booking, verifikasi pelunasan, dan penugasan (*assign*) pemandu wisata lokal.
+- **Rekap Absensi Kamera Selfie GPS**: Monitoring kedisiplinan pemandu lapangan lengkap dengan foto webcam, koordinat GPS, dan timestamp WITA/WIB.
+- **Katalog & CMS**: Kelola paket wisata, galeri destinasi ekspedisi, travel blog wawasan wisata, mitra maskapai/asosiasi, sertifikasi lisensi HPI, dan ulasan tamu.
+
+#### 🧳 2. Portal Pemandu Wisata Lapangan (`/karyawan`)
+- **Sistem Absensi Kamera Selfie GPS**: Pemandu melakukan check-in dan check-out penugasan tur dengan foto snapshot webcam real-time ber-watermark otomatis dan koordinat GPS.
+- **Manajemen Penugasan Trip (Tasks)**: Pemandu dapat memperbarui persentase rute, mencatat aktivitas lapangan, serta mengunggah foto dokumentasi momen terbaik tamu.
+
+#### 🎒 3. Portal Traveler / Wisatawan (`/customer`)
+- **Profil Wisatawan**: Simpan preferensi liburan, destinasi impian, dan data kontak untuk booking cepat 1-klik.
+- **Riwayat Reservasi & Digital Pass**: Pantau status persiapan tur, log foto pemandu secara real-time, dan unduh invoice.
+- **Cek Status Voucher & Asuransi**: Verifikasi masa berlaku voucher perjalanan dan jaminan perlindungan asuransi wisata.
 
 ---
 
 ## 🔐 Akun & Kredensial Login
 
-Akses halaman login di `/login`. Pada halaman login hanya ditampilkan **Akun Demo**, sedangkan akun asli disembunyikan.
+Akses portal terintegrasi di route `/login`. Form login dilengkapi *Quick Demo Account Selector* untuk pengujian cepat.
 
-### 🧪 Akun Demo (Ditampilkan di Login — Auto-Reset 25 Menit)
-Semua perubahan data atau data baru yang dibuat menggunakan akun demo akan otomatis dibersihkan dan kembali semula setiap **25 menit**.
-
+### 🧪 Akun Demo (Ditampilkan di Halaman Login)
 | Role | Email Demo | Password Demo | Hak Akses |
 | :--- | :--- | :--- | :--- |
-| **Demo Admin** | `demoadmin@bengkel.com` | `demoadmin123` | Akses penuh CMS, Booking, Rekap Absensi, Karyawan |
-| **Demo Karyawan** | `demomekanik@bengkel.com` | `demomekanik123` | Portal Mekanik, Absensi Kamera Webcam, Tugas Modifikasi |
-| **Demo Customer** | `democustomer@bengkel.com` | `democustomer123` | Garasi Kendaraan, Live Tracker Booking, Riwayat Invoice |
+| **Demo Traveler** | `democustomer@tourguide.id` | `democustomer123` | Portal Wisatawan, Riwayat Trip, Preferensi Destinasi |
+| **Demo Pemandu** | `demoguide@tourguide.id` | `demoguide123` | Portal Guide, Absensi Kamera GPS, Update Log Ekspedisi |
+| **Demo Admin** | `demoadmin@tourguide.id` | `demoadmin123` | Akses Penuh CMS, Penugasan Guide, Rekap Presensi |
 
-### 🛡️ Akun Asli (Disembunyikan dari Form Login Helper)
-Password untuk semua akun asli adalah `qwertyu123`:
-
-| Role | Email Asli | Password Asli | Deskripsi |
-| :--- | :--- | :--- | :--- |
-| **Master Admin** | `admin@bengkel.com` | `qwertyu123` | Super Admin / Workshop Director |
-| **Lead Tuner** | `mekanik@bengkel.com` | `qwertyu123` | Kepala Mekanik & Dyno Tuner |
-| **Bike Builder** | `indra@bengkel.com` | `qwertyu123` | Spesialis Modifikasi Motor Custom |
-| **Paint Master** | `reza@bengkel.com` | `qwertyu123` | Spesialis Bodykit & Cat Oven |
-| **Customer 1** | `customer@gmail.com` | `qwertyu123` | Pelanggan Rian Aditya (Civic Type R & ZX-25R) |
-| **Customer 2** | `bambang@gmail.com` | `qwertyu123` | Pelanggan Bambang Sudiro (Yamaha XSR 155) |
+### 🛡️ Akun Utama Administrator & Pemandu
+| Role | Nama Akun | Email | Password | Wilayah / Jabatan |
+| :--- | :--- | :--- | :--- | :--- |
+| **Super Admin** | Nusantara Tourism Admin | `admin@tourguide.id` | `qwertyu123` | Kantor Pusat Bali & Jakarta |
+| **Lead Guide** | I Wayan Arta, S.Tr.Par | `wayan@tourguide.id` | `qwertyu123` | Pemandu Budaya & Pura Heritage Bali (HPI Bali) |
+| **Mountain Guide** | Bagas Pratama | `bagas@tourguide.id` | `qwertyu123` | Pemandu Gunung Api & Trekking Bromo-Ijen (APGI) |
+| **Marine Guide** | La Ode Rizal | `rizal@tourguide.id` | `qwertyu123` | Dive Master & Pemandu Bahari Labuan Bajo (HPI NTT) |
+| **Traveler** | Anisa Rahmawati | `anisa@gmail.com` | `qwertyu123` | Wisatawan Terdaftar (Ekspedisi Komodo) |
+| **Traveler** | Budi Santoso | `budi@gmail.com` | `qwertyu123` | Wisatawan Terdaftar (Private Tour Bali) |
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Backend**: Laravel 11.x (PHP 8.2+)
-- **Database**: MySQL (`db_bengkel`)
-- **Frontend**: Blade Templating, Vanilla CSS / Tailwind CLI, Alpine.js, FontAwesome 6, Swiper.js
-- **Kamera & Media**: HTML5 MediaDevices API (`getUserMedia`), Canvas base64 capture
-- **AI**: Google Gemini API via GeminiService
+- **Database**: MySQL (`db_tourguide`)
+- **Frontend**: Blade Templating, Tailwind CSS, Alpine.js, Font Awesome 6
+- **Camera & Location**: HTML5 MediaDevices API (`navigator.mediaDevices.getUserMedia`), Canvas Snapshot Renderer, Geolocation API
+- **AI Integration**: Google Gemini API via `GeminiService`
 
 ---
 
-## 🚀 Panduan Instalasi & Menjalankan
+## 🚀 Panduan Instalasi Lokal
 
-1. **Clone repositori**:
+1. **Clone Repositori**:
    ```bash
-   git clone https://github.com/faulnam/bengkel.git
-   cd bengkel
+   git clone https://github.com/faulnam/tour-guide.git
+   cd tour-guide
    ```
 
-2. **Konfigurasi Lingkungan (`.env`)**:
+2. **Konfigurasi Environment (`.env`)**:
    ```env
-   APP_NAME="Apex Garage"
+   APP_NAME="Nusantara Tour Guide"
+   APP_URL=http://localhost:8000
+
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
-   DB_DATABASE=db_bengkel
+   DB_DATABASE=db_tourguide
    DB_USERNAME=root
    DB_PASSWORD=
    ```
 
-3. **Migrasi & Seed Database**:
+3. **Migrasi & Fresh Seeder**:
    ```bash
    php artisan migrate:fresh --seed
    php artisan storage:link
@@ -99,8 +116,8 @@ Password untuk semua akun asli adalah `qwertyu123`:
    ```bash
    php artisan serve
    ```
-   Buka browser di `http://localhost:8000`.
+   Akses website melalui peramban di `http://127.0.0.1:8000`.
 
 ---
 
-© 2026 **Apex Garage Indonesia**. Built with high precision.
+© 2026 **Nusantara Tour Guide Indonesia**. Hak Cipta Dilindungi Undang-Undang.

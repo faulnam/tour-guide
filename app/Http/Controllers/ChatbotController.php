@@ -65,20 +65,20 @@ class ChatbotController extends Controller
         return response()->json([
             'suggestions' => [
                 [
-                    'label' => 'Estimasi Remap ECU Mobil/Motor',
-                    'prompt' => 'Berapa perkiraan kenaikan tenaga (HP & Torsi) dan biaya untuk Remap ECU Stage 2?',
+                    'label' => 'Itinerary Raja Ampat 4D3N',
+                    'prompt' => 'Berapa estimasi biaya dan rekomendasi itinerary 4D3N ke Wayag & Misool Raja Ampat beserta pemandu?',
                 ],
                 [
-                    'label' => 'Konsep Motor Custom Cafe Racer',
-                    'prompt' => 'Saya ingin custom motor Yamaha XSR 155 / Honda CB jadi Cafe Racer, apa saja yang perlu diubah?',
+                    'label' => 'Sailing Komodo & Labuan Bajo',
+                    'prompt' => 'Kapan musim terbaik untuk liveaboard ke Pulau Padar, Pink Beach, dan snorkeling bersama Manta Ray?',
                 ],
                 [
-                    'label' => 'Paket Widebody & Cat Oven Spies Hecker',
-                    'prompt' => 'Bagaimana proses pembuatan custom bodykit widebody dan cat oven di BENGKEL?',
+                    'label' => 'Paket Sunrise Bromo & Ijen Blue Fire',
+                    'prompt' => 'Apa saja persiapan dan perlengkapan mendaki untuk tur sunrise Bromo dan Kawah Ijen?',
                 ],
                 [
-                    'label' => 'Cara Booking & Pembayaran DP',
-                    'prompt' => 'Bagaimana cara booking jadwal servis atau dyno test di website BENGKEL?',
+                    'label' => 'Pemandu Budaya Bali & Toraja',
+                    'prompt' => 'Bagaimana etika berkunjung dan rute wisata warisan budaya spiritual di Bali dan Tana Toraja?',
                 ],
             ]
         ]);

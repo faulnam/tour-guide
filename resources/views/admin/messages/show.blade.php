@@ -51,8 +51,8 @@
 
         <!-- Quick Reply Action -->
         <div class="pt-6 border-t border-neutral-800 flex items-center justify-between">
-            <a href="mailto:{{ $message->email }}?subject=Re:%20Inquiry%20from%20BENGKEL%20Modifikasi" class="px-6 py-3 bg-white text-black hover:bg-neutral-200 text-xs uppercase tracking-widest font-bold transition-colors">
-                Reply via Email &rarr;
+            <a href="mailto:{{ $message->email }}?subject=Re:%20Konsultasi%20Wisata%20Nusantara%20Tour%20Guide" class="px-6 py-3 bg-primary text-white hover:bg-secondary rounded-lg text-xs uppercase tracking-wider font-bold transition-colors shadow-sm">
+                Balas via Email &rarr;
             </a>
 
             @if($message->phone)

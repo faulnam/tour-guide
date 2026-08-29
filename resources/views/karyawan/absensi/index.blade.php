@@ -1,21 +1,21 @@
 @extends('layouts.karyawan')
 
-@section('meta_title', 'Absensi Kamera Live — BENGKEL')
+@section('meta_title', 'Absensi Kamera Live — Nusantara Tour Guide')
 
 @section('content')
 
     <div class="space-y-8" x-data="cameraAttendance()" x-init="initCamera()">
         
         <!-- Header Page -->
-        <div class="border-b border-neutral-200 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="border-b border-gray-100 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-                <div class="eyebrow text-accent font-semibold">Staff Time &amp; Attendance</div>
-                <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black font-sans">
-                    Sistem Absensi Kamera
+                <div class="eyebrow text-sage font-bold">Presensi Lapangan Pemandu Wisata</div>
+                <h1 class="text-2xl md:text-3xl font-bold uppercase tracking-tight text-primary font-sans">
+                    Sistem Absensi Kamera Selfie GPS
                 </h1>
             </div>
-            <div class="text-xs text-neutral-500">
-                Tanggal: <span class="font-bold text-black">{{ date('d F Y') }}</span>
+            <div class="text-xs text-gray-500">
+                Tanggal: <span class="font-bold text-primary">{{ date('d F Y') }}</span>
             </div>
         </div>
 
@@ -312,7 +312,7 @@ function cameraAttendance() {
                 ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 22px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText('BENGKEL LIVE ATTENDANCE', canvas.width / 2, 70);
+                ctx.fillText('NUSANTARA GUIDE ATTENDANCE', canvas.width / 2, 70);
 
                 // Staff
                 ctx.fillStyle = '#f3f4f6';
@@ -321,7 +321,7 @@ function cameraAttendance() {
 
                 ctx.fillStyle = '#9ca3af';
                 ctx.font = '13px sans-serif';
-                ctx.fillText('{{ auth()->user()->specialty ?? "Staff Teknisi & Modifikasi" }}', canvas.width / 2, 150);
+                ctx.fillText('{{ auth()->user()->specialty ?? "Pemandu Wisata Berlisensi HPI" }}', canvas.width / 2, 150);
 
                 // Action Type & Time
                 const now = new Date();

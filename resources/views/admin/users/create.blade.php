@@ -37,7 +37,7 @@
                    name="email" 
                    value="{{ old('email') }}" 
                    required 
-                   placeholder="john@bengkelmodifikasi.id" 
+                   placeholder="guide@tourguide.id" 
                    class="w-full bg-neutral-950 border border-neutral-800 text-white text-xs px-4 py-3 focus:outline-none focus:border-white transition-colors">
         </div>
 
