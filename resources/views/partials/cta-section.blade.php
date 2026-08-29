@@ -1,10 +1,5 @@
 <section class="py-14 md:py-20 bg-[#F8FAF9] text-center border-t border-gray-100">
     <div class="max-w-3xl mx-auto px-5 space-y-4">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sage/10 text-sage text-[11px] font-bold uppercase tracking-wider">
-            <i class="fa-solid fa-earth-asia text-xs"></i>
-            <span>Jelajah Wisata Indonesia</span>
-        </div>
-
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-primary leading-tight">
             {{ \App\Models\PageContent::get('home_cta_title', 'Siap Mewujudkan Liburan Impian Anda di Indonesia?') }}
         </h2>
