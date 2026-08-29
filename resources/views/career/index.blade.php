@@ -6,18 +6,14 @@
 @section('content')
 
     <!-- Hero Banner -->
-    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+    <section class="relative bg-primary-dark text-white pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
              style="background-image: url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2000&auto=format&fit=crop');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
-                <i class="fa-solid fa-users text-accent"></i>
-                <span>Bergabung Bersama Pemandu Berlisensi</span>
-            </div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+        <div class="relative z-10 max-w-3xl mx-auto px-5 text-center space-y-3">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight uppercase font-sans">
                 Karir &amp; Pemandu Wisata
             </h1>
             <div class="min-h-[40px] flex items-center justify-center text-gray-200 text-xs md:text-sm max-w-xl mx-auto"

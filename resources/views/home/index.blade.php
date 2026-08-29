@@ -32,9 +32,9 @@
         </div>
 
         <!-- Hero Content Layer -->
-        <div class="relative z-10 max-w-4xl mx-auto px-5 md:px-8 text-center space-y-4 pt-16">
-            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase leading-snug font-sans max-w-3xl mx-auto">
-                {{ \App\Models\PageContent::get('home_hero_title', 'Jelajahi Keajaiban Nusantara Bersama Pemandu Resmi') }}
+        <div class="relative z-10 max-w-3xl mx-auto px-5 md:px-8 text-center space-y-3 pt-14">
+            <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white uppercase leading-snug font-sans max-w-2xl mx-auto">
+                {{ \App\Models\PageContent::get('home_hero_title', 'Jelajahi Keajaiban Nusantara Bersama Pemandu Lokal Berlisensi Resmi') }}
             </h1>
 
             <!-- Typing Animated Subtitle -->

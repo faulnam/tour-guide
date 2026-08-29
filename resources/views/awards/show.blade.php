@@ -6,23 +6,19 @@
 @section('content')
 
     <!-- Hero Header -->
-    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+    <section class="relative bg-primary-dark text-white pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
              style="background-image: url('{{ $award->image ? (str_starts_with($award->image, 'http') ? $award->image : asset('storage/' . $award->image)) : 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2000&auto=format&fit=crop' }}');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
-                <a href="{{ url('/awards-publications') }}" class="hover:underline">Sertifikasi &amp; Penghargaan</a> &bull; {{ $award->organization ?? 'Lembaga Resmi' }}
-            </div>
-
-            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+        <div class="relative z-10 max-w-3xl mx-auto px-5 text-center space-y-3">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight uppercase font-sans">
                 {{ $award->title }}
             </h1>
 
             @if($award->year || $award->published_date)
-                <div class="text-xs uppercase tracking-wider text-accent pt-2 font-bold">
+                <div class="text-xs uppercase tracking-wider text-accent pt-1 font-bold">
                     Tahun {{ $award->year ?? $award->published_date->format('Y') }}
                 </div>
             @endif

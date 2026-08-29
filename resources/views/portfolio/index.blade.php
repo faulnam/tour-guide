@@ -13,10 +13,6 @@
         <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
         <div class="relative z-10 max-w-3xl mx-auto px-5 text-center space-y-3">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-[11px] font-semibold uppercase tracking-wider">
-                <i class="fa-solid fa-earth-asia text-accent text-xs"></i>
-                <span>Galeri Perjalanan Nyata</span>
-            </div>
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight uppercase font-sans">
                 Destinasi Wisata Nusantara
             </h1>

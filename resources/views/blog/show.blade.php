@@ -6,20 +6,17 @@
 @section('content')
 
     <!-- Hero Header -->
-    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-24 overflow-hidden">
+    <section class="relative bg-primary-dark text-white pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
              style="background-image: url('{{ $post->cover_image ? (str_starts_with($post->cover_image, 'http') ? $post->cover_image : asset('storage/' . $post->cover_image)) : 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=2000&auto=format&fit=crop' }}');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
-                <a href="{{ url('/our-blog') }}" class="hover:underline">Travel Blog</a> &bull; {{ $post->category->title ?? 'Tips Wisata Indonesia' }}
-            </div>
-            <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+        <div class="relative z-10 max-w-3xl mx-auto px-5 text-center space-y-3">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight uppercase font-sans">
                 {{ $post->title }}
             </h1>
-            <p class="text-gray-200 text-xs md:text-sm">
+            <p class="text-gray-200 text-xs sm:text-sm">
                 Ditulis oleh {{ $post->author ?: 'Tim Pemandu Wisata Nusantara' }} &bull; {{ $post->published_at ? $post->published_at->format('d F Y') : $post->created_at->format('d F Y') }}
             </p>
         </div>
