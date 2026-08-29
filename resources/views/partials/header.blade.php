@@ -116,7 +116,7 @@
                  @mouseleave="aboutDropdown = false">
                 
                 <a href="{{ url('/about-us') }}" 
-                   class="whitespace-nowrap inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('about-us*') || request()->is('awards*') || request()->is('clients*') || request()->is('career*') ? 'text-accent font-bold' : '' }}">
+                   class="whitespace-nowrap inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('about-us*') || request()->is('awards*') || request()->is('clients*') ? 'text-accent font-bold' : '' }}">
                     <span>Tentang Kami</span>
                     <i class="fa-solid fa-chevron-down text-[8px] transition-transform duration-200" :class="aboutDropdown ? 'rotate-180' : ''"></i>
                 </a>
@@ -143,10 +143,6 @@
                     <a href="{{ url('/clients') }}" 
                        class="block px-4 py-2 text-xs text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
                         Mitra &amp; Maskapai
-                    </a>
-                    <a href="{{ url('/career') }}" 
-                       class="block px-4 py-2 text-xs text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
-                        Karir Pemandu Wisata
                     </a>
                 </div>
             </div>
@@ -286,7 +282,7 @@
 
         <!-- Mobile About Accordion -->
         <div x-data="{ mobileAboutOpen: false }" class="border-b border-primary/40 py-2">
-            <button @click="mobileAboutOpen = !mobileAboutOpen" class="w-full flex items-center justify-between text-xs uppercase tracking-wider hover:text-accent {{ request()->is('about-us*') || request()->is('awards*') || request()->is('clients*') || request()->is('career*') ? 'text-accent font-bold' : '' }}">
+            <button @click="mobileAboutOpen = !mobileAboutOpen" class="w-full flex items-center justify-between text-xs uppercase tracking-wider hover:text-accent {{ request()->is('about-us*') || request()->is('awards*') || request()->is('clients*') ? 'text-accent font-bold' : '' }}">
                 <span>Tentang Kami</span>
                 <i class="fa-solid fa-chevron-down text-xs transition-transform" :class="mobileAboutOpen ? 'rotate-180' : ''"></i>
             </button>
@@ -295,7 +291,6 @@
                 <a href="{{ url('/about-us') }}" @click="mobileMenuOpen = false" class="block text-[10px] uppercase tracking-wider text-gray-300 hover:text-white">Profil &amp; Filosofi</a>
                 <a href="{{ url('/awards-publications') }}" @click="mobileMenuOpen = false" class="block text-[10px] uppercase tracking-wider text-gray-300 hover:text-white">Sertifikasi Lisensi HPI</a>
                 <a href="{{ url('/clients') }}" @click="mobileMenuOpen = false" class="block text-[10px] uppercase tracking-wider text-gray-300 hover:text-white">Mitra &amp; Maskapai</a>
-                <a href="{{ url('/career') }}" @click="mobileMenuOpen = false" class="block text-[10px] uppercase tracking-wider text-gray-300 hover:text-white">Karir Pemandu</a>
             </div>
         </div>
 
