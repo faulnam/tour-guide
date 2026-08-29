@@ -23,8 +23,32 @@
 
     <!-- Login Form Section -->
     <section class="py-16 md:py-24 bg-[#F8FAF9] min-h-[60vh] flex items-center justify-center">
-        <div class="w-full max-w-md mx-auto px-6" x-data="{
-            roleTab: '{{ request('role', 'customer') }}',
+        <div class="w-full max-w-lg mx-auto px-6" x-data="{
+            loginType: '{{ request('type', 'demo') }}', // 'demo' or 'real'
+            roleTab: '{{ request('role', 'customer') }}', // 'customer', 'karyawan', 'admin'
+            
+            selectDemoRole(role) {
+                this.roleTab = role;
+                if (role === 'customer') {
+                    this.fillCredentials('democustomer@tourguide.id', 'democustomer123');
+                } else if (role === 'karyawan') {
+                    this.fillCredentials('demoguide@tourguide.id', 'demoguide123');
+                } else if (role === 'admin') {
+                    this.fillCredentials('demoadmin@tourguide.id', 'demoadmin123');
+                }
+            },
+
+            switchToReal() {
+                this.loginType = 'real';
+                this.$refs.emailInput.value = '';
+                this.$refs.passInput.value = '';
+            },
+
+            switchToDemo() {
+                this.loginType = 'demo';
+                this.selectDemoRole(this.roleTab);
+            },
+
             fillCredentials(email, pass) {
                 this.$refs.emailInput.value = email;
                 this.$refs.passInput.value = pass;
@@ -35,44 +59,85 @@
                 
                 <div class="text-center space-y-1">
                     <div class="text-xl font-bold uppercase tracking-wider font-sans text-primary">{{ \App\Models\SiteSetting::get('company_name', 'NUSANTARA TOUR GUIDE') }}</div>
-                    <div class="eyebrow text-[10px] text-sage font-bold">Pilih Akun Demo Cepat</div>
+                    <p class="text-xs text-gray-500">Silakan pilih mode login di bawah ini</p>
                 </div>
 
-                <!-- 3 Role Selector Tabs (Akun Demo) -->
-                <div class="grid grid-cols-3 rounded-xl border border-gray-200 text-[11px] uppercase tracking-wider font-bold text-center overflow-hidden">
-                    <button type="button" @click="roleTab = 'customer'; fillCredentials('democustomer@tourguide.id', 'democustomer123')"
-                            class="py-2.5 transition-colors"
-                            :class="roleTab === 'customer' ? 'bg-primary text-white' : 'bg-gray-50 text-gray-600 hover:text-primary'">
-                        Traveler
+                <!-- Main Login Type Toggle (Akun Demo vs Akun Asli) -->
+                <div class="grid grid-cols-2 p-1 bg-[#F8FAF9] rounded-2xl border border-gray-200 text-xs font-bold uppercase tracking-wider">
+                    <button type="button" 
+                            @click="switchToDemo()"
+                            class="py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                            :class="loginType === 'demo' ? 'bg-primary text-white shadow-sm' : 'text-gray-600 hover:text-primary'">
+                        <i class="fa-solid fa-flask text-xs" :class="loginType === 'demo' ? 'text-accent' : ''"></i>
+                        <span>Akun Demo (Uji Coba)</span>
                     </button>
-                    <button type="button" @click="roleTab = 'karyawan'; fillCredentials('demoguide@tourguide.id', 'demoguide123')"
-                            class="py-2.5 transition-colors border-x border-gray-200"
-                            :class="roleTab === 'karyawan' ? 'bg-primary text-white' : 'bg-gray-50 text-gray-600 hover:text-primary'">
-                        Pemandu
-                    </button>
-                    <button type="button" @click="roleTab = 'admin'; fillCredentials('demoadmin@tourguide.id', 'demoadmin123')"
-                            class="py-2.5 transition-colors"
-                            :class="roleTab === 'admin' ? 'bg-primary text-white' : 'bg-gray-50 text-gray-600 hover:text-primary'">
-                        Admin
+
+                    <button type="button" 
+                            @click="switchToReal()"
+                            class="py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                            :class="loginType === 'real' ? 'bg-primary text-white shadow-sm' : 'text-gray-600 hover:text-primary'">
+                        <i class="fa-solid fa-lock text-xs" :class="loginType === 'real' ? 'text-accent' : ''"></i>
+                        <span>Login Akun Resmi</span>
                     </button>
                 </div>
 
-                <!-- Quick Demo Helper Note -->
-                <div class="p-3.5 bg-[#F8FAF9] rounded-xl border border-gray-200 text-[11px] text-gray-600 space-y-2">
-                    <div class="font-bold text-primary flex items-center justify-between">
-                        <span class="flex items-center gap-1.5">
-                            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Akun Demo Cepat:
-                        </span>
-                        <span class="text-[9px] uppercase tracking-wider text-sage font-bold" x-text="roleTab === 'customer' ? 'Traveler' : (roleTab === 'karyawan' ? 'Pemandu Guide' : 'Administrator')"></span>
+                <!-- DEMO MODE SECTION -->
+                <div x-show="loginType === 'demo'" x-transition x-cloak class="space-y-4">
+                    
+                    <!-- 3 Role Selector Tabs (Akun Demo) -->
+                    <div class="grid grid-cols-3 rounded-xl border border-gray-200 text-[11px] uppercase tracking-wider font-bold text-center overflow-hidden">
+                        <button type="button" @click="selectDemoRole('customer')"
+                                class="py-2.5 transition-colors flex items-center justify-center gap-1.5"
+                                :class="roleTab === 'customer' ? 'bg-secondary text-white' : 'bg-gray-50 text-gray-600 hover:text-primary'">
+                            <i class="fa-solid fa-user text-[10px]"></i>
+                            <span>Traveler</span>
+                        </button>
+                        <button type="button" @click="selectDemoRole('karyawan')"
+                                class="py-2.5 transition-colors border-x border-gray-200 flex items-center justify-center gap-1.5"
+                                :class="roleTab === 'karyawan' ? 'bg-secondary text-white' : 'bg-gray-50 text-gray-600 hover:text-primary'">
+                            <i class="fa-solid fa-compass text-[10px]"></i>
+                            <span>Pemandu</span>
+                        </button>
+                        <button type="button" @click="selectDemoRole('admin')"
+                                class="py-2.5 transition-colors flex items-center justify-center gap-1.5"
+                                :class="roleTab === 'admin' ? 'bg-secondary text-white' : 'bg-gray-50 text-gray-600 hover:text-primary'">
+                            <i class="fa-solid fa-shield-halved text-[10px]"></i>
+                            <span>Admin</span>
+                        </button>
                     </div>
-                    <div class="flex items-center justify-between text-[10px]">
-                        <span class="font-medium text-primary" x-text="roleTab === 'admin' ? 'demoadmin@tourguide.id' : (roleTab === 'karyawan' ? 'demoguide@tourguide.id' : 'democustomer@tourguide.id')"></span>
-                        <span class="text-gray-600 font-mono bg-white px-2 py-0.5 rounded border border-gray-200" x-text="roleTab === 'admin' ? 'demoadmin123' : (roleTab === 'karyawan' ? 'demoguide123' : 'democustomer123')"></span>
+
+                    <!-- 25-Minute Auto Reset Info Banner -->
+                    <div class="p-4 bg-amber-50 rounded-2xl border border-amber-200 text-xs text-amber-900 space-y-2">
+                        <div class="font-bold flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <span class="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                <span>Akun Demo Aktif:</span>
+                            </span>
+                            <span class="text-[10px] uppercase font-bold text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full" 
+                                  x-text="roleTab === 'customer' ? 'Role Traveler' : (roleTab === 'karyawan' ? 'Role Guide' : 'Role Admin')"></span>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] bg-white p-2 rounded-xl border border-amber-200/60 font-mono">
+                            <span class="font-bold text-primary" x-text="roleTab === 'admin' ? 'demoadmin@tourguide.id' : (roleTab === 'karyawan' ? 'demoguide@tourguide.id' : 'democustomer@tourguide.id')"></span>
+                            <span class="text-gray-600" x-text="roleTab === 'admin' ? 'demoadmin123' : (roleTab === 'karyawan' ? 'demoguide123' : 'democustomer123')"></span>
+                        </div>
+                        <div class="pt-1 flex items-start gap-2 text-[10px] text-amber-800 leading-snug">
+                            <i class="fa-solid fa-clock-rotate-left text-amber-600 text-xs mt-0.5 shrink-0"></i>
+                            <span><strong>Pembersihan Otomatis (25 Menit):</strong> Setiap data atau konten yang Anda buat/edit di sesi demo ini akan otomatis direset kembali ke keadaan awal setelah 25 menit.</span>
+                        </div>
                     </div>
-                    <div class="pt-1.5 border-t border-gray-200/70 flex items-start gap-1.5 text-[9px] text-gray-500 leading-tight">
-                        <i class="fa-solid fa-circle-info text-amber-600 text-[10px] mt-0.5"></i>
-                        <span><strong>Mode Demo:</strong> Database aman &amp; Anda dapat mencoba simulasi seluruh fitur di 3 role.</span>
+
+                </div>
+
+                <!-- REAL ACCOUNT MODE SECTION -->
+                <div x-show="loginType === 'real'" x-transition x-cloak class="space-y-4">
+                    <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 text-xs text-emerald-900 space-y-1">
+                        <div class="font-bold flex items-center gap-2 text-emerald-950">
+                            <i class="fa-solid fa-shield-check text-emerald-600 text-sm"></i>
+                            <span>Mode Akun Resmi (Permanen)</span>
+                        </div>
+                        <p class="text-[11px] text-emerald-800 leading-relaxed">
+                            Masukkan email dan password terdaftar Anda. Seluruh riwayat reservasi, transaksi, dan data profil Anda akan tersimpan secara permanen.
+                        </p>
                     </div>
                 </div>
 
