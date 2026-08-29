@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('meta_title', 'Portal Pemandu Wisata — Nusantara Tour Guide')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('meta_title', 'Portal Pemandu Wisata — ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide'))</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230F2F24'/><path d='M30 70 L50 25 L70 70 Z' fill='none' stroke='%23C5A880' stroke-width='8'/><circle cx='50' cy='52' r='8' fill='%23C5A880'/></svg>">
+
     <!-- Google Fonts: Plus Jakarta Sans & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +24,7 @@
                 extend: {
                     fontFamily: {
                         sans: ["'Plus Jakarta Sans'", 'Inter', 'sans-serif'],
+                        display: ["'Plus Jakarta Sans'", 'sans-serif'],
                     },
                     colors: {
                         primary: '#0F2F24',
@@ -26,63 +32,40 @@
                         secondary: '#1B4D3E',
                         accent: '#C5A880',
                         'accent-dark': '#9E8159',
+                        'accent-light': '#F5EFE6',
                         sage: '#407B64',
                         'sage-light': '#E9F2EE',
                         'neutral-bg': '#F8FAF9',
                         'neutral-dark': '#0B1713',
+                        'neutral-body': '#4A5568',
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(15, 47, 36, 0.06)',
+                        'elevated': '0 12px 30px -4px rgba(15, 47, 36, 0.12)',
                     },
                     letterSpacing: {
-                        'widest2': '0.15em',
-                        'widest3': '0.25em',
+                        'widest2': '0.12em',
+                        'widest3': '0.2em',
                     }
                 }
             }
         }
     </script>
 
-    <!-- Compiled CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ time() }}">
+    <!-- Compiled CSS & Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('styles')
 </head>
-<body class="bg-[#F8FAF9] text-[#1A2E26] font-sans antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-[#F8FAF9] text-[#1A2E26] font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-accent selection:text-neutral-dark">
 
-    <!-- Top Clean Navbar -->
-    <header class="bg-white border-b border-gray-100 sticky top-0 z-30 shadow-soft">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-6">
-                <a href="{{ route('karyawan.dashboard') }}" class="flex items-center gap-2 font-bold text-lg tracking-wider uppercase text-primary font-sans">
-                    <div class="w-7 h-7 rounded-lg bg-accent flex items-center justify-center text-primary-dark">
-                        <i class="fa-solid fa-compass text-xs"></i>
-                    </div>
-                    <span>NUSANTARA <span class="text-xs text-sage font-bold">GUIDE PORTAL</span></span>
-                </a>
-                <nav class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-bold">
-                    <a href="{{ route('karyawan.dashboard') }}" class="hover:text-primary transition-colors {{ request()->routeIs('karyawan.dashboard') ? 'text-primary border-b-2 border-primary pb-1' : 'text-gray-500' }}">Dashboard</a>
-                    <a href="{{ route('karyawan.absensi.index') }}" class="hover:text-primary transition-colors {{ request()->routeIs('karyawan.absensi*') ? 'text-primary border-b-2 border-primary pb-1' : 'text-gray-500' }}">Absensi Kamera</a>
-                    <a href="{{ route('karyawan.tasks.index') }}" class="hover:text-primary transition-colors {{ request()->routeIs('karyawan.tasks*') ? 'text-primary border-b-2 border-primary pb-1' : 'text-gray-500' }}">Tugas Pemandu (Trip)</a>
-                </nav>
-            </div>
-
-            <div class="flex items-center space-x-4">
-                <div class="text-right hidden sm:block">
-                    <div class="text-xs font-bold text-primary">{{ auth()->user()->name }}</div>
-                    <div class="text-[10px] text-sage font-semibold uppercase">{{ auth()->user()->position ?? 'Tour Guide Berlisensi HPI' }}</div>
-                </div>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="text-xs uppercase tracking-wider font-bold px-3 py-1.5 rounded-lg border border-gray-300 hover:border-primary hover:text-primary transition-colors">
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </header>
+    <!-- Universal Site Header Navbar -->
+    @include('partials.header')
 
     @if(auth()->check() && (auth()->user()->isDemo() || str_contains(auth()->user()->email, 'demo')))
-        <div class="bg-amber-500 text-black px-6 py-2 text-xs font-medium border-b border-amber-600 flex items-center justify-between flex-wrap gap-2">
+        <div class="bg-amber-500 text-black px-6 py-2 text-xs font-medium border-b border-amber-600 shadow-sm">
             <div class="flex items-center gap-2 max-w-7xl mx-auto w-full">
                 <span class="inline-block w-2 h-2 rounded-full bg-black animate-pulse"></span>
                 <span><strong>Mode Demo Aktif:</strong> Anda login dengan akun demo pemandu wisata (guide). Uji coba absensi kamera selfie & update progres trip aktif penuh.</span>
@@ -94,14 +77,20 @@
     <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-10">
         @if(session('success'))
             <div class="mb-6 p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between shadow-sm">
-                <span>{{ session('success') }}</span>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    <span>{{ session('success') }}</span>
+                </div>
                 <button onclick="this.parentElement.remove()" class="text-emerald-500 hover:text-emerald-800">&times;</button>
             </div>
         @endif
 
         @if(session('error'))
             <div class="mb-6 p-4 bg-rose-50 rounded-xl border border-rose-200 text-rose-800 text-xs flex items-center justify-between shadow-sm">
-                <span>{{ session('error') }}</span>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-rose-600"></i>
+                    <span>{{ session('error') }}</span>
+                </div>
                 <button onclick="this.parentElement.remove()" class="text-rose-500 hover:text-rose-800">&times;</button>
             </div>
         @endif
@@ -109,13 +98,8 @@
         @yield('content')
     </main>
 
-    <!-- Portal Footer -->
-    <footer class="bg-white border-t border-gray-100 py-6 text-center text-xs text-gray-500">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div>Portal Pemandu Wisata &bull; {{ \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') }}</div>
-            <div class="text-[11px] text-gray-400">Pemandu Resmi Berlisensi HPI Indonesia</div>
-        </div>
-    </footer>
+    <!-- Universal Site Footer -->
+    @include('partials.footer')
 
     @stack('scripts')
 </body>
