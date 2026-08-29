@@ -6,21 +6,21 @@
 @section('content')
 
     <!-- 1. Hero Header Banner -->
-    <section class="relative bg-primary-dark text-white pt-36 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+    <section class="relative bg-primary-dark text-white pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden">
         <div class="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform transition-transform duration-1000" 
              style="background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=2000&auto=format&fit=crop');">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-primary-dark/90"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
-                <i class="fa-solid fa-leaf text-accent"></i>
+        <div class="relative z-10 max-w-3xl mx-auto px-5 text-center space-y-3">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-[11px] font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-leaf text-accent text-xs"></i>
                 <span>Pemandu Wisata Resmi HPI &amp; Eco-Tourism Indonesia</span>
             </div>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight uppercase font-sans">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight uppercase font-sans">
                 Tentang Nusantara Tour Guide
             </h1>
-            <p class="text-gray-200 text-xs md:text-sm max-w-xl mx-auto leading-relaxed">
+            <p class="text-gray-200 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
                 Mendedikasikan pelayanan kepramuwisataan terbaik untuk menghadirkan pengalaman liburan autentik, aman, dan berkesan di seluruh penjuru Indonesia.
             </p>
         </div>

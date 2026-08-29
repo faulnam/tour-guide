@@ -12,51 +12,51 @@
             window.addEventListener('scroll', () => { scrolled = window.pageYOffset > 20 });
         "
         :class="{
-            'bg-white/95 backdrop-blur-md text-[#1A2E26] shadow-sm border-b border-gray-100 py-3': scrolled || {{ $isLightPage ? 'true' : 'false' }},
-            'bg-gradient-to-b from-primary-dark/90 via-primary-dark/40 to-transparent text-white py-4': !scrolled && !{{ $isLightPage ? 'true' : 'false' }}
+            'bg-white/95 backdrop-blur-md text-[#1A2E26] shadow-sm border-b border-gray-100 py-2.5': scrolled || {{ $isLightPage ? 'true' : 'false' }},
+            'bg-gradient-to-b from-primary-dark/95 via-primary-dark/50 to-transparent text-white py-3.5': !scrolled && !{{ $isLightPage ? 'true' : 'false' }}
         }"
         class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
     
-    <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 lg:gap-4">
         
         <!-- Brand / Logo -->
-        <a href="{{ url('/') }}" class="group flex items-center space-x-3 shrink-0 transition-opacity hover:opacity-90">
-            <div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-primary-dark shadow-sm">
+        <a href="{{ url('/') }}" class="group flex items-center space-x-2.5 shrink-0 transition-opacity hover:opacity-90">
+            <div class="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-primary-dark shadow-sm shrink-0">
                 <i class="fa-solid fa-compass text-sm"></i>
             </div>
-            <div class="flex flex-col">
-                <span class="font-bold text-base md:text-lg tracking-wider uppercase font-sans leading-none"
+            <div class="flex flex-col shrink-0">
+                <span class="font-bold text-sm sm:text-base tracking-wider uppercase font-sans leading-tight whitespace-nowrap"
                       :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-primary' : 'text-white'">
                     {{ \App\Models\SiteSetting::get('company_name', 'NUSANTARA') }}
                 </span>
-                <span class="text-[9px] uppercase tracking-widest text-accent font-semibold">TOUR GUIDE INDONESIA</span>
+                <span class="text-[8px] sm:text-[9px] uppercase tracking-widest text-accent font-semibold leading-none whitespace-nowrap">TOUR GUIDE INDONESIA</span>
             </div>
         </a>
 
-        <!-- Desktop Navigation Menu -->
-        <nav class="hidden lg:flex items-center space-x-4 xl:space-x-6 text-[11px] uppercase tracking-wider font-semibold">
+        <!-- Desktop Navigation Menu (Strictly 1 Single Line) -->
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-[11px] xl:text-xs uppercase tracking-wider font-semibold flex-nowrap shrink-0">
             
             <!-- Home -->
             <a href="{{ url('/') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('/') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('/') ? 'text-accent font-bold' : '' }}">
                 Beranda
             </a>
 
             <!-- About Us -->
             <a href="{{ url('/about-us') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('about-us*') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('about-us*') ? 'text-accent font-bold' : '' }}">
                 Tentang Kami
             </a>
 
             <!-- Services Dropdown (Paket Pemandu) -->
-            <div class="relative" 
+            <div class="relative shrink-0" 
                  @mouseenter="servicesDropdown = true" 
                  @mouseleave="servicesDropdown = false">
                 
                 <a href="{{ url('/services') }}" 
-                   class="inline-flex items-center space-x-1.5 transition-colors duration-200 hover:text-accent py-1.5 {{ request()->is('services*') ? 'text-accent font-bold' : '' }}">
+                   class="whitespace-nowrap inline-flex items-center gap-1 px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('services*') ? 'text-accent font-bold' : '' }}">
                     <span>Layanan Guide</span>
-                    <i class="fa-solid fa-chevron-down text-[9px] transition-transform duration-200" :class="servicesDropdown ? 'rotate-180' : ''"></i>
+                    <i class="fa-solid fa-chevron-down text-[8px] transition-transform duration-200" :class="servicesDropdown ? 'rotate-180' : ''"></i>
                 </a>
 
                 <!-- Desktop Dropdown Box -->
@@ -68,11 +68,11 @@
                      x-transition:leave-start="opacity-100 translate-y-0"
                      x-transition:leave-end="opacity-0 translate-y-1"
                      x-cloak
-                     class="absolute top-full left-0 mt-1 w-72 bg-white text-[#1A2E26] shadow-xl rounded-xl border border-gray-100 py-2.5 z-50 overflow-hidden">
+                     class="absolute top-full left-0 mt-1 w-64 bg-white text-[#1A2E26] shadow-xl rounded-xl border border-gray-100 py-2 z-50 overflow-hidden text-left">
                     
                     <a href="{{ url('/services') }}" 
                        class="block px-4 py-2 text-[10px] uppercase tracking-widest font-bold text-primary hover:bg-sage-light hover:text-primary transition-colors border-b border-gray-100 mb-1">
-                        Semua Paket Pemandu Wisata &rarr;
+                        Semua Paket Pemandu &rarr;
                     </a>
 
                     @if(isset($navServices) && $navServices->count())
@@ -80,18 +80,18 @@
                             @if($parentService->children->count())
                                 <div class="relative group/sub" x-data="{ subOpen: false }" @mouseenter="subOpen = true" @mouseleave="subOpen = false">
                                     <a href="{{ url('/services/' . $parentService->slug) }}" 
-                                       class="flex items-center justify-between px-4 py-2 text-[11px] tracking-wide text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
+                                       class="flex items-center justify-between px-4 py-1.5 text-xs text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
                                         <span>{{ $parentService->title }}</span>
-                                        <i class="fa-solid fa-chevron-right text-[9px] text-gray-400"></i>
+                                        <i class="fa-solid fa-chevron-right text-[8px] text-gray-400"></i>
                                     </a>
 
                                     <div x-show="subOpen" 
                                          x-transition
                                          x-cloak
-                                         class="absolute left-full top-0 w-64 bg-white text-[#1A2E26] shadow-xl rounded-xl border border-gray-100 py-2">
+                                         class="absolute left-full top-0 w-60 bg-white text-[#1A2E26] shadow-xl rounded-xl border border-gray-100 py-2">
                                         @foreach($parentService->children as $childService)
                                             <a href="{{ url('/services/' . $parentService->slug . '/' . $childService->slug) }}" 
-                                               class="block px-4 py-2 text-[11px] tracking-wide text-gray-600 hover:bg-sage-light hover:text-primary transition-colors">
+                                               class="block px-4 py-1.5 text-xs text-gray-600 hover:bg-sage-light hover:text-primary transition-colors">
                                                 {{ $childService->title }}
                                             </a>
                                         @endforeach
@@ -99,7 +99,7 @@
                                 </div>
                             @else
                                 <a href="{{ url('/services/' . $parentService->slug) }}" 
-                                   class="block px-4 py-2 text-[11px] tracking-wide text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
+                                   class="block px-4 py-1.5 text-xs text-gray-700 hover:bg-sage-light hover:text-primary transition-colors">
                                     {{ $parentService->title }}
                                 </a>
                             @endif
@@ -110,66 +110,66 @@
 
             <!-- Destinations / Portfolio -->
             <a href="{{ url('/portfolio') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('portfolio*') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('portfolio*') ? 'text-accent font-bold' : '' }}">
                 Destinasi Wisata
             </a>
 
             <!-- Awards / Certifications -->
             <a href="{{ url('/awards-publications') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('awards-publications*') || request()->is('awards*') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('awards-publications*') || request()->is('awards*') ? 'text-accent font-bold' : '' }}">
                 Sertifikasi HPI
             </a>
 
             <!-- Partners -->
             <a href="{{ url('/clients') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('clients*') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('clients*') ? 'text-accent font-bold' : '' }}">
                 Mitra
             </a>
 
             <!-- Blog -->
             <a href="{{ url('/our-blog') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('our-blog*') || request()->is('blog*') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('our-blog*') || request()->is('blog*') ? 'text-accent font-bold' : '' }}">
                 Travel Blog
             </a>
 
             <!-- Contact -->
             <a href="{{ url('/contact-us') }}" 
-               class="transition-colors duration-200 hover:text-accent {{ request()->is('contact-us*') ? 'text-accent font-bold' : '' }}">
+               class="whitespace-nowrap px-2 xl:px-2.5 py-1.5 rounded-md transition-colors hover:text-accent {{ request()->is('contact-us*') ? 'text-accent font-bold' : '' }}">
                 Kontak
             </a>
 
         </nav>
 
         <!-- Right Side: Booking Button & User Portal -->
-        <div class="hidden lg:flex items-center space-x-3 shrink-0">
+        <div class="hidden lg:flex items-center space-x-2 xl:space-x-3 shrink-0">
             <!-- Booking Online CTA Button -->
             <a href="{{ url('/booking') }}" 
-               class="px-4 py-2 bg-accent hover:bg-accent-dark text-neutral-dark hover:text-white rounded-lg transition-all text-[11px] uppercase tracking-wider font-bold shadow-sm flex items-center space-x-1.5">
+               class="whitespace-nowrap px-3.5 py-2 bg-accent hover:bg-accent-dark text-neutral-dark hover:text-white rounded-lg transition-all text-xs uppercase tracking-wider font-bold shadow-sm inline-flex items-center gap-1.5">
                 <i class="fa-solid fa-calendar-check text-xs"></i>
                 <span>Booking Guide</span>
             </a>
 
             @if(auth()->check())
                 @php $user = auth()->user(); @endphp
-                <div class="flex items-center space-x-2.5 text-xs pl-2 border-l border-gray-200/50">
-                    <span class="text-[11px] uppercase tracking-wider font-semibold truncate max-w-[120px]"
+                <div class="flex items-center space-x-2 text-xs pl-2 border-l border-gray-200/50 shrink-0">
+                    <span class="text-xs uppercase tracking-wider font-semibold truncate max-w-[110px]"
                           :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-gray-700' : 'text-gray-200'">
                         {{ $user->name }}
                     </span>
 
                     @if($user->isAdmin())
                         <a href="{{ url('/admin') }}" 
-                           class="px-3 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-primary text-white hover:bg-secondary border-primary">
+                           class="whitespace-nowrap px-2.5 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-primary text-white hover:bg-secondary border-primary">
                             Admin CMS
                         </a>
                     @elseif($user->isKaryawan())
                         <a href="{{ url('/karyawan/absensi') }}" 
-                           class="px-3 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-sage text-white hover:bg-primary border-sage">
+                           class="whitespace-nowrap px-2.5 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-sage text-white hover:bg-primary border-sage">
                             Portal Guide
                         </a>
                     @else
                         <a href="{{ url('/customer/profile') }}" 
-                           class="px-3 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-primary text-white hover:bg-secondary border-primary">
+                           class="whitespace-nowrap px-2.5 py-1.5 rounded-lg border transition-all text-[10px] uppercase tracking-wider font-bold bg-primary text-white hover:bg-secondary border-primary">
                             Akun Saya
                         </a>
                     @endif
@@ -185,11 +185,11 @@
                 </div>
             @else
                 <a href="{{ route('login') }}" 
-                   class="px-3.5 py-2 rounded-lg border transition-all text-[11px] uppercase tracking-wider font-semibold"
+                   class="whitespace-nowrap px-3 py-2 rounded-lg border transition-all text-xs uppercase tracking-wider font-semibold inline-flex items-center gap-1"
                    :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) 
                        ? 'border-gray-300 text-gray-800 hover:border-primary hover:bg-primary hover:text-white' 
                        : 'border-white/50 text-white hover:bg-white hover:text-primary'">
-                    <i class="fa-regular fa-user mr-1"></i> Login
+                    <i class="fa-regular fa-user"></i> <span>Login</span>
                 </a>
             @endif
         </div>
@@ -201,8 +201,8 @@
                     class="p-2 rounded-lg transition-colors focus:outline-none"
                     :class="(scrolled || {{ $isLightPage ? 'true' : 'false' }}) ? 'text-primary bg-gray-100' : 'text-white bg-white/10 backdrop-blur-sm'"
                     aria-label="Toggle Navigation Menu">
-                <i x-show="!mobileMenuOpen" class="fa-solid fa-bars text-lg"></i>
-                <i x-show="mobileMenuOpen" x-cloak class="fa-solid fa-xmark text-lg"></i>
+                <i x-show="!mobileMenuOpen" class="fa-solid fa-bars text-base"></i>
+                <i x-show="mobileMenuOpen" x-cloak class="fa-solid fa-xmark text-base"></i>
             </button>
         </div>
 

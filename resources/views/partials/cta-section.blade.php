@@ -1,15 +1,15 @@
-<section class="py-20 md:py-28 bg-[#F8FAF9] text-center border-t border-gray-100">
-    <div class="max-w-4xl mx-auto px-6 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage/10 text-sage text-xs font-bold uppercase tracking-wider">
-            <i class="fa-solid fa-earth-asia"></i>
+<section class="py-14 md:py-20 bg-[#F8FAF9] text-center border-t border-gray-100">
+    <div class="max-w-3xl mx-auto px-5 space-y-4">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sage/10 text-sage text-[11px] font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-earth-asia text-xs"></i>
             <span>Jelajah Wisata Indonesia</span>
         </div>
 
-        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-primary leading-tight">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-primary leading-tight">
             {{ \App\Models\PageContent::get('home_cta_title', 'Siap Mewujudkan Liburan Impian Anda di Indonesia?') }}
         </h2>
         
-        <div class="min-h-[40px] flex items-center justify-center text-gray-600 text-xs md:text-sm max-w-xl mx-auto"
+        <div class="min-h-[36px] flex items-center justify-center text-gray-600 text-xs sm:text-sm max-w-lg mx-auto"
              x-data="{
                 text: '',
                 phrases: [
@@ -50,13 +50,13 @@
             </p>
         </div>
 
-        <div class="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <a href="{{ url('/booking') }}" class="px-7 py-3.5 rounded-xl bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
-                <i class="fa-solid fa-calendar-check"></i>
+        <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <a href="{{ url('/booking') }}" class="px-6 py-2.5 rounded-lg bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <i class="fa-solid fa-calendar-check text-xs"></i>
                 <span>Booking Guide Sekarang</span>
             </a>
-            <a href="{{ url('/contact-us') }}" class="px-7 py-3.5 rounded-xl border border-gray-300 hover:border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center gap-2">
-                <i class="fa-solid fa-comments"></i>
+            <a href="{{ url('/contact-us') }}" class="px-6 py-2.5 rounded-lg border border-gray-300 hover:border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-comments text-xs"></i>
                 <span>Konsultasi Itinerary</span>
             </a>
         </div>

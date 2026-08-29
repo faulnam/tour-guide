@@ -30,13 +30,13 @@
     <!-- Floating Toggle Button -->
     <button @click="toggleChat()" 
             type="button"
-            class="group w-14 h-14 bg-primary text-white hover:bg-secondary rounded-2xl flex items-center justify-center shadow-elevated hover:shadow-glow transition-all duration-300 focus:outline-none"
+            class="group w-12 h-12 bg-primary text-white hover:bg-secondary rounded-xl flex items-center justify-center shadow-elevated hover:shadow-glow transition-all duration-300 focus:outline-none"
             aria-label="Toggle AI Travel Consultation Chat">
-        <div class="relative w-6 h-6 flex items-center justify-center">
+        <div class="relative w-5 h-5 flex items-center justify-center">
             <!-- Chat Icon -->
-            <i x-show="!isOpen" class="fa-solid fa-compass text-xl text-accent transition-transform group-hover:rotate-45"></i>
+            <i x-show="!isOpen" class="fa-solid fa-compass text-lg text-accent transition-transform group-hover:rotate-45"></i>
             <!-- Close (X) Icon -->
-            <i x-show="isOpen" x-cloak class="fa-solid fa-xmark text-xl text-white transition-transform group-hover:rotate-90"></i>
+            <i x-show="isOpen" x-cloak class="fa-solid fa-xmark text-lg text-white transition-transform group-hover:rotate-90"></i>
         </div>
     </button>
 

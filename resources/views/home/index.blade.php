@@ -6,7 +6,7 @@
 @section('content')
 
     <!-- 1. Hero Slider Section (Swiper Full-Screen Slides) -->
-    <section class="relative bg-primary-dark text-white min-h-[85vh] lg:h-[90vh] flex items-center justify-center overflow-hidden">
+    <section class="relative bg-primary-dark text-white min-h-[68vh] lg:h-[76vh] flex items-center justify-center overflow-hidden">
         
         <!-- Swiper Container -->
         <div class="swiper heroSwiper absolute inset-0 w-full h-full z-0">
@@ -28,22 +28,22 @@
             </div>
             
             <!-- Swiper Controls -->
-            <div class="swiper-pagination !bottom-8"></div>
+            <div class="swiper-pagination !bottom-6"></div>
         </div>
 
         <!-- Hero Content Layer -->
-        <div class="relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center space-y-6 pt-20">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-xs font-semibold uppercase tracking-wider">
-                <i class="fa-solid fa-certificate text-accent"></i>
+        <div class="relative z-10 max-w-4xl mx-auto px-5 md:px-8 text-center space-y-4 pt-16">
+            <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-accent text-[11px] font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-certificate text-accent text-xs"></i>
                 <span>{{ \App\Models\PageContent::get('home_hero_eyebrow', 'HPI Certified Indonesian Tour Guides') }}</span>
             </div>
 
-            <h1 class="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white uppercase leading-tight font-sans">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase leading-snug font-sans max-w-3xl mx-auto">
                 {{ \App\Models\PageContent::get('home_hero_title', 'Jelajahi Keajaiban Nusantara Bersama Pemandu Resmi') }}
             </h1>
 
             <!-- Typing Animated Subtitle -->
-            <div class="min-h-[40px] flex items-center justify-center text-neutral-200 text-xs sm:text-sm max-w-xl mx-auto"
+            <div class="min-h-[36px] flex items-center justify-center text-neutral-200 text-xs sm:text-sm max-w-xl mx-auto"
                  x-data="{
                     text: '',
                     phrases: [
@@ -81,18 +81,18 @@
                     }
                  }">
                 <p class="leading-relaxed font-medium">
-                    <span x-text="text">{{ \App\Models\PageContent::get('home_hero_subtitle', 'Layanan pemandu wisata privat & ekspedisi alam terbaik di seluruh Indonesia.') }}</span><span class="inline-block w-0.5 h-4 bg-accent ml-1 align-middle animate-cursor"></span>
+                    <span x-text="text">{{ \App\Models\PageContent::get('home_hero_subtitle', 'Layanan pemandu wisata privat & ekspedisi alam terbaik di seluruh Indonesia.') }}</span><span class="inline-block w-0.5 h-3.5 bg-accent ml-1 align-middle animate-cursor"></span>
                 </p>
             </div>
 
             <!-- Call to Actions -->
-            <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-                <a href="{{ url('/booking') }}" class="px-8 py-4 rounded-xl bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center gap-2">
-                    <i class="fa-solid fa-calendar-check"></i>
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <a href="{{ url('/booking') }}" class="px-6 py-2.5 rounded-lg bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check text-xs"></i>
                     <span>Booking Pemandu Wisata</span>
                 </a>
-                <a href="{{ url('/portfolio') }}" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-compass"></i>
+                <a href="{{ url('/portfolio') }}" class="px-6 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-compass text-xs"></i>
                     <span>Lihat Destinasi</span>
                 </a>
             </div>
@@ -102,7 +102,7 @@
 
 
     <!-- 2. Stats Highlight Bar (Animated Count-Up) -->
-    <section class="border-y border-gray-100 bg-white py-12"
+    <section class="border-y border-gray-100 bg-white py-8 sm:py-10"
              x-data="{
                  started: false,
                  c1: 0, c2: 0, c3: 0, c4: '0.0',
@@ -132,27 +132,27 @@
                      requestAnimationFrame(tick);
                  }
              }">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-gray-100">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-gray-100">
                 
-                <div class="pt-4 md:pt-0 md:px-6 first:pt-0">
-                    <div class="stat-number text-primary"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
-                    <div class="eyebrow text-gray-500 mt-1">Wisatawan Dipandu</div>
+                <div class="pt-3 md:pt-0 md:px-5 first:pt-0">
+                    <div class="text-2xl sm:text-3xl font-bold text-primary"><span x-text="Number(c1).toLocaleString('id-ID')">0</span>+</div>
+                    <div class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Wisatawan Dipandu</div>
                 </div>
 
-                <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number text-primary"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
-                    <div class="eyebrow text-gray-500 mt-1">Pemandu Berlisensi HPI</div>
+                <div class="pt-3 md:pt-0 md:px-5">
+                    <div class="text-2xl sm:text-3xl font-bold text-primary"><span x-text="Number(c2).toLocaleString('id-ID')">0</span>+</div>
+                    <div class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Pemandu Berlisensi HPI</div>
                 </div>
 
-                <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number text-primary"><span x-text="c3">0</span></div>
-                    <div class="eyebrow text-gray-500 mt-1">Provinsi Terjangkau</div>
+                <div class="pt-3 md:pt-0 md:px-5">
+                    <div class="text-2xl sm:text-3xl font-bold text-primary"><span x-text="c3">0</span></div>
+                    <div class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Provinsi Terjangkau</div>
                 </div>
 
-                <div class="pt-4 md:pt-0 md:px-6">
-                    <div class="stat-number text-primary"><span x-text="c4">0.0</span>%</div>
-                    <div class="eyebrow text-gray-500 mt-1">Tingkat Kepuasan</div>
+                <div class="pt-3 md:pt-0 md:px-5">
+                    <div class="text-2xl sm:text-3xl font-bold text-primary"><span x-text="c4">0.0</span>%</div>
+                    <div class="text-[11px] uppercase tracking-wider text-gray-500 font-semibold mt-1">Tingkat Kepuasan</div>
                 </div>
 
             </div>
@@ -161,20 +161,20 @@
 
 
     <!-- 3. What We Do / About Teaser Section -->
-    <section class="py-20 md:py-28 bg-[#F8FAF9]">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <section class="py-14 md:py-20 bg-[#F8FAF9]">
+        <div class="max-w-7xl mx-auto px-5 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
                 <!-- Left Story Column -->
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="eyebrow text-sage font-bold flex items-center gap-2">
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="text-xs uppercase tracking-wider text-sage font-bold flex items-center gap-1.5">
                         <i class="fa-solid fa-map-pin text-accent"></i>
                         <span>{{ \App\Models\PageContent::get('home_about_eyebrow', 'Tentang Nusantara Tour Guide') }}</span>
                     </div>
-                    <h2 class="section-title text-primary">
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-primary leading-snug">
                         {{ \App\Models\PageContent::get('home_about_title', 'Menghubungkan Anda dengan Keindahan Autentik Nusantara') }}
                     </h2>
-                    <div class="section-desc space-y-4 text-gray-600">
+                    <div class="text-xs sm:text-sm space-y-3 text-gray-600 leading-relaxed">
                         <p>
                             {{ \App\Models\PageContent::get('home_about_desc_1', 'Nusantara Tour Guide adalah platform pemandu wisata privat dan ekspedisi alam nomor satu di Indonesia. Kami menghadirkan putra daerah asli bersertifikasi HPI (Himpunan Pramuwisata Indonesia) dan APGI untuk mendampingi liburan Anda dengan aman, nyaman, dan berwawasan luas.') }}
                         </p>
@@ -183,9 +183,9 @@
                         </p>
                     </div>
                     <div class="pt-2">
-                        <a href="{{ url('/about-us') }}" class="btn-primary flex items-center gap-2 inline-flex">
+                        <a href="{{ url('/about-us') }}" class="btn-primary flex items-center gap-2 inline-flex text-xs px-5 py-2.5">
                             <span>Pelajari Standar Layanan Kami</span>
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>
                     </div>
                 </div>
@@ -205,24 +205,24 @@
 
 
     <!-- 4. Featured Services Section -->
-    <section class="py-20 md:py-28 bg-white border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+    <section class="py-14 md:py-20 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 space-y-8">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
-                    <div class="eyebrow text-sage font-bold">Layanan Pemandu Wisata</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary mt-1 uppercase">
+                    <div class="text-xs uppercase tracking-wider text-sage font-bold">Layanan Pemandu Wisata</div>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-primary mt-1 uppercase">
                         Paket Pemandu &amp; Ekspedisi Unggulan
                     </h2>
                 </div>
-                <a href="{{ url('/services') }}" class="eyebrow text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
+                <a href="{{ url('/services') }}" class="text-xs uppercase tracking-wider text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
                     <span>Lihat Semua Paket</span>
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
             <!-- Services Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($popularServices->take(6) as $service)
                     <div class="tour-card flex flex-col justify-between group">
                         <a href="{{ url('/services/' . $service->slug) }}" class="block overflow-hidden aspect-[16/10] bg-neutral-900 relative">
@@ -230,18 +230,18 @@
                                  alt="{{ $service->title }}" 
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             @if($service->is_popular)
-                                <div class="absolute top-3 right-3 bg-accent text-primary-dark font-bold text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider shadow-sm">
+                                <div class="absolute top-3 right-3 bg-accent text-primary-dark font-bold text-[9px] px-2.5 py-1 rounded-md uppercase tracking-wider shadow-sm">
                                     Favorit Traveler
                                 </div>
                             @endif
                         </a>
 
-                        <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+                        <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
                             <div class="space-y-2">
-                                <div class="eyebrow text-[10px] text-sage font-bold">
-                                    {{ $service->formatted_price }} • {{ $service->estimated_duration ?? '1 Hari' }}
+                                <div class="text-[10px] uppercase tracking-wider text-sage font-bold">
+                                    {{ $service->formatted_price }} &bull; {{ $service->estimated_duration ?? '1 Hari' }}
                                 </div>
-                                <h3 class="text-base font-bold text-primary group-hover:text-sage transition-colors">
+                                <h3 class="text-sm font-bold text-primary group-hover:text-sage transition-colors">
                                     <a href="{{ url('/services/' . $service->slug) }}">
                                         {{ $service->title }}
                                     </a>
@@ -251,9 +251,9 @@
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] uppercase tracking-wider text-gray-500">
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] uppercase tracking-wider text-gray-500">
                                 <span class="font-medium text-xs">{{ $service->warranty ?? 'Berlisensi HPI' }}</span>
-                                <span class="group-hover:text-primary font-bold text-primary transition-colors">Detail &rarr;</span>
+                                <span class="group-hover:text-primary font-bold text-primary transition-colors text-xs">Detail &rarr;</span>
                             </div>
                         </div>
                     </div>
@@ -265,24 +265,24 @@
 
 
     <!-- 5. Featured Destinations / Trips Showcase Section -->
-    <section class="py-20 md:py-28 bg-[#F8FAF9] border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+    <section class="py-14 md:py-20 bg-[#F8FAF9] border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 space-y-8">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200 pb-5">
                 <div>
-                    <div class="eyebrow text-sage font-bold">Destinasi Pilihan Indonesia</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary mt-1 uppercase">
+                    <div class="text-xs uppercase tracking-wider text-sage font-bold">Destinasi Pilihan Indonesia</div>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-primary mt-1 uppercase">
                         Galeri Perjalanan &amp; Ekspedisi Nyata
                     </h2>
                 </div>
-                <a href="{{ url('/portfolio') }}" class="eyebrow text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
+                <a href="{{ url('/portfolio') }}" class="text-xs uppercase tracking-wider text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
                     <span>Jelajahi Semua Destinasi</span>
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
             <!-- Projects Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($featuredProjects->take(6) as $project)
                     @include('partials.project-card', ['project' => $project])
                 @endforeach
@@ -293,23 +293,23 @@
 
 
     <!-- 6. Our Blog / Latest Travel Guides Section -->
-    <section class="py-20 md:py-28 bg-white border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-12">
+    <section class="py-14 md:py-20 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 space-y-8">
             
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-100 pb-5">
                 <div>
-                    <div class="eyebrow text-sage font-bold">Tips &amp; Wawasan Wisata</div>
-                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary mt-1 uppercase">
+                    <div class="text-xs uppercase tracking-wider text-sage font-bold">Tips &amp; Wawasan Wisata</div>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-primary mt-1 uppercase">
                         Travel Blog &amp; Panduan Wisata Indonesia
                     </h2>
                 </div>
-                <a href="{{ url('/our-blog') }}" class="eyebrow text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
+                <a href="{{ url('/our-blog') }}" class="text-xs uppercase tracking-wider text-primary hover:text-accent font-bold transition-colors flex items-center gap-1">
                     <span>Baca Semua Artikel</span>
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @php $blogItems = $recentPosts ?? $latestPosts ?? collect(); @endphp
                 @forelse($blogItems as $post)
                     <article class="tour-card flex flex-col justify-between group">
@@ -320,14 +320,14 @@
                                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         </a>
 
-                        <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+                        <div class="p-5 space-y-3 flex-1 flex flex-col justify-between">
                             <div class="space-y-2">
                                 @if($post->category)
-                                    <div class="eyebrow text-[10px] text-sage font-bold">
+                                    <div class="text-[10px] uppercase tracking-wider text-sage font-bold">
                                         {{ $post->category->title }}
                                     </div>
                                 @endif
-                                <h3 class="text-base font-bold text-primary group-hover:text-sage transition-colors line-clamp-2">
+                                <h3 class="text-sm font-bold text-primary group-hover:text-sage transition-colors line-clamp-2">
                                     <a href="{{ url('/our-blog/' . $post->slug) }}">
                                         {{ $post->title }}
                                     </a>
@@ -338,9 +338,9 @@
                                     </p>
                                 @endif
                             </div>
-                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-gray-500">
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between text-[10px] uppercase tracking-wider text-gray-500">
                                 <span>{{ $post->published_at ? $post->published_at->format('d M Y') : $post->created_at->format('d M Y') }}</span>
-                                <span class="group-hover:text-primary font-bold text-primary transition-colors">Baca Lengkap &rarr;</span>
+                                <span class="group-hover:text-primary font-bold text-primary transition-colors text-xs">Baca Lengkap &rarr;</span>
                             </div>
                         </div>
                     </article>
@@ -356,11 +356,11 @@
 
 
     <!-- 7. Tourism Partners & Airlines Running Marquee -->
-    <section class="py-16 md:py-24 bg-[#F8FAF9] border-t border-gray-100 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-10">
-            <div class="text-center space-y-2">
-                <div class="eyebrow text-sage font-bold">Kolaborasi &amp; Jaringan</div>
-                <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-primary uppercase">
+    <section class="py-12 md:py-16 bg-[#F8FAF9] border-t border-gray-100 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 space-y-6">
+            <div class="text-center space-y-1.5">
+                <div class="text-xs uppercase tracking-wider text-sage font-bold">Kolaborasi &amp; Jaringan</div>
+                <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-primary uppercase">
                     Mitra Resmi Pariwisata &amp; Maskapai
                 </h2>
             </div>
@@ -368,16 +368,16 @@
             <!-- Running Marquee Track -->
             <div class="relative w-full overflow-hidden mask-marquee py-2">
                 @if($clients->count() > 0)
-                    <div class="animate-marquee flex items-center gap-8 md:gap-12">
+                    <div class="animate-marquee flex items-center gap-6 md:gap-8">
                         
                         @foreach($clients as $client)
-                            <div class="flex-shrink-0 flex items-center justify-center p-4 h-20 w-48 md:w-56 rounded-xl border border-gray-200/80 bg-white transition-all shadow-sm group">
+                            <div class="flex-shrink-0 flex items-center justify-center p-3 h-16 w-40 md:w-48 rounded-xl border border-gray-200/80 bg-white transition-all shadow-sm group">
                                 @if($client->logo)
                                     <img src="{{ str_starts_with($client->logo, 'http') ? $client->logo : asset('storage/' . $client->logo) }}" 
                                          alt="{{ $client->name }}" 
                                          title="{{ $client->name }}"
                                          loading="lazy"
-                                         class="max-h-11 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                                         class="max-h-9 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
                                 @else
                                     <span class="text-xs font-bold tracking-wider text-gray-700 uppercase group-hover:text-primary">{{ $client->name }}</span>
                                 @endif
@@ -385,13 +385,13 @@
                         @endforeach
 
                         @foreach($clients as $client)
-                            <div class="flex-shrink-0 flex items-center justify-center p-4 h-20 w-48 md:w-56 rounded-xl border border-gray-200/80 bg-white transition-all shadow-sm group">
+                            <div class="flex-shrink-0 flex items-center justify-center p-3 h-16 w-40 md:w-48 rounded-xl border border-gray-200/80 bg-white transition-all shadow-sm group">
                                 @if($client->logo)
                                     <img src="{{ str_starts_with($client->logo, 'http') ? $client->logo : asset('storage/' . $client->logo) }}" 
                                          alt="{{ $client->name }}" 
                                          title="{{ $client->name }}"
                                          loading="lazy"
-                                         class="max-h-11 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                                         class="max-h-9 max-w-full object-contain grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
                                 @else
                                     <span class="text-xs font-bold tracking-wider text-gray-700 uppercase group-hover:text-primary">{{ $client->name }}</span>
                                 @endif
@@ -403,7 +403,7 @@
             </div>
 
             <div class="text-center pt-2">
-                <a href="{{ url('/clients') }}" class="eyebrow text-primary hover:text-accent font-bold border-b border-primary pb-1 inline-block">
+                <a href="{{ url('/clients') }}" class="text-xs uppercase tracking-wider text-primary hover:text-accent font-bold border-b border-primary pb-0.5 inline-block">
                     Lihat Seluruh Jaringan Mitra &rarr;
                 </a>
             </div>
@@ -414,44 +414,44 @@
 
     <!-- 8. Testimonials Section -->
     @if(isset($testimonials) && $testimonials->count())
-        <section class="py-20 md:py-28 bg-white border-t border-gray-100">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 space-y-16">
+        <section class="py-14 md:py-20 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 space-y-10">
                 
-                <div class="text-center space-y-3 max-w-2xl mx-auto">
-                    <div class="eyebrow text-sage font-bold">Ulasan Nyata Wisatawan</div>
-                    <h2 class="text-2xl md:text-4xl font-bold tracking-tight text-primary uppercase">
+                <div class="text-center space-y-2 max-w-xl mx-auto">
+                    <div class="text-xs uppercase tracking-wider text-sage font-bold">Ulasan Nyata Wisatawan</div>
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-primary uppercase">
                         Cerita &amp; Kesan Traveler
                     </h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach($testimonials as $testi)
-                        <div class="tour-card p-8 flex flex-col justify-between space-y-6 group">
-                            <div class="space-y-4">
-                                <div class="flex items-center gap-1 text-amber-500 text-sm">
+                        <div class="tour-card p-6 flex flex-col justify-between space-y-4 group">
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-1 text-amber-500 text-xs">
                                     @for($i = 0; $i < ($testi->rating ?? 5); $i++)
-                                        <i class="fa-solid fa-star text-xs"></i>
+                                        <i class="fa-solid fa-star"></i>
                                     @endfor
                                 </div>
-                                <p class="text-gray-700 text-xs md:text-sm leading-relaxed italic">
+                                <p class="text-gray-700 text-xs sm:text-sm leading-relaxed italic">
                                     &ldquo;{{ $testi->message }}&rdquo;
                                 </p>
                             </div>
 
-                            <div class="pt-4 border-t border-gray-100 flex items-center gap-4">
+                            <div class="pt-3 border-t border-gray-100 flex items-center gap-3">
                                 @if($testi->photo)
                                     <img src="{{ str_starts_with($testi->photo, 'http') ? $testi->photo : asset('storage/' . $testi->photo) }}" 
                                          alt="{{ $testi->client_name }}" 
-                                         class="w-11 h-11 rounded-full object-cover border border-gray-200">
+                                         class="w-9 h-9 rounded-full object-cover border border-gray-200">
                                 @else
-                                    <div class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">
+                                    <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">
                                         {{ substr($testi->client_name, 0, 1) }}
                                     </div>
                                 @endif
                                 <div>
                                     <div class="text-xs font-bold text-primary uppercase tracking-wider">{{ $testi->client_name }}</div>
                                     @if($testi->client_company)
-                                        <div class="text-[11px] text-gray-500">{{ $testi->client_company }}</div>
+                                        <div class="text-[10px] text-gray-500">{{ $testi->client_company }}</div>
                                     @endif
                                 </div>
                             </div>
