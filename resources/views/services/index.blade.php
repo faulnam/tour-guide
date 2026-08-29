@@ -54,12 +54,13 @@
                         @endif
 
                         <div class="pt-4 flex flex-wrap items-center gap-3">
-                            <a href="{{ url('/services/' . $service->slug) }}" class="btn-primary flex items-center gap-2">
+                            <a href="{{ url('/services/' . $service->slug) }}" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                                 <span>Rincian Paket</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <a href="{{ url('/booking?service_id=' . $service->id) }}" class="px-6 py-3 rounded-lg border border-gray-300 hover:border-primary text-primary hover:bg-primary hover:text-white font-bold text-xs uppercase tracking-wider transition-all">
-                                Booking Paket Ini
+                            <a href="{{ url('/booking?service_id=' . $service->id) }}" class="px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-dark text-primary-dark hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-xs"></i>
+                                <span>Booking Paket Ini</span>
                             </a>
                         </div>
                     </div>

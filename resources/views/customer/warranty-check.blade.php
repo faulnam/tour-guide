@@ -79,7 +79,7 @@
                     @if($booking->is_warranty_active)
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('contact_whatsapp', '081288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') . ', saya ingin konsultasi bantuan layanan untuk Booking ' . $booking->booking_code . ' destinasi ' . $booking->vehicle_brand) }}"
                            target="_blank"
-                           class="btn-primary flex items-center gap-2 shadow-md">
+                           class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                             <span>🛡️ Hubungi Support Wisata via WhatsApp &rarr;</span>
                         </a>
                     @endif

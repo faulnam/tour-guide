@@ -12,7 +12,7 @@
                 Riwayat Reservasi &amp; Pemandu Wisata
             </h1>
         </div>
-        <a href="{{ url('/booking') }}" class="btn-primary flex items-center gap-2 shadow-md">
+        <a href="{{ url('/booking') }}" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
             <i class="fa-solid fa-plus text-xs"></i>
             <span>Booking Tur Baru &rarr;</span>
         </a>

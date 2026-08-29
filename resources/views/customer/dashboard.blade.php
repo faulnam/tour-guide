@@ -15,7 +15,7 @@
                 </h1>
             </div>
             <div>
-                <a href="{{ url('/booking') }}" class="btn-primary flex items-center gap-2 shadow-md">
+                <a href="{{ url('/booking') }}" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                     <i class="fa-solid fa-calendar-check text-xs"></i>
                     <span>Booking Pemandu Wisata &rarr;</span>
                 </a>
@@ -101,8 +101,8 @@
                                 <div class="font-bold text-primary">{{ $v->brand }}</div>
                                 <div class="text-[10px] text-gray-500">{{ $v->model }} &bull; {{ $v->type === 'mobil' ? 'Private' : 'Group' }}</div>
                             </div>
-                            <a href="{{ url('/booking?vehicle_id=' . $v->id) }}" class="btn-primary px-3 py-1 text-[10px] uppercase font-bold shadow-sm">
-                                Pesan
+                            <a href="{{ url('/booking?vehicle_id=' . $v->id) }}" class="px-3.5 py-1.5 rounded-lg bg-primary hover:bg-secondary text-white font-bold text-[10px] uppercase tracking-wider transition-all shadow-sm">
+                                Pesan Tur
                             </a>
                         </div>
                     @empty

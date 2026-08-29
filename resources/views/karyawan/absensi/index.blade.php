@@ -95,15 +95,15 @@
                         <button x-show="!snapshotData" 
                                 @click="takeSnapshot()" 
                                 type="button" 
-                                class="btn-dark flex-1 py-3 text-xs tracking-wider uppercase font-bold flex items-center justify-center gap-2">
-                            <span>📷</span>
+                                class="flex-1 py-3 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-camera text-accent text-xs"></i>
                             <span>Ambil Foto Snapshot Kamera</span>
                         </button>
 
                         <button x-show="snapshotData" 
                                 @click="retakeSnapshot()" 
                                 type="button" 
-                                class="btn-outline-dark text-xs py-2.5 px-4">
+                                class="py-2.5 px-4 rounded-xl border border-gray-300 hover:border-primary text-primary font-bold text-xs uppercase tracking-wider transition-all">
                             &larr; Foto Ulang
                         </button>
                     </div>
@@ -129,11 +129,11 @@
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">Aksi Absensi *</label>
-                                <select name="type" x-model="attendanceType" class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors font-semibold">
+                                <select name="type" x-model="attendanceType" class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-primary transition-colors font-semibold">
                                     @if(!$isClockedIn)
-                                        <option value="in">Clock In — Absen Masuk Shift</option>
+                                        <option value="in">Clock In — Absen Mulai Pendampingan Trip</option>
                                     @else
-                                        <option value="out">Clock Out — Absen Pulang Shift</option>
+                                        <option value="out">Clock Out — Absen Selesai Pendampingan Trip</option>
                                     @endif
                                 </select>
                             </div>
@@ -141,15 +141,15 @@
                             <div>
                                 <label class="block text-[11px] uppercase tracking-wider font-semibold text-black mb-1">
                                     <span x-show="attendanceType === 'in'">Catatan Presensi Masuk (Opsional)</span>
-                                    <span x-show="attendanceType === 'out'">Ringkasan Pekerjaan Hari Ini (Work Summary / Log Modifikasi)</span>
+                                    <span x-show="attendanceType === 'out'">Ringkasan Pekerjaan Hari Ini (Destinasi &amp; Catatan Tamu)</span>
                                 </label>
                                 <input type="text" name="notes" placeholder="Tuliskan catatan pengerjaan hari ini..."
-                                       class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 focus:outline-none focus:border-black transition-colors">
+                                       class="w-full bg-white border border-neutral-300 text-black text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-primary transition-colors">
                             </div>
                         </div>
 
                         <div>
-                            <button type="submit" :disabled="!snapshotData" class="btn-dark w-full py-3.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <button type="submit" :disabled="!snapshotData" class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
                                 <span x-show="attendanceType === 'in'">Kirim Absensi Masuk (Clock In) &rarr;</span>
                                 <span x-show="attendanceType === 'out'">Kirim Absensi Pulang (Clock Out) &rarr;</span>
                             </button>

@@ -389,8 +389,8 @@
                             <p class="text-xs text-gray-500 max-w-md mx-auto">
                                 Anda belum memiliki agenda tur yang sedang berlangsung. Rencanakan liburan impian Anda bersama pemandu lokal berlisensi resmi Nusantara Tour Guide.
                             </p>
-                            <a href="{{ url('/booking') }}" class="btn-primary inline-flex items-center gap-2 shadow-md">
-                                <i class="fa-solid fa-calendar-check text-xs"></i>
+                            <a href="{{ url('/booking') }}" class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-xs text-accent"></i>
                                 <span>Booking Pemandu Sekarang &rarr;</span>
                             </a>
                         </div>

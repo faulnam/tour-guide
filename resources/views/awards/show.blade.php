@@ -49,7 +49,7 @@
                     <a href="{{ $award->external_link }}" 
                        target="_blank" 
                        rel="noopener noreferrer" 
-                       class="btn-primary inline-flex items-center gap-2">
+                       class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center gap-2">
                         <span>Verifikasi Dokumen Resmi</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                     </a>

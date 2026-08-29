@@ -13,11 +13,11 @@
             </h1>
         </div>
         <div class="flex items-center gap-3">
-            <a href="{{ route('booking.checkout', $booking->booking_code) }}" class="btn-primary text-xs flex items-center gap-2 shadow-sm">
-                <i class="fa-solid fa-receipt text-xs"></i>
+            <a href="{{ route('booking.checkout', $booking->booking_code) }}" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-receipt text-xs text-accent"></i>
                 <span>Lihat Digital Pass &amp; Invoice &rarr;</span>
             </a>
-            <a href="{{ route('customer.bookings.index') }}" class="px-4 py-2 rounded-lg border border-gray-300 hover:border-primary text-primary font-bold text-xs uppercase tracking-wider transition-all">
+            <a href="{{ route('customer.bookings.index') }}" class="px-4 py-2.5 rounded-xl border border-gray-300 hover:border-primary text-primary font-bold text-xs uppercase tracking-wider transition-all">
                 &larr; Kembali
             </a>
         </div>
@@ -109,22 +109,23 @@
 
                 <div class="space-y-2">
                     <div class="flex justify-between text-xs text-gray-500">
-                        <span>Progress Rute:</span>
-                        <span class="font-bold text-primary">{{ $booking->progress_percentage }}%</span>
-                    </div>
-                    <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
-                        <div class="bg-primary h-2 rounded-full transition-all duration-300" style="width: {{ $booking->progress_percentage }}%"></div>
-                    </div>
-                </div>
+            <div class="tour-card p-6 space-y-4 bg-[#F8FAF9]">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-primary border-b border-gray-200/80 pb-2">
+                    Rincian Pembayaran
+                </h2>
 
-                <div class="p-4 bg-[#F8FAF9] rounded-xl border border-gray-100 space-y-2 text-xs">
+                <div class="space-y-2 text-xs">
                     <div class="flex justify-between">
-                        <span class="text-gray-500">Total Biaya Tur:</span>
-                        <span class="font-bold text-primary">Rp {{ number_format($booking->total_price, 0, ',', '.') }}</span>
+                        <span class="text-gray-500">Total Biaya Paket:</span>
+                        <span class="font-bold text-primary">Rp {{ number_format($booking->estimated_cost, 0, ',', '.') }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-500">Uang Muka DP (30%):</span>
-                        <span class="font-bold text-emerald-700">Rp {{ number_format($booking->down_payment, 0, ',', '.') }}</span>
+                        <span class="text-gray-500">Uang Muka (DP):</span>
+                        <span class="font-bold text-emerald-700">Rp {{ number_format($booking->dp_amount, 0, ',', '.') }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Status DP:</span>
+                        <span class="font-bold capitalize">{{ $booking->dp_status }}</span>
                     </div>
                     <div class="flex justify-between border-t border-gray-200 pt-2 font-bold">
                         <span class="text-gray-700">Sisa Pelunasan:</span>
@@ -135,8 +136,8 @@
                 <div class="pt-2">
                     <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', \App\Models\SiteSetting::get('contact_whatsapp', '081288889999')) }}?text={{ urlencode('Halo ' . \App\Models\SiteSetting::get('company_name', 'Nusantara Tour Guide') . ', saya ingin konsultasi reservasi ' . $booking->booking_code . ' destinasi ' . $booking->vehicle_brand) }}"
                        target="_blank"
-                       class="btn-primary w-full py-3 text-center block shadow-md">
-                        <i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5"></i>
+                       class="w-full py-3 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 text-center">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
                         <span>Chat WhatsApp Konsultan Wisata</span>
                     </a>
                 </div>

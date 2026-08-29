@@ -12,7 +12,7 @@
                 Preferensi Destinasi &amp; Data Wisata
             </h1>
         </div>
-        <button @click="showModal = true" class="btn-primary flex items-center gap-2 shadow-md">
+        <button @click="showModal = true" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
             <i class="fa-solid fa-plus text-xs"></i>
             <span>Tambah Preferensi Destinasi</span>
         </button>
@@ -62,8 +62,9 @@
         @empty
             <div class="col-span-3 tour-card p-12 text-center text-gray-400 text-xs space-y-3 bg-white">
                 <p>Belum ada destinasi favorit atau preferensi wisata yang tersimpan.</p>
-                <button @click="showModal = true" class="btn-primary">
-                    Tambah Preferensi Baru Sekarang
+                <button @click="showModal = true" class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center gap-2">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span>Tambah Preferensi Baru Sekarang</span>
                 </button>
             </div>
         @endforelse
@@ -129,7 +130,7 @@
                     <button type="button" @click="showModal = false" class="px-4 py-2 rounded-lg border border-gray-300 text-xs uppercase font-bold text-gray-600 hover:text-primary">
                         Batal
                     </button>
-                    <button type="submit" class="btn-primary shadow-sm">
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md">
                         Simpan Preferensi &rarr;
                     </button>
                 </div>

@@ -71,8 +71,9 @@
                     </div>
 
                     <div class="pt-2">
-                        <a href="{{ url('/booking') }}" class="btn-primary block text-center shadow-md">
-                            Booking Pemandu Wisata Online &rarr;
+                        <a href="{{ url('/booking') }}" class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 text-center">
+                            <i class="fa-solid fa-calendar-check text-xs text-accent"></i>
+                            <span>Booking Pemandu Wisata Online &rarr;</span>
                         </a>
                     </div>
                 </div>
@@ -123,7 +124,7 @@
                                       class="w-full bg-white border border-gray-200 text-gray-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-primary transition-colors"></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primary w-full py-3.5 shadow-md flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2">
                             <i class="fa-regular fa-paper-plane text-xs"></i>
                             <span>Kirim Pesan Sekarang</span>
                         </button>

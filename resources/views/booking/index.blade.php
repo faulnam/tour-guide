@@ -208,13 +208,13 @@
                                 <i class="fa-solid fa-circle-info text-amber-600 flex-shrink-0 text-sm"></i>
                                 <span class="text-[11px]">Anda wajib <strong>login akun traveler</strong> terlebih dahulu untuk melanjutkan ke Langkah 2 & booking slot pemandu.</span>
                             </div>
-                            <button type="button" @click="goToStep(2)" class="btn-primary flex items-center gap-2">
+                            <button type="button" @click="goToStep(2)" class="px-6 py-3 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                                 <span>Login &amp; Lanjut Langkah 2</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </button>
                         @else
                             <div></div>
-                            <button type="button" @click="goToStep(2)" class="btn-primary flex items-center gap-2">
+                            <button type="button" @click="goToStep(2)" class="px-6 py-3 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                                 <span>Lanjut ke Langkah 2</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </button>
@@ -279,7 +279,7 @@
                         <button type="button" @click="goToStep(1)" class="px-6 py-3 rounded-xl border border-gray-300 text-gray-700 font-bold text-xs uppercase tracking-wider hover:bg-gray-100 transition-all">
                             &larr; Kembali
                         </button>
-                        <button type="button" @click="goToStep(3)" class="btn-primary flex items-center gap-2">
+                        <button type="button" @click="goToStep(3)" class="px-6 py-3 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                             <span>Lanjut ke Pembayaran DP</span>
                             <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
@@ -352,7 +352,7 @@
                             &larr; Kembali
                         </button>
 
-                        <button type="submit" class="btn-primary flex items-center gap-2 shadow-md">
+                        <button type="submit" class="px-6 py-3 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                             <i class="fa-solid fa-shield-check"></i>
                             <span>Konfirmasi &amp; Bayar DP &rarr;</span>
                         </button>

@@ -173,8 +173,8 @@
                 </div>
 
                 <div class="pt-2">
-                    <button type="submit" class="btn-primary w-full py-3.5 shadow-md flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
+                    <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-xs text-accent"></i>
                         <span>Simpan Perubahan &amp; Kirim Update &rarr;</span>
                     </button>
                 </div>

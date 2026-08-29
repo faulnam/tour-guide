@@ -178,7 +178,7 @@
                         </p>
                     </div>
                     <div class="pt-2">
-                        <a href="{{ url('/about-us') }}" class="btn-primary flex items-center gap-2 inline-flex text-xs px-5 py-2.5">
+                        <a href="{{ url('/about-us') }}" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center gap-2">
                             <span>Pelajari Standar Layanan Kami</span>
                             <i class="fa-solid fa-arrow-right text-[10px]"></i>
                         </a>

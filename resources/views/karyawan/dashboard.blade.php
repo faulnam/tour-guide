@@ -16,8 +16,8 @@
             </p>
         </div>
         <div>
-            <a href="{{ route('karyawan.absensi.index') }}" class="btn-primary shadow-sm flex items-center gap-2">
-                <i class="fa-solid fa-camera"></i>
+            <a href="{{ route('karyawan.absensi.index') }}" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <i class="fa-solid fa-camera text-accent text-xs"></i>
                 <span>Absensi Kamera GPS &rarr;</span>
             </a>
         </div>
@@ -107,16 +107,17 @@
                     </div>
 
                     @if(!$todayAttendance->check_out_time)
-                        <a href="{{ route('karyawan.absensi.index') }}" class="btn-primary w-full text-center block shadow-sm">
-                            Absen Selesai Tugas (Check Out) &rarr;
+                        <a href="{{ route('karyawan.absensi.index') }}" class="w-full py-3 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 text-center">
+                            <span>Absen Selesai Tugas (Check Out) &rarr;</span>
                         </a>
                     @endif
                 </div>
             @else
                 <div class="space-y-4">
                     <p class="text-xs text-gray-600">Anda belum melakukan absensi masuk penugasan hari ini.</p>
-                    <a href="{{ route('karyawan.absensi.index') }}" class="btn-primary w-full text-center block shadow-sm">
-                        Ambil Foto Absen Masuk &rarr;
+                    <a href="{{ route('karyawan.absensi.index') }}" class="w-full py-3 px-6 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 text-center">
+                        <i class="fa-solid fa-camera text-xs text-accent"></i>
+                        <span>Ambil Foto Absen Masuk &rarr;</span>
                     </a>
                 </div>
             @endif

@@ -29,7 +29,7 @@
             </div>
 
             <div>
-                <button type="submit" class="btn-primary flex items-center gap-2">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
                     <i class="fa-solid fa-filter text-xs"></i>
                     <span>Filter Penugasan &rarr;</span>
                 </button>
@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="pt-4 border-t border-gray-100">
-                    <a href="{{ route('karyawan.tasks.show', $t->id) }}" class="btn-primary w-full text-center block shadow-sm flex items-center justify-center gap-2">
+                    <a href="{{ route('karyawan.tasks.show', $t->id) }}" class="w-full py-2.5 px-4 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 text-center">
                         <span>Update Progress &amp; Log Foto &rarr;</span>
                     </a>
                 </div>

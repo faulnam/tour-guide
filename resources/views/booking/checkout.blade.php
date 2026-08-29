@@ -277,7 +277,7 @@
                                 <button @click="simulatePay('remaining')" 
                                         :disabled="isProcessing"
                                         type="button" 
-                                        class="btn-primary w-full sm:w-auto px-8 py-3 shadow-md">
+                                        class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2">
                                     <span x-show="!isProcessing">Simulasikan Pelunasan Sisa Tagihan (Rp {{ number_format($remainingAmount, 0, ',', '.') }}) Berhasil &rarr;</span>
                                     <span x-show="isProcessing" x-cloak>Memverifikasi Pembayaran...</span>
                                 </button>
@@ -285,7 +285,7 @@
                                 <button @click="simulatePay('dp')" 
                                         :disabled="isProcessing"
                                         type="button" 
-                                        class="btn-primary w-full sm:w-auto px-8 py-3 shadow-md">
+                                        class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2">
                                     <span x-show="!isProcessing">Simulasikan Pembayaran DP (Rp {{ number_format($dpAmount, 0, ',', '.') }}) Berhasil &rarr;</span>
                                     <span x-show="isProcessing" x-cloak>Memverifikasi Pembayaran...</span>
                                 </button>
@@ -319,7 +319,7 @@
                         
                         <!-- Option 1: Dijemput di Hotel/Bandara -->
                         <label class="relative p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-3"
-                               :class="deliveryMethod === 'pickup_workshop' ? 'border-primary bg-sage-light/30 ring-2 ring-primary' : 'border-gray-200 bg-white hover:border-gray-300'">
+                                :class="deliveryMethod === 'pickup_workshop' ? 'border-primary bg-sage-light/30 ring-2 ring-primary' : 'border-gray-200 bg-white hover:border-gray-300'">
                             <div class="flex items-start justify-between">
                                 <div class="space-y-1">
                                     <div class="font-bold text-xs uppercase tracking-wider text-primary">Dijemput Armada Tour Guide</div>
@@ -339,7 +339,7 @@
 
                         <!-- Option 2: Bertemu Langsung di Meeting Point -->
                         <label class="relative p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between space-y-3"
-                               :class="deliveryMethod === 'delivery_address' ? 'border-primary bg-sage-light/30 ring-2 ring-primary' : 'border-gray-200 bg-white hover:border-gray-300'">
+                                :class="deliveryMethod === 'delivery_address' ? 'border-primary bg-sage-light/30 ring-2 ring-primary' : 'border-gray-200 bg-white hover:border-gray-300'">
                             <div class="flex items-start justify-between">
                                 <div class="space-y-1">
                                     <div class="font-bold text-xs uppercase tracking-wider text-primary">Bertemu di Kantor Hub / Titik Kumpul</div>
@@ -382,7 +382,7 @@
                         <button type="button" 
                                 @click="saveDelivery()"
                                 :disabled="deliveryLoading"
-                                class="btn-primary text-xs px-6 py-2.5 shadow-sm">
+                                class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center gap-2">
                             <span x-show="!deliveryLoading">Simpan Titik Penjemputan &rarr;</span>
                             <span x-show="deliveryLoading" x-cloak>Menyimpan Pilihan...</span>
                         </button>

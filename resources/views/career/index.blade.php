@@ -160,8 +160,9 @@
                                     $subject = rawurlencode('Lamaran Pemandu Wisata: ' . $vacancy->title);
                                     $mailto = "mailto:{$hrEmail}?subject={$subject}&body=Halo%20Tim%20Rekrutmen%20Nusantara%20Tour%20Guide,%0A%0ASaya%20bermaksud%20mengajukan%20lamaran%20untuk%20posisi%20" . urlencode($vacancy->title) . ".%20Terlampir%20CV,%20Portofolio,%20dan%20Lisensi%20HPI%20saya.";
                                 @endphp
-                                <a href="{{ $mailto }}" class="btn-primary w-full sm:w-auto text-center shadow-sm">
-                                    Lamar Posisi Ini &rarr;
+                                <a href="{{ $mailto }}" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2 text-center">
+                                    <span>Lamar Posisi Ini</span>
+                                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                 </a>
                             </div>
                         </div>
@@ -174,7 +175,7 @@
                         <p class="text-xs text-gray-600 max-w-xl mx-auto leading-relaxed">
                             Kami selalu terbuka bagi pemandu wisata lokal berlisensi HPI/APGI di Bali, Yogyakarta, Labuan Bajo, Raja Ampat, Bromo-Ijen, Toraja, Derawan, dan Belitung.
                         </p>
-                        <a href="mailto:{{ \App\Models\SiteSetting::get('career_email', 'karir@tourguide.id') }}" class="btn-primary inline-flex items-center gap-2 shadow-md">
+                        <a href="mailto:{{ \App\Models\SiteSetting::get('career_email', 'karir@tourguide.id') }}" class="px-6 py-2.5 rounded-xl bg-primary hover:bg-secondary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md inline-flex items-center gap-2">
                             <i class="fa-regular fa-envelope text-xs"></i>
                             <span>Kirimkan Profil Pemandu Anda &rarr;</span>
                         </a>

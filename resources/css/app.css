@@ -21,80 +21,96 @@
   --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-primary);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-.btn-primary:hover {
-  background-color: var(--color-secondary);
-  box-shadow: 0 4px 12px rgba(15, 47, 36, 0.18);
-}
+@layer components {
+  .btn-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #0F2F24 !important;
+    color: #ffffff !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 4px 14px rgba(15, 47, 36, 0.25) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+  .btn-primary:hover {
+    background-color: #1B4D3E !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 20px rgba(15, 47, 36, 0.35) !important;
+  }
 
-.btn-accent {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-accent);
-  color: var(--color-neutral-dark);
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-.btn-accent:hover {
-  background-color: var(--color-accent-dark);
-  color: #ffffff;
-}
+  .btn-accent {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #C5A880 !important;
+    color: #0B1713 !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    box-shadow: 0 4px 14px rgba(197, 168, 128, 0.25) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+  .btn-accent:hover {
+    background-color: #9E8159 !important;
+    color: #ffffff !important;
+  }
 
-.btn-dark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-primary-dark);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-.btn-dark:hover {
-  background-color: var(--color-primary);
-}
+  .btn-dark {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #0A1E17 !important;
+    color: #ffffff !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+  .btn-dark:hover {
+    background-color: #0F2F24 !important;
+  }
 
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.625rem 1.25rem;
-  border-radius: 0.5rem;
-  backdrop-filter: blur(4px);
-  transition: all 0.3s ease;
-}
-.btn-outline:hover {
-  background-color: #ffffff;
-  color: var(--color-neutral-dark);
+  .btn-outline {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    color: #ffffff !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 0.75rem !important;
+    backdrop-filter: blur(4px) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+  }
+  .btn-outline:hover {
+    background-color: #ffffff !important;
+    color: #0B1713 !important;
+  }
 }
 
 .eyebrow {
